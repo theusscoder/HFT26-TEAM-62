@@ -303,7 +303,7 @@ def run(case_dir: Path, say=None) -> dict:
     ran = any(r["reads"] or (r["asked"] and not r["errors"]) for r in read.values())
     readable = [r for r in read.values() if r["plate"]]
     plates = {"vehicles": sorted(readable, key=lambda r: -r["confidence"]), "checked": list(read), "model": llm.VISION_MODEL,
-              "method": f"featherless:{llm.VISION_MODEL} on {sum(r['asked'] for r in read.values())} crops" if ran else "not run (vision model unavailable); crops saved for review"}
+              "method": f"featherless:{llm.VISION_MODEL} on {sum(r['asked'] for r in read.values())} crops" if ran else "no plate to read: the only vehicle to check is the camera's own" if not read else "not run (vision model unavailable); crops saved for review"}
     (case_dir / "plates.json").write_text(json.dumps(plates, indent=2))
 
     if leavers:

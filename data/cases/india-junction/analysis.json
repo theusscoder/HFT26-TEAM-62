@@ -1,0 +1,221 @@
+{
+  "status": "computed",
+  "offsets": {
+    "cctv": {
+      "offset_s": -4.47,
+      "sigma": 0.05,
+      "anchor": "EV-V-039"
+    }
+  },
+  "entities": {
+    "primary": "car_61",
+    "involved": [],
+    "impact_xy": [
+      -15.14,
+      37.13
+    ],
+    "names": {
+      "person_28": "Person",
+      "car_66": "White car",
+      "car_8": "White car",
+      "car_2": "White car",
+      "car_61": "White van (primary)",
+      "person_138": "Person",
+      "motorcycle_84": "Motorcycle",
+      "motorcycle_100": "Blue motorcycle",
+      "motorcycle_107": "Blue motorcycle",
+      "motorcycle_120": "Blue motorcycle",
+      "motorcycle_170": "Blue motorcycle",
+      "person_178": "Person",
+      "person_68": "Person",
+      "motorcycle_189": "Blue motorcycle",
+      "motorcycle_6": "White motorcycle",
+      "person_110": "Person",
+      "car_237": "White car",
+      "person_111": "Person",
+      "motorcycle_248": "Blue motorcycle",
+      "motorcycle_7": "Silver motorcycle",
+      "truck_44": "White truck",
+      "motorcycle_151": "Blue motorcycle",
+      "motorcycle_202": "Blue motorcycle",
+      "person_160": "Person",
+      "person_10": "Person",
+      "person_199": "Person",
+      "person_220": "Person",
+      "person_72": "Person",
+      "car_75": "Blue car",
+      "motorcycle_270": "Blue motorcycle",
+      "truck_231": "White truck",
+      "motorcycle_267": "Blue motorcycle",
+      "motorcycle_103": "Blue motorcycle",
+      "person_268": "Person",
+      "car_34": "Blue car",
+      "person_117": "Person",
+      "motorcycle_274": "Blue motorcycle",
+      "bicycle_25": "White bicycle",
+      "person_234": "Person",
+      "person_23": "Person",
+      "person_276": "Person",
+      "person_284": "Person",
+      "person_294": "Person",
+      "person_119": "Person",
+      "motorcycle_171": "Grey motorcycle"
+    },
+    "large": [
+      "car_75",
+      "truck_231",
+      "truck_44"
+    ],
+    "colours": {
+      "person_28": "blue",
+      "car_66": "white",
+      "car_8": "white",
+      "car_2": "white",
+      "car_61": "white",
+      "person_138": null,
+      "motorcycle_84": null,
+      "motorcycle_100": "blue",
+      "motorcycle_107": "blue",
+      "motorcycle_120": "blue",
+      "motorcycle_170": "blue",
+      "person_178": null,
+      "person_68": "blue",
+      "motorcycle_189": "blue",
+      "motorcycle_6": "white",
+      "person_110": null,
+      "car_237": "white",
+      "person_111": null,
+      "motorcycle_248": "blue",
+      "motorcycle_7": "silver",
+      "truck_44": "white",
+      "motorcycle_151": "blue",
+      "motorcycle_202": "blue",
+      "person_160": null,
+      "person_10": null,
+      "person_199": null,
+      "person_220": null,
+      "person_72": null,
+      "car_75": "blue",
+      "motorcycle_270": "blue",
+      "truck_231": "white",
+      "motorcycle_267": "blue",
+      "motorcycle_103": "blue",
+      "person_268": null,
+      "car_34": "blue",
+      "person_117": null,
+      "motorcycle_274": "blue",
+      "bicycle_25": "white",
+      "person_234": null,
+      "person_23": null,
+      "person_276": null,
+      "person_284": null,
+      "person_294": null,
+      "person_119": null,
+      "motorcycle_171": "grey"
+    }
+  },
+  "contradictions": [],
+  "gaps": [
+    {
+      "start": -4.47,
+      "end": -1.83,
+      "covered_by": [],
+      "note": "The primary vehicle is not yet in view; its approach is covered only by untimed witness accounts."
+    },
+    {
+      "start": -1.7,
+      "end": -0.43,
+      "covered_by": [],
+      "note": "Primary vehicle lost by the tracker (occlusion)."
+    },
+    {
+      "start": 0.27,
+      "end": 1.3,
+      "covered_by": [],
+      "note": "Primary vehicle lost by the tracker (occlusion)."
+    }
+  ],
+  "reliability": {},
+  "reliability_detail": {},
+  "checks": [],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "text": "The primary vehicle was travelling fast (over 40 km/h)",
+      "status": "supported",
+      "for": [
+        "EV-I-001"
+      ],
+      "against": [],
+      "untested": []
+    },
+    {
+      "id": "H2",
+      "text": "It did not slow down before the impact",
+      "status": "contradicted",
+      "for": [],
+      "against": [
+        "EV-I-002"
+      ],
+      "untested": []
+    },
+    {
+      "id": "H4",
+      "text": "It drifted right on its own into the point of impact",
+      "status": "supported",
+      "for": [
+        "EV-I-004",
+        "EV-I-003"
+      ],
+      "against": [],
+      "untested": [
+        "driver state",
+        "brake or steering fault",
+        "road surface"
+      ]
+    }
+  ],
+  "counterfactual": {
+    "actor": "car_61",
+    "observed_speed_kmh": 6.3,
+    "hazard_at_m": 3.24,
+    "brake_start_s": -1.6,
+    "note": "Distance the primary vehicle covered in the last 1.6 s before impact: 3.2 m. Would it have stopped short at a lower speed?"
+  },
+  "stn": {
+    "consistent": true,
+    "windows": {
+      "EV-V-021": [
+        -1.93,
+        -1.73
+      ],
+      "EV-V-022": [
+        -1.93,
+        4.67
+      ],
+      "EV-V-023": [
+        -1.87,
+        0.03
+      ],
+      "EV-I-001": [
+        -3.2,
+        0.1
+      ],
+      "EV-I-002": [
+        -1.7,
+        -1.3
+      ],
+      "EV-I-003": [
+        -0.2,
+        3.2
+      ],
+      "EV-I-004": [
+        -1.7,
+        -1.3
+      ]
+    },
+    "excluded": [],
+    "constraints": []
+  },
+  "sensitivity": []
+}

@@ -1,0 +1,108 @@
+[
+  {
+    "witness": "witness_1",
+    "statement": "My bike was doing about 30 when the SUV in front suddenly stopped. I braked hard but could not stop in time.",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
+    "claims": [
+      {
+        "actor": "My bike",
+        "action": "speed",
+        "value": "30",
+        "order": "before_impact",
+        "quote": "My bike was doing about 30",
+        "translation": null,
+        "span": [
+          0,
+          26
+        ]
+      },
+      {
+        "actor": "I",
+        "action": "brake",
+        "value": null,
+        "order": "before_impact",
+        "quote": "I braked hard",
+        "translation": null,
+        "span": [
+          67,
+          80
+        ]
+      },
+      {
+        "actor": "I",
+        "action": "impact",
+        "value": "the SUV",
+        "order": "at_impact",
+        "quote": "could not stop in time",
+        "translation": null,
+        "span": [
+          85,
+          107
+        ]
+      }
+    ],
+    "rejected": [
+      {
+        "actor": "the SUV",
+        "action": "no_brake",
+        "value": null,
+        "order": "before_impact",
+        "quote": "the SUV in front suddenly stopped",
+        "translation": null,
+        "rejected_because": "quote doesn't say no_brake"
+      }
+    ],
+    "orderings": [
+      {
+        "before": 1,
+        "after": 2,
+        "quote": "I braked hard but could not stop in time"
+      }
+    ]
+  },
+  {
+    "witness": "witness_2",
+    "statement": "I was slowing down for traffic ahead. The motorcycle never braked and crashed into the back of my car.",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
+    "claims": [
+      {
+        "actor": "I",
+        "action": "brake",
+        "value": null,
+        "order": "before_impact",
+        "quote": "I was slowing down for traffic ahead.",
+        "translation": null,
+        "span": [
+          0,
+          37
+        ]
+      },
+      {
+        "actor": "The motorcycle",
+        "action": "no_brake",
+        "value": null,
+        "order": "before_impact",
+        "quote": "The motorcycle never braked",
+        "translation": null,
+        "span": [
+          38,
+          65
+        ]
+      },
+      {
+        "actor": "The motorcycle",
+        "action": "impact",
+        "value": "the back of my car",
+        "order": "at_impact",
+        "quote": "crashed into the back of my car.",
+        "translation": null,
+        "span": [
+          70,
+          102
+        ]
+      }
+    ],
+    "rejected": [],
+    "orderings": []
+  }
+]

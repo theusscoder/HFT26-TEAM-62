@@ -1,0 +1,83 @@
+{
+  "model": "Qwen/Qwen3-VL-8B-Instruct",
+  "frames": [
+    {
+      "name": "first",
+      "file": "keyframes/kf_first.jpg",
+      "video_t": 0.0,
+      "t": -3.57,
+      "answer": null,
+      "error": "'choices'"
+    },
+    {
+      "name": "before",
+      "file": "keyframes/kf_before.jpg",
+      "video_t": 2.07,
+      "t": -1.5,
+      "answer": {
+        "boxed_vehicle_type": "motorcycle",
+        "boxed_vehicle_colour": "white",
+        "signal_visible": false,
+        "signal_state": "not_visible",
+        "people_on_ground": false,
+        "fire_or_smoke": false,
+        "vehicle_overturned": false,
+        "weather": "clear",
+        "road_surface": "dry",
+        "overlay_clock": null,
+        "uncertain_about": []
+      },
+      "cached": false
+    },
+    {
+      "name": "impact",
+      "file": "keyframes/kf_impact.jpg",
+      "video_t": 3.57,
+      "t": 0.0,
+      "answer": {
+        "boxed_vehicle_type": "car",
+        "boxed_vehicle_colour": "silver",
+        "signal_visible": false,
+        "signal_state": "not_visible",
+        "people_on_ground": false,
+        "fire_or_smoke": false,
+        "vehicle_overturned": false,
+        "weather": "clear",
+        "road_surface": "dry",
+        "overlay_clock": null,
+        "uncertain_about": []
+      },
+      "cached": false
+    },
+    {
+      "name": "after",
+      "file": "keyframes/kf_after.jpg",
+      "video_t": 5.07,
+      "t": 1.5,
+      "answer": {
+        "boxed_vehicle_type": "motorcycle",
+        "boxed_vehicle_colour": "black",
+        "signal_visible": false,
+        "signal_state": "not_visible",
+        "people_on_ground": true,
+        "fire_or_smoke": false,
+        "vehicle_overturned": true,
+        "weather": "night",
+        "road_surface": "unknown",
+        "overlay_clock": null,
+        "uncertain_about": [
+          "vehicle type",
+          "vehicle colour"
+        ]
+      },
+      "cached": false
+    }
+  ],
+  "primary_type": "motorcycle",
+  "signal_state": null,
+  "signal_frame": null,
+  "overlay_clock": null,
+  "agree_with_detector": true,
+  "primary_colour": "black",
+  "method": "featherless:Qwen/Qwen3-VL-8B-Instruct on 3/4 keyframes"
+}

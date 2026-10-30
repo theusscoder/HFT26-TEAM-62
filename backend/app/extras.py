@@ -216,7 +216,7 @@ def dashboard():
         thumb = next((f["file"] for f in vis.get("frames", []) if f["name"] == "impact"), None)
         rows.append({"id": case["id"], "title": case.get("title", case["id"]), "location": case.get("location", {}).get("name", ""), "simulated": case.get("simulated", False), "license": case.get("license"),
                      "level": sev.get("level"), "label": sev.get("label"), "score": sev.get("score"), "contradictions": len(ana.get("contradictions", [])), "gaps": len(ana.get("gaps", [])),
-                     "test": ana.get("score"), "hit_and_run": purs.get("status"), "fit": (sc.get("fit") or {}).get("iou_all"), "thumb": thumb, "witnesses": len(ana.get("reliability", {}))})
+                     "test": ana.get("score"), "hit_and_run": purs.get("status"), "camera": (case.get("camera") or {}).get("type", "cctv"), "fit": (sc.get("fit") or {}).get("iou_all"), "thumb": thumb, "witnesses": len(ana.get("reliability", {}))})
     return {"cases": rows, "totals": {"cases": len(rows), "contradictions": sum(r["contradictions"] for r in rows), "planted": sum((r["test"] or {}).get("planted", 0) for r in rows),
                                       "caught": sum((r["test"] or {}).get("caught", 0) for r in rows), "false_flags": sum((r["test"] or {}).get("false_flags", 0) for r in rows)}}
 

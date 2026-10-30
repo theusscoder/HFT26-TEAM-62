@@ -1,0 +1,49 @@
+{
+  "score": 3,
+  "level": "L0",
+  "label": "Near-miss",
+  "notify": [
+    "log"
+  ],
+  "breakdown": [
+    {
+      "signal": "dv_kmh",
+      "points": 3,
+      "why": "speed change at impact 2.7 km/h",
+      "ref": "tracks_metric:car_61"
+    }
+  ],
+  "signals": {
+    "dv_kmh": 2.7,
+    "vru_involved": false,
+    "person_down_s": 1.57,
+    "fire_smoke": false,
+    "rollover": false,
+    "refs": {
+      "dv_kmh": "tracks_metric:car_61",
+      "person_down_s": "cctv.mp4#f=121-167"
+    }
+  },
+  "minor_example": {
+    "score": 8,
+    "level": "L0",
+    "label": "Near-miss",
+    "notify": [
+      "log"
+    ],
+    "breakdown": [
+      {
+        "signal": "peak_g",
+        "points": 5,
+        "why": "peak deceleration 0.8 g",
+        "ref": null
+      },
+      {
+        "signal": "dv_kmh",
+        "points": 3,
+        "why": "speed change at impact 4 km/h",
+        "ref": null
+      }
+    ]
+  }
+}

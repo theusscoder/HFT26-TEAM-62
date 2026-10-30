@@ -1,0 +1,1838 @@
+[
+  {
+    "id": "EV-V-001",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 0.0,
+      "end": 0.73,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "car_1",
+    "action": "moving",
+    "value": "peak 4.0 body-lengths/s (uncalibrated)",
+    "confidence": 0.7,
+    "ref": "cctv.mp4#f=0-18",
+    "derived_from": [],
+    "rule": "R_rel_speed_gt_0.6"
+  },
+  {
+    "id": "EV-V-006",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 0.0,
+      "end": 0.73,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_4",
+    "action": "moving",
+    "value": "peak 3.6 body-lengths/s (uncalibrated)",
+    "confidence": 0.47,
+    "ref": "cctv.mp4#f=0-18",
+    "derived_from": [],
+    "rule": "R_rel_speed_gt_0.6"
+  },
+  {
+    "id": "EV-V-003",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 0.07,
+      "end": 4.91,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "car_2",
+    "action": "moving",
+    "value": "peak 5.7 body-lengths/s (uncalibrated)",
+    "confidence": 0.57,
+    "ref": "cctv.mp4#f=1-113",
+    "derived_from": [],
+    "rule": "R_rel_speed_gt_0.6"
+  },
+  {
+    "id": "EV-V-009",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 0.07,
+      "end": 2.24,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_7",
+    "action": "moving",
+    "value": "peak 6.6 body-lengths/s (uncalibrated)",
+    "confidence": 0.43,
+    "ref": "cctv.mp4#f=1-56",
+    "derived_from": [],
+    "rule": "R_rel_speed_gt_0.6"
+  },
+  {
+    "id": "EV-V-007",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 0.1,
+      "end": 0.7,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_4",
+    "action": "sudden_decel",
+    "value": "3.6 to 1.4 body-lengths/s",
+    "confidence": 0.41,
+    "ref": "cctv.mp4#f=2-17",
+    "derived_from": [],
+    "rule": "R_decel_60pct_0.6s"
+  },
+  {
+    "id": "EV-V-004",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 0.57,
+      "end": 1.07,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "car_2",
+    "action": "sudden_decel",
+    "value": "2.2 to 0.8 body-lengths/s",
+    "confidence": 0.5,
+    "ref": "cctv.mp4#f=13-27",
+    "derived_from": [],
+    "rule": "R_decel_60pct_0.6s"
+  },
+  {
+    "id": "EV-V-010",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 0.63,
+      "end": 0.63,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "bicycle_25",
+    "action": "enter",
+    "value": null,
+    "confidence": 0.68,
+    "ref": "cctv.mp4#f=15",
+    "derived_from": [],
+    "rule": "R_track_start"
+  },
+  {
+    "id": "EV-V-012",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 0.63,
+      "end": 1.83,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "bicycle_25",
+    "action": "moving",
+    "value": "peak 3.8 body-lengths/s (uncalibrated)",
+    "confidence": 0.55,
+    "ref": "cctv.mp4#f=15-46",
+    "derived_from": [],
+    "rule": "R_rel_speed_gt_0.6"
+  },
+  {
+    "id": "EV-V-013",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 0.8,
+      "end": 0.8,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "person_28",
+    "action": "enter",
+    "value": null,
+    "confidence": 0.53,
+    "ref": "cctv.mp4#f=20",
+    "derived_from": [],
+    "rule": "R_track_start"
+  },
+  {
+    "id": "EV-V-014",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 0.8,
+      "end": 8.44,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "person_28",
+    "action": "moving",
+    "value": "peak 6.4 body-lengths/s (uncalibrated)",
+    "confidence": 0.43,
+    "ref": "cctv.mp4#f=20-209",
+    "derived_from": [],
+    "rule": "R_rel_speed_gt_0.6"
+  },
+  {
+    "id": "EV-V-005",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 1.27,
+      "end": 2.0,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "car_2",
+    "action": "swerve",
+    "value": "heading change 42 deg",
+    "confidence": 0.43,
+    "ref": "cctv.mp4#f=31-50",
+    "derived_from": [],
+    "rule": "R_heading_40deg_0.8s"
+  },
+  {
+    "id": "EV-V-016",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 1.27,
+      "end": 2.0,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "person_28",
+    "action": "swerve",
+    "value": "heading change 50 deg",
+    "confidence": 0.32,
+    "ref": "cctv.mp4#f=31-50",
+    "derived_from": [],
+    "rule": "R_heading_40deg_0.8s"
+  },
+  {
+    "id": "EV-V-017",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 1.3,
+      "end": 1.3,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "car_34",
+    "action": "enter",
+    "value": null,
+    "confidence": 0.61,
+    "ref": "cctv.mp4#f=32",
+    "derived_from": [],
+    "rule": "R_track_start"
+  },
+  {
+    "id": "EV-V-019",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 1.3,
+      "end": 2.57,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "car_34",
+    "action": "moving",
+    "value": "peak 3.4 body-lengths/s (uncalibrated)",
+    "confidence": 0.49,
+    "ref": "cctv.mp4#f=32-63",
+    "derived_from": [],
+    "rule": "R_rel_speed_gt_0.6"
+  },
+  {
+    "id": "EV-V-020",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 1.3,
+      "end": 1.83,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "car_34",
+    "action": "sudden_decel",
+    "value": "1.8 to 0.7 body-lengths/s",
+    "confidence": 0.43,
+    "ref": "cctv.mp4#f=32-46",
+    "derived_from": [],
+    "rule": "R_decel_60pct_0.6s"
+  },
+  {
+    "id": "EV-V-015",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 1.77,
+      "end": 2.5,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "person_28",
+    "action": "sudden_decel",
+    "value": "1.6 to 0.5 body-lengths/s",
+    "confidence": 0.37,
+    "ref": "cctv.mp4#f=44-62",
+    "derived_from": [],
+    "rule": "R_decel_60pct_0.6s"
+  },
+  {
+    "id": "EV-V-011",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 1.83,
+      "end": 1.83,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "bicycle_25",
+    "action": "exit",
+    "value": null,
+    "confidence": 0.68,
+    "ref": "cctv.mp4#f=46",
+    "derived_from": [],
+    "rule": "R_track_end"
+  },
+  {
+    "id": "EV-V-008",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 2.24,
+      "end": 2.24,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_7",
+    "action": "exit",
+    "value": null,
+    "confidence": 0.54,
+    "ref": "cctv.mp4#f=56",
+    "derived_from": [],
+    "rule": "R_track_end"
+  },
+  {
+    "id": "EV-V-018",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 2.57,
+      "end": 2.57,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "car_34",
+    "action": "exit",
+    "value": null,
+    "confidence": 0.61,
+    "ref": "cctv.mp4#f=63",
+    "derived_from": [],
+    "rule": "R_track_end"
+  },
+  {
+    "id": "EV-V-021",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 2.64,
+      "end": 2.64,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "car_61",
+    "action": "enter",
+    "value": null,
+    "confidence": 0.53,
+    "ref": "cctv.mp4#f=65",
+    "derived_from": [],
+    "rule": "R_track_start"
+  },
+  {
+    "id": "EV-V-022",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 2.64,
+      "end": 9.04,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "car_61",
+    "action": "moving",
+    "value": "peak 10.8 body-lengths/s (uncalibrated)",
+    "confidence": 0.43,
+    "ref": "cctv.mp4#f=65-224",
+    "derived_from": [],
+    "rule": "R_rel_speed_gt_0.6"
+  },
+  {
+    "id": "EV-V-023",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 2.7,
+      "end": 4.4,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "car_61",
+    "action": "sudden_decel",
+    "value": "4.9 to 1.8 body-lengths/s",
+    "confidence": 0.37,
+    "ref": "cctv.mp4#f=67-98",
+    "derived_from": [],
+    "rule": "R_decel_60pct_0.6s"
+  },
+  {
+    "id": "EV-V-024",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 3.8,
+      "end": 4.47,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_65",
+    "action": "moving",
+    "value": "peak 7.9 body-lengths/s (uncalibrated)",
+    "confidence": 0.58,
+    "ref": "cctv.mp4#f=80-100",
+    "derived_from": [],
+    "rule": "R_rel_speed_gt_0.6"
+  },
+  {
+    "id": "EV-V-025",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 3.8,
+      "end": 3.8,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "car_66",
+    "action": "enter",
+    "value": null,
+    "confidence": 0.71,
+    "ref": "cctv.mp4#f=80",
+    "derived_from": [],
+    "rule": "R_track_start"
+  },
+  {
+    "id": "EV-V-026",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 3.8,
+      "end": 8.68,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "car_66",
+    "action": "moving",
+    "value": "peak 4.2 body-lengths/s (uncalibrated)",
+    "confidence": 0.57,
+    "ref": "cctv.mp4#f=80-215",
+    "derived_from": [],
+    "rule": "R_rel_speed_gt_0.6"
+  },
+  {
+    "id": "EV-V-027",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 3.87,
+      "end": 3.87,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "person_68",
+    "action": "enter",
+    "value": null,
+    "confidence": 0.75,
+    "ref": "cctv.mp4#f=82",
+    "derived_from": [],
+    "rule": "R_track_start"
+  },
+  {
+    "id": "EV-V-029",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 3.87,
+      "end": 7.14,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "person_68",
+    "action": "moving",
+    "value": "peak 24.4 body-lengths/s (uncalibrated)",
+    "confidence": 0.6,
+    "ref": "cctv.mp4#f=82-177",
+    "derived_from": [],
+    "rule": "R_rel_speed_gt_0.6"
+  },
+  {
+    "id": "EV-V-102",
+    "source": "cctv",
+    "kind": "INFERRED",
+    "t": {
+      "start": 3.97,
+      "end": 3.97,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_65",
+    "action": "possible_contact",
+    "value": "with person_68 (box overlap 0.52, 3.8 body-lengths/s)",
+    "confidence": 0.8,
+    "ref": "cctv.mp4#f=85",
+    "derived_from": [],
+    "rule": "R_overlap_while_moving"
+  },
+  {
+    "id": "EV-V-032",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 4.04,
+      "end": 4.04,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "person_72",
+    "action": "enter",
+    "value": null,
+    "confidence": 0.5,
+    "ref": "cctv.mp4#f=87",
+    "derived_from": [],
+    "rule": "R_track_start"
+  },
+  {
+    "id": "EV-V-034",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 4.04,
+      "end": 5.67,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "person_72",
+    "action": "moving",
+    "value": "peak 9.1 body-lengths/s (uncalibrated)",
+    "confidence": 0.4,
+    "ref": "cctv.mp4#f=87-136",
+    "derived_from": [],
+    "rule": "R_rel_speed_gt_0.6"
+  },
+  {
+    "id": "EV-V-036",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 4.07,
+      "end": 4.07,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "car_75",
+    "action": "enter",
+    "value": null,
+    "confidence": 0.92,
+    "ref": "cctv.mp4#f=88",
+    "derived_from": [],
+    "rule": "R_track_start"
+  },
+  {
+    "id": "EV-V-038",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 4.07,
+      "end": 5.44,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "car_75",
+    "action": "moving",
+    "value": "peak 6.5 body-lengths/s (uncalibrated)",
+    "confidence": 0.74,
+    "ref": "cctv.mp4#f=88-129",
+    "derived_from": [],
+    "rule": "R_rel_speed_gt_0.6"
+  },
+  {
+    "id": "EV-V-030",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 4.24,
+      "end": 5.24,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "person_68",
+    "action": "sudden_decel",
+    "value": "12.2 to 2.8 body-lengths/s",
+    "confidence": 0.53,
+    "ref": "cctv.mp4#f=93-123",
+    "derived_from": [],
+    "rule": "R_decel_60pct_0.6s"
+  },
+  {
+    "id": "EV-V-035",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 4.34,
+      "end": 4.87,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "person_72",
+    "action": "sudden_decel",
+    "value": "8.1 to 2.9 body-lengths/s",
+    "confidence": 0.35,
+    "ref": "cctv.mp4#f=96-112",
+    "derived_from": [],
+    "rule": "R_decel_60pct_0.6s"
+  },
+  {
+    "id": "EV-V-040",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 4.37,
+      "end": 4.37,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_84",
+    "action": "enter",
+    "value": null,
+    "confidence": 0.58,
+    "ref": "cctv.mp4#f=97",
+    "derived_from": [],
+    "rule": "R_track_start"
+  },
+  {
+    "id": "EV-V-041",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 4.37,
+      "end": 9.08,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_84",
+    "action": "moving",
+    "value": "peak 6.3 body-lengths/s (uncalibrated)",
+    "confidence": 0.47,
+    "ref": "cctv.mp4#f=97-225",
+    "derived_from": [],
+    "rule": "R_rel_speed_gt_0.6"
+  },
+  {
+    "id": "EV-V-039",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 4.47,
+      "end": 4.94,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "car_75",
+    "action": "sudden_decel",
+    "value": "6.0 to 2.3 body-lengths/s",
+    "confidence": 0.64,
+    "ref": "cctv.mp4#f=100-114",
+    "derived_from": [],
+    "rule": "R_decel_60pct_0.6s"
+  },
+  {
+    "id": "EV-V-044",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 4.47,
+      "end": 4.47,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_100",
+    "action": "enter",
+    "value": null,
+    "confidence": 0.68,
+    "ref": "cctv.mp4#f=100",
+    "derived_from": [],
+    "rule": "R_track_start"
+  },
+  {
+    "id": "EV-V-045",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 4.47,
+      "end": 9.01,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_100",
+    "action": "moving",
+    "value": "peak 7.6 body-lengths/s (uncalibrated)",
+    "confidence": 0.54,
+    "ref": "cctv.mp4#f=100-223",
+    "derived_from": [],
+    "rule": "R_rel_speed_gt_0.6"
+  },
+  {
+    "id": "EV-V-048",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 4.5,
+      "end": 4.5,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_103",
+    "action": "enter",
+    "value": null,
+    "confidence": 0.54,
+    "ref": "cctv.mp4#f=101",
+    "derived_from": [],
+    "rule": "R_track_start"
+  },
+  {
+    "id": "EV-V-050",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 4.5,
+      "end": 5.67,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_103",
+    "action": "moving",
+    "value": "peak 9.2 body-lengths/s (uncalibrated)",
+    "confidence": 0.43,
+    "ref": "cctv.mp4#f=101-136",
+    "derived_from": [],
+    "rule": "R_rel_speed_gt_0.6"
+  },
+  {
+    "id": "EV-V-052",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 4.54,
+      "end": 4.54,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_107",
+    "action": "enter",
+    "value": null,
+    "confidence": 0.55,
+    "ref": "cctv.mp4#f=102",
+    "derived_from": [],
+    "rule": "R_track_start"
+  },
+  {
+    "id": "EV-V-053",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 4.54,
+      "end": 9.08,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_107",
+    "action": "moving",
+    "value": "peak 5.5 body-lengths/s (uncalibrated)",
+    "confidence": 0.44,
+    "ref": "cctv.mp4#f=102-225",
+    "derived_from": [],
+    "rule": "R_rel_speed_gt_0.6"
+  },
+  {
+    "id": "EV-V-055",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 4.54,
+      "end": 5.27,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_107",
+    "action": "swerve",
+    "value": "heading change 52 deg",
+    "confidence": 0.33,
+    "ref": "cctv.mp4#f=102-124",
+    "derived_from": [],
+    "rule": "R_heading_40deg_0.8s"
+  },
+  {
+    "id": "EV-V-056",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 4.54,
+      "end": 4.54,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "person_110",
+    "action": "enter",
+    "value": null,
+    "confidence": 0.59,
+    "ref": "cctv.mp4#f=102",
+    "derived_from": [],
+    "rule": "R_track_start"
+  },
+  {
+    "id": "EV-V-058",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 4.54,
+      "end": 6.77,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "person_110",
+    "action": "moving",
+    "value": "peak 5.9 body-lengths/s (uncalibrated)",
+    "confidence": 0.47,
+    "ref": "cctv.mp4#f=102-168",
+    "derived_from": [],
+    "rule": "R_rel_speed_gt_0.6"
+  },
+  {
+    "id": "EV-V-054",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 4.61,
+      "end": 5.14,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_107",
+    "action": "sudden_decel",
+    "value": "5.1 to 1.4 body-lengths/s",
+    "confidence": 0.39,
+    "ref": "cctv.mp4#f=104-120",
+    "derived_from": [],
+    "rule": "R_decel_60pct_0.6s"
+  },
+  {
+    "id": "EV-V-060",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 4.67,
+      "end": 4.67,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "person_117",
+    "action": "enter",
+    "value": null,
+    "confidence": 0.7,
+    "ref": "cctv.mp4#f=106",
+    "derived_from": [],
+    "rule": "R_track_start"
+  },
+  {
+    "id": "EV-V-062",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 4.67,
+      "end": 5.71,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "person_117",
+    "action": "moving",
+    "value": "peak 9.9 body-lengths/s (uncalibrated)",
+    "confidence": 0.56,
+    "ref": "cctv.mp4#f=106-137",
+    "derived_from": [],
+    "rule": "R_rel_speed_gt_0.6"
+  },
+  {
+    "id": "EV-V-064",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 4.67,
+      "end": 5.44,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_118",
+    "action": "moving",
+    "value": "peak 5.4 body-lengths/s (uncalibrated)",
+    "confidence": 0.43,
+    "ref": "cctv.mp4#f=106-129",
+    "derived_from": [],
+    "rule": "R_rel_speed_gt_0.6"
+  },
+  {
+    "id": "EV-V-065",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 4.67,
+      "end": 4.67,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_120",
+    "action": "enter",
+    "value": null,
+    "confidence": 0.71,
+    "ref": "cctv.mp4#f=106",
+    "derived_from": [],
+    "rule": "R_track_start"
+  },
+  {
+    "id": "EV-V-066",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 4.67,
+      "end": 9.08,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_120",
+    "action": "moving",
+    "value": "peak 13.3 body-lengths/s (uncalibrated)",
+    "confidence": 0.57,
+    "ref": "cctv.mp4#f=106-225",
+    "derived_from": [],
+    "rule": "R_rel_speed_gt_0.6"
+  },
+  {
+    "id": "EV-V-063",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 4.74,
+      "end": 5.24,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "person_117",
+    "action": "sudden_decel",
+    "value": "7.2 to 2.0 body-lengths/s",
+    "confidence": 0.49,
+    "ref": "cctv.mp4#f=108-123",
+    "derived_from": [],
+    "rule": "R_decel_60pct_0.6s"
+  },
+  {
+    "id": "EV-V-002",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 4.91,
+      "end": 4.91,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "car_2",
+    "action": "exit",
+    "value": null,
+    "confidence": 0.72,
+    "ref": "cctv.mp4#f=113",
+    "derived_from": [],
+    "rule": "R_track_end"
+  },
+  {
+    "id": "EV-V-042",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 4.91,
+      "end": 5.74,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_84",
+    "action": "sudden_decel",
+    "value": "5.7 to 1.8 body-lengths/s",
+    "confidence": 0.41,
+    "ref": "cctv.mp4#f=113-138",
+    "derived_from": [],
+    "rule": "R_decel_60pct_0.6s"
+  },
+  {
+    "id": "EV-V-046",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 4.97,
+      "end": 5.44,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_100",
+    "action": "sudden_decel",
+    "value": "2.9 to 1.1 body-lengths/s",
+    "confidence": 0.47,
+    "ref": "cctv.mp4#f=115-129",
+    "derived_from": [],
+    "rule": "R_decel_60pct_0.6s"
+  },
+  {
+    "id": "EV-V-067",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 4.97,
+      "end": 5.44,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_120",
+    "action": "sudden_decel",
+    "value": "3.3 to 1.0 body-lengths/s",
+    "confidence": 0.5,
+    "ref": "cctv.mp4#f=115-129",
+    "derived_from": [],
+    "rule": "R_decel_60pct_0.6s"
+  },
+  {
+    "id": "EV-V-051",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 5.11,
+      "end": 5.67,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_103",
+    "action": "sudden_decel",
+    "value": "6.4 to 1.8 body-lengths/s",
+    "confidence": 0.38,
+    "ref": "cctv.mp4#f=119-136",
+    "derived_from": [],
+    "rule": "R_decel_60pct_0.6s"
+  },
+  {
+    "id": "EV-V-031",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 5.17,
+      "end": 6.74,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "person_68",
+    "action": "person_down",
+    "value": null,
+    "confidence": 0.45,
+    "ref": "cctv.mp4#f=121-167",
+    "derived_from": [],
+    "rule": "R_box_wider_than_tall_0.5s"
+  },
+  {
+    "id": "EV-V-068",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 5.3,
+      "end": 5.3,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_151",
+    "action": "enter",
+    "value": null,
+    "confidence": 0.79,
+    "ref": "cctv.mp4#f=125",
+    "derived_from": [],
+    "rule": "R_track_start"
+  },
+  {
+    "id": "EV-V-070",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 5.3,
+      "end": 7.04,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_151",
+    "action": "moving",
+    "value": "peak 3.8 body-lengths/s (uncalibrated)",
+    "confidence": 0.63,
+    "ref": "cctv.mp4#f=125-174",
+    "derived_from": [],
+    "rule": "R_rel_speed_gt_0.6"
+  },
+  {
+    "id": "EV-V-072",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 5.37,
+      "end": 5.81,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "truck_156",
+    "action": "moving",
+    "value": "peak 1.4 body-lengths/s (uncalibrated)",
+    "confidence": 0.46,
+    "ref": "cctv.mp4#f=127-140",
+    "derived_from": [],
+    "rule": "R_rel_speed_gt_0.6"
+  },
+  {
+    "id": "EV-V-059",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 5.41,
+      "end": 6.04,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "person_110",
+    "action": "sudden_decel",
+    "value": "3.0 to 1.1 body-lengths/s",
+    "confidence": 0.41,
+    "ref": "cctv.mp4#f=128-147",
+    "derived_from": [],
+    "rule": "R_decel_60pct_0.6s"
+  },
+  {
+    "id": "EV-V-037",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 5.44,
+      "end": 5.44,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "car_75",
+    "action": "exit",
+    "value": null,
+    "confidence": 0.92,
+    "ref": "cctv.mp4#f=129",
+    "derived_from": [],
+    "rule": "R_track_end"
+  },
+  {
+    "id": "EV-V-073",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 5.64,
+      "end": 5.64,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_170",
+    "action": "enter",
+    "value": null,
+    "confidence": 0.76,
+    "ref": "cctv.mp4#f=135",
+    "derived_from": [],
+    "rule": "R_track_start"
+  },
+  {
+    "id": "EV-V-074",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 5.64,
+      "end": 9.08,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_170",
+    "action": "moving",
+    "value": "peak 3.4 body-lengths/s (uncalibrated)",
+    "confidence": 0.61,
+    "ref": "cctv.mp4#f=135-225",
+    "derived_from": [],
+    "rule": "R_rel_speed_gt_0.6"
+  },
+  {
+    "id": "EV-V-033",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 5.67,
+      "end": 5.67,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "person_72",
+    "action": "exit",
+    "value": null,
+    "confidence": 0.5,
+    "ref": "cctv.mp4#f=136",
+    "derived_from": [],
+    "rule": "R_track_end"
+  },
+  {
+    "id": "EV-V-049",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 5.67,
+      "end": 5.67,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_103",
+    "action": "exit",
+    "value": null,
+    "confidence": 0.54,
+    "ref": "cctv.mp4#f=136",
+    "derived_from": [],
+    "rule": "R_track_end"
+  },
+  {
+    "id": "EV-V-043",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 5.77,
+      "end": 6.47,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_84",
+    "action": "swerve",
+    "value": "heading change 51 deg",
+    "confidence": 0.35,
+    "ref": "cctv.mp4#f=139-160",
+    "derived_from": [],
+    "rule": "R_heading_40deg_0.8s"
+  },
+  {
+    "id": "EV-V-061",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 5.77,
+      "end": 5.77,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "person_117",
+    "action": "exit",
+    "value": null,
+    "confidence": 0.7,
+    "ref": "cctv.mp4#f=139",
+    "derived_from": [],
+    "rule": "R_track_end"
+  },
+  {
+    "id": "EV-V-075",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 5.87,
+      "end": 5.87,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_189",
+    "action": "enter",
+    "value": null,
+    "confidence": 0.65,
+    "ref": "cctv.mp4#f=142",
+    "derived_from": [],
+    "rule": "R_track_start"
+  },
+  {
+    "id": "EV-V-076",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 5.87,
+      "end": 8.71,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_189",
+    "action": "moving",
+    "value": "peak 3.9 body-lengths/s (uncalibrated)",
+    "confidence": 0.52,
+    "ref": "cctv.mp4#f=142-216",
+    "derived_from": [],
+    "rule": "R_rel_speed_gt_0.6"
+  },
+  {
+    "id": "EV-V-078",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 5.97,
+      "end": 6.57,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_192",
+    "action": "moving",
+    "value": "peak 7.8 body-lengths/s (uncalibrated)",
+    "confidence": 0.49,
+    "ref": "cctv.mp4#f=145-162",
+    "derived_from": [],
+    "rule": "R_rel_speed_gt_0.6"
+  },
+  {
+    "id": "EV-V-077",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 6.01,
+      "end": 6.84,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_189",
+    "action": "sudden_decel",
+    "value": "1.9 to 0.8 body-lengths/s",
+    "confidence": 0.45,
+    "ref": "cctv.mp4#f=146-170",
+    "derived_from": [],
+    "rule": "R_decel_60pct_0.6s"
+  },
+  {
+    "id": "EV-V-079",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 6.04,
+      "end": 6.51,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_192",
+    "action": "sudden_decel",
+    "value": "6.1 to 2.3 body-lengths/s",
+    "confidence": 0.43,
+    "ref": "cctv.mp4#f=147-161",
+    "derived_from": [],
+    "rule": "R_decel_60pct_0.6s"
+  },
+  {
+    "id": "EV-V-047",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 6.24,
+      "end": 7.04,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_100",
+    "action": "swerve",
+    "value": "heading change 56 deg",
+    "confidence": 0.41,
+    "ref": "cctv.mp4#f=153-174",
+    "derived_from": [],
+    "rule": "R_heading_40deg_0.8s"
+  },
+  {
+    "id": "EV-V-100",
+    "source": "cctv",
+    "kind": "INFERRED",
+    "t": {
+      "start": 6.27,
+      "end": 6.27,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_100",
+    "action": "possible_contact",
+    "value": "with motorcycle_120 (box overlap 0.71, 12.4 body-lengths/s)",
+    "confidence": 0.9,
+    "ref": "cctv.mp4#f=154",
+    "derived_from": [],
+    "rule": "R_overlap_while_moving"
+  },
+  {
+    "id": "EV-V-080",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 6.37,
+      "end": 6.37,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_202",
+    "action": "enter",
+    "value": null,
+    "confidence": 0.73,
+    "ref": "cctv.mp4#f=157",
+    "derived_from": [],
+    "rule": "R_track_start"
+  },
+  {
+    "id": "EV-V-071",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 6.41,
+      "end": 6.94,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_151",
+    "action": "sudden_decel",
+    "value": "2.8 to 1.1 body-lengths/s",
+    "confidence": 0.55,
+    "ref": "cctv.mp4#f=158-172",
+    "derived_from": [],
+    "rule": "R_decel_60pct_0.6s"
+  },
+  {
+    "id": "EV-V-082",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 6.47,
+      "end": 8.41,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_202",
+    "action": "moving",
+    "value": "peak 3.9 body-lengths/s (uncalibrated)",
+    "confidence": 0.59,
+    "ref": "cctv.mp4#f=160-208",
+    "derived_from": [],
+    "rule": "R_rel_speed_gt_0.6"
+  },
+  {
+    "id": "EV-V-057",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 6.81,
+      "end": 6.81,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "person_110",
+    "action": "exit",
+    "value": null,
+    "confidence": 0.59,
+    "ref": "cctv.mp4#f=169",
+    "derived_from": [],
+    "rule": "R_track_end"
+  },
+  {
+    "id": "EV-V-083",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 6.81,
+      "end": 6.81,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "car_237",
+    "action": "enter",
+    "value": null,
+    "confidence": 0.71,
+    "ref": "cctv.mp4#f=169",
+    "derived_from": [],
+    "rule": "R_track_start"
+  },
+  {
+    "id": "EV-V-085",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 6.94,
+      "end": 6.94,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_248",
+    "action": "enter",
+    "value": null,
+    "confidence": 0.69,
+    "ref": "cctv.mp4#f=172",
+    "derived_from": [],
+    "rule": "R_track_start"
+  },
+  {
+    "id": "EV-V-069",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 7.04,
+      "end": 7.04,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_151",
+    "action": "exit",
+    "value": null,
+    "confidence": 0.79,
+    "ref": "cctv.mp4#f=174",
+    "derived_from": [],
+    "rule": "R_track_end"
+  },
+  {
+    "id": "EV-V-084",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 7.04,
+      "end": 8.68,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "car_237",
+    "action": "moving",
+    "value": "peak 1.0 body-lengths/s (uncalibrated)",
+    "confidence": 0.56,
+    "ref": "cctv.mp4#f=174-215",
+    "derived_from": [],
+    "rule": "R_rel_speed_gt_0.6"
+  },
+  {
+    "id": "EV-V-086",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 7.04,
+      "end": 8.94,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_248",
+    "action": "moving",
+    "value": "peak 2.0 body-lengths/s (uncalibrated)",
+    "confidence": 0.55,
+    "ref": "cctv.mp4#f=174-221",
+    "derived_from": [],
+    "rule": "R_rel_speed_gt_0.6"
+  },
+  {
+    "id": "EV-V-028",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 7.14,
+      "end": 7.14,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "person_68",
+    "action": "exit",
+    "value": null,
+    "confidence": 0.75,
+    "ref": "cctv.mp4#f=177",
+    "derived_from": [],
+    "rule": "R_track_end"
+  },
+  {
+    "id": "EV-V-088",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 7.54,
+      "end": 7.54,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_267",
+    "action": "enter",
+    "value": null,
+    "confidence": 0.69,
+    "ref": "cctv.mp4#f=187",
+    "derived_from": [],
+    "rule": "R_track_start"
+  },
+  {
+    "id": "EV-V-089",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 7.54,
+      "end": 9.08,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_267",
+    "action": "moving",
+    "value": "peak 3.7 body-lengths/s (uncalibrated)",
+    "confidence": 0.55,
+    "ref": "cctv.mp4#f=187-225",
+    "derived_from": [],
+    "rule": "R_rel_speed_gt_0.6"
+  },
+  {
+    "id": "EV-V-091",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 7.61,
+      "end": 7.61,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_270",
+    "action": "enter",
+    "value": null,
+    "confidence": 0.77,
+    "ref": "cctv.mp4#f=188",
+    "derived_from": [],
+    "rule": "R_track_start"
+  },
+  {
+    "id": "EV-V-092",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 7.61,
+      "end": 9.08,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_270",
+    "action": "moving",
+    "value": "peak 4.1 body-lengths/s (uncalibrated)",
+    "confidence": 0.61,
+    "ref": "cctv.mp4#f=188-225",
+    "derived_from": [],
+    "rule": "R_rel_speed_gt_0.6"
+  },
+  {
+    "id": "EV-V-087",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 7.71,
+      "end": 8.28,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_248",
+    "action": "sudden_decel",
+    "value": "2.0 to 0.7 body-lengths/s",
+    "confidence": 0.48,
+    "ref": "cctv.mp4#f=191-205",
+    "derived_from": [],
+    "rule": "R_decel_60pct_0.6s"
+  },
+  {
+    "id": "EV-V-093",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 7.84,
+      "end": 7.84,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_274",
+    "action": "enter",
+    "value": null,
+    "confidence": 0.84,
+    "ref": "cctv.mp4#f=194",
+    "derived_from": [],
+    "rule": "R_track_start"
+  },
+  {
+    "id": "EV-V-094",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 7.84,
+      "end": 9.08,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_274",
+    "action": "moving",
+    "value": "peak 4.1 body-lengths/s (uncalibrated)",
+    "confidence": 0.67,
+    "ref": "cctv.mp4#f=194-225",
+    "derived_from": [],
+    "rule": "R_rel_speed_gt_0.6"
+  },
+  {
+    "id": "EV-V-095",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 8.21,
+      "end": 9.08,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_305",
+    "action": "moving",
+    "value": "peak 2.2 body-lengths/s (uncalibrated)",
+    "confidence": 0.57,
+    "ref": "cctv.mp4#f=203-225",
+    "derived_from": [],
+    "rule": "R_rel_speed_gt_0.6"
+  },
+  {
+    "id": "EV-V-096",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 8.21,
+      "end": 9.08,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "car_306",
+    "action": "moving",
+    "value": "peak 2.9 body-lengths/s (uncalibrated)",
+    "confidence": 0.46,
+    "ref": "cctv.mp4#f=203-225",
+    "derived_from": [],
+    "rule": "R_rel_speed_gt_0.6"
+  },
+  {
+    "id": "EV-V-097",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 8.21,
+      "end": 8.78,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "car_306",
+    "action": "sudden_decel",
+    "value": "2.2 to 0.2 body-lengths/s",
+    "confidence": 0.4,
+    "ref": "cctv.mp4#f=203-217",
+    "derived_from": [],
+    "rule": "R_decel_60pct_0.6s"
+  },
+  {
+    "id": "EV-V-098",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 8.21,
+      "end": 8.98,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "car_306",
+    "action": "swerve",
+    "value": "heading change 47 deg",
+    "confidence": 0.35,
+    "ref": "cctv.mp4#f=203-222",
+    "derived_from": [],
+    "rule": "R_heading_40deg_0.8s"
+  },
+  {
+    "id": "EV-V-101",
+    "source": "cctv",
+    "kind": "INFERRED",
+    "t": {
+      "start": 8.28,
+      "end": 8.28,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_202",
+    "action": "possible_contact",
+    "value": "with motorcycle_309 (box overlap 0.68, 3.9 body-lengths/s)",
+    "confidence": 0.9,
+    "ref": "cctv.mp4#f=205",
+    "derived_from": [],
+    "rule": "R_overlap_while_moving"
+  },
+  {
+    "id": "EV-V-090",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 8.31,
+      "end": 9.08,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_267",
+    "action": "sudden_decel",
+    "value": "2.8 to 0.7 body-lengths/s",
+    "confidence": 0.48,
+    "ref": "cctv.mp4#f=206-225",
+    "derived_from": [],
+    "rule": "R_decel_60pct_0.6s"
+  },
+  {
+    "id": "EV-V-081",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 8.41,
+      "end": 8.41,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_202",
+    "action": "exit",
+    "value": null,
+    "confidence": 0.73,
+    "ref": "cctv.mp4#f=208",
+    "derived_from": [],
+    "rule": "R_track_end"
+  },
+  {
+    "id": "EV-V-099",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 8.51,
+      "end": 9.08,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "motorcycle_309",
+    "action": "moving",
+    "value": "peak 2.7 body-lengths/s (uncalibrated)",
+    "confidence": 0.44,
+    "ref": "cctv.mp4#f=211-225",
+    "derived_from": [],
+    "rule": "R_rel_speed_gt_0.6"
+  }
+]

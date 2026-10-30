@@ -1,0 +1,61 @@
+{
+  "id": "dashcam",
+  "title": "Motorcycle rear-ends a braking SUV (rider's camera)",
+  "location": {
+    "name": "Highway (first-person camera)",
+    "lat": null,
+    "lon": null
+  },
+  "t0_video_s": 3.57,
+  "t0_anchor": "dashcam:vehicle fills the frame just before the jolt",
+  "range": [
+    -3.57,
+    4.66
+  ],
+  "video": {
+    "fps": 30.0,
+    "width": 852,
+    "height": 480,
+    "duration": 8.233333333333333
+  },
+  "camera": {
+    "type": "dashcam",
+    "confidence": 0.99,
+    "moving_fraction": 1.0,
+    "median_flow": 0.606,
+    "why": "background moves in 100% of frame pairs (camera is moving)"
+  },
+  "evidence": [
+    {
+      "id": "cctv",
+      "type": "video",
+      "file": "cctv.mp4",
+      "label": "Junction CCTV (real, ACCIDENT benchmark)",
+      "fps": 30.0
+    },
+    {
+      "id": "annotated",
+      "type": "derived",
+      "file": "annotated.mp4",
+      "label": "Annotated reconstruction (YOLO11 + ByteTrack)"
+    },
+    {
+      "id": "witness_1",
+      "type": "witness",
+      "file": "witness_1.txt",
+      "label": "Motorcycle rider \u00b7 riding the motorcycle (the camera's vehicle)"
+    },
+    {
+      "id": "witness_2",
+      "type": "witness",
+      "file": "witness_2.txt",
+      "label": "SUV driver \u00b7 driving the SUV ahead"
+    }
+  ],
+  "check": {
+    "detected_impact_video_s": 3.57,
+    "label_impact_video_s": null
+  },
+  "simulated": false,
+  "license": "ACCIDENT benchmark, CC BY-NC-SA 4.0"
+}

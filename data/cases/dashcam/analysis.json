@@ -1,0 +1,262 @@
+{
+  "status": "computed",
+  "offsets": {
+    "cctv": {
+      "offset_s": -3.57,
+      "sigma": 0.05,
+      "anchor": "dashcam:vehicle fills the frame just before the jolt"
+    },
+    "witness_1": {
+      "offset_s": null,
+      "note": "ordering only (before / at / after impact)"
+    },
+    "witness_2": {
+      "offset_s": null,
+      "note": "ordering only (before / at / after impact)"
+    }
+  },
+  "entities": {
+    "primary": "ego",
+    "involved": [
+      "car_1"
+    ],
+    "impact_xy": [
+      0.0,
+      0.0
+    ],
+    "names": {
+      "ego": "Black motorcycle (primary)",
+      "car_1": "Blue car",
+      "car_2": "Red car",
+      "car_12": "Car"
+    },
+    "large": [],
+    "colours": {
+      "car_1": "blue",
+      "motorcycle_3": "black",
+      "car_2": "red"
+    }
+  },
+  "contradictions": [
+    {
+      "id": "C1",
+      "type": "quantity",
+      "events": [
+        "EV-W-101",
+        "EV-I-001"
+      ],
+      "summary": "Motorcycle rider puts My bike at ~30 km/h; the evidence measures 78 km/h.",
+      "explanation": "Suggestion: eyewitness speed estimates are often off by 30-50%, more so for large vehicles and under stress.",
+      "severity": "high",
+      "holds_unless": "the speed scale is off by more than 41% (calibration is \u00b130%)"
+    },
+    {
+      "id": "C2",
+      "type": "state",
+      "events": [
+        "EV-W-202",
+        "EV-I-002"
+      ],
+      "summary": "SUV driver says The motorcycle did not slow down; the evidence records slowing before impact.",
+      "explanation": "Suggestion: braking at low speed is easy to miss from the side.",
+      "severity": "high",
+      "holds_unless": "the video track is wrong about the slowdown"
+    }
+  ],
+  "gaps": [],
+  "reliability": {
+    "witness_1": 0.0,
+    "witness_2": 0.5
+  },
+  "reliability_detail": {
+    "witness_1": {
+      "evidence_score": 0.0,
+      "weight": 0.72,
+      "reasons": [
+        "hedged wording"
+      ]
+    },
+    "witness_2": {
+      "evidence_score": 0.5,
+      "weight": 0.9,
+      "reasons": []
+    }
+  },
+  "checks": [
+    {
+      "claim": "EV-W-101",
+      "status": "contradicted",
+      "evidence": [
+        "EV-I-001"
+      ]
+    },
+    {
+      "claim": "EV-W-102",
+      "status": "unverifiable",
+      "evidence": []
+    },
+    {
+      "claim": "EV-W-103",
+      "status": "unverifiable",
+      "evidence": []
+    },
+    {
+      "claim": "EV-W-201",
+      "status": "unverifiable",
+      "evidence": []
+    },
+    {
+      "claim": "EV-W-202",
+      "status": "contradicted",
+      "evidence": [
+        "EV-I-002"
+      ]
+    },
+    {
+      "claim": "EV-W-203",
+      "status": "consistent",
+      "evidence": []
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "text": "The primary vehicle was travelling fast (over 40 km/h)",
+      "status": "supported",
+      "for": [
+        "EV-I-001"
+      ],
+      "against": [],
+      "untested": []
+    },
+    {
+      "id": "H2",
+      "text": "It did not slow down before the impact",
+      "status": "contradicted",
+      "for": [
+        "EV-W-202"
+      ],
+      "against": [
+        "EV-I-002"
+      ],
+      "untested": []
+    }
+  ],
+  "counterfactual": {
+    "actor": "ego",
+    "observed_speed_kmh": 45.9,
+    "hazard_at_m": 25.97,
+    "brake_start_s": -1.6,
+    "note": "Distance the primary vehicle covered in the last 1.6 s before impact: 26.0 m. Would it have stopped short at a lower speed?"
+  },
+  "stn": {
+    "consistent": true,
+    "windows": {
+      "EV-V-002": [
+        -3.67,
+        0.06
+      ],
+      "EV-V-004": [
+        -3.64,
+        -2.64
+      ],
+      "EV-V-003": [
+        -3.17,
+        -2.37
+      ],
+      "EV-V-016": [
+        -0.2,
+        0.0
+      ],
+      "EV-V-001": [
+        0.1,
+        0.3
+      ],
+      "EV-D-001": [
+        -3.65,
+        0.15
+      ],
+      "EV-D-002": [
+        -0.65,
+        -0.35
+      ],
+      "EV-D-003": [
+        -0.15,
+        0.15
+      ],
+      "EV-D-004": [
+        -3.72,
+        -3.42
+      ],
+      "EV-D-005": [
+        -3.35,
+        -3.05
+      ],
+      "EV-D-006": [
+        -2.85,
+        -2.55
+      ],
+      "EV-I-001": [
+        -3.2,
+        0.1
+      ],
+      "EV-I-002": [
+        -1.7,
+        -1.3
+      ],
+      "EV-I-003": [
+        -0.2,
+        3.2
+      ],
+      "EV-W-101": [
+        null,
+        0.0
+      ],
+      "EV-W-102": [
+        null,
+        0.0
+      ],
+      "EV-W-103": [
+        -0.5,
+        0.5
+      ],
+      "EV-W-201": [
+        null,
+        0.0
+      ],
+      "EV-W-202": [
+        null,
+        0.0
+      ],
+      "EV-W-203": [
+        -0.5,
+        0.5
+      ]
+    },
+    "excluded": [],
+    "constraints": [
+      {
+        "id": "ORDER-witness_1-1",
+        "from": "EV-W-102",
+        "to": "EV-W-103",
+        "min_s": 0.0,
+        "max_s": null,
+        "confidence": 0.7,
+        "ref": "witness_1.txt#c=67-107",
+        "quote": "I braked hard but could not stop in time"
+      }
+    ]
+  },
+  "sensitivity": [],
+  "score": {
+    "planted": 2,
+    "caught": 2,
+    "caught_ids": [
+      "P1",
+      "P2"
+    ],
+    "false_flags": 0,
+    "false_flag_ids": [],
+    "extra_found": []
+  }
+}

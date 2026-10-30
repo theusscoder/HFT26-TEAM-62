@@ -14,6 +14,10 @@ data/cases/*/evidence/*.mp4
 data/cases/*
 !data/cases/hero/
 !data/cases/demo/
+!data/cases/dashcam/
+!data/cases/india-junction/
+!data/cases/dashcam/evidence/*.mp4
+!data/cases/india-junction/evidence/*.mp4
 frontend/*.tsbuildinfo
 data/models/
 data/cases/*/frames/

@@ -1,0 +1,12 @@
+[
+  {
+    "id": "ORDER-witness_1-1",
+    "from": "EV-W-102",
+    "to": "EV-W-103",
+    "min_s": 0.0,
+    "max_s": null,
+    "confidence": 0.7,
+    "ref": "witness_1.txt#c=67-107",
+    "quote": "I braked hard but could not stop in time"
+  }
+]

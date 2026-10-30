@@ -1,0 +1,98 @@
+{
+  "model": "Qwen/Qwen3-VL-8B-Instruct",
+  "frames": [
+    {
+      "name": "first",
+      "file": "keyframes/kf_first.jpg",
+      "video_t": 0.0,
+      "t": -4.47,
+      "answer": {
+        "boxed_vehicle_type": "car",
+        "boxed_vehicle_colour": "white",
+        "signal_visible": false,
+        "signal_state": "not_visible",
+        "people_on_ground": false,
+        "fire_or_smoke": false,
+        "vehicle_overturned": false,
+        "weather": "clear",
+        "road_surface": "dry",
+        "overlay_clock": "18:15:22",
+        "uncertain_about": []
+      },
+      "cached": false
+    },
+    {
+      "name": "before",
+      "file": "keyframes/kf_before.jpg",
+      "video_t": 2.97,
+      "t": -1.5,
+      "answer": {
+        "boxed_vehicle_type": "auto-rickshaw",
+        "boxed_vehicle_colour": "white",
+        "signal_visible": false,
+        "signal_state": "not_visible",
+        "people_on_ground": false,
+        "fire_or_smoke": false,
+        "vehicle_overturned": false,
+        "weather": "clear",
+        "road_surface": "dry",
+        "overlay_clock": "18:82",
+        "uncertain_about": [
+          "signal_visible"
+        ]
+      },
+      "cached": false
+    },
+    {
+      "name": "impact",
+      "file": "keyframes/kf_impact.jpg",
+      "video_t": 4.47,
+      "t": 0.0,
+      "answer": {
+        "boxed_vehicle_type": "van",
+        "boxed_vehicle_colour": "white",
+        "signal_visible": false,
+        "signal_state": "not_visible",
+        "people_on_ground": false,
+        "fire_or_smoke": false,
+        "vehicle_overturned": false,
+        "weather": "clear",
+        "road_surface": "dry",
+        "overlay_clock": "18:50:33",
+        "uncertain_about": [
+          "vehicle type in red box"
+        ]
+      },
+      "cached": false
+    },
+    {
+      "name": "after",
+      "file": "keyframes/kf_after.jpg",
+      "video_t": 5.97,
+      "t": 1.5,
+      "answer": {
+        "boxed_vehicle_type": "van",
+        "boxed_vehicle_colour": "white",
+        "signal_visible": false,
+        "signal_state": "not_visible",
+        "people_on_ground": false,
+        "fire_or_smoke": false,
+        "vehicle_overturned": false,
+        "weather": "clear",
+        "road_surface": "dry",
+        "overlay_clock": "18:51:78",
+        "uncertain_about": [
+          "vehicle type in red box"
+        ]
+      },
+      "cached": false
+    }
+  ],
+  "primary_type": "van",
+  "signal_state": null,
+  "signal_frame": null,
+  "overlay_clock": "18:15:22",
+  "agree_with_detector": false,
+  "primary_colour": "white",
+  "method": "featherless:Qwen/Qwen3-VL-8B-Instruct on 4/4 keyframes"
+}

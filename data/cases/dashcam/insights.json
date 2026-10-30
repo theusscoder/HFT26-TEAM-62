@@ -1,0 +1,127 @@
+[
+  {
+    "id": "K5",
+    "t": -3.57,
+    "kind": "moment",
+    "title": "Hazard visible: Blue car",
+    "detail": "First seen 35 m ahead, 11.3 m left of the camera's line, with the camera vehicle at 41 km/h.",
+    "actor": "car_1",
+    "xy": [
+      -11.3,
+      -18.26
+    ],
+    "evidence": [
+      "dashcam.json#car_1"
+    ],
+    "importance": 3
+  },
+  {
+    "id": "K6",
+    "t": -3.2,
+    "kind": "warning",
+    "title": "Time-to-collision below 3.0 s",
+    "detail": "10.0 m apart and closing at 12 km/h at T-3.2 s.",
+    "actor": "car_1",
+    "xy": [
+      -3.47,
+      -39.61
+    ],
+    "evidence": [
+      "dashcam.json#car_1"
+    ],
+    "importance": 2
+  },
+  {
+    "id": "K7",
+    "t": -2.7,
+    "kind": "warning",
+    "title": "Time-to-collision below 1.5 s",
+    "detail": "12.6 m apart and closing at 54 km/h at T-2.7 s.",
+    "actor": "car_1",
+    "xy": [
+      -2.4,
+      -30.0
+    ],
+    "evidence": [
+      "dashcam.json#car_1"
+    ],
+    "importance": 3
+  },
+  {
+    "id": "K3",
+    "t": -1.6,
+    "kind": "counterfactual",
+    "title": "Could it have stopped?",
+    "detail": "1.6 s before impact Black motorcycle was at 46 km/h with 26.0 m to go. A full stop (1 s reaction + braking) needs 24.7 m. A stop was possible; the highest speed that would have allowed a stop is about 72 km/h.",
+    "actor": "ego",
+    "xy": [
+      0.0,
+      -26.96
+    ],
+    "evidence": [
+      "tracks_metric:ego"
+    ],
+    "importance": 3
+  },
+  {
+    "id": "K2",
+    "t": -1.5,
+    "kind": "moment",
+    "title": "Braking began 1.5 s before impact",
+    "detail": "At 46 km/h with 24.3 m left to the impact point. Braking alone needs about 12.0 m to stop from that speed, so a stop was possible.",
+    "actor": "ego",
+    "xy": [
+      0.0,
+      -25.67
+    ],
+    "evidence": [
+      "EV-I-002"
+    ],
+    "importance": 3
+  },
+  {
+    "id": "K8",
+    "t": -1.5,
+    "kind": "measure",
+    "title": "Reaction time \u2248 1.7 s",
+    "detail": "Braking began 1.7 s after the hazard reached a 3 s time-to-collision (typical perception-reaction time is 1.0\u20131.5 s).",
+    "actor": "ego",
+    "xy": null,
+    "evidence": [
+      "EV-I-002"
+    ],
+    "importance": 3
+  },
+  {
+    "id": "K1",
+    "t": -0.5,
+    "kind": "measure",
+    "title": "Speed before impact \u2248 65 \u00b1 22 km/h",
+    "detail": "Average speed of the camera vehicle over the last second, estimated from how fast the road surface streams past (\u00b130%).",
+    "actor": "ego",
+    "xy": [
+      0.0,
+      -0.6
+    ],
+    "evidence": [
+      "dashcam.json#ego_series"
+    ],
+    "importance": 3
+  },
+  {
+    "id": "K4",
+    "t": 0.0,
+    "kind": "measure",
+    "title": "Closest approach: Blue car",
+    "detail": "Blue car came within 1.5 m of Black motorcycle's body (2.5 m centre to centre) at T+0.0 s.",
+    "actor": "car_1",
+    "xy": [
+      -0.31,
+      2.43
+    ],
+    "evidence": [
+      "tracks_metric:car_1"
+    ],
+    "importance": 2
+  }
+]

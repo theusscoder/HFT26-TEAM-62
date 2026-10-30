@@ -1,0 +1,8 @@
+{
+  "vehicles": [],
+  "checked": [
+    "car_61"
+  ],
+  "model": "Qwen/Qwen3-VL-8B-Instruct",
+  "method": "featherless:Qwen/Qwen3-VL-8B-Instruct on 4 crops"
+}

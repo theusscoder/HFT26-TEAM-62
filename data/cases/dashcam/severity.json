@@ -1,0 +1,58 @@
+{
+  "score": 45,
+  "level": "L2",
+  "label": "Moderate",
+  "notify": [
+    "family",
+    "police",
+    "hospital_standby"
+  ],
+  "breakdown": [
+    {
+      "signal": "dv_kmh",
+      "points": 25,
+      "why": "speed change at impact 67.5 km/h",
+      "ref": "tracks_metric:ego"
+    },
+    {
+      "signal": "rollover",
+      "points": 20,
+      "why": "vehicle rolled / spun > 90 degrees",
+      "ref": "vision.json"
+    }
+  ],
+  "signals": {
+    "dv_kmh": 67.5,
+    "vru_involved": false,
+    "person_down_s": 0,
+    "fire_smoke": false,
+    "rollover": true,
+    "refs": {
+      "dv_kmh": "tracks_metric:ego",
+      "fire_smoke": "vision.json",
+      "rollover": "vision.json"
+    }
+  },
+  "minor_example": {
+    "score": 8,
+    "level": "L0",
+    "label": "Near-miss",
+    "notify": [
+      "log"
+    ],
+    "breakdown": [
+      {
+        "signal": "peak_g",
+        "points": 5,
+        "why": "peak deceleration 0.8 g",
+        "ref": null
+      },
+      {
+        "signal": "dv_kmh",
+        "points": 3,
+        "why": "speed change at impact 4 km/h",
+        "ref": null
+      }
+    ]
+  }
+}

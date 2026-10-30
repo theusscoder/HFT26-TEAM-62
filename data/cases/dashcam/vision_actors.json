@@ -1,0 +1,14 @@
+{
+ "car_1": {
+  "type": "motorcycle_rider",
+  "colour": "white",
+  "people_on_it": 1,
+  "uniformed": false
+ },
+ "car_2": {
+  "type": "car",
+  "colour": "red",
+  "people_on_it": 0,
+  "uniformed": false
+ }
+}

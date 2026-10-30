@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { AlertTriangle, ArrowRight, CheckCircle2, Plus, Radio, Scale } from "lucide-react";
@@ -10,6 +11,7 @@ const RUN: Record<string, string> = { stayed: "No hit-and-run", departed: "Vehic
 
 export default function Home() {
   const { data, error } = useApi<any>("/dashboard");
+  const [kind, setKind] = useState<"all" | "cctv" | "dashcam">("all");
   const T = data?.totals;
   return (
     <div className="mx-auto h-full max-w-7xl overflow-auto p-8">
@@ -31,15 +33,22 @@ export default function Home() {
           <Stat label="False flags" value={T.false_flags} tone={T.false_flags ? "text-bad" : ""} hint="on those same test statements" delay={0.15} />
         </div>
         <KitsPanel />
-        <h2 className="mt-8 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted">Cases</h2>
+        <div className="mt-8 flex items-end justify-between gap-3 border-b-2 border-ink">
+          <h2 className="pb-1 text-[11px] font-bold uppercase tracking-[0.14em]">Cases</h2>
+          <div className="flex">
+            {([["all", "All"], ["cctv", "CCTV"], ["dashcam", "Dashcam"]] as const).map(([k, l]) => (
+              <button key={k} onClick={() => setKind(k)} className={`px-3 py-1.5 text-xs font-semibold ${kind === k ? "bg-ink text-white" : "text-muted hover:text-ink"}`}>{l} ({data.cases.filter((c: any) => k === "all" || (c.camera ?? "cctv") === k).length})</button>
+            ))}
+          </div>
+        </div>
         <div className="mt-3 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {data.cases.map((c: any, i: number) => (
+          {data.cases.filter((c: any) => kind === "all" || (c.camera ?? "cctv") === kind).map((c: any, i: number) => (
             <motion.div key={c.id} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 * i + 0.1, duration: 0.35 }} whileHover={{ y: -3 }}>
               <Link to={`/case/${c.id}`} className="group block overflow-hidden  border border-line bg-panel transition-colors hover:border-accent/60">
                 <div className="relative aspect-video bg-panel-2">
                   {c.thumb ? <img src={`/api/cases/${c.id}/${c.thumb}`} alt="" className="h-full w-full object-cover opacity-90 transition group-hover:opacity-100" /> : <div className="flex h-full items-center justify-center text-xs text-muted">no footage</div>}
                   <div className="absolute left-3 top-3"><LevelPill level={c.level} label={c.label} /></div>
-                  <div className="absolute right-3 top-3 rounded-full bg-bg/80 px-2 py-0.5 text-[10px] text-muted">{c.simulated ? "simulated" : "real footage"}</div>
+                  <div className="absolute right-3 top-3 flex gap-1 text-[10px]">{c.camera === "dashcam" && <span className="bg-accent px-2 py-0.5 font-bold uppercase text-white">Dashcam</span>}<span className="bg-bg/80 px-2 py-0.5 text-muted">{c.simulated ? "simulated" : "real footage"}</span></div>
                 </div>
                 <div className="p-4">
                   <div className="truncate font-semibold">{c.title}</div>

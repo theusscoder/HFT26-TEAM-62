@@ -1,0 +1,66 @@
+[
+  {
+    "id": "K1",
+    "t": -1.83,
+    "kind": "moment",
+    "title": "White van first seen",
+    "detail": "5 m before the impact point, moving at 40 km/h (1.8 s before impact).",
+    "actor": "car_61",
+    "xy": [
+      -15.99,
+      32.55
+    ],
+    "evidence": [
+      "tracks_metric:car_61"
+    ],
+    "importance": 2
+  },
+  {
+    "id": "K2",
+    "t": -1.83,
+    "kind": "measure",
+    "title": "Peak speed 40 \u00b1 14 km/h",
+    "detail": "White van was at its fastest 1.8 s before impact. Uncertainty comes from the road calibration (\u00b130%).",
+    "actor": "car_61",
+    "xy": [
+      -15.99,
+      32.55
+    ],
+    "evidence": [
+      "tracks_metric:car_61"
+    ],
+    "importance": 2
+  },
+  {
+    "id": "K4",
+    "t": -1.6,
+    "kind": "counterfactual",
+    "title": "Could it have stopped?",
+    "detail": "1.6 s before impact White van was at 6 km/h with 2.6 m to go. A full stop (1 s reaction + braking) needs 2.0 m. A stop was possible; the highest speed that would have allowed a stop is about 31 km/h.",
+    "actor": "car_61",
+    "xy": [
+      -15.76,
+      34.03
+    ],
+    "evidence": [
+      "tracks_metric:car_61"
+    ],
+    "importance": 3
+  },
+  {
+    "id": "K3",
+    "t": -1.5,
+    "kind": "moment",
+    "title": "Braking began 1.5 s before impact",
+    "detail": "At 6 km/h with 2.6 m left to the impact point. Braking alone needs about 0.2 m to stop from that speed, so a stop was possible.",
+    "actor": "car_61",
+    "xy": [
+      -15.76,
+      34.08
+    ],
+    "evidence": [
+      "EV-I-002"
+    ],
+    "importance": 3
+  }
+]

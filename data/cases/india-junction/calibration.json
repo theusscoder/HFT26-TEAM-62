@@ -1,0 +1,47 @@
+{
+  "img_pts": [
+    [
+      192.0,
+      264.0
+    ],
+    [
+      768.0,
+      264.0
+    ],
+    [
+      768.0,
+      691.2
+    ],
+    [
+      192.0,
+      691.2
+    ]
+  ],
+  "world_pts": [
+    [
+      -6.911,
+      19.949
+    ],
+    [
+      6.911,
+      19.949
+    ],
+    [
+      2.522,
+      7.281
+    ],
+    [
+      -2.522,
+      7.281
+    ]
+  ],
+  "scale_sigma": 0.3,
+  "auto": true,
+  "note": "Auto-calibrated (object-size fit over 743 detections; horizon row 19, camera height 5.9 m, assumed 60 deg FOV). Approximate: refine on the Calibrate page with 4 known road points.",
+  "features": {
+    "camera": {
+      "x": 0.0,
+      "y": 0.0
+    }
+  }
+}

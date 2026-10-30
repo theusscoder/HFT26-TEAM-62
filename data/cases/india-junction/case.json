@@ -1,0 +1,54 @@
+{
+  "id": "india-junction",
+  "title": "Car and motorcycles collide at a signalised junction",
+  "location": {
+    "name": "Indian city junction (CCTV)",
+    "lat": null,
+    "lon": null
+  },
+  "t0_video_s": 4.47,
+  "t0_anchor": "EV-V-039",
+  "range": [
+    -4.47,
+    4.61
+  ],
+  "video": {
+    "fps": 24.719805741703553,
+    "width": 960,
+    "height": 720,
+    "duration": 9.075733333333334
+  },
+  "camera": {
+    "type": "cctv",
+    "confidence": 0.99,
+    "moving_fraction": 0.0,
+    "median_flow": 0.0003,
+    "why": "background moves in 0% of frame pairs (camera is fixed)"
+  },
+  "evidence": [
+    {
+      "id": "cctv",
+      "type": "video",
+      "file": "cctv.mp4",
+      "label": "Junction CCTV (real, ACCIDENT benchmark)",
+      "fps": 24.719805741703553
+    },
+    {
+      "id": "annotated",
+      "type": "derived",
+      "file": "annotated.mp4",
+      "label": "Annotated reconstruction (YOLO11 + ByteTrack)"
+    }
+  ],
+  "check": {
+    "detected_impact_video_s": 4.47,
+    "label_impact_video_s": null
+  },
+  "simulated": false,
+  "license": "ACCIDENT benchmark, CC BY-NC-SA 4.0",
+  "clock_overlay": {
+    "at_video_s": 0.0,
+    "value": "18:15:22",
+    "method": "read by vision model from the burned-in overlay"
+  }
+}

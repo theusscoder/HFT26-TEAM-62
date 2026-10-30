@@ -1,9 +1,39 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ScanFace } from "lucide-react";
 import { useApi } from "../lib/api";
 import { Panel } from "./ui";
 
 // Faces the footage holds, and a one-to-one check of a consented photo against them. Never an identification.
+// Live camera: grab a still as a JPEG file, so it goes through the same routes as an uploaded one.
+function Camera({ onShot, label }: { onShot: (f: File) => void; label: string }) {
+  const video = useRef<HTMLVideoElement>(null);
+  const [on, setOn] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
+  useEffect(() => () => { (video.current?.srcObject as MediaStream | null)?.getTracks().forEach((t) => t.stop()); }, []);
+  async function start() {
+    try {
+      const s = await navigator.mediaDevices.getUserMedia({ video: { width: 1280, height: 720, facingMode: "user" } });
+      if (video.current) { video.current.srcObject = s; await video.current.play(); }
+      setOn(true); setErr(null);
+    } catch (e) { setErr("Camera unavailable or permission denied."); }
+  }
+  function shoot() {
+    const v = video.current!;
+    const c = document.createElement("canvas");
+    c.width = v.videoWidth; c.height = v.videoHeight;
+    c.getContext("2d")!.drawImage(v, 0, 0);
+    c.toBlob((b) => b && onShot(new File([b], `camera-${Date.now()}.jpg`, { type: "image/jpeg" })), "image/jpeg", 0.92);
+  }
+  return (
+    <div className="mt-2">
+      <video ref={video} muted playsInline className={on ? "w-full border border-ink bg-black" : "hidden"} />
+      {!on ? <button onClick={start} className="w-full border border-ink py-2 text-sm font-semibold hover:bg-panel-2">Use the camera</button>
+        : <button onClick={shoot} className="mt-1 w-full bg-ink py-2 text-sm font-semibold text-white">{label}</button>}
+      {err && <p className="mt-1 text-xs text-bad">{err}</p>}
+    </div>
+  );
+}
+
 export default function FaceCheck({ caseId }: { caseId: string }) {
   const [v, setV] = useState(0);
   const f = useApi<any>(`/cases/${caseId}/faces?v=${v}`);
@@ -40,6 +70,7 @@ export default function FaceCheck({ caseId }: { caseId: string }) {
             <input type="file" accept="image/*,video/*" className="hidden" onChange={(e) => e.target.files?.[0] && addSource(e.target.files[0])} />
           </label>
           <p className="mt-1 text-[11px] text-muted">Dashcam, phone or toll-camera footage of the scene. It's hashed into the custody ledger as evidence.</p>
+          <Camera label="Capture a frame as scene evidence" onShot={addSource} />
           <div className="hidden">
             {!f.data && <p className="text-sm text-muted">Scanning the footage…</p>}
           </div>
@@ -61,7 +92,8 @@ export default function FaceCheck({ caseId }: { caseId: string }) {
               <p className="mt-2 text-xs text-muted">{res.reason}</p>
             </div>
           )}
-          <p className="mt-2 text-[11px] text-muted">The photo is checked against this case only and isn't kept. Each check is logged in the custody ledger.</p>
+          {consent && <Camera label="Capture a photo to compare" onShot={check} />}
+          <p className="mt-2 text-[11px] text-muted">The photo is checked against this case only and isn't kept. Each check is logged in the custody ledger. To try it end to end: capture your face as scene evidence on the left, then capture yourself again here.</p>
         </div>
       </div>
     </Panel>

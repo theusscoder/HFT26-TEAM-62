@@ -1,0 +1,5 @@
+{"note": "Planted contradictions against a real first-person crash clip (smart-dashcam/motorcycle-accident-driving-datasets on Hugging Face). Ego speed is estimated from road flow (about +/-30%).",
+ "planted": [
+   {"id": "P1", "witness": "witness_1", "type": "quantity", "claim": "bike doing about 30 km/h", "truth": "road-flow speed about 65 km/h in the last second"},
+   {"id": "P2", "witness": "witness_2", "type": "state", "claim": "the motorcycle never braked", "truth": "sustained slowdown about 1.5 s before impact"}],
+ "consistent": [{"witness": "witness_1", "claim": "I braked hard"}]}
