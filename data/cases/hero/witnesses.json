@@ -1,0 +1,5 @@
+{
+  "witness_1": {"name": "Traffic constable on duty", "vantage": "on the divider at the zebra", "position_m": [-0.8, 1.0], "distance_m": 1},
+  "witness_2": {"name": "Motorcyclist", "vantage": "right lane, behind the crossing", "position_m": [4.5, 5.0], "distance_m": 5},
+  "witness_3": {"name": "Shopkeeper", "vantage": "footpath across the road", "position_m": [10.5, 2.0], "distance_m": 11}
+}

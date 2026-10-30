@@ -1,0 +1,44 @@
+{
+  "vehicles": [
+    {
+      "track": "car_A",
+      "plate": "TS09EA1234",
+      "confidence": 0.83,
+      "frames": [
+        140,
+        142,
+        144,
+        146,
+        148,
+        150
+      ],
+      "reads": [
+        "TS09EA1234",
+        "TS09EA1234",
+        "TS09FA1234",
+        "TS09EA1234",
+        "TS09EA12?4",
+        "TS09EA1234"
+      ],
+      "partial": false
+    },
+    {
+      "track": "car_B",
+      "plate": "TS07G?5521",
+      "confidence": 0.5,
+      "frames": [
+        186,
+        190,
+        194,
+        198
+      ],
+      "reads": [
+        "TS07GK5521",
+        "TS07G?5521",
+        "TS07GX5521",
+        "TS07G?552?"
+      ],
+      "partial": true
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "note": "Contradictions planted in the witness statements, written to test the engine. Each is checked against real CCTV-derived evidence.",
+  "planted": [
+    {"id": "P1", "witness": "witness_1", "type": "quantity", "claim": "bus at 50-60 km/h", "truth": "calibrated CCTV + telematics: ~18 km/h peak"},
+    {"id": "P2", "witness": "witness_1", "type": "state", "claim": "bus did not slow down", "truth": "telematics braking before impact; CCTV deceleration"},
+    {"id": "P3", "witness": "witness_2", "type": "presence", "claim": "a white car cut in front of the bus", "truth": "the white car stays stationary in the right lane"},
+    {"id": "P4", "witness": "witness_3", "type": "state", "claim": "the policeman fell on the road", "truth": "officer tracked upright, moves away along the divider"},
+    {"id": "P5", "witness": "witness_3", "type": "temporal", "claim": "around 5:45 pm", "truth": "CCTV overlay clock 17:31"}
+  ],
+  "consistent": [
+    {"witness": "witness_1", "claim": "bus hit the divider next to me"},
+    {"witness": "witness_2", "claim": "bus turned left into the divider"},
+    {"witness": "witness_2", "claim": "bus speed ~20 km/h"},
+    {"witness": "witness_3", "claim": "bus hit the divider"},
+    {"witness": "witness_3", "claim": "many bikes waiting"}
+  ]
+}

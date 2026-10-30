@@ -1,0 +1,18 @@
+{
+  "bus": "car_38",
+  "white_car": "car_1",
+  "officer": "person_2",
+  "bikes": [
+    "motorcycle_12",
+    "motorcycle_3",
+    "motorcycle_47",
+    "motorcycle_159",
+    "motorcycle_7",
+    "motorcycle_13",
+    "motorcycle_44",
+    "motorcycle_180",
+    "motorcycle_5",
+    "motorcycle_260",
+    "motorcycle_234"
+  ]
+}

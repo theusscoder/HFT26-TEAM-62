@@ -1,0 +1,20 @@
+{
+  "_note": "Hand-annotated extraction in the exact schema the Featherless LLM returns. Used only when no API key / cache is available. Set FEATHERLESS_API_KEY and re-run make_case to replace with real model output.",
+  "witness_1": [
+    {"actor": "self", "action": "presence", "value": "on the divider near the zebra", "order": "before_impact", "quote": "I was standing on the divider controlling traffic near the zebra crossing"},
+    {"actor": "bus", "action": "speed", "value": "55", "order": "before_impact", "quote": "The bus came very fast, at least 50 or 60"},
+    {"actor": "bus", "action": "no_brake", "value": null, "order": "before_impact", "quote": "it did not slow down at all"},
+    {"actor": "bus", "action": "impact", "value": "divider", "order": "at_impact", "quote": "It hit the divider right next to me"}
+  ],
+  "witness_2": [
+    {"actor": "white_car", "action": "cut_in", "value": "bus", "order": "before_impact", "quote": "a white car cut in front of the bus"},
+    {"actor": "bus", "action": "turn", "value": "left", "order": "before_impact", "quote": "the bus turned left into the divider"},
+    {"actor": "bus", "action": "speed", "value": "20", "order": "before_impact", "quote": "I think the bus was going normal speed, maybe 20"}
+  ],
+  "witness_3": [
+    {"actor": "self", "action": "time_of_day", "value": "17:45", "order": "unknown", "quote": "It was around 5:45 in the evening"},
+    {"actor": "bus", "action": "impact", "value": "divider", "order": "at_impact", "quote": "The bus hit the divider"},
+    {"actor": "officer", "action": "fell", "value": null, "order": "after_impact", "quote": "the policeman fell down on the road"},
+    {"actor": "bikes", "action": "presence", "value": "waiting at the signal", "order": "before_impact", "quote": "Many bikes were waiting at the signal"}
+  ]
+}

@@ -1,0 +1,133 @@
+{
+  "t0_iso": "2026-10-30T14:02:07+05:30",
+  "offsets": {
+    "cctv": {
+      "offset_s": 0.0,
+      "sigma": 0.03
+    },
+    "dashcam": {
+      "offset_s": -2.31,
+      "sigma": 0.05
+    },
+    "sensor": {
+      "offset_s": 0.42,
+      "sigma": 0.05
+    },
+    "witness_1": {
+      "offset_s": null,
+      "note": "ordering only"
+    }
+  },
+  "contradictions": [
+    {
+      "id": "C1",
+      "type": "state",
+      "events": [
+        "EV-W-004",
+        "EV-V-002"
+      ],
+      "severity": "high",
+      "summary": "Witness 2 says the signal was red for car A; CCTV shows green from -4.0 s to impact.",
+      "explanation": "Suggestion: Witness 2 stood on the opposite side and may have seen the cross-street signal."
+    },
+    {
+      "id": "C2",
+      "type": "quantity",
+      "events": [
+        "EV-W-001",
+        "EV-S-001"
+      ],
+      "severity": "high",
+      "summary": "Witness 1 estimates ~30 km/h; telematics records 62 km/h before braking.",
+      "explanation": "Suggestion: speed estimates by eye are commonly off by 30-50%."
+    },
+    {
+      "id": "C3",
+      "type": "temporal",
+      "events": [
+        "EV-W-006",
+        "EV-W-002",
+        "EV-V-003"
+      ],
+      "severity": "medium",
+      "summary": "Witness 3 says the pedestrian appeared suddenly; CCTV shows her on the zebra 1.6 s before impact, as Witness 1 says.",
+      "explanation": null
+    },
+    {
+      "id": "C4",
+      "type": "witness",
+      "events": [
+        "EV-W-005",
+        "EV-V-007"
+      ],
+      "severity": "high",
+      "summary": "Witness 2 says car B stopped; CCTV shows car B leaving north within 0.6 s without stopping.",
+      "explanation": null
+    }
+  ],
+  "gaps": [
+    {
+      "start": -2.5,
+      "end": -1.6,
+      "covered_by": [
+        "cctv"
+      ],
+      "note": "Pedestrian partly occluded by bus; only one camera covers her approach."
+    }
+  ],
+  "reliability": {
+    "witness_1": 0.75,
+    "witness_2": 0.0,
+    "witness_3": 0.33
+  },
+  "hypotheses": [
+    {
+      "id": "H1",
+      "text": "Car A was speeding and braked late after the pedestrian was visible",
+      "status": "supported",
+      "for": [
+        "EV-S-001",
+        "EV-I-001",
+        "EV-V-003"
+      ],
+      "against": [
+        "EV-W-001"
+      ],
+      "untested": []
+    },
+    {
+      "id": "H2",
+      "text": "Car A ran a red signal",
+      "status": "contradicted",
+      "for": [
+        "EV-W-004"
+      ],
+      "against": [
+        "EV-V-002"
+      ],
+      "untested": []
+    },
+    {
+      "id": "H3",
+      "text": "Pedestrian stepped out suddenly with no time to react",
+      "status": "contradicted",
+      "for": [
+        "EV-W-006"
+      ],
+      "against": [
+        "EV-V-003",
+        "EV-W-002"
+      ],
+      "untested": [
+        "dashcam view of west kerb"
+      ]
+    }
+  ],
+  "counterfactual": {
+    "actor": "car_A",
+    "observed_speed_kmh": 62,
+    "hazard_at_m": 26.5,
+    "brake_start_s": -0.9,
+    "note": "Distance from car A to zebra when pedestrian became visible (-1.6 s)."
+  }
+}

@@ -1,0 +1,389 @@
+[
+  {
+    "id": "EV-V-001",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": -4.2,
+      "end": -4.2,
+      "sigma": 0.1
+    },
+    "actor": "car_A",
+    "action": "enter",
+    "value": "from south",
+    "xy": null,
+    "confidence": 0.93,
+    "ref": "cctv.mp4#f=24",
+    "quote": null,
+    "derived_from": [],
+    "rule": null
+  },
+  {
+    "id": "EV-V-002",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": -4.0,
+      "end": 0.0,
+      "sigma": 0.1
+    },
+    "actor": "signal_main",
+    "action": "signal",
+    "value": "green",
+    "xy": null,
+    "confidence": 0.88,
+    "ref": "cctv.mp4#f=30-150",
+    "quote": null,
+    "derived_from": [],
+    "rule": "HSV+VLM"
+  },
+  {
+    "id": "EV-V-003",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": -1.6,
+      "end": -1.6,
+      "sigma": 0.1
+    },
+    "actor": "ped_1",
+    "action": "cross",
+    "value": "enters zebra from west",
+    "xy": null,
+    "confidence": 0.81,
+    "ref": "cctv.mp4#f=102",
+    "quote": null,
+    "derived_from": [],
+    "rule": null
+  },
+  {
+    "id": "EV-V-004",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": -0.9,
+      "end": -0.9,
+      "sigma": 0.1
+    },
+    "actor": "car_A",
+    "action": "brake",
+    "value": "brake lights on",
+    "xy": null,
+    "confidence": 0.84,
+    "ref": "cctv.mp4#f=123",
+    "quote": null,
+    "derived_from": [],
+    "rule": null
+  },
+  {
+    "id": "EV-V-005",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 0.0,
+      "end": 0.0,
+      "sigma": 0.1
+    },
+    "actor": "car_A",
+    "action": "impact",
+    "value": "with ped_1",
+    "xy": null,
+    "confidence": 0.9,
+    "ref": "cctv.mp4#f=150",
+    "quote": null,
+    "derived_from": [],
+    "rule": null
+  },
+  {
+    "id": "EV-V-006",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 1.2,
+      "end": 1.2,
+      "sigma": 0.1
+    },
+    "actor": "car_B",
+    "action": "impact",
+    "value": "rear of car_A",
+    "xy": null,
+    "confidence": 0.77,
+    "ref": "cctv.mp4#f=186",
+    "quote": null,
+    "derived_from": [],
+    "rule": null
+  },
+  {
+    "id": "EV-V-007",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 1.8,
+      "end": 4.5,
+      "sigma": 0.1
+    },
+    "actor": "car_B",
+    "action": "exit",
+    "value": "north, not stopping",
+    "xy": null,
+    "confidence": 0.86,
+    "ref": "cctv.mp4#f=204-285",
+    "quote": null,
+    "derived_from": [],
+    "rule": null
+  },
+  {
+    "id": "EV-V-008",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 0.5,
+      "end": 9.5,
+      "sigma": 0.1
+    },
+    "actor": "ped_1",
+    "action": "stop",
+    "value": "on road, no movement",
+    "xy": null,
+    "confidence": 0.8,
+    "ref": "cctv.mp4#f=165-435",
+    "quote": null,
+    "derived_from": [],
+    "rule": null
+  },
+  {
+    "id": "EV-S-000",
+    "source": "sensor",
+    "kind": "OBSERVED",
+    "t": {
+      "start": -0.9,
+      "end": -0.9,
+      "sigma": 0.05
+    },
+    "actor": "car_A",
+    "action": "brake",
+    "value": "-0.75 g",
+    "xy": null,
+    "confidence": 0.95,
+    "ref": "sensor.csv#r=43",
+    "quote": null,
+    "derived_from": [],
+    "rule": "R_brake_0.4g"
+  },
+  {
+    "id": "EV-S-001",
+    "source": "sensor",
+    "kind": "OBSERVED",
+    "t": {
+      "start": -5.0,
+      "end": -0.9,
+      "sigma": 0.05
+    },
+    "actor": "car_A",
+    "action": "speed",
+    "value": "62 km/h",
+    "xy": null,
+    "confidence": 0.97,
+    "ref": "sensor.csv#r=2-42",
+    "quote": null,
+    "derived_from": [],
+    "rule": null
+  },
+  {
+    "id": "EV-S-002",
+    "source": "sensor",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 0.0,
+      "end": 0.0,
+      "sigma": 0.05
+    },
+    "actor": "car_A",
+    "action": "impact",
+    "value": "-7.9 g",
+    "xy": null,
+    "confidence": 0.97,
+    "ref": "sensor.csv#r=52",
+    "quote": null,
+    "derived_from": [],
+    "rule": "R_peak_accel"
+  },
+  {
+    "id": "EV-W-001",
+    "source": "witness_1",
+    "kind": "CLAIMED",
+    "t": {
+      "start": -6,
+      "end": 0,
+      "sigma": 0.1
+    },
+    "actor": "car_A",
+    "action": "speed",
+    "value": "~30 km/h",
+    "xy": null,
+    "confidence": 0.45,
+    "ref": "witness_1.txt",
+    "quote": "going slowly, maybe 30",
+    "derived_from": [],
+    "rule": null
+  },
+  {
+    "id": "EV-W-002",
+    "source": "witness_1",
+    "kind": "CLAIMED",
+    "t": {
+      "start": -3,
+      "end": 0,
+      "sigma": 0.1
+    },
+    "actor": "ped_1",
+    "action": "cross",
+    "value": "already crossing before car arrived",
+    "xy": null,
+    "confidence": 0.7,
+    "ref": "witness_1.txt",
+    "quote": "The lady had already started crossing when the car came",
+    "derived_from": [],
+    "rule": null
+  },
+  {
+    "id": "EV-W-003",
+    "source": "witness_1",
+    "kind": "CLAIMED",
+    "t": {
+      "start": 1,
+      "end": 5,
+      "sigma": 0.1
+    },
+    "actor": "car_B",
+    "action": "exit",
+    "value": "towards flyover",
+    "xy": null,
+    "confidence": 0.75,
+    "ref": "witness_1.txt",
+    "quote": "drove off towards the flyover",
+    "derived_from": [],
+    "rule": null
+  },
+  {
+    "id": "EV-W-004",
+    "source": "witness_2",
+    "kind": "CLAIMED",
+    "t": {
+      "start": -4,
+      "end": 0,
+      "sigma": 0.1
+    },
+    "actor": "signal_main",
+    "action": "signal",
+    "value": "red",
+    "xy": null,
+    "confidence": 0.8,
+    "ref": "witness_2.txt",
+    "quote": "The signal was red for the white car, I am sure",
+    "derived_from": [],
+    "rule": null
+  },
+  {
+    "id": "EV-W-005",
+    "source": "witness_2",
+    "kind": "CLAIMED",
+    "t": {
+      "start": 1,
+      "end": 6,
+      "sigma": 0.1
+    },
+    "actor": "car_B",
+    "action": "stop",
+    "value": "stopped for some time",
+    "xy": null,
+    "confidence": 0.6,
+    "ref": "witness_2.txt",
+    "quote": "The red car stopped after the accident for some time",
+    "derived_from": [],
+    "rule": null
+  },
+  {
+    "id": "EV-W-006",
+    "source": "witness_3",
+    "kind": "CLAIMED",
+    "t": {
+      "start": -1,
+      "end": 0,
+      "sigma": 0.1
+    },
+    "actor": "ped_1",
+    "action": "cross",
+    "value": "came suddenly from left",
+    "xy": null,
+    "confidence": 0.4,
+    "ref": "witness_3.txt",
+    "quote": "She came from the left side suddenly",
+    "derived_from": [],
+    "rule": null
+  },
+  {
+    "id": "EV-W-007",
+    "source": "witness_3",
+    "kind": "CLAIMED",
+    "t": {
+      "start": -3,
+      "end": 0,
+      "sigma": 0.1
+    },
+    "actor": "car_A",
+    "action": "speed",
+    "value": "~60 km/h",
+    "xy": null,
+    "confidence": 0.4,
+    "ref": "witness_3.txt",
+    "quote": "The white car was fast, around 60",
+    "derived_from": [],
+    "rule": null
+  },
+  {
+    "id": "EV-I-001",
+    "source": "fusion",
+    "kind": "INFERRED",
+    "t": {
+      "start": -1.6,
+      "end": -0.9,
+      "sigma": 0.1
+    },
+    "actor": "car_A",
+    "action": "late_reaction",
+    "value": "0.7 s from ped visible to brake",
+    "xy": null,
+    "confidence": 0.72,
+    "ref": "",
+    "quote": null,
+    "derived_from": [
+      "EV-V-003",
+      "EV-V-004",
+      "EV-S-000"
+    ],
+    "rule": "R_reaction_window"
+  },
+  {
+    "id": "EV-I-002",
+    "source": "fusion",
+    "kind": "INFERRED",
+    "t": {
+      "start": 1.8,
+      "end": 4.5,
+      "sigma": 0.1
+    },
+    "actor": "car_B",
+    "action": "hit_and_run",
+    "value": "left scene without stopping",
+    "xy": null,
+    "confidence": 0.83,
+    "ref": "",
+    "quote": null,
+    "derived_from": [
+      "EV-V-006",
+      "EV-V-007"
+    ],
+    "rule": "R_exit_after_impact"
+  }
+]

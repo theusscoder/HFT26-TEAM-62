@@ -1,0 +1,51 @@
+{
+  "id": "demo",
+  "title": "Gachibowli junction collision",
+  "created": "2026-10-30T14:02:00+05:30",
+  "location": {
+    "name": "Gachibowli X-roads, Hyderabad",
+    "lat": 17.4401,
+    "lon": 78.3489
+  },
+  "evidence": [
+    {
+      "id": "cctv",
+      "type": "video",
+      "file": "cctv.mp4",
+      "label": "Junction CCTV (fixed)",
+      "fps": 30
+    },
+    {
+      "id": "dashcam",
+      "type": "video",
+      "file": "dashcam.mp4",
+      "label": "Car A dashcam",
+      "fps": 30
+    },
+    {
+      "id": "sensor",
+      "type": "sensor",
+      "file": "sensor.csv",
+      "label": "Car A telematics"
+    },
+    {
+      "id": "witness_1",
+      "type": "witness",
+      "file": "witness_1.txt",
+      "label": "Ravi K., tea stall, NE corner, ~15 m"
+    },
+    {
+      "id": "witness_2",
+      "type": "witness",
+      "file": "witness_2.txt",
+      "label": "S. Fatima, bus stop, opposite side, ~30 m"
+    },
+    {
+      "id": "witness_3",
+      "type": "witness",
+      "file": "witness_3.txt",
+      "label": "Auto driver, waiting at signal, ~10 m"
+    }
+  ],
+  "simulated": true
+}

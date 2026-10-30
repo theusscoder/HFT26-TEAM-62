@@ -1,0 +1,29 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+/* Design tokens: dark forensic theme. One accent + status colours only. Change here, not inline. */
+@theme {
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --color-bg: #0b0d10;
+  --color-panel: #12151a;
+  --color-panel-2: #181c22;
+  --color-line: #252a32;
+  --color-ink: #e7eaee;
+  --color-muted: #8a93a0;
+
+  --color-accent: #4f8cff;      /* brand / selection */
+  --color-observed: #4f8cff;    /* OBSERVED = blue */
+  --color-claimed: #c58cff;     /* CLAIMED  = violet */
+  --color-inferred: #f5b84f;    /* INFERRED = amber */
+  --color-ok: #3ecf8e;
+  --color-warn: #f5b84f;
+  --color-bad: #ff5d5d;
+}
+
+html, body, #root { height: 100%; }
+body { background: var(--color-bg); color: var(--color-ink); font-family: var(--font-sans); }
+.mono { font-family: var(--font-mono); }
+.leaflet-container { background: #0e1116; }
+.dark-tiles { filter: invert(1) hue-rotate(180deg) brightness(0.85) contrast(0.9); }

@@ -1,0 +1,79 @@
+{
+  "exit": {
+    "t": 1.8,
+    "heading": "north",
+    "speed_kmh": [
+      30,
+      80
+    ],
+    "lat": 17.4401,
+    "lon": 78.3489
+  },
+  "partial_plate": "TS07G?5521",
+  "tolls": [
+    {
+      "name": "Gachibowli ORR Exit 17",
+      "lat": 17.448,
+      "lon": 78.355,
+      "dist_km": 1.6,
+      "window_min": [
+        1.2,
+        3.2
+      ]
+    },
+    {
+      "name": "Nanakramguda Toll",
+      "lat": 17.4196,
+      "lon": 78.342,
+      "dist_km": 3.4,
+      "window_min": [
+        2.5,
+        6.8
+      ]
+    },
+    {
+      "name": "Kokapet ORR Toll",
+      "lat": 17.399,
+      "lon": 78.333,
+      "dist_km": 6.1,
+      "window_min": [
+        4.6,
+        12.2
+      ]
+    },
+    {
+      "name": "Shamshabad ORR Toll",
+      "lat": 17.25,
+      "lon": 78.42,
+      "dist_km": 24.0,
+      "window_min": [
+        18.0,
+        48.0
+      ]
+    }
+  ],
+  "funnel": [
+    {
+      "stage": "Toll passages in 30 min",
+      "count": 312
+    },
+    {
+      "stage": "Inside reachable window",
+      "count": 41
+    },
+    {
+      "stage": "Plate pattern TS07G?5521",
+      "count": 3
+    },
+    {
+      "stage": "Red sedan (VLM colour/class)",
+      "count": 1
+    }
+  ],
+  "match": {
+    "plate": "TS07GK5521",
+    "toll": "Gachibowli ORR Exit 17",
+    "time": "14:04:31",
+    "fastag": "DEMO-FT-88213"
+  }
+}

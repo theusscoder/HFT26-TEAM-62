@@ -1,0 +1,12 @@
+node_modules/
+frontend/dist/
+.venv/
+__pycache__/
+*.pyc
+.env
+*.pt
+data/raw/
+data/llm_cache/
+# Evidence videos stay local, except the small hero case everyone builds on (ACCIDENT, CC BY-NC-SA 4.0)
+data/cases/*/evidence/*.mp4
+!data/cases/hero/evidence/*.mp4
