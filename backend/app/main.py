@@ -304,6 +304,31 @@ def kit_file(name: str, fname: str):
     return FileResponse(p)
 
 
+@app.post("/api/cases/{cid}/dashcam")
+async def add_dashcam(cid: str, video: UploadFile, ego_class: str = Form("car")):
+    """A dashcam clip of this crash: analysed as its own linked case (camera forced to dashcam), and linked from this one."""
+    d = case_dir(cid)
+    ext = Path(video.filename or "").suffix.lower()
+    if ext not in VIDEO_EXT:
+        raise HTTPException(400, f"unsupported video type {ext or '?'}")
+    if ego_class not in ("car", "motorcycle", "bus", "truck"):
+        raise HTTPException(422, "unknown camera vehicle")
+    sub = f"{cid[:40]}-dashcam-{datetime.now().strftime('%H%M%S')}"
+    sd = DATA / sub
+    (sd / "evidence").mkdir(parents=True)
+    vpath = sd / "evidence" / f"upload{ext}"
+    vpath.write_bytes(await video.read())
+    digest = sha256_file(vpath)
+    Ledger(sd / "custody.jsonl").append("evidence_received", file=video.filename, stored=vpath.name, sha256=digest, linked_to=cid)
+    Ledger(d / "custody.jsonl").append("dashcam_linked", file=video.filename, sha256=digest, case=sub)
+    (sd / "case_hint.json").write_text(json.dumps({"camera": "dashcam", "ego_class": ego_class}))
+    case = read(cid, "case")
+    case["dashcam_case"] = sub
+    (d / "case.json").write_text(json.dumps(case, indent=2), encoding="utf-8")
+    title = f"Dashcam of: {case.get('title', cid)}"
+    return {"id": _start(sub, vpath, title, case.get("location", {}).get("name", ""), False), "linked_to": cid}
+
+
 @app.post("/api/kits/{name}/run")
 def run_kit(name: str):
     """One click: create a new case from a demo kit's files exactly as an upload would, and start the pipeline."""

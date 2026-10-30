@@ -98,7 +98,7 @@ def make(case_id: str, video_path: Path | None = None, title: str | None = None,
     case = build_case.build(case_id, src, title or prev.get("title", case_id), location or prev.get("location", {}).get("name", ""),
                             prev.get("location", {}).get("lat"), prev.get("location", {}).get("lon"), t0_override)
     case["camera"] = {**cam, "type": mode}
-    for k in ("clock_overlay", "weather", "incident_time_utc", "heading_deg"):
+    for k in ("clock_overlay", "weather", "incident_time_utc", "heading_deg", "dashcam_case"):
         if k in prev:
             case[k] = prev[k]
     (d / "case.json").write_text(json.dumps(case, indent=2))

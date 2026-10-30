@@ -18,6 +18,7 @@ import Reconstruction from "./pages/Reconstruction";
 import Ask from "./pages/Ask";
 import Intercept from "./pages/Intercept";
 import Live from "./pages/Live";
+import DashcamPage, { DashcamIndex } from "./pages/Dashcam";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -26,6 +27,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="/" element={<Home />} />
         <Route path="/new" element={<NewCase />} />
         <Route path="/live" element={<Live />} />
+        <Route path="/dashcam" element={<DashcamIndex />} />
         <Route path="/case/:id" element={<CaseLayout />}>
           <Route index element={<Overview />} />
           <Route path="golden-hour" element={<GoldenHour />} />
@@ -39,6 +41,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route path="reconstruction" element={<Reconstruction />} />
           <Route path="ask" element={<Ask />} />
           <Route path="intercept" element={<Intercept />} />
+          <Route path="dashcam" element={<DashcamPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

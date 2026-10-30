@@ -1,14 +1,14 @@
 import { useMemo } from "react";
 import { Link, NavLink, Outlet, useLocation, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Activity, Box, Car, Crosshair, ChevronLeft, ClipboardList, FileText, Gauge, LayoutDashboard, MessageCircleQuestion, Ruler, Scale, Siren, Video } from "lucide-react";
+import { Activity, Box, Camera, Car, Crosshair, ChevronLeft, ClipboardList, FileText, Gauge, LayoutDashboard, MessageCircleQuestion, Ruler, Scale, Siren, Video } from "lucide-react";
 import { useApi } from "../lib/api";
 import { ClockProvider } from "../lib/clock";
 import { LevelPill } from "./ui";
 
 // Grouped by what the reader is trying to do, in demo order.
 const NAV = [
-  { group: "The case", items: [["", "Overview", LayoutDashboard], ["replay", "Evidence replay", Video], ["reconstruction", "Reconstruction", Box], ["timeline", "Timeline", Activity]] },
+  { group: "The case", items: [["", "Overview", LayoutDashboard], ["replay", "Evidence replay", Video], ["reconstruction", "Reconstruction", Box], ["dashcam", "Dashcam", Camera], ["timeline", "Timeline", Activity]] },
   { group: "The analysis", items: [["courtroom", "Contradictions", Scale], ["avoidable", "Could it be avoided?", Gauge], ["ask", "Ask the case", MessageCircleQuestion]] },
   { group: "The response", items: [["golden-hour", "Emergency response", Siren], ["pursuit", "Hit-and-run", Car], ["intercept", "Intercept (sim)", Crosshair], ["report", "Report", FileText]] },
   { group: "Setup", items: [["calibrate", "Road calibration", Ruler]] },
