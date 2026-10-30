@@ -1,10 +1,10 @@
 [
   {
     "witness": "witness_1",
-    "method": "seed (hand-annotated; LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer)",
+    "method": "seed (hand-annotated) \u00b7 LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer",
     "claims": [
       {
-        "actor": "self",
+        "actor": "I",
         "action": "presence",
         "value": "on the divider near the zebra",
         "order": "before_impact",
@@ -15,7 +15,7 @@
         ]
       },
       {
-        "actor": "bus",
+        "actor": "the bus",
         "action": "speed",
         "value": "55",
         "order": "before_impact",
@@ -26,7 +26,7 @@
         ]
       },
       {
-        "actor": "bus",
+        "actor": "the bus",
         "action": "no_brake",
         "value": null,
         "order": "before_impact",
@@ -37,7 +37,7 @@
         ]
       },
       {
-        "actor": "bus",
+        "actor": "the bus",
         "action": "impact",
         "value": "divider",
         "order": "at_impact",
@@ -52,10 +52,10 @@
   },
   {
     "witness": "witness_2",
-    "method": "seed (hand-annotated; LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer)",
+    "method": "seed (hand-annotated) \u00b7 LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer",
     "claims": [
       {
-        "actor": "white_car",
+        "actor": "a white car",
         "action": "cut_in",
         "value": "bus",
         "order": "before_impact",
@@ -66,25 +66,25 @@
         ]
       },
       {
-        "actor": "bus",
+        "actor": "the bus",
         "action": "turn",
-        "value": "left",
+        "value": "right",
         "order": "before_impact",
-        "quote": "the bus turned left into the divider",
+        "quote": "the bus swerved right into the divider",
         "span": [
           128,
-          164
+          166
         ]
       },
       {
-        "actor": "bus",
+        "actor": "the bus",
         "action": "speed",
         "value": "20",
         "order": "before_impact",
         "quote": "I think the bus was going normal speed, maybe 20",
         "span": [
-          166,
-          214
+          168,
+          216
         ]
       }
     ],
@@ -92,10 +92,10 @@
   },
   {
     "witness": "witness_3",
-    "method": "seed (hand-annotated; LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer)",
+    "method": "seed (hand-annotated) \u00b7 LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer",
     "claims": [
       {
-        "actor": "self",
+        "actor": "I",
         "action": "time_of_day",
         "value": "17:45",
         "order": "unknown",
@@ -106,7 +106,7 @@
         ]
       },
       {
-        "actor": "bus",
+        "actor": "the bus",
         "action": "impact",
         "value": "divider",
         "order": "at_impact",
@@ -117,7 +117,7 @@
         ]
       },
       {
-        "actor": "officer",
+        "actor": "the policeman",
         "action": "fell",
         "value": null,
         "order": "after_impact",

@@ -20,12 +20,33 @@ DATA = Path(__file__).resolve().parents[2] / "data" / "cases"
 PALETTE = ["#4f8cff", "#ff5d5d", "#f5b84f", "#3ecf8e", "#c58cff", "#5fd4e6", "#ff9f5a", "#e7eaee"]
 
 
-def pick_t0(events: list[dict]) -> tuple[float, str]:
-    """Impact anchor: the strongest 'possible_contact' or an abrupt stop of the fastest vehicle; else the dataset label."""
-    stops = [e for e in events if e["action"] in ("stop", "sudden_decel") and e["actor"].split("_")[0] in ("car", "bus", "truck")]
-    if stops:
-        e = max(stops, key=lambda e: e["confidence"])
-        return e["t"]["start"], e["id"]
+def pick_t0(events: list[dict], tracks: dict | None = None, height: float = 720) -> tuple[float, str]:
+    """Impact anchor. Every car/bus/truck slowdown or stop is scored by speed drop x apparent size at that moment x
+    confidence (a big, close vehicle losing a lot of speed is the crash, not a distant car easing off). If a
+    vehicle-vehicle contact involving that actor follows within 1 s, T0 snaps to the contact. Fallback: dataset label."""
+    import re
+    BIG = ("car", "bus", "truck")
+    def size_at(actor, t):
+        tr = (tracks or {}).get(actor)
+        if not tr:
+            return 0.2
+        q = min(tr["points"], key=lambda q: abs(q["t"] - t))
+        return (q["box"][3] - q["box"][1]) / height
+    cands = []
+    for e in events:
+        if e["actor"].split("_")[0] not in BIG or e["action"] not in ("sudden_decel", "stop"):
+            continue
+        m = re.findall(r"(\d+(?:\.\d+)?)", str(e.get("value") or ""))
+        drop = float(m[0]) - float(m[1]) if len(m) >= 2 else 1.0
+        cands.append((max(drop, 0.3) * size_at(e["actor"], e["t"]["start"]) * e["confidence"], e))
+    if cands:
+        _, best = max(cands, key=lambda c: c[0])
+        contacts = [e for e in events if e["action"] == "possible_contact" and best["t"]["start"] - 0.2 <= e["t"]["start"] <= best["t"]["start"] + 1.0
+                    and (e["actor"] == best["actor"] or best["actor"] in str(e.get("value"))) and re.search(r"with (car|bus|truck)_", str(e.get("value")) + " with " + e["actor"])]
+        if contacts:
+            c = min(contacts, key=lambda e: e["t"]["start"])
+            return c["t"]["start"], c["id"]
+        return best["t"]["start"], best["id"]
     label = [e for e in events if e["source"] == "dataset_label"]
     return (label[0]["t"]["start"], label[0]["id"]) if label else (0.0, "")
 
@@ -46,7 +67,7 @@ def build(case_id: str, video: Path, title: str, location: str, lat: float | Non
     if ok:
         cv2.imwrite(str(ev_dir / "background.jpg"), frame)
 
-    t0, anchor = pick_t0(raw_events)
+    t0, anchor = pick_t0(raw_events, tr["tracks"], info["height"])
     events = []
     for e in raw_events:
         e = dict(e)
@@ -61,7 +82,7 @@ def build(case_id: str, video: Path, title: str, location: str, lat: float | Non
         p = t["points"]
         if p[-1]["t"] - p[0]["t"] < 1.0:
             continue
-        ui_tracks.append({"id": name, "class": t["class"], "colour": PALETTE[i % len(PALETTE)],
+        ui_tracks.append({"id": name, "class": t["class"], "colour": PALETTE[i % len(PALETTE)], "colour_name": t.get("colour"),
                           "points": [{"t": round(q["t"] - t0, 2), "x": round((q["box"][0] + q["box"][2]) / 2, 1), "y": q["box"][3],
                                       "box": q["box"], "conf": q["conf"]} for q in p]})
     (d / "tracks_ui.json").write_text(json.dumps({"frame": {"units": "px", "width": info["width"], "height": info["height"],

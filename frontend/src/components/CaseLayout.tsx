@@ -6,12 +6,14 @@ import { ClockProvider } from "../lib/clock";
 // Act order = demo order (PLAN.md section 7).
 const NAV = [
   ["", "Overview"],
-  ["golden-hour", "0 · Golden Hour"],
-  ["replay", "1 · Reconstruction"],
+  ["replay", "Evidence replay"],
+  ["reconstruction", "Reconstruction"],
   ["timeline", "Timeline"],
-  ["courtroom", "2 · Courtroom"],
-  ["avoidable", "3 · Avoidable?"],
-  ["pursuit", "4 · Hit-and-run"],
+  ["courtroom", "Contradictions"],
+  ["avoidable", "Could it be avoided?"],
+  ["ask", "Ask the case"],
+  ["golden-hour", "Golden hour"],
+  ["pursuit", "Hit-and-run"],
   ["report", "Report"],
   ["calibrate", "Road calibration"],
 ];

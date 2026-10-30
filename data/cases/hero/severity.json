@@ -22,7 +22,7 @@
       "signal": "vru_involved",
       "points": 15,
       "why": "pedestrian / two-wheeler involved",
-      "ref": "officer within 2.4 m of the bus at impact (tracks_metric)"
+      "ref": "Grey motorcycle, Policeman within 3 m of the impact"
     }
   ],
   "signals": {
@@ -33,7 +33,7 @@
     "refs": {
       "peak_g": "sensor.csv#r=54",
       "dv_kmh": "tracks_metric:car_38",
-      "vru_involved": "officer within 2.4 m of the bus at impact (tracks_metric)"
+      "vru_involved": "Grey motorcycle, Policeman within 3 m of the impact"
     }
   },
   "minor_example": {

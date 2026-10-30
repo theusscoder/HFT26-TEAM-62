@@ -10,3 +10,7 @@ data/llm_cache/
 # Evidence videos stay local, except the small hero case everyone builds on (ACCIDENT, CC BY-NC-SA 4.0)
 data/cases/*/evidence/*.mp4
 !data/cases/hero/evidence/*.mp4
+# Processed cases stay local; the hero case and the mock demo are shared. Uploads land in data/cases/<slug>-HHMMSS
+data/cases/*
+!data/cases/hero/
+!data/cases/demo/

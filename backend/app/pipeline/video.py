@@ -34,7 +34,21 @@ def iou(a, b) -> float:
     return inter / ((a[2] - a[0]) * (a[3] - a[1]) + (b[2] - b[0]) * (b[3] - b[1]) - inter + 1e-9)
 
 
-def detect_and_track(video: Path, model_name: str, annotated: Path):
+def colour_name(bgr_patch) -> str | None:
+    """Dominant colour of a crop's centre, named coarsely (white/silver/grey/black/red/blue/...)."""
+    if bgr_patch is None or bgr_patch.size == 0:
+        return None
+    hsv = cv2.cvtColor(bgr_patch, cv2.COLOR_BGR2HSV).reshape(-1, 3).astype(float)
+    h, s, v = np.median(hsv[:, 0]), np.median(hsv[:, 1]), np.median(hsv[:, 2])
+    if v < 55: return "black"
+    if s < 40: return "white" if v > 170 else ("silver" if v > 120 else "grey")
+    for lim, name in ((8, "red"), (22, "orange"), (34, "yellow"), (85, "green"), (130, "blue"), (148, "purple"), (180, "red")):
+        if h <= lim:
+            return name
+    return None
+
+
+def detect_and_track(video: Path, model_name: str, annotated: Path, progress=None):
     from ultralytics import YOLO
     model = YOLO(model_name)
     cap = cv2.VideoCapture(str(video))
@@ -42,7 +56,8 @@ def detect_and_track(video: Path, model_name: str, annotated: Path):
     W, H = int(cap.get(3)), int(cap.get(4))
     raw = annotated.with_suffix(".raw.mp4")
     out = cv2.VideoWriter(str(raw), cv2.VideoWriter_fourcc(*"mp4v"), fps, (W, H))
-    tracks = defaultdict(lambda: {"cls": None, "points": []})
+    total = int(cap.get(cv2.CAP_PROP_FRAME_COUNT)) or 1
+    tracks = defaultdict(lambda: {"cls": None, "points": [], "colours": []})
     times, f = [], 0
     while True:
         ok, frame = cap.read()
@@ -56,9 +71,15 @@ def detect_and_track(video: Path, model_name: str, annotated: Path):
                 tr = tracks[tid]
                 tr["cls"] = tr["cls"] or CLASSES[c]
                 tr["points"].append({"f": f, "t": round(t, 3), "box": [round(v, 1) for v in box], "conf": round(conf, 3)})
+                if f % 4 == 0 and CLASSES[c] in VEHICLES:
+                    x1, y1, x2, y2 = map(int, box)
+                    cw, ch = (x2 - x1) // 4, (y2 - y1) // 4
+                    tr["colours"].append(colour_name(frame[y1 + ch:y2 - ch, x1 + cw:x2 - cw]))
         draw(frame, tracks, f, t)
         out.write(frame)
         f += 1
+        if progress and f % 10 == 0:
+            progress(min(0.99, f / total))
     cap.release()
     out.release()
     # Browsers need H.264; re-encode with ffmpeg when available.
@@ -216,15 +237,20 @@ def events_from_tracks(tracks: dict, info: dict) -> list[dict]:
     return out
 
 
-def run(video: Path, out_dir: Path, model_name: str = "yolo11s.pt", impact_label: float | None = None) -> dict:
+MODEL = str(Path(__file__).resolve().parents[2] / "yolo11s.pt")
+
+
+def run(video: Path, out_dir: Path, model_name: str = MODEL, impact_label: float | None = None, progress=None) -> dict:
     out_dir.mkdir(parents=True, exist_ok=True)
-    tracks, info = detect_and_track(video, model_name, out_dir / "annotated.mp4")
+    tracks, info = detect_and_track(video, model_name, out_dir / "annotated.mp4", progress)
     events = events_from_tracks(tracks, info)
     if impact_label is not None:
         events.append({"id": "EV-L-001", "source": "dataset_label", "kind": "CLAIMED", "t": {"start": impact_label, "end": impact_label, "sigma": 0.2},
                        "clock": "video", "actor": "unknown", "action": "impact", "value": "ACCIDENT benchmark annotation",
                        "confidence": 0.9, "ref": "metadata-real.csv", "derived_from": [], "rule": None})
-    kept = {f"{tr['cls']}_{tid}": {"class": tr["cls"], "points": tr["points"]} for tid, tr in tracks.items()
+    from collections import Counter
+    mode = lambda xs: (Counter(x for x in xs if x).most_common(1) or [(None, 0)])[0][0]
+    kept = {f"{tr['cls']}_{tid}": {"class": tr["cls"], "colour": mode(tr.get("colours", [])), "points": tr["points"]} for tid, tr in tracks.items()
             if len(tr["points"]) >= MIN_TRACK_FRAMES}
     (out_dir / "tracks.json").write_text(json.dumps({"video": info, "model": model_name, "tracker": "bytetrack", "tracks": kept}))
     (out_dir / "video_events.json").write_text(json.dumps(events, indent=2))
@@ -235,7 +261,7 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("video", type=Path)
     ap.add_argument("out_dir", type=Path)
-    ap.add_argument("--model", default="yolo11s.pt")
+    ap.add_argument("--model", default=MODEL)
     ap.add_argument("--impact-label", type=float)
     a = ap.parse_args()
     print(run(a.video, a.out_dir, a.model, a.impact_label))

@@ -1,0 +1,12 @@
+{
+  "note": "Planted contradictions against real CCTV (ACCIDENT benchmark clip J4QZ5vJy-3E_00). Speeds are from auto-calibration (about +/-30%).",
+  "planted": [
+    {"id": "P1", "witness": "witness_1", "type": "quantity", "claim": "SUV at 60 km/h or more", "truth": "SUV measured around 20 km/h before impact"},
+    {"id": "P2", "witness": "witness_2", "type": "state", "claim": "SUV did not slow down", "truth": "SUV decelerates before impact (video + telematics)"}
+  ],
+  "consistent": [
+    {"witness": "witness_1", "claim": "SUV slammed into the red car"},
+    {"witness": "witness_3", "claim": "SUV maybe 20 km/h"},
+    {"witness": "witness_3", "claim": "SUV hit the red car"}
+  ]
+}

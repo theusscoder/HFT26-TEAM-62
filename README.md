@@ -75,12 +75,45 @@ Then open **Road calibration** in the website, click 4 road points, enter their 
 
 Optional: `backend/.env` with `FEATHERLESS_API_KEY=...` makes witness extraction use the Featherless LLM. Without it, the hand-annotated seed extraction (same schema) is used, and the UI says which one ran.
 
+## Analyse any video (website)
+Open **New case**, drop a road CCTV or dashcam clip (.mp4 / .mov / .avi / .mkv), and optionally add witness statements (`.txt`), a telematics log (`.csv`) and kit metadata. The pipeline runs in the background with live stage progress, and the case opens when it's done. Without measured road points, the road is **auto-calibrated from object sizes** (±30%), and you can refine it on *Road calibration*.
+
+### Demo kits (`demo_kits/`)
+Drop all of a folder's files onto New case at once:
+
+| Kit | Clip | What it shows |
+|---|---|---|
+| `01-india-bus-divider` | Bus veers into a divider beside a traffic constable | 3 witnesses, telematics, 5 planted contradictions (speed, braking, phantom cut-in, "policeman fell", wrong time) |
+| `02-atlanta-tbone` | Black SUV T-bones a red car at a signalised junction | Auto-calibration on an unseen clip; 2 planted contradictions plus a witness-vs-witness conflict |
+| `03-minor-rear-end` | Low-speed bump on a residential street | Severity gating: **L1**, owner only, no police or hospital |
+
+Results with the offline extractor (no API key): **5/5, 2/2 and 1/1 planted contradictions caught, 0 false flags**.
+
+### What each screen is for
+| Screen | Answers |
+|---|---|
+| Overview | What happened, how severe, **how much to trust each layer** (calibration, extraction method, vision, sensor clock, gaps) |
+| Evidence replay | The annotated footage, with what every source says at this instant |
+| **Reconstruction** | *Top view*: a calibrated plan with speed-coloured paths and 1 s ticks. *Bird's-eye 3D*: true-scale vehicles, a **speed curtain** (wall height = speed), the impact beacon, **witness line of sight** (green = could see, red = blocked) and camera presets (follow the vehicle, stand where a witness stood) |
+| Timeline | *Story*: three phases (approach, critical seconds, aftermath), every witness claim marked consistent / contradicted / unverifiable. *Swimlanes*: one lane per source |
+| Contradictions | Claimed vs measured side by side, the CCTV key frame, **robustness** ("holds unless …"), possible explanation (labelled as a suggestion), witness reliability, competing explanations |
+| Ask the case | Answers only from stored evidence, every sentence cited; fault and blame questions are refused |
+
+### Featherless (sponsor) usage
+`backend/.env` → `FEATHERLESS_API_KEY=...` (plus optional `FEATHERLESS_TEXT_MODEL`, `FEATHERLESS_VISION_MODEL`). With a key:
+- witness statements go to the LLM (fixed claim vocabulary, quotes verified in code);
+- rule-picked key frames (first, T−1.5 s, impact, T+1.5 s) go to the vision model (vehicle type, signal colour, people on the ground, burned-in clock), which is cross-checked against the detector;
+- Ask writes cited answers, and uncited sentences are dropped.
+
+Every answer is cached in `data/llm_cache/`, so demos are deterministic. Without a key, an offline rule-based extractor and template answers keep everything working, and the UI says which method ran.
+
 ## Pipeline
 
 ```
 evidence/ ──► video.py      YOLO11 + ByteTrack → tracks.json, video_events.json, annotated.mp4
           ──► build_case.py T0 = impact, events on T0, tracks_ui.json, custody ledger
-          ──► calibration.py homography → tracks_metric.json (metres, km/h ± σ)
+          ──► calibration.py homography from 4 road points, or auto from object sizes → tracks_metric.json (m, km/h ± σ)
+          ──► vision.py     rule-picked key frames → Featherless vision model (type, signal, clock), cross-checked
           ──► sensor.py     telematics rules (brake, impact spike, stop)      [sensor_sim.py if no CSV]
           ──► witness.py    Featherless LLM → fixed claim vocabulary, quotes verified in code
           ──► fusion.py     align clocks · map entities · contradiction rules · gaps · reliability · hypotheses

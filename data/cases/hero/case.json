@@ -36,7 +36,7 @@
       "id": "sensor",
       "type": "sensor",
       "file": "sensor.csv",
-      "label": "Bus telematics (simulated from calibrated track)"
+      "label": "Vehicle telematics"
     },
     {
       "id": "witness_1",

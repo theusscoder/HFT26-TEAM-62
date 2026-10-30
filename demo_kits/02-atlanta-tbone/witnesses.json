@@ -1,0 +1,5 @@
+{
+  "witness_1": {"name": "Pedestrian at the corner", "vantage": "waiting to cross, near corner", "distance_m": 12},
+  "witness_2": {"name": "Driver behind the SUV", "vantage": "in the following car", "distance_m": 15},
+  "witness_3": {"name": "Person at the bus stop", "vantage": "across the road", "distance_m": 20}
+}

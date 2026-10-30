@@ -142,7 +142,8 @@
       "sigma": 1.0
     },
     "clock": "order",
-    "actor": "self",
+    "actor": "witness",
+    "actor_text": "I",
     "action": "time_of_day",
     "value": "17:45",
     "confidence": 0.45,
@@ -154,7 +155,7 @@
     "ref": "witness_3.txt#c=48-81",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "seed (hand-annotated; LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer)"
+    "method": "seed (hand-annotated) \u00b7 LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer"
   },
   {
     "id": "EV-S-000",
@@ -481,7 +482,7 @@
     "rule": "R_speed_homography"
   },
   {
-    "id": "EV-I-005",
+    "id": "EV-I-006",
     "source": "fusion",
     "kind": "INFERRED",
     "t": {
@@ -492,8 +493,8 @@
     "clock": "T0",
     "actor": "car_1",
     "action": "speed",
-    "value": "max 0 km/h in the 3 s before impact; stays in the right lane (x \u2248 4.2 m)",
-    "confidence": 0.8,
+    "value": "max 0 km/h in the 3 s before impact",
+    "confidence": 0.75,
     "ref": "",
     "derived_from": [
       "tracks_metric:car_1"
@@ -510,7 +511,8 @@
       "sigma": 1.0
     },
     "clock": "order",
-    "actor": "self",
+    "actor": "witness",
+    "actor_text": "I",
     "action": "presence",
     "value": "on the divider near the zebra",
     "confidence": 0.7,
@@ -522,7 +524,7 @@
     "ref": "witness_1.txt#c=0-73",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "seed (hand-annotated; LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer)"
+    "method": "seed (hand-annotated) \u00b7 LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer"
   },
   {
     "id": "EV-W-102",
@@ -535,6 +537,7 @@
     },
     "clock": "order",
     "actor": "car_38",
+    "actor_text": "the bus",
     "action": "speed",
     "value": "55",
     "confidence": 0.45,
@@ -546,7 +549,7 @@
     "ref": "witness_1.txt#c=75-116",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "seed (hand-annotated; LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer)"
+    "method": "seed (hand-annotated) \u00b7 LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer"
   },
   {
     "id": "EV-W-103",
@@ -559,6 +562,7 @@
     },
     "clock": "order",
     "actor": "car_38",
+    "actor_text": "the bus",
     "action": "no_brake",
     "value": null,
     "confidence": 0.7,
@@ -570,7 +574,7 @@
     "ref": "witness_1.txt#c=122-149",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "seed (hand-annotated; LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer)"
+    "method": "seed (hand-annotated) \u00b7 LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer"
   },
   {
     "id": "EV-W-201",
@@ -583,6 +587,7 @@
     },
     "clock": "order",
     "actor": "car_1",
+    "actor_text": "a white car",
     "action": "cut_in",
     "value": "bus",
     "confidence": 0.7,
@@ -594,7 +599,7 @@
     "ref": "witness_2.txt#c=88-123",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "seed (hand-annotated; LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer)"
+    "method": "seed (hand-annotated) \u00b7 LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer"
   },
   {
     "id": "EV-W-202",
@@ -607,18 +612,19 @@
     },
     "clock": "order",
     "actor": "car_38",
+    "actor_text": "the bus",
     "action": "turn",
-    "value": "left",
+    "value": "right",
     "confidence": 0.7,
-    "quote": "the bus turned left into the divider",
+    "quote": "the bus swerved right into the divider",
     "span": [
       128,
-      164
+      166
     ],
-    "ref": "witness_2.txt#c=128-164",
+    "ref": "witness_2.txt#c=128-166",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "seed (hand-annotated; LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer)"
+    "method": "seed (hand-annotated) \u00b7 LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer"
   },
   {
     "id": "EV-W-203",
@@ -631,18 +637,19 @@
     },
     "clock": "order",
     "actor": "car_38",
+    "actor_text": "the bus",
     "action": "speed",
     "value": "20",
     "confidence": 0.45,
     "quote": "I think the bus was going normal speed, maybe 20",
     "span": [
-      166,
-      214
+      168,
+      216
     ],
-    "ref": "witness_2.txt#c=166-214",
+    "ref": "witness_2.txt#c=168-216",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "seed (hand-annotated; LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer)"
+    "method": "seed (hand-annotated) \u00b7 LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer"
   },
   {
     "id": "EV-W-304",
@@ -654,7 +661,8 @@
       "sigma": 1.0
     },
     "clock": "order",
-    "actor": "bikes",
+    "actor": "group:motorcycle",
+    "actor_text": "bikes",
     "action": "presence",
     "value": "waiting at the signal",
     "confidence": 0.7,
@@ -666,7 +674,7 @@
     "ref": "witness_3.txt#c=153-190",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "seed (hand-annotated; LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer)"
+    "method": "seed (hand-annotated) \u00b7 LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer"
   },
   {
     "id": "EV-V-026",
@@ -726,7 +734,7 @@
     "video_t": 5.21
   },
   {
-    "id": "EV-I-002",
+    "id": "EV-I-004",
     "source": "fusion",
     "kind": "INFERRED",
     "t": {
@@ -737,13 +745,13 @@
     "clock": "T0",
     "actor": "car_38",
     "action": "turn",
-    "value": "left, towards divider (-1.5 m lateral in 1.8 s)",
-    "confidence": 0.75,
+    "value": "drifts right before impact",
+    "confidence": 0.65,
     "ref": "",
     "derived_from": [
-      "tracks_metric:car_38"
+      "tracks_ui:car_38"
     ],
-    "rule": "R_lateral_drift"
+    "rule": "R_heading_vs_displacement"
   },
   {
     "id": "EV-W-104",
@@ -756,6 +764,7 @@
     },
     "clock": "order",
     "actor": "car_38",
+    "actor_text": "the bus",
     "action": "impact",
     "value": "divider",
     "confidence": 0.7,
@@ -767,7 +776,7 @@
     "ref": "witness_1.txt#c=151-186",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "seed (hand-annotated; LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer)"
+    "method": "seed (hand-annotated) \u00b7 LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer"
   },
   {
     "id": "EV-W-302",
@@ -780,6 +789,7 @@
     },
     "clock": "order",
     "actor": "car_38",
+    "actor_text": "the bus",
     "action": "impact",
     "value": "divider",
     "confidence": 0.7,
@@ -791,10 +801,10 @@
     "ref": "witness_3.txt#c=83-106",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "seed (hand-annotated; LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer)"
+    "method": "seed (hand-annotated) \u00b7 LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer"
   },
   {
-    "id": "EV-I-004",
+    "id": "EV-I-002",
     "source": "fusion",
     "kind": "INFERRED",
     "t": {
@@ -805,7 +815,7 @@
     "clock": "T0",
     "actor": "car_38",
     "action": "brake",
-    "value": "braking before impact",
+    "value": "slowing before impact (telematics min -2.24 g)",
     "confidence": 0.85,
     "ref": "",
     "derived_from": [
@@ -858,43 +868,23 @@
     "kind": "INFERRED",
     "t": {
       "start": 0,
-      "end": 0.5,
+      "end": 3,
       "sigma": 0.2
     },
     "clock": "T0",
     "actor": "car_38",
-    "action": "impact",
-    "value": "comes to rest at x = -0.2 m (divider edge is x = 0)",
-    "confidence": 0.8,
+    "action": "stop",
+    "value": "comes to rest after impact (\u2264 2 km/h from T+1 s)",
+    "confidence": 0.75,
     "ref": "",
     "derived_from": [
       "tracks_metric:car_38",
       "EV-V-024"
     ],
-    "rule": "R_rest_position_vs_divider"
+    "rule": "R_post_impact_motion"
   },
   {
-    "id": "EV-I-006",
-    "source": "fusion",
-    "kind": "INFERRED",
-    "t": {
-      "start": 0,
-      "end": 4,
-      "sigma": 0.2
-    },
-    "clock": "T0",
-    "actor": "person_2",
-    "action": "posture",
-    "value": "upright throughout; moves away along the divider",
-    "confidence": 0.7,
-    "ref": "",
-    "derived_from": [
-      "tracks_metric:person_2"
-    ],
-    "rule": "R_box_aspect_posture"
-  },
-  {
-    "id": "EV-I-007",
+    "id": "EV-I-005",
     "source": "fusion",
     "kind": "INFERRED",
     "t": {
@@ -905,13 +895,33 @@
     "clock": "T0",
     "actor": "cctv",
     "action": "time_of_day",
-    "value": "17:31:44 at impact (burned-in overlay)",
+    "value": "17:31:44 at impact (read from burned-in overlay (manual until OCR, P1))",
     "confidence": 0.9,
     "ref": "",
     "derived_from": [
       "cctv.mp4#overlay@0.0s"
     ],
     "rule": "R_overlay_clock"
+  },
+  {
+    "id": "EV-I-007",
+    "source": "fusion",
+    "kind": "INFERRED",
+    "t": {
+      "start": 0,
+      "end": 4,
+      "sigma": 0.2
+    },
+    "clock": "T0",
+    "actor": "person_57",
+    "action": "posture",
+    "value": "upright after impact (box taller than wide)",
+    "confidence": 0.65,
+    "ref": "",
+    "derived_from": [
+      "tracks_metric:person_57"
+    ],
+    "rule": "R_box_aspect_posture"
   },
   {
     "id": "EV-S-002",
@@ -960,7 +970,8 @@
       "sigma": 1.0
     },
     "clock": "order",
-    "actor": "person_2",
+    "actor": "person_57",
+    "actor_text": "the policeman",
     "action": "fell",
     "value": null,
     "confidence": 0.7,
@@ -972,7 +983,7 @@
     "ref": "witness_3.txt#c=116-151",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "seed (hand-annotated; LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer)"
+    "method": "seed (hand-annotated) \u00b7 LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer"
   },
   {
     "id": "EV-V-004",

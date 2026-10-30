@@ -1,8 +1,8 @@
-"""OWNER: P3. Witness text -> CLAIMED events via Featherless LLM (structured JSON), quote-verified in code.
+"""OWNER: P3. Witness text -> CLAIMED events. Featherless LLM first (structured JSON over a fixed claim vocabulary);
+an offline rule-based extractor when no key / network; a hand-annotated seed file if a case ships one.
+Whatever produced the claims, every quote is verified in code against the statement and the method is recorded.
 
-The LLM only maps sentences onto a FIXED vocabulary of checkable claims; fusion's rules decide what is true.
-Fallback when the LLM is unavailable: a hand-annotated seed file (witness_extractions.seed.json) in the
-same schema, clearly marked as such in the output. Quotes are verified either way."""
+The extractor only maps sentences to checkable claims. Fusion's rules decide what is true."""
 import json
 import re
 from pathlib import Path
@@ -13,26 +13,119 @@ ACTIONS = {
     "speed": "a speed estimate; value = number in km/h (midpoint if a range)",
     "no_brake": "says a vehicle did not slow down / brake",
     "brake": "says a vehicle braked or slowed",
-    "cut_in": "says one vehicle cut in front of another; value = the other vehicle",
-    "impact": "says a vehicle hit something; value = what it hit",
-    "turn": "says a vehicle turned or swerved; value = direction",
+    "cut_in": "says one vehicle cut in front of another; value = the other road user",
+    "impact": "says a road user hit something; value = what it hit",
+    "turn": "says a vehicle turned or swerved; value = left / right / towards <thing>",
     "fell": "says a person fell / was lying on the road",
+    "signal": "states a traffic signal colour; value = red / amber / green",
     "time_of_day": "states the clock time; value = HH:MM 24h",
     "presence": "says something was present; value = what",
 }
-ENTITIES = {"bus": "the bus", "officer": "the traffic officer / policeman (the constable himself if he is the speaker)",
-            "white_car": "the white car", "bikes": "motorcycles / bikes", "self": "the speaker"}
-HEDGES = ["i think", "maybe", "around", "about", "probably", "i guess", "not sure", "approximately", "at least"]
+HEDGES = ["i think", "maybe", "around", "about", "probably", "i guess", "not sure", "approximately", "at least", "roughly", "seemed"]
 
 PROMPT = """You extract checkable claims from a road-accident witness statement.
-Return ONE JSON object: {{"claims": [{{"actor": <entity>, "action": <action>, "value": <string or null>,
-"order": <"before_impact"|"at_impact"|"after_impact"|"unknown">, "quote": <exact substring of the statement>}}]}}
-Entities: {entities}
+Return ONE JSON object: {{"claims": [{{"actor": <short noun phrase from the statement, e.g. "the bus", "a white car", "the policeman", "I">,
+"action": <one of the actions>, "value": <string or null>, "order": <"before_impact"|"at_impact"|"after_impact"|"unknown">,
+"quote": <exact substring of the statement>}}]}}
 Actions: {actions}
 Rules: quote must be copied character-for-character from the statement. One claim per checkable fact.
 Do not infer anything that is not said. Do not judge who is at fault.
 Statement ({witness}): \"\"\"{text}\"\"\""""
 
+# ---------- offline rule-based extractor ----------
+NOUN = r"(?:(?:the|a|an|that|this|one)\s+)?(?:(?:white|black|silver|grey|gray|red|blue|green|yellow|orange|brown|big|small|private|government|school)\s+)*(?:bus|car|truck|lorry|van|auto|auto-rickshaw|bike|motorbike|motorcycle|scooter|cycle|bicycle|jeep|suv|tempo|policeman|police|constable|officer|pedestrian|lady|woman|man|boy|girl|person|driver)"
+OBJ = r"(?:divider|median|pole|wall|kerb|curb|footpath|barrier|tree|signal|shop)"
+WORDNUM = {"ten": 10, "twenty": 20, "thirty": 30, "forty": 40, "fifty": 50, "sixty": 60, "seventy": 70, "eighty": 80, "hundred": 100}
+
+
+def _sentences(text):
+    for m in re.finditer(r"[^.!?]+[.!?]?", text):
+        s = m.group().strip()
+        if s:
+            yield s
+
+
+def _actor(sentence, default=None):
+    m = re.search(NOUN, sentence, re.I)
+    return m.group().strip() if m else default
+
+
+def _order(sentence):
+    s = sentence.lower()
+    if re.search(r"\b(before|just before|earlier|approach|coming)\b", s): return "before_impact"
+    if re.search(r"\b(after|then|later|afterwards)\b", s): return "after_impact"
+    if re.search(r"\b(hit|crash|collid|smash|bang)\w*", s): return "at_impact"
+    return "unknown"
+
+
+def _clause(sentence, pattern):
+    """Smallest comma/and-delimited clause of the sentence containing the pattern (keeps quotes short)."""
+    m = re.search(pattern, sentence, re.I)
+    if not m:
+        return None
+    parts = re.split(r"(?<=,)\s+|\s+(?=\band\b)|\s+(?=\bso\b)|\s+(?=\bbut\b)", sentence)
+    for p in parts:
+        if re.search(pattern, p, re.I):
+            return p.strip(" ,.").removeprefix("and ").removeprefix("so ").removeprefix("but ").strip()
+    return sentence.strip(" .")
+
+
+def rule_extract(text: str) -> list[dict]:
+    claims, last_vehicle = [], None
+    for s in _sentences(text):
+        low = s.lower()
+        act = _actor(s, last_vehicle)
+        if act and not re.search(r"police|constable|officer|pedestrian|lady|woman|man|boy|girl|person", act, re.I):
+            last_vehicle = act
+        def add(action, value, pattern, actor=None):
+            q = _clause(s, pattern)
+            if not q:
+                return
+            if actor is None:  # subject = the last road user named before the verb, else the sentence's subject
+                m = re.search(pattern, s, re.I)
+                before = list(re.finditer(NOUN, s[:m.start()], re.I)) if m else []
+                actor = before[-1].group().strip() if before else (act or last_vehicle or "unknown")
+            claims.append({"actor": actor, "action": action, "value": value, "order": _order(s), "quote": q})
+        sp = re.search(r"(\d{1,3})(?:\s*(?:-|to|or)\s*(\d{1,3}))?\s*(?:km/?h|kmph|kph|km per hour)?", s, re.I)
+        if re.search(r"\b(speed|fast|slow|km|kmph|going|driving|maybe|around|at least)\b", low) and sp and not re.search(r"\d{1,2}:\d{2}", s):
+            v = (int(sp.group(1)) + int(sp.group(2))) / 2 if sp.group(2) else int(sp.group(1))
+            if 3 <= v <= 200:
+                add("speed", str(v), re.escape(sp.group()))
+        for w, n in WORDNUM.items():
+            if re.search(rf"\b{w}\b", low) and re.search(r"\b(speed|fast|km|going)\b", low):
+                add("speed", str(n), rf"\b{w}\b")
+        if re.search(r"(did not|didn't|never|no)\s+(slow|brak|stop)", low):
+            add("no_brake", None, r"(did not|didn't|never|no)\s+(slow|brak|stop)\w*(\s+down)?(\s+at all)?")
+        elif re.search(r"\b(braked|braking|slowed|applied (the )?brakes?)\b", low):
+            add("brake", None, r"\b(braked|braking|slowed|applied (the )?brakes?)\b")
+        m = re.search(rf"({NOUN})\s+(?:suddenly\s+)?(?:cut|came)\s+in\s*(?:front)?\s*(?:of\s+({NOUN}))?", s, re.I)
+        if m:
+            add("cut_in", m.group(2) or "the other vehicle", re.escape(m.group()), actor=m.group(1))
+        m = re.search(rf"(?:hit|crashed into|rammed|collided with|struck|smashed into|slammed into|ran into|banged into)(?:\s+the\s+side\s+of)?\s+({NOUN}|(?:the\s+)?{OBJ})", s, re.I)
+        if m:
+            add("impact", re.sub(r"^(the|a|an)\s+", "", m.group(1), flags=re.I), re.escape(m.group()))
+        m = re.search(r"\b(turned|swerved|veered|went)\s+(left|right|towards?\s+\w+(?:\s+\w+)?)", s, re.I)
+        if m:
+            add("turn", m.group(2), re.escape(m.group()))
+        if re.search(r"\b(fell|fallen|lying|knocked down|thrown)\b", low):
+            m2 = re.search(r"(policeman|police|constable|officer|pedestrian|lady|woman|man|boy|girl|person|rider|driver)", s, re.I)
+            add("fell", None, r"\b(fell|fallen|lying|knocked down|thrown)\b[^,.]*", actor=m2.group() if m2 else "a person")
+        m = re.search(r"\b(red|amber|yellow|green)\b\s*(?:light|signal)|signal\s+was\s+(red|amber|yellow|green)", s, re.I)
+        if m:
+            add("signal", (m.group(1) or m.group(2)).lower().replace("yellow", "amber"), re.escape(m.group()))
+        m = re.search(r"\b(\d{1,2})[:.](\d{2})\s*(am|pm|in the (?:morning|evening|night|afternoon))?", s, re.I)
+        if m:
+            h, mi, suf = int(m.group(1)), m.group(2), (m.group(3) or "").lower()
+            if ("pm" in suf or "evening" in suf or "afternoon" in suf or "night" in suf) and h < 12:
+                h += 12
+            add("time_of_day", f"{h:02d}:{mi}", re.escape(m.group()), actor="I")
+        m = re.search(r"\b(many|lots of|several|few|some)\s+(bikes|cars|people|vehicles|pedestrians|autos)\b[^,.]*", s, re.I)
+        if m:
+            add("presence", m.group(), re.escape(m.group()), actor=m.group(2))
+    return claims
+
+
+# ---------- shared ----------
 
 def hedge_conf(quote: str) -> float:
     q = quote.lower()
@@ -53,28 +146,30 @@ def verify(statement: str, claims: list[dict]) -> tuple[list[dict], list[dict]]:
 
 
 def extract(statement: str, witness_id: str, seed: dict | None = None) -> dict:
-    msgs = [{"role": "user", "content": PROMPT.format(
-        entities=json.dumps(ENTITIES), actions=json.dumps(ACTIONS), witness=witness_id, text=statement)}]
+    msgs = [{"role": "user", "content": PROMPT.format(actions=json.dumps(ACTIONS), witness=witness_id, text=statement)}]
     try:
         r = llm.chat_json(msgs)
         claims, method = r["data"].get("claims", []), f"featherless:{r['model']}{' (cached)' if r['cached'] else ''}"
     except Exception as e:
-        if not seed or witness_id not in seed:
-            raise
-        claims, method = json.loads(json.dumps(seed[witness_id])), f"seed (hand-annotated; LLM unavailable: {str(e)[:60]})"
+        if seed and witness_id in seed:
+            claims, method = json.loads(json.dumps(seed[witness_id])), "seed (hand-annotated)"
+        else:
+            claims, method = rule_extract(statement), "offline rule-based extractor"
+        method += f" · LLM unavailable: {str(e)[:50]}"
     ok, rejected = verify(statement, claims)
     return {"witness": witness_id, "method": method, "claims": ok, "rejected": rejected}
 
 
-def to_events(ex: dict, start_n: int = 0) -> list[dict]:
+def to_events(ex: dict) -> list[dict]:
     order_t = {"before_impact": (-3.0, -0.2), "at_impact": (-0.5, 0.5), "after_impact": (0.2, 4.0), "unknown": (-6.0, 6.0)}
     out = []
+    num = re.sub(r"\D", "", ex["witness"]) or "0"
     for i, c in enumerate(ex["claims"]):
         a, b = order_t.get(c.get("order", "unknown"), order_t["unknown"])
-        out.append({"id": f"EV-W-{ex['witness'][-1]}{i + 1:02d}", "source": ex["witness"], "kind": "CLAIMED",
-                    "t": {"start": a, "end": b, "sigma": 1.0}, "clock": "order", "actor": c["actor"], "action": c["action"],
-                    "value": c.get("value"), "confidence": hedge_conf(c["quote"]), "quote": c["quote"], "span": c["span"],
-                    "ref": f"{ex['witness']}.txt#c={c['span'][0]}-{c['span'][1]}", "derived_from": [],
+        out.append({"id": f"EV-W-{num}{i + 1:02d}", "source": ex["witness"], "kind": "CLAIMED",
+                    "t": {"start": a, "end": b, "sigma": 1.0}, "clock": "order", "actor": c["actor"], "actor_text": c["actor"],
+                    "action": c["action"], "value": c.get("value"), "confidence": hedge_conf(c["quote"]), "quote": c["quote"],
+                    "span": c["span"], "ref": f"{ex['witness']}.txt#c={c['span'][0]}-{c['span'][1]}", "derived_from": [],
                     "rule": "R_claim_extraction", "method": ex["method"]})
     return out
 

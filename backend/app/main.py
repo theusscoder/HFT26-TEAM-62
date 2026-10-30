@@ -2,20 +2,24 @@
 Run: uvicorn app.main:app --reload --port 8000   (from backend/)"""
 import asyncio
 import json
+import re
+import subprocess
+import threading
+import traceback
+from datetime import datetime
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException, UploadFile, WebSocket
+from fastapi import FastAPI, File, Form, HTTPException, UploadFile, WebSocket
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
 
-from . import alerts, llm, make_case, physics, severity
+from . import alerts, ask as ask_mod, llm, make_case, physics, severity
 from .custody import Ledger, sha256_file
 
 DATA = Path(__file__).resolve().parents[2] / "data" / "cases"
 ARTIFACTS = ["case", "events", "tracks", "tracks_ui", "tracks_metric", "calibration", "entities", "witnesses",
-             "witness_extractions", "ground_truth", "analysis", "severity", "plates", "pursuit", "facilities"]
-STAGES = ["hash", "video", "plates", "sensor", "witness", "fusion", "contradictions", "severity", "report"]
+             "witness_extractions", "ground_truth", "vision", "analysis", "severity", "plates", "pursuit", "facilities"]
 
 app = FastAPI(title="YATHARTH")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
@@ -59,6 +63,15 @@ def set_calibration(cid: str, body: Calibration):
     return make_case.make(cid)
 
 
+class AskReq(BaseModel):
+    question: str
+
+
+@app.post("/api/cases/{cid}/ask")
+def ask(cid: str, body: AskReq):
+    return ask_mod.ask(case_dir(cid), body.question)
+
+
 @app.post("/api/cases/{cid}/rebuild")
 def rebuild(cid: str):
     case_dir(cid)
@@ -67,8 +80,103 @@ def rebuild(cid: str):
 
 @app.get("/api/cases")
 def list_cases():
-    return [json.loads((d / "case.json").read_text(encoding="utf-8"))
-            for d in sorted(DATA.iterdir()) if (d / "case.json").exists()]
+    out = []
+    for d in sorted(DATA.iterdir(), key=lambda d: d.stat().st_mtime, reverse=True):
+        if (d / "case.json").exists():
+            c = json.loads((d / "case.json").read_text(encoding="utf-8"))
+            c["status"] = JOBS.get(d.name, {}).get("status", "done")
+            out.append(c)
+        elif d.name in JOBS:
+            out.append({"id": d.name, "title": d.name, "location": {"name": ""}, "status": JOBS[d.name]["status"]})
+    return out
+
+
+# ---------------- new case: upload any video (+ optional witnesses, sensor log, metadata) ----------------
+JOBS: dict[str, dict] = {}
+VIDEO_EXT = {".mp4", ".mov", ".avi", ".mkv", ".webm", ".m4v"}
+
+
+def _slug(text: str) -> str:
+    s = re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")[:32]
+    return s or "case"
+
+
+def _run_job(cid: str, video_path: Path, title: str, location: str, simulate_sensor: bool):
+    job = JOBS[cid]
+    def progress(stage, status, detail=""):
+        job["stages"][stage] = {"status": status, "detail": detail}
+    try:
+        job["report"] = make_case.make(cid, video_path, title, location, simulate_sensor=simulate_sensor, progress=progress)
+        job["status"] = "done"
+    except Exception as e:  # surfaced to the browser, never swallowed
+        job["status"], job["error"] = "error", f"{type(e).__name__}: {e}"
+        job["trace"] = traceback.format_exc()[-1500:]
+
+
+@app.post("/api/cases")
+async def create_case(video: UploadFile, witnesses: list[UploadFile] = File(default=[]), sensor: UploadFile | None = None,
+                      meta: list[UploadFile] = File(default=[]), title: str = Form(""), location: str = Form(""),
+                      simulate_sensor: bool = Form(False)):
+    """Create a case from an uploaded clip and start the full pipeline in the background.
+    witnesses: .txt statements; sensor: telematics .csv; meta: witnesses.json / ground_truth.json (demo kits)."""
+    ext = Path(video.filename or "").suffix.lower()
+    if ext not in VIDEO_EXT:
+        raise HTTPException(400, f"unsupported video type {ext or '?'}; use {', '.join(sorted(VIDEO_EXT))}")
+    cid = f"{_slug(title or Path(video.filename).stem)}-{datetime.now().strftime('%H%M%S')}"
+    d = DATA / cid
+    ev = d / "evidence"
+    ev.mkdir(parents=True)
+    led = Ledger(d / "custody.jsonl")
+    vpath = ev / f"upload{ext}"
+    vpath.write_bytes(await video.read())
+    led.append("evidence_received", file=video.filename, stored=vpath.name, sha256=sha256_file(vpath))
+    for i, w in enumerate(witnesses, 1):
+        if not w.filename:
+            continue
+        dst = ev / f"witness_{i}.txt"
+        dst.write_bytes(await w.read())
+        led.append("evidence_received", file=w.filename, stored=dst.name, sha256=sha256_file(dst))
+    if sensor is not None and sensor.filename:
+        dst = ev / "sensor.csv"
+        dst.write_bytes(await sensor.read())
+        led.append("evidence_received", file=sensor.filename, stored=dst.name, sha256=sha256_file(dst))
+    for m in meta:
+        if m.filename in ("witnesses.json", "ground_truth.json"):
+            (d / m.filename).write_bytes(await m.read())
+    if ext != ".mp4":  # normalise for the browser and the pipeline
+        mp4 = ev / "upload.mp4"
+        subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(vpath), "-c:v", "libx264", "-pix_fmt", "yuv420p", str(mp4)], check=True)
+        vpath = mp4
+    JOBS[cid] = {"status": "running", "stages": {s: {"status": "pending", "detail": ""} for s in make_case.STAGES}, "report": None}
+    threading.Thread(target=_run_job, args=(cid, vpath, title or Path(video.filename).stem, location, simulate_sensor), daemon=True).start()
+    return {"id": cid}
+
+
+@app.get("/api/jobs/{cid}")
+def job(cid: str):
+    if cid not in JOBS:
+        raise HTTPException(404, "no running job")
+    return JOBS[cid]
+
+
+@app.websocket("/ws/cases/{cid}/run")
+async def run(ws: WebSocket, cid: str):
+    """Streams the real pipeline's stage status for a case created via POST /api/cases."""
+    await ws.accept()
+    last = None
+    while True:
+        j = JOBS.get(cid)
+        if j is None:
+            await ws.send_json({"status": "unknown"})
+            break
+        snap = json.dumps(j, default=str)
+        if snap != last:
+            await ws.send_text(snap)
+            last = snap
+        if j["status"] != "running":
+            break
+        await asyncio.sleep(0.5)
+    await ws.close()
 
 
 @app.post("/api/cases/{cid}/evidence")
@@ -86,18 +194,6 @@ async def upload(cid: str, file: UploadFile):
 def custody(cid: str):
     led = Ledger(case_dir(cid) / "custody.jsonl")
     return {"verify": led.verify(), "entries": led.entries()}
-
-
-@app.websocket("/ws/cases/{cid}/run")
-async def run(ws: WebSocket, cid: str):
-    """Streams pipeline stage progress. TODO(P2): call the real pipeline modules per stage."""
-    await ws.accept()
-    for s in STAGES:
-        await ws.send_json({"stage": s, "status": "running"})
-        await asyncio.sleep(0.6)
-        await ws.send_json({"stage": s, "status": "done"})
-    await ws.send_json({"stage": "all", "status": "done"})
-    await ws.close()
 
 
 class Counterfactual(BaseModel):
@@ -145,6 +241,14 @@ def get_artifact(cid: str, artifact: str):
     if artifact not in ARTIFACTS:
         raise HTTPException(404)
     return read(cid, artifact)
+
+
+@app.get("/api/cases/{cid}/keyframes/{name}")
+def keyframe(cid: str, name: str):
+    p = case_dir(cid) / "keyframes" / Path(name).name
+    if not p.exists():
+        raise HTTPException(404)
+    return FileResponse(p)
 
 
 @app.get("/api/cases/{cid}/file/{name}")

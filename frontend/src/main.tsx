@@ -14,6 +14,8 @@ import GoldenHour from "./pages/GoldenHour";
 import Pursuit from "./pages/Pursuit";
 import Report from "./pages/Report";
 import Calibrate from "./pages/Calibrate";
+import Reconstruction from "./pages/Reconstruction";
+import Ask from "./pages/Ask";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -31,6 +33,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route path="pursuit" element={<Pursuit />} />
           <Route path="report" element={<Report />} />
           <Route path="calibrate" element={<Calibrate />} />
+          <Route path="reconstruction" element={<Reconstruction />} />
+          <Route path="ask" element={<Ask />} />
         </Route>
       </Routes>
     </BrowserRouter>
