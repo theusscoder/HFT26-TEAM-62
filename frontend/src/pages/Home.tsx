@@ -5,14 +5,15 @@ import { post, useApi } from "../lib/api";
 /* OWNER: P4. Home is upload-first: drop any road video to start a case, or run a ready-made demo kit in one click.
    Previous cases are listed below. Nothing is pre-assigned: every case here was created from uploaded evidence. */
 
-interface Kit { name: string; title: string; summary: string; location: string; video: string | null; witnesses: string[]; sensor: boolean; ground_truth: boolean }
+interface Kit { name: string; title: string; summary: string; location: string; camera: string; video: string | null; witnesses: string[]; sensor: boolean; ground_truth: boolean }
 
 export default function Home() {
   const nav = useNavigate();
   const input = useRef<HTMLInputElement>(null);
   const [drag, setDrag] = useState(false);
   const [busy, setBusy] = useState<string | null>(null);
-  const cases = useApi<{ id: string; title: string; location: { name: string }; status?: string; simulated?: boolean }[]>("/cases");
+  const [tab, setTab] = useState<"cctv" | "dashcam">("cctv");
+  const cases = useApi<{ id: string; title: string; location: { name: string }; status?: string; camera?: { type: string; confidence?: number } }[]>("/cases");
   const kits = useApi<Kit[]>("/kits");
 
   const go = (files: File[]) => files.length && nav("/new", { state: { files } });
@@ -39,9 +40,20 @@ export default function Home() {
         <input ref={input} type="file" multiple className="hidden" onChange={(e) => go(Array.from(e.target.files ?? []))} />
       </div>
 
-      <h2 className="mt-12 text-xs font-semibold uppercase tracking-wider text-muted">Demo kits · real footage, ready to run</h2>
+      <p className="mt-2 text-xs text-muted">The system detects on its own whether a clip is a fixed CCTV camera or a moving dashcam / helmet-cam, and reconstructs it accordingly.</p>
+
+      <div className="mt-10 flex items-center gap-1 border-b border-line">
+        {([["cctv", "CCTV · fixed camera"], ["dashcam", "Dashcam · camera in a vehicle"]] as const).map(([k, l]) => (
+          <button key={k} onClick={() => setTab(k)} className={`-mb-px border-b-2 px-4 py-2 text-sm ${tab === k ? "border-accent text-ink" : "border-transparent text-muted hover:text-ink"}`}>{l}</button>
+        ))}
+      </div>
+      <p className="mt-3 text-xs text-muted">{tab === "cctv"
+        ? "Seen from outside: who moved where and how fast, what each witness could see, and where the statements disagree with the footage."
+        : "Seen from inside the vehicle: distance and time-to-collision to the hazard, the driver's reaction time, and whether a stop was possible."}</p>
+
+      <h2 className="mt-6 text-xs font-semibold uppercase tracking-wider text-muted">Demo kits · real footage, ready to run</h2>
       <div className="mt-3 grid grid-cols-1 gap-4 md:grid-cols-3">
-        {(kits.data ?? []).map((k) => (
+        {(kits.data ?? []).filter((k) => (k.camera ?? "cctv") === tab).map((k) => (
           <div key={k.name} className="flex flex-col rounded-xl border border-line bg-panel p-4">
             {k.video && <video src={`/api/kits/${k.name}/file/${k.video}`} muted playsInline preload="metadata" className="aspect-video w-full rounded-lg bg-black object-cover"
               onMouseEnter={(e) => e.currentTarget.play().catch(() => {})} onMouseLeave={(e) => e.currentTarget.pause()} />}
@@ -64,10 +76,10 @@ export default function Home() {
 
       <h2 className="mt-12 text-xs font-semibold uppercase tracking-wider text-muted">Cases</h2>
       <ul className="mt-3 divide-y divide-line rounded-xl border border-line bg-panel">
-        {(cases.data ?? []).map((c) => (
+        {(cases.data ?? []).filter((c) => (c.camera?.type ?? "cctv") === tab || c.status === "running").map((c) => (
           <li key={c.id}>
             <Link to={c.status === "running" ? `/new?job=${c.id}` : `/case/${c.id}`} className="flex items-center justify-between px-4 py-3 hover:bg-panel-2">
-              <span className="font-medium">{c.title}</span>
+              <span className="font-medium">{c.title}{c.camera?.type === "dashcam" && <span className="ml-2 rounded bg-accent/15 px-1.5 py-0.5 text-[10px] text-accent">dashcam</span>}</span>
               <span className="flex items-center gap-3 text-sm text-muted">
                 {c.location?.name}
                 {c.status === "running" && <span className="animate-pulse rounded bg-accent/20 px-2 py-0.5 text-xs text-accent">processing</span>}

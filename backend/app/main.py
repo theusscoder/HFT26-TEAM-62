@@ -20,7 +20,7 @@ from .custody import Ledger, sha256_file
 
 DATA = Path(__file__).resolve().parents[2] / "data" / "cases"
 ARTIFACTS = ["case", "events", "tracks", "tracks_ui", "tracks_metric", "calibration", "entities", "witnesses",
-             "witness_extractions", "ground_truth", "vision", "analysis", "severity", "plates", "pursuit", "facilities"]
+             "witness_extractions", "ground_truth", "vision", "insights", "dashcam", "analysis", "severity", "plates", "pursuit", "facilities"]
 
 app = FastAPI(title="YATHARTH")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
@@ -168,6 +168,7 @@ def _kit_info(d: Path) -> dict:
         meta = json.loads((d / "kit.json").read_text(encoding="utf-8"))
     video = next((f.name for f in sorted(d.iterdir()) if f.suffix.lower() in VIDEO_EXT), None)
     return {"name": d.name, "title": meta.get("title", d.name), "summary": meta.get("summary", ""), "location": meta.get("location", ""),
+            "camera": meta.get("camera", "cctv"), "ego_class": meta.get("ego_class"),
             "video": video, "witnesses": sorted(f.name for f in d.glob("witness_*.txt")),
             "sensor": (d / "sensor.csv").exists(), "ground_truth": (d / "ground_truth.json").exists()}
 
@@ -211,6 +212,8 @@ def run_kit(name: str):
     for m in ("witnesses.json", "ground_truth.json"):
         if (k / m).exists():
             shutil.copy(k / m, d / m)
+    if info.get("ego_class"):   # camera type is still auto-detected; the kit only names the vehicle the camera is in
+        (d / "case_hint.json").write_text(json.dumps({"ego_class": info["ego_class"]}))
     return {"id": _start(cid, vpath, info["title"], info["location"], False)}
 
 

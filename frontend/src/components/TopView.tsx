@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import type { Event } from "../lib/api";
 import { at, blocked, dimsFor, headingAt, speedColour } from "./Scene3D";
+import { activeFindings, type Finding } from "./Findings";
 
 /* OWNER: P4. B1 top view: the calibrated reconstruction as a plan, read like an F1 telemetry map.
    Only the key actors carry paths (coloured by speed, 1-second ticks); everything else is a faint dot.
@@ -17,8 +18,8 @@ export interface Selection { kind: string; title: string; lines: string[]; refs?
 
 const hex = (v: number, vmax: number) => `#${speedColour(v, vmax).getHexString()}`;
 
-export default function TopView({ metric, t, events, entities, witnesses, sight, large, onSelect }: {
-  metric: Metric; t: number; events: Event[]; entities: any; witnesses: Record<string, any>; sight: boolean; large: Set<string>;
+export default function TopView({ metric, t, events, entities, witnesses, sight, large, onSelect, findings }: {
+  metric: Metric; t: number; events: Event[]; entities: any; witnesses: Record<string, any>; sight: boolean; large: Set<string>; findings?: Finding[] | null;
   onSelect?: (s: Selection) => void;
 }) {
   const key = new Set<string>([entities?.primary, ...(entities?.involved ?? [])].filter(Boolean));
@@ -164,6 +165,21 @@ export default function TopView({ metric, t, events, entities, witnesses, sight,
           <g transform={`translate(0, ${2.4 * S})`}><rect x={-58} y={-18} width={116} height={26} rx={6} fill="#ff5d5d" /><text y={1} fill="#0b0d10" fontSize={15} fontWeight={800} textAnchor="middle">IMPACT · T0</text></g>
         </g>
       )}
+
+      {/* key findings pop up where and when they happen */}
+      {activeFindings(findings, t).map((k, i) => {
+        const x = Math.min(Math.max(sx(k.xy![1]), 170), W - 170), y = i % 2 === 0 ? Math.max(sy(k.xy![0]) - 80 - (i / 2) * 74, 20) : Math.min(sy(k.xy![0]) + 40 + ((i - 1) / 2) * 74, H - 70);   // alternate above / below
+        const d = k.detail.length > 92 ? k.detail.slice(0, 90) + "…" : k.detail;
+        return (
+          <g key={k.id} className="pointer-events-none">
+            <line x1={sx(k.xy![1])} y1={sy(k.xy![0])} x2={x} y2={y + 30} stroke="#e7eaee" strokeOpacity={0.6} strokeWidth={1.5} />
+            <rect x={x - 165} y={y - 6} width={330} height={62} rx={8} fill="#0b0d10" stroke={k.kind === "warning" ? "#ff5d5d" : k.kind === "counterfactual" ? "#f5b84f" : "#4f8cff"} strokeWidth={2} opacity={0.95} />
+            <text x={x - 152} y={y + 14} fill="#e7eaee" fontSize={15} fontWeight={700}>{k.title}</text>
+            <text x={x - 152} y={y + 33} fill="#8a93a0" fontSize={12}>{d.slice(0, 50)}</text>
+            <text x={x - 152} y={y + 48} fill="#8a93a0" fontSize={12}>{d.slice(50)}</text>
+          </g>
+        );
+      })}
 
       {/* scale */}
       <g transform={`translate(${W - 5 * S - 24}, ${H - 22})`}>

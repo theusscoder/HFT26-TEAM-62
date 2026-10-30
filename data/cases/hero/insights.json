@@ -1,0 +1,162 @@
+[
+  {
+    "id": "K1",
+    "t": -5.17,
+    "kind": "moment",
+    "title": "Silver bus first seen",
+    "detail": "18 m before the impact point, moving at 12 km/h (5.2 s before impact).",
+    "actor": "car_38",
+    "xy": [
+      1.72,
+      17.95
+    ],
+    "evidence": [
+      "tracks_metric:car_38"
+    ],
+    "importance": 2
+  },
+  {
+    "id": "K2",
+    "t": -4.67,
+    "kind": "measure",
+    "title": "Peak speed 19 \u00b1 5 km/h",
+    "detail": "Silver bus was at its fastest 4.7 s before impact. Uncertainty comes from the road calibration (\u00b115%).",
+    "actor": "car_38",
+    "xy": [
+      1.62,
+      15.88
+    ],
+    "evidence": [
+      "tracks_metric:car_38"
+    ],
+    "importance": 2
+  },
+  {
+    "id": "K8",
+    "t": -3.0,
+    "kind": "visibility",
+    "title": "Traffic constable on duty: line of sight",
+    "detail": "Clear view of Silver bus throughout the last 3.1 s before impact.",
+    "actor": "witness_1",
+    "xy": [
+      -0.8,
+      1.0
+    ],
+    "evidence": [
+      "witness_1.txt"
+    ],
+    "importance": 1
+  },
+  {
+    "id": "K10",
+    "t": -2.2,
+    "kind": "visibility",
+    "title": "Shopkeeper: line of sight",
+    "detail": "View of Silver bus blocked for 2.3 of the last 3.1 s before impact (mostly by White car).",
+    "actor": "witness_3",
+    "xy": [
+      10.5,
+      2.0
+    ],
+    "evidence": [
+      "witness_3.txt"
+    ],
+    "importance": 3
+  },
+  {
+    "id": "K4",
+    "t": -1.6,
+    "kind": "counterfactual",
+    "title": "Could it have stopped?",
+    "detail": "1.6 s before impact Silver bus was at 11 km/h with 4.7 m to go. A full stop (1 s reaction + braking) needs 3.6 m. A stop was possible; the highest speed that would have allowed a stop is about 37 km/h.",
+    "actor": "car_38",
+    "xy": [
+      1.56,
+      4.36
+    ],
+    "evidence": [
+      "tracks_metric:car_38"
+    ],
+    "importance": 3
+  },
+  {
+    "id": "K9",
+    "t": -1.4,
+    "kind": "visibility",
+    "title": "Motorcyclist: line of sight",
+    "detail": "View of Silver bus blocked for 1.5 of the last 3.1 s before impact (mostly by Grey motorcycle).",
+    "actor": "witness_2",
+    "xy": [
+      4.5,
+      5.0
+    ],
+    "evidence": [
+      "witness_2.txt"
+    ],
+    "importance": 3
+  },
+  {
+    "id": "K3",
+    "t": -0.3,
+    "kind": "moment",
+    "title": "Braking began 0.3 s before impact",
+    "detail": "At 13 km/h with 0.9 m left to the impact point. Braking alone needs about 0.9 m to stop from that speed, so a stop was possible.",
+    "actor": "car_38",
+    "xy": [
+      0.78,
+      0.68
+    ],
+    "evidence": [
+      "EV-I-002"
+    ],
+    "importance": 3
+  },
+  {
+    "id": "K6",
+    "t": -0.3,
+    "kind": "measure",
+    "title": "Closest approach: Policeman",
+    "detail": "Policeman came within 0.2 m of Silver bus's body (1.2 m centre to centre) at T-0.3 s.",
+    "actor": "person_57",
+    "xy": [
+      1.84,
+      0.13
+    ],
+    "evidence": [
+      "tracks_metric:person_57"
+    ],
+    "importance": 3
+  },
+  {
+    "id": "K5",
+    "t": 0.0,
+    "kind": "measure",
+    "title": "Closest approach: Grey motorcycle",
+    "detail": "Grey motorcycle came within 0.9 m of Silver bus's body (1.9 m centre to centre) at T+0.0 s.",
+    "actor": "motorcycle_3",
+    "xy": [
+      1.81,
+      -1.22
+    ],
+    "evidence": [
+      "tracks_metric:motorcycle_3"
+    ],
+    "importance": 2
+  },
+  {
+    "id": "K7",
+    "t": 8.61,
+    "kind": "moment",
+    "title": "Silver bus at rest",
+    "detail": "It travelled 2.8 m after the impact and stopped 8.6 s later.",
+    "actor": "car_38",
+    "xy": [
+      -0.24,
+      -0.56
+    ],
+    "evidence": [
+      "tracks_metric:car_38"
+    ],
+    "importance": 2
+  }
+]

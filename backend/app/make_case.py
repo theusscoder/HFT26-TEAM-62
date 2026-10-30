@@ -13,12 +13,12 @@ from pathlib import Path
 
 import numpy as np
 
-from . import build_case, calibration, severity
+from . import build_case, calibration, insights, severity
 from .custody import Ledger, sha256_file
-from .pipeline import fusion, sensor, sensor_sim, video, vision, witness
+from .pipeline import dashcam, fusion, sensor, sensor_sim, video, vision, witness
 
 DATA = Path(__file__).resolve().parents[2] / "data" / "cases"
-STAGES = ["video", "calibration", "vision", "sensor", "witnesses", "fusion", "severity"]
+STAGES = ["video", "camera", "calibration", "vision", "sensor", "witnesses", "fusion", "severity", "insights"]
 
 
 def severity_for(case_dir: Path, ent: dict, metric: dict, events: list[dict]) -> dict:
@@ -77,8 +77,19 @@ def make(case_id: str, video_path: Path | None = None, title: str | None = None,
         say("video", "running", "detecting and tracking road users (YOLO11 + ByteTrack)")
         report["video"] = video.run(src, d, impact_label=impact_label, progress=lambda f: say("video", "running", f"{f * 100:.0f}% of frames"))
     say("video", "done", "tracks + annotated video")
+    # Camera type: auto from background motion; a case hint (demo kit / user) may override it and name the ego vehicle.
+    hint = json.loads((d / "case_hint.json").read_text()) if (d / "case_hint.json").exists() else {}
+    cam = json.loads((d / "tracks.json").read_text())["video"].get("camera", {"type": "cctv"})
+    mode = hint.get("camera") or cam["type"]
+    report["camera"] = f"{mode} ({cam.get('why', 'given')}{', overridden by case hint' if hint.get('camera') and hint['camera'] != cam['type'] else ''})"
+    say("camera", "done", report["camera"])
+    t0_override = None
+    if mode == "dashcam":
+        dc = dashcam.analyse(d, hint.get("ego_class", "car"))
+        t0_override = (dc["t0_video_s"], f"dashcam:{dc['t0_method']}")
     case = build_case.build(case_id, src, title or prev.get("title", case_id), location or prev.get("location", {}).get("name", ""),
-                            prev.get("location", {}).get("lat"), prev.get("location", {}).get("lon"))
+                            prev.get("location", {}).get("lat"), prev.get("location", {}).get("lon"), t0_override)
+    case["camera"] = {**cam, "type": mode}
     for k in ("clock_overlay",):
         if k in prev:
             case[k] = prev[k]
@@ -86,8 +97,13 @@ def make(case_id: str, video_path: Path | None = None, title: str | None = None,
     video_events = json.loads((d / "events.json").read_text())
 
     say("calibration", "running", "road plane: metres and km/h")
-    metric = calibration.run(d)
-    report["calibration"] = ("auto (object-size fit), " if metric.get("auto") else "manual, ") + f"±{metric['scale_sigma'] * 100:.0f}%"
+    if mode == "dashcam":
+        metric = dashcam.to_metric(d)
+        video_events += dashcam.events(d)
+        report["calibration"] = "dashcam geometry (vanishing point + ego speed from road flow), ±30%"
+    else:
+        metric = calibration.run(d)
+        report["calibration"] = ("auto (object-size fit), " if metric.get("auto") else "manual, ") + f"±{metric['scale_sigma'] * 100:.0f}%"
     say("calibration", "done", report["calibration"])
 
     ui = json.loads((d / "tracks_ui.json").read_text())
@@ -131,6 +147,9 @@ def make(case_id: str, video_path: Path | None = None, title: str | None = None,
     (d / "severity.json").write_text(json.dumps(sev, indent=2))
     report["severity"] = f"{sev['level']} {sev['label']} ({sev['score']})"
     say("severity", "done", report["severity"])
+    ins = insights.build(d)
+    report["insights"] = f"{len(ins)} key findings"
+    say("insights", "done", report["insights"])
 
     case["evidence"] = [e for e in case["evidence"] if e["type"] in ("video", "derived")]
     if csv_p.exists():

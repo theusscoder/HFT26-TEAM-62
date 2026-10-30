@@ -26,6 +26,13 @@ Each run takes about 1 minute on a laptop CPU (the video stage). Expected result
 | 01-india-bus-divider | 5 / 5 | 0 | L1 Minor |
 | 02-atlanta-tbone | 2 / 2 (+1 witness vs witness) | 0 | L1 Minor |
 | 03-minor-rear-end | 1 / 1 (+1 witness vs witness) | 0 | L1 Minor (owner only) |
+| 04-dashcam-rear-end | 2 / 2 | 0 | L1 Minor |
+| 05-india-junction-tbone | video only | – | findings from footage alone |
+| 06-india-auto-rickshaw | video only | – | findings from footage alone |
+
+**Camera type is detected automatically** (background optical flow: a fixed CCTV's background is still, a dashcam's streams out from the vanishing point). Dashcam cases get a *Driver's view*: distance and time-to-collision to the hazard, the driver's reaction time, and whether a stop was possible.
+
+Sources: 01-03, 05, 06 are from the ACCIDENT benchmark (CC BY-NC-SA 4.0; 05 and 06 are from its "World" set and show Indian road features, though the exact city isn't recorded). 04 is from Hugging Face `smart-dashcam/motorcycle-accident-driving-datasets` (licence "other"; research use, attributed). More dashcam clips: `scripts/fetch_dashcam.py` streams only the clips you ask for from that 709 MB archive.
 
 ## Presenter run sheet (3 minutes)
 

@@ -20,7 +20,7 @@ const NAV = [
 
 export default function CaseLayout() {
   const { id } = useParams();
-  const { data: c } = useApi<{ title: string; location: { name: string }; simulated: boolean; range?: [number, number]; license?: string }>(`/cases/${id}/case`);
+  const { data: c } = useApi<{ title: string; location: { name: string }; simulated: boolean; range?: [number, number]; license?: string; camera?: { type: string; confidence?: number; why?: string } }>(`/cases/${id}/case`);
   // Each case has its own time range (seconds from impact); mount the clock once the case is known.
   const range = useMemo<[number, number]>(() => c?.range ?? [-5, 3], [c?.range?.[0], c?.range?.[1]]);
   if (!c) return <div className="p-8 text-sm text-muted">Loading case…</div>;
@@ -30,6 +30,11 @@ export default function CaseLayout() {
         <aside className="w-56 shrink-0 border-r border-line bg-panel p-4">
           <NavLink to="/" className="text-lg font-bold tracking-tight">YATHARTH</NavLink>
           <p className="mt-1 text-xs text-muted">{c?.title ?? "…"}</p>
+          {c.camera && (
+            <div title={c.camera.why} className={`mt-2 inline-block rounded px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${c.camera.type === "dashcam" ? "bg-accent/15 text-accent" : "bg-panel-2 text-muted"}`}>
+              {c.camera.type === "dashcam" ? "Dashcam" : "CCTV"}{c.camera.confidence ? ` · auto ${Math.round(c.camera.confidence * 100)}%` : ""}
+            </div>
+          )}
           <nav className="mt-6 flex flex-col gap-0.5">
             {NAV.map(([path, label]) => (
               <NavLink key={path} end={path === ""} to={`/case/${id}/${path}`}

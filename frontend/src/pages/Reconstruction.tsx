@@ -6,6 +6,8 @@ import { useClock } from "../lib/clock";
 import { Loading, Panel } from "../components/ui";
 import TopView, { type Metric, type Selection } from "../components/TopView";
 import { at, type CamPreset } from "../components/Scene3D";
+import KeyFindings, { type Finding } from "../components/Findings";
+import DriverView, { type Dashcam } from "../components/DriverView";
 
 /* OWNER: P4. B1: the reconstruction, built for the person investigating.
    Two views of the same calibrated scene on the shared clock: Top view (plan, speed-coloured paths with 1 s ticks)
@@ -21,13 +23,17 @@ export default function Reconstruction() {
   const events = useApi<Event[]>(`/cases/${id}/events`);
   const an = useApi<any>(`/cases/${id}/analysis`);
   const wit = useApi<Record<string, any>>(`/cases/${id}/witnesses`);
-  const [view, setView] = useState<"top" | "3d">("top");
+  const ins = useApi<Finding[]>(`/cases/${id}/insights`);
+  const dash = useApi<Dashcam>(`/cases/${id}/dashcam`);
+  const [view, setView] = useState<"driver" | "top" | "3d" | null>(null);
   const [preset, setPreset] = useState<CamPreset>("bird");
   const [curtain, setCurtain] = useState(true);
   const [sight, setSight] = useState(true);
   const [sel, setSel] = useState<Selection | null>(null);
 
   const ent = an.data?.entities;
+  const isDash = !!dash.data;
+  const v = view ?? (isDash ? "driver" : "top");
   const large = useMemo(() => new Set<string>(ent?.large ?? []), [ent]);
   if (metric.error) return (
     <Panel title="Reconstruction">
@@ -42,7 +48,7 @@ export default function Reconstruction() {
   const keyTracks = metric.data.tracks.filter((tr) => keyIds.includes(tr.id));
   const prim = keyTracks.find((tr) => tr.id === ent?.primary);
   const W = wit.data ?? {};
-  const brake = events.data.find((e) => e.action === "brake" && e.actor === ent?.primary && e.t.start < 0);
+  const brake = events.data.find((e) => e.action === "brake" && e.kind !== "CLAIMED" && e.actor === ent?.primary && e.t.start < 0);
   const rest = prim ? prim.points.find((p, i, a) => p.t > 0 && a.slice(i).every((q) => q.v_kmh < 3)) : undefined;
   const moments = [
     prim && { label: "first seen", t: prim.points[0].t },
@@ -55,11 +61,11 @@ export default function Reconstruction() {
     <div className="flex flex-col gap-4">
       <div className="flex flex-wrap items-center gap-3">
         <div className="flex rounded-lg border border-line p-0.5">
-          {([["top", "Top view"], ["3d", "Bird's-eye 3D"]] as const).map(([v, l]) => (
-            <button key={v} onClick={() => setView(v)} className={`rounded-md px-3 py-1.5 text-sm ${view === v ? "bg-accent text-white" : "text-muted hover:text-ink"}`}>{l}</button>
+          {((isDash ? [["driver", "Driver's view"], ["top", "Top view"], ["3d", "Bird's-eye 3D"]] : [["top", "Top view"], ["3d", "Bird's-eye 3D"]]) as ["driver" | "top" | "3d", string][]).map(([k, l]) => (
+            <button key={k} onClick={() => setView(k)} className={`rounded-md px-3 py-1.5 text-sm ${v === k ? "bg-accent text-white" : "text-muted hover:text-ink"}`}>{l}</button>
           ))}
         </div>
-        {view === "3d" && (
+        {v === "3d" && (
           <div className="flex flex-wrap rounded-lg border border-line p-0.5 text-xs">
             {([["bird", "Bird's-eye"], ["top", "Overhead"], ["chase", "Follow vehicle"], ...Object.entries(W).filter(([, m]: any) => m.position_m).map(([w, m]: any) => [`witness:${w}`, `${m.name}'s view`])] as [CamPreset, string][]).map(([p, l]) => (
               <button key={p} onClick={() => setPreset(p)} className={`rounded-md px-2.5 py-1 ${preset === p ? "bg-panel-2 text-ink" : "text-muted hover:text-ink"}`}>{l}</button>
@@ -67,17 +73,19 @@ export default function Reconstruction() {
           </div>
         )}
         <div className="ml-auto flex items-center gap-4 text-sm text-muted">
-          {view === "3d" && <label className="flex items-center gap-1.5"><input type="checkbox" checked={curtain} onChange={(e) => setCurtain(e.target.checked)} />speed curtain</label>}
+          {v === "3d" && <label className="flex items-center gap-1.5"><input type="checkbox" checked={curtain} onChange={(e) => setCurtain(e.target.checked)} />speed curtain</label>}
           {Object.values(W).some((m: any) => m.position_m) && <label className="flex items-center gap-1.5"><input type="checkbox" checked={sight} onChange={(e) => setSight(e.target.checked)} />witness line of sight</label>}
         </div>
       </div>
 
       <div className="grid grid-cols-1 gap-4 xl:grid-cols-[minmax(0,1fr)_320px]">
         <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-line">
-          {view === "top"
-            ? <TopView metric={metric.data} t={t} events={events.data} entities={ent} witnesses={W} sight={sight} large={large} onSelect={setSel} />
+          {v === "driver" && dash.data
+            ? <div className="h-full p-3"><DriverView dc={dash.data} t={t} names={names} egoName={(names[ent?.primary] ?? "You").replace(" (primary)", "")} /></div>
+            : v === "top"
+            ? <TopView metric={metric.data} t={t} events={events.data} entities={ent} witnesses={W} sight={sight} large={large} onSelect={setSel} findings={ins.data} />
             : <Suspense fallback={<div className="p-6 text-sm text-muted">Loading 3D…</div>}>
-                <Scene3D metric={metric.data} t={t} entities={ent} witnesses={W} preset={preset} curtain={curtain} sight={sight} large={large} />
+                <Scene3D metric={metric.data} t={t} entities={ent} witnesses={W} preset={preset} curtain={curtain} sight={sight} large={large} findings={ins.data} />
               </Suspense>}
           <div className="pointer-events-none absolute left-3 top-3 rounded-lg bg-bg/80 px-3 py-2 text-[11px] text-muted">
             <div className="flex items-center gap-2">speed
@@ -89,6 +97,9 @@ export default function Reconstruction() {
         </div>
 
         <div className="flex flex-col gap-4">
+          <Panel title="Key findings" className="max-h-[480px] overflow-auto" right={<span className="text-[10px] text-muted">click to jump</span>}>
+            <KeyFindings findings={ins.data ?? []} />
+          </Panel>
           <Panel title="Key actors">
             <ul className="space-y-3">
               {keyTracks.map((tr) => {

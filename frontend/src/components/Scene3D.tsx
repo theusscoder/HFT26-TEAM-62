@@ -3,6 +3,7 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Html, Line, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import type { Metric, MetricTrack } from "./TopView";
+import { activeFindings, type Finding } from "./Findings";
 
 /* OWNER: P4. B1 bird's-eye: the calibrated reconstruction in 3D.
    World: x across the road, y along it (metres). three.js: X = x, Z = -y, Y = up.
@@ -205,8 +206,8 @@ function CameraRig({ preset, focus, witnesses, impact }: { preset: CamPreset; fo
   return null;
 }
 
-export default function Scene3D({ metric, t, entities, witnesses, preset, curtain, sight, large }: {
-  metric: Metric; t: number; entities: any; witnesses: Record<string, any>; preset: CamPreset; curtain: boolean; sight: boolean; large: Set<string>;
+export default function Scene3D({ metric, t, entities, witnesses, preset, curtain, sight, large, findings }: {
+  metric: Metric; t: number; entities: any; witnesses: Record<string, any>; preset: CamPreset; curtain: boolean; sight: boolean; large: Set<string>; findings?: Finding[] | null;
 }) {
   const key = new Set<string>([entities?.primary, ...(entities?.involved ?? [])].filter(Boolean));
   const keyTracks = metric.tracks.filter((tr) => key.has(tr.id));
@@ -255,6 +256,13 @@ export default function Scene3D({ metric, t, entities, witnesses, preset, curtai
         );
       })}
 
+      {activeFindings(findings, t).map((k) => (
+        <Html key={k.id} position={W2T(k.xy![0], k.xy![1], 4.5)} center distanceFactor={16}>
+          <div className={`w-64 rounded-lg border-2 bg-bg/95 p-2 text-[11px] ${k.kind === "warning" ? "border-bad" : k.kind === "counterfactual" ? "border-inferred" : "border-accent"}`}>
+            <div className="font-bold text-ink">{k.title}</div><div className="mt-0.5 text-muted">{k.detail}</div>
+          </div>
+        </Html>
+      ))}
       <OrbitControls makeDefault enableDamping maxPolarAngle={Math.PI / 2.05} />
       <CameraRig preset={preset} focus={focus} witnesses={witnesses} impact={impact} />
     </Canvas>

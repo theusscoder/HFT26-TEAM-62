@@ -1,4 +1,5 @@
 import { Link, useParams } from "react-router-dom";
+import KeyFindings, { type Finding } from "../components/Findings";
 import { useApi, type Analysis, type Event } from "../lib/api";
 import { Loading, Panel, Status } from "../components/ui";
 
@@ -12,6 +13,7 @@ export default function Overview() {
   const metric = useApi<any>(`/cases/${id}/tracks_metric`);
   const vis = useApi<any>(`/cases/${id}/vision`);
   const wx = useApi<any[]>(`/cases/${id}/witness_extractions`);
+  const ins = useApi<Finding[]>(`/cases/${id}/insights`);
   if (!c.data || !ev.data || !an.data || !sev.data) return <Loading error={c.error ?? ev.error ?? an.error ?? sev.error} />;
 
   const stats = [
@@ -44,6 +46,11 @@ export default function Overview() {
             <div><span className="text-3xl font-bold">{score.false_flags}</span> <span className="text-sm text-muted">false flags</span></div>
             <div><span className="text-3xl font-bold">{score.extra_found.length}</span> <span className="text-sm text-muted">extra (witness vs witness)</span></div>
           </div>
+        </Panel>
+      )}
+      {ins.data && ins.data.length > 0 && (
+        <Panel title="Key findings" right={<Link to="reconstruction" className="text-xs text-accent">see them on the reconstruction →</Link>}>
+          <KeyFindings findings={ins.data} compact />
         </Panel>
       )}
       <Panel title="How much to trust this case">
