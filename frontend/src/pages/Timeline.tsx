@@ -35,12 +35,34 @@ export default function Timeline() {
   const shown = useMemo(() => (ev.data ?? []).filter((e) => raw || salient(e, ent)), [ev.data, raw, ent]);
   if (!ev.data || !an.data) return <Loading error={ev.error ?? an.error} />;
   const W = wit.data ?? {};
+  const stn = an.data.stn, flips = an.data.sensitivity ?? [];
+  const timing = stn && (
+    <div className="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-2">
+      <Panel title="Can every timing be true at once?" right={<span className={`text-xs font-semibold ${stn.consistent ? "text-ok" : "text-bad"}`}>{stn.consistent ? "Yes" : "No"}</span>}>
+        <p className="text-sm">{stn.consistent
+          ? `All ${Object.keys(stn.windows).length} events on the vehicles in question fit on one clock, including every order a witness stated.`
+          : `Some statements can't fit. ${stn.excluded.length} set aside: ${stn.excluded.join(", ")}.`}</p>
+        {stn.constraints.filter((c) => c.quote).length > 0 && (
+          <ul className="mt-3 space-y-1 text-xs text-muted">
+            {stn.constraints.filter((c) => c.quote).map((c) => <li key={c.id}>Stated order: “{c.quote}”</li>)}
+          </ul>
+        )}
+        <p className="mt-3 text-[11px] text-muted">Solved with a Simple Temporal Network. A negative cycle is proof that statements can't all be true.</p>
+      </Panel>
+      <Panel title="How firm is the ordering?" delay={0.06}>
+        {flips.length === 0 && <p className="text-sm text-muted">No ordering between different clocks to test here.</p>}
+        <ul className="space-y-2 text-sm">
+          {flips.map((f) => <li key={`${f.earlier}-${f.later}`} className={f.sensitive ? "text-warn" : ""}>{f.text}</li>)}
+        </ul>
+      </Panel>
+    </div>
+  );
 
   const header = (
     <div className="mb-4 flex flex-wrap items-center gap-3">
       <div className="flex rounded-lg border border-line p-0.5">
         {(["story", "lanes"] as const).map((m) => (
-          <button key={m} onClick={() => setMode(m)} className={`rounded-md px-3 py-1 text-sm ${mode === m ? "bg-accent text-white" : "text-muted"}`}>
+          <button key={m} onClick={() => setMode(m)} className={`rounded-md px-3 py-1 text-sm ${mode === m ? "bg-ink text-white" : "text-muted"}`}>
             {m === "story" ? "Story" : "Swimlanes"}
           </button>
         ))}
@@ -122,6 +144,7 @@ export default function Timeline() {
           </div>
           <div className="space-y-4">{detail || <Panel title="Evidence"><p className="text-sm text-muted">Click any item to see its source, rule, confidence and contradictions.</p></Panel>}</div>
         </div>
+        {timing}
       </div>
     );
   }
@@ -159,6 +182,7 @@ export default function Timeline() {
         </Panel>
         <div>{detail || <Panel title="Evidence"><p className="text-sm text-muted">Click a mark to inspect it.</p></Panel>}</div>
       </div>
+      {timing}
     </div>
   );
 }

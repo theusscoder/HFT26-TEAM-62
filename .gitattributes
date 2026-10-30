@@ -1,0 +1,2 @@
+# Evidence is hashed in the custody ledger. Line-ending conversion would change the bytes and break the hashes.
+data/cases/*/evidence/** -text

@@ -5,6 +5,11 @@ Rules: braking = accel_g <= -0.12 g sustained 0.3 s | impact = largest |accel_g|
 for 1 s after moving | airbag flag | peak speed over the log."""
 import csv
 
+CONFIRMED_IMPACT_G = 5.0
+MIN_BRAKE_S = 0.3
+MIN_BRAKE_INTO_IMPACT_S = 0.15  # braking cut short by the crash is still braking
+SPIKE_FLANK = 0.4  # samples this close to the peak are the crash pulse itself, not the brakes
+
 
 def _ev(n, actor, action, t0, t1, value, conf, row0, row1, rule, source):
     ref = f"{source}.csv#r={row0}" if row0 == row1 else f"{source}.csv#r={row0}-{row1}"
@@ -19,19 +24,28 @@ def run(csv_path, actor: str, source: str = "sensor") -> list[dict]:
     rr = lambda i: i + 2  # CSV row number incl. header
     pk = max(range(len(rows)), key=lambda i: V[i])
     out.append(_ev(n, actor, "speed", T[0], T[-1], f"peak {V[pk]:.1f} km/h", 0.95, rr(0), rr(len(rows) - 1), "R_peak_speed", source)); n += 1
+    imp = max(range(len(rows)), key=lambda i: abs(G[i]))
     i = 0
     while i < len(rows):
         if G[i] <= -0.12:
             j = i
             while j + 1 < len(rows) and G[j + 1] <= -0.12:
                 j += 1
-            if T[j] - T[i] >= 0.3:
-                out.append(_ev(n, actor, "brake", T[i], T[j], f"min {min(G[i:j + 1]):.2f} g", 0.93, rr(i), rr(j), "R_brake_0.12g_0.3s", source)); n += 1
+            end, into_impact = j, i < imp <= j
+            if into_impact:  # the spike is the crash, not the brakes: a bus can't brake at 2 g
+                end = imp - 1
+                while end >= i and abs(G[end]) >= SPIKE_FLANK * abs(G[imp]):
+                    end -= 1
+            if end >= i and T[end] - T[i] >= (MIN_BRAKE_INTO_IMPACT_S if into_impact else MIN_BRAKE_S):
+                out.append(_ev(n, actor, "brake", T[i], T[end], f"min {min(G[i:end + 1]):.2f} g", 0.93, rr(i), rr(end), "R_brake_0.12g_0.3s", source)); n += 1
             i = j + 1
         else:
             i += 1
-    imp = max(range(len(rows)), key=lambda i: abs(G[i]))
-    out.append(_ev(n, actor, "impact", T[imp], T[imp], f"{G[imp]:.2f} g", 0.96, rr(imp), rr(imp), "R_peak_accel", source)); n += 1
+    # The largest spike exists in every log, crash or not. On 20 DeepAccident scenarios, no vehicle that didn't
+    # collide passed 4.72 g, so below 5 g this stays a candidate that needs another source to back it up.
+    strong = abs(G[imp]) >= CONFIRMED_IMPACT_G
+    out.append(_ev(n, actor, "impact", T[imp], T[imp], f"{G[imp]:.2f} g" + ("" if strong else " (candidate: below 5 g, needs a second source)"),
+                   0.96 if strong else 0.6, rr(imp), rr(imp), "R_peak_accel", source)); n += 1
     moving = [k for k in range(len(rows)) if V[k] > 3]
     if moving and moving[-1] + 10 < len(rows):
         k = moving[-1] + 1
@@ -40,6 +54,10 @@ def run(csv_path, actor: str, source: str = "sensor") -> list[dict]:
         k = next(i for i, r in enumerate(rows) if r["airbag"] == "1")
         out.append(_ev(n, actor, "airbag", T[k], T[k], "deployed", 0.99, rr(k), rr(k), "R_airbag_flag", source)); n += 1
     return out
+
+
+def rows_of(csv_path) -> list[dict]:
+    return [{"t": float(r["t"]), "speed_kmh": float(r["speed_kmh"]), "accel_g": float(r["accel_g"])} for r in csv.DictReader(open(csv_path))]
 
 
 def peak_g(csv_path) -> tuple[float, int]:

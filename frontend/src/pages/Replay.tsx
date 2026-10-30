@@ -92,7 +92,7 @@ export default function Replay() {
           </div>
         </Panel>
       )}
-      <div className="sticky bottom-0 z-20 flex items-center gap-4 rounded-xl border border-line bg-panel/95 px-4 py-3 backdrop-blur">
+      <div className="sticky bottom-0 z-20 flex items-center gap-4  border border-line bg-panel/95 px-4 py-3 backdrop-blur">
         <button onClick={toggle} className="w-20 rounded-md bg-accent py-1.5 text-sm font-semibold text-white">{playing ? "Pause" : "Play"}</button>
         <button onClick={() => seek(0)} className="rounded-md border border-bad/50 px-3 py-1.5 text-xs text-bad">Jump to impact</button>
         <input type="range" min={range[0]} max={range[1]} step={0.05} value={t} onChange={(e) => seek(+e.target.value)} className="flex-1 accent-[#4f8cff]" />

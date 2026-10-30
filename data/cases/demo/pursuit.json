@@ -58,22 +58,31 @@
       "count": 312
     },
     {
-      "stage": "Inside reachable window",
-      "count": 41
+      "stage": "Inside the reachable window",
+      "count": 67
     },
     {
       "stage": "Plate pattern TS07G?5521",
       "count": 3
     },
     {
-      "stage": "Red sedan (VLM colour/class)",
+      "stage": "Red car",
       "count": 1
     }
   ],
   "match": {
     "plate": "TS07GK5521",
     "toll": "Gachibowli ORR Exit 17",
-    "time": "14:04:31",
-    "fastag": "DEMO-FT-88213"
-  }
+    "time": "2.2 min after leaving",
+    "fastag": "DEMO-FT-88213",
+    "status": "candidate_unverified"
+  },
+  "candidates": 1,
+  "vehicle": {
+    "class": "car",
+    "colour": "red"
+  },
+  "fictional": true,
+  "status": "departed",
+  "summary": "Synthetic demo: car B leaves the junction after the collision."
 }

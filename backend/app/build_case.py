@@ -61,7 +61,8 @@ def build(case_id: str, video: Path, title: str, location: str, lat: float | Non
 
     if Path(video).resolve() != (ev_dir / "cctv.mp4").resolve():
         shutil.copy(video, ev_dir / "cctv.mp4")
-    shutil.copy(d / "annotated.mp4", ev_dir / "annotated.mp4")
+    if (d / "annotated.mp4").exists():  # a fresh clone only has the copy already in evidence/
+        shutil.copy(d / "annotated.mp4", ev_dir / "annotated.mp4")
     cap = cv2.VideoCapture(str(video))
     ok, frame = cap.read()
     if ok:

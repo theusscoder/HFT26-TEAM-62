@@ -12,14 +12,15 @@ from pathlib import Path
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile, WebSocket
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
-from . import alerts, ask as ask_mod, llm, make_case, physics, severity
+from . import alerts, ask as ask_mod, extras, faces, llm, make_case, physics, severity, toll_db
+from .pipeline.witness import AUDIO_SUFFIXES
 from .custody import Ledger, sha256_file
 
 DATA = Path(__file__).resolve().parents[2] / "data" / "cases"
 ARTIFACTS = ["case", "events", "tracks", "tracks_ui", "tracks_metric", "calibration", "entities", "witnesses",
-             "witness_extractions", "ground_truth", "vision", "analysis", "severity", "plates", "pursuit", "facilities"]
+             "witness_extractions", "ground_truth", "vision", "analysis", "severity", "plates", "pursuit", "facilities", "scene3d"]
 
 app = FastAPI(title="YATHARTH")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
@@ -27,7 +28,7 @@ app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], all
 
 def case_dir(cid: str) -> Path:
     d = DATA / cid
-    if not d.is_dir():
+    if not extras.SAFE_ID.match(cid) or not d.is_dir():
         raise HTTPException(404, f"case {cid} not found")
     return d
 
@@ -61,6 +62,122 @@ def set_calibration(cid: str, body: Calibration):
     (d / "calibration.json").write_text(json.dumps(body.model_dump(), indent=2))
     Ledger(d / "custody.jsonl").append("calibration_updated", points=len(body.img_pts))
     return make_case.make(cid)
+
+
+@app.get("/api/cases/{cid}/toll-match")
+def toll_match(cid: str):
+    return toll_db.search(toll_db.plates_of(case_dir(cid)))
+
+
+class TollNotify(BaseModel):
+    capture_id: str
+    officer: str = Field(min_length=1)
+    authority: str
+    reviewed: bool
+
+
+@app.post("/api/cases/{cid}/toll-match/notify")
+def toll_notify(cid: str, body: TollNotify):
+    """Only a named officer who has confirmed the review can send this, and only for a capture this case's plates found."""
+    d = case_dir(cid)
+    if not body.reviewed or not body.officer.strip():
+        raise HTTPException(422, "a named officer must confirm the review first")
+    if body.authority not in toll_db.AUTHORITIES:
+        raise HTTPException(422, "unknown authority")
+    found = toll_db.search(toll_db.plates_of(d))["matches"]
+    capture = next((m for m in found if m["id"] == body.capture_id), None)
+    if not capture:
+        raise HTTPException(404, "that capture isn't a match for this case")
+    res = toll_db.notify(cid, capture, body.officer.strip(), body.authority)
+    Ledger(d / "custody.jsonl").append("authority_notified", capture=capture["id"], plate=capture["plate"], authority=body.authority, officer=body.officer.strip(), status=res["status"])
+    return res
+
+
+@app.get("/api/toll-images/{name}")
+def toll_image(name: str):
+    p = toll_db.IMAGES / Path(name).name
+    if not p.exists():
+        raise HTTPException(404)
+    return FileResponse(p, media_type="image/svg+xml" if p.suffix == ".svg" else None)
+
+
+@app.post("/api/toll-captures/{capture_id}/photo")
+async def toll_photo(capture_id: str, photo: UploadFile, consent: bool = Form(False)):
+    """Replace a placeholder with a real booth photo, for the demo, only of someone who agreed to it."""
+    if not consent:
+        raise HTTPException(422, "only a photo of someone who agreed to be in the demo")
+    records = toll_db.load()
+    rec = next((r for r in records if r["id"] == capture_id), None)
+    ext = Path(photo.filename or "").suffix.lower()
+    if rec is None or ext not in (".jpg", ".jpeg", ".png", ".webp"):
+        raise HTTPException(404 if rec is None else 422, "unknown record" if rec is None else "use a .jpg, .png or .webp photo")
+    name = f"{capture_id}{ext}"
+    (toll_db.IMAGES / name).write_bytes(await photo.read())
+    rec["driver_image"], rec["consented_photo"] = name, True
+    toll_db.DB.write_text(json.dumps(records, indent=2), encoding="utf-8")
+    return rec
+
+
+@app.get("/api/cases/{cid}/faces")
+def case_faces(cid: str):
+    d = case_dir(cid)
+    if not faces.sources(d):
+        return {"faces": [], "usable": 0, "frames_scanned": 0, "note": "This case has no footage."}
+    p = d / "faces.json"
+    return json.loads(p.read_text()) if p.exists() else faces.scan(d)
+
+
+@app.post("/api/cases/{cid}/faces/compare")
+async def faces_compare(cid: str, photo: UploadFile, consent: bool = Form(False)):
+    """One photo, of someone who agreed to it, against the faces in this case's footage. Nothing is stored or searched beyond this case."""
+    if not consent:
+        raise HTTPException(422, "only a photo of someone who agreed to it")
+    d = case_dir(cid)
+    if not faces.sources(d):
+        return {"status": "not_comparable", "reason": "This case has no footage yet. Add a frame or clip where the face is visible."}
+    import tempfile
+    with tempfile.TemporaryDirectory() as tmp:
+        p = Path(tmp) / f"photo{Path(photo.filename or 'x.jpg').suffix.lower() or '.jpg'}"
+        p.write_bytes(await photo.read())
+        res = faces.compare(d, p)
+    Ledger(d / "custody.jsonl").append("face_check", source="uploaded consented photo", status=res["status"], similarity=(res.get("best") or {}).get("similarity"))
+    return res
+
+
+@app.post("/api/cases/{cid}/faces/evidence")
+async def face_evidence(cid: str, file: UploadFile):
+    """Another view of the scene where faces are visible: hashed into the custody ledger, then scanned with the rest."""
+    d = case_dir(cid)
+    ext = Path(file.filename or "").suffix.lower()
+    if ext not in faces.IMAGE_EXT + faces.VIDEO_EXT:
+        raise HTTPException(422, "use an image or a video")
+    n = len(list((d / "evidence").glob("face_source_*"))) + 1
+    dest = d / "evidence" / f"face_source_{n}{ext}"
+    dest.write_bytes(await file.read())
+    Ledger(d / "custody.jsonl").append("evidence_registered", file=dest.name, original=Path(file.filename or "").name, sha256=sha256_file(dest))
+    return faces.scan(d)
+
+
+@app.get("/api/cases/{cid}/faces/{name}")
+def face_crop(cid: str, name: str):
+    p = case_dir(cid) / "faces" / Path(name).name
+    if not p.exists() or p.suffix != ".jpg":
+        raise HTTPException(404)
+    return FileResponse(p)
+
+
+@app.post("/api/cases/{cid}/toll-match/{capture_id}/face-check")
+def face_check(cid: str, capture_id: str):
+    """One to one: the booth photo of a record this case's plate found, against the faces in this case's footage."""
+    d = case_dir(cid)
+    capture = next((m for m in toll_db.search(toll_db.plates_of(d))["matches"] if m["id"] == capture_id), None)
+    if not capture:
+        raise HTTPException(404, "that record isn't a plate match for this case")
+    if not (d / "evidence" / "cctv.mp4").exists():
+        return {"status": "not_comparable", "reason": "This case has no footage to take a face from."}
+    res = faces.compare(d, toll_db.IMAGES / capture["driver_image"])
+    Ledger(d / "custody.jsonl").append("face_check", capture=capture_id, status=res["status"], similarity=(res.get("best") or {}).get("similarity"))
+    return res
 
 
 class AskReq(BaseModel):
@@ -118,7 +235,7 @@ async def create_case(video: UploadFile, witnesses: list[UploadFile] = File(defa
                       meta: list[UploadFile] = File(default=[]), title: str = Form(""), location: str = Form(""),
                       simulate_sensor: bool = Form(False)):
     """Create a case from an uploaded clip and start the full pipeline in the background.
-    witnesses: .txt statements; sensor: telematics .csv; meta: witnesses.json / ground_truth.json (demo kits)."""
+    witnesses: .txt statements or voice notes; sensor: telematics .csv; meta: witnesses.json / ground_truth.json (demo kits)."""
     ext = Path(video.filename or "").suffix.lower()
     if ext not in VIDEO_EXT:
         raise HTTPException(400, f"unsupported video type {ext or '?'}; use {', '.join(sorted(VIDEO_EXT))}")
@@ -133,7 +250,8 @@ async def create_case(video: UploadFile, witnesses: list[UploadFile] = File(defa
     for i, w in enumerate(witnesses, 1):
         if not w.filename:
             continue
-        dst = ev / f"witness_{i}.txt"
+        suffix = Path(w.filename).suffix.lower()
+        dst = ev / f"witness_{i}{suffix if suffix in AUDIO_SUFFIXES else '.txt'}"
         dst.write_bytes(await w.read())
         led.append("evidence_received", file=w.filename, stored=dst.name, sha256=sha256_file(dst))
     if sensor is not None and sensor.filename:
@@ -181,12 +299,12 @@ async def run(ws: WebSocket, cid: str):
 
 @app.post("/api/cases/{cid}/evidence")
 async def upload(cid: str, file: UploadFile):
-    d = DATA / cid / "evidence"
+    d = case_dir(cid) / "evidence"
     d.mkdir(parents=True, exist_ok=True)
     dest = d / Path(file.filename).name
     dest.write_bytes(await file.read())
     digest = sha256_file(dest)
-    Ledger(DATA / cid / "custody.jsonl").append("evidence_registered", file=dest.name, sha256=digest)
+    Ledger(case_dir(cid) / "custody.jsonl").append("evidence_registered", file=dest.name, sha256=digest)
     return {"file": dest.name, "sha256": digest}
 
 
@@ -200,14 +318,16 @@ class Counterfactual(BaseModel):
     speed_kmh: float
     hazard_at_m: float | None = None
     reaction_s: float = 1.0
-    mu: float = 0.7
+    mu: float | None = None
 
 
 @app.post("/api/cases/{cid}/counterfactual")
 def counterfactual(cid: str, body: Counterfactual):
     cf = read(cid, "analysis")["counterfactual"]
+    # Friction defaults to what the weather says, when that's known.
+    mu = body.mu if body.mu is not None else (read(cid, "case").get("weather") or {}).get("mu", physics.MU_DRY)
     return physics.ghost_trajectory(body.speed_kmh, body.hazard_at_m or cf["hazard_at_m"],
-                                    cf["brake_start_s"], body.reaction_s, body.mu)
+                                    cf["brake_start_s"], body.reaction_s, mu)
 
 
 @app.post("/api/severity/score")
@@ -235,6 +355,10 @@ def registry(plate: str):
     return {k: v for k, v in rec.items() if k != "telegram_chat_id"}
 
 
+# Added routes go before the generic artifact route, which would otherwise shadow them.
+app.include_router(extras.router)
+
+
 # Generic artifact route last so it does not shadow /custody etc.
 @app.get("/api/cases/{cid}/{artifact}")
 def get_artifact(cid: str, artifact: str):
@@ -246,6 +370,14 @@ def get_artifact(cid: str, artifact: str):
 @app.get("/api/cases/{cid}/keyframes/{name}")
 def keyframe(cid: str, name: str):
     p = case_dir(cid) / "keyframes" / Path(name).name
+    if not p.exists():
+        raise HTTPException(404)
+    return FileResponse(p)
+
+
+@app.get("/api/cases/{cid}/scene/{name}")
+def scene_file(cid: str, name: str):
+    p = case_dir(cid) / "scene" / Path(name).name
     if not p.exists():
         raise HTTPException(404)
     return FileResponse(p)

@@ -14,3 +14,9 @@ data/cases/*/evidence/*.mp4
 data/cases/*
 !data/cases/hero/
 !data/cases/demo/
+frontend/*.tsbuildinfo
+data/models/
+data/cases/*/frames/
+# face crops of real people stay on the machine that made them
+data/cases/*/faces/
+data/cases/*/faces.json

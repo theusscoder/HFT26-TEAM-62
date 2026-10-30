@@ -1,14 +1,16 @@
 [
   {
     "witness": "witness_1",
-    "method": "seed (hand-annotated) \u00b7 LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer",
+    "statement": "I was standing on the divider controlling traffic near the zebra crossing. The bus came very fast, at least 50 or 60, and it did not slow down at all. It hit the divider right next to me and I had to jump away.",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
     "claims": [
       {
         "actor": "I",
         "action": "presence",
-        "value": "on the divider near the zebra",
+        "value": "standing on the divider controlling traffic near the zebra crossing",
         "order": "before_impact",
         "quote": "I was standing on the divider controlling traffic near the zebra crossing",
+        "translation": null,
         "span": [
           0,
           73
@@ -20,6 +22,7 @@
         "value": "55",
         "order": "before_impact",
         "quote": "The bus came very fast, at least 50 or 60",
+        "translation": null,
         "span": [
           75,
           116
@@ -31,6 +34,7 @@
         "value": null,
         "order": "before_impact",
         "quote": "it did not slow down at all",
+        "translation": null,
         "span": [
           122,
           149
@@ -39,27 +43,53 @@
       {
         "actor": "the bus",
         "action": "impact",
-        "value": "divider",
+        "value": "the divider",
         "order": "at_impact",
         "quote": "It hit the divider right next to me",
+        "translation": null,
         "span": [
           151,
           186
         ]
       }
     ],
-    "rejected": []
+    "rejected": [
+      {
+        "actor": "I",
+        "action": "fell",
+        "value": null,
+        "order": "after_impact",
+        "quote": "I had to jump away",
+        "translation": null,
+        "rejected_because": "quote doesn't say fell"
+      }
+    ],
+    "orderings": []
   },
   {
     "witness": "witness_2",
-    "method": "seed (hand-annotated) \u00b7 LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer",
+    "statement": "I was on my bike in the right lane, waiting near the crossing. Just before the accident a white car cut in front of the bus, so the bus swerved right into the divider. I think the bus was going normal speed, maybe 20.",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
     "claims": [
+      {
+        "actor": "I",
+        "action": "presence",
+        "value": "on my bike in the right lane, waiting near the crossing",
+        "order": "before_impact",
+        "quote": "I was on my bike in the right lane, waiting near the crossing",
+        "translation": null,
+        "span": [
+          0,
+          61
+        ]
+      },
       {
         "actor": "a white car",
         "action": "cut_in",
-        "value": "bus",
+        "value": "the bus",
         "order": "before_impact",
         "quote": "a white car cut in front of the bus",
+        "translation": null,
         "span": [
           88,
           123
@@ -71,6 +101,7 @@
         "value": "right",
         "order": "before_impact",
         "quote": "the bus swerved right into the divider",
+        "translation": null,
         "span": [
           128,
           166
@@ -80,26 +111,48 @@
         "actor": "the bus",
         "action": "speed",
         "value": "20",
-        "order": "before_impact",
+        "order": "unknown",
         "quote": "I think the bus was going normal speed, maybe 20",
+        "translation": null,
         "span": [
           168,
           216
         ]
       }
     ],
-    "rejected": []
+    "rejected": [],
+    "orderings": [
+      {
+        "before": 1,
+        "after": 2,
+        "quote": "Just before the accident a white car cut in front of the bus, so the bus swerved right into the divider"
+      }
+    ]
   },
   {
     "witness": "witness_3",
-    "method": "seed (hand-annotated) \u00b7 LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer",
+    "statement": "I run the shop on the footpath across the road. It was around 5:45 in the evening. The bus hit the divider and then the policeman fell down on the road. Many bikes were waiting at the signal.",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
     "claims": [
       {
         "actor": "I",
+        "action": "presence",
+        "value": "the shop on the footpath across the road",
+        "order": "unknown",
+        "quote": "I run the shop on the footpath across the road",
+        "translation": null,
+        "span": [
+          0,
+          46
+        ]
+      },
+      {
+        "actor": null,
         "action": "time_of_day",
         "value": "17:45",
         "order": "unknown",
         "quote": "It was around 5:45 in the evening",
+        "translation": null,
         "span": [
           48,
           81
@@ -108,9 +161,10 @@
       {
         "actor": "the bus",
         "action": "impact",
-        "value": "divider",
-        "order": "at_impact",
+        "value": "the divider",
+        "order": "before_impact",
         "quote": "The bus hit the divider",
+        "translation": null,
         "span": [
           83,
           106
@@ -122,23 +176,32 @@
         "value": null,
         "order": "after_impact",
         "quote": "the policeman fell down on the road",
+        "translation": null,
         "span": [
           116,
           151
         ]
       },
       {
-        "actor": "bikes",
+        "actor": "Many bikes",
         "action": "presence",
-        "value": "waiting at the signal",
-        "order": "before_impact",
+        "value": "at the signal",
+        "order": "unknown",
         "quote": "Many bikes were waiting at the signal",
+        "translation": null,
         "span": [
           153,
           190
         ]
       }
     ],
-    "rejected": []
+    "rejected": [],
+    "orderings": [
+      {
+        "before": 2,
+        "after": 3,
+        "quote": "The bus hit the divider and then the policeman fell down on the road"
+      }
+    ]
   }
 ]

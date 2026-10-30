@@ -1,0 +1,22 @@
+[
+  {
+    "id": "ORDER-witness_2-1",
+    "from": "EV-W-202",
+    "to": "EV-W-203",
+    "min_s": 0.0,
+    "max_s": null,
+    "confidence": 0.7,
+    "ref": "witness_2.txt#c=63-166",
+    "quote": "Just before the accident a white car cut in front of the bus, so the bus swerved right into the divider"
+  },
+  {
+    "id": "ORDER-witness_3-1",
+    "from": "EV-W-303",
+    "to": "EV-W-304",
+    "min_s": 0.0,
+    "max_s": null,
+    "confidence": 0.7,
+    "ref": "witness_3.txt#c=83-151",
+    "quote": "The bus hit the divider and then the policeman fell down on the road"
+  }
+]

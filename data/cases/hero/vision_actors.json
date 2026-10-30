@@ -1,0 +1,218 @@
+{
+ "person_2": {
+  "type": "pedestrian",
+  "colour": "black",
+  "people_on_it": 0,
+  "uniformed": true
+ },
+ "car_38": {
+  "type": "motorcycle_rider",
+  "colour": "black",
+  "people_on_it": 2,
+  "uniformed": false
+ },
+ "motorcycle_3": {
+  "type": "motorcycle_rider",
+  "colour": "black",
+  "people_on_it": 1,
+  "uniformed": false
+ },
+ "car_1": {
+  "type": "car",
+  "colour": "silver",
+  "people_on_it": 0,
+  "uniformed": false
+ },
+ "person_4": {
+  "type": "motorcycle_rider",
+  "colour": "black",
+  "people_on_it": 1,
+  "uniformed": false
+ },
+ "motorcycle_12": {
+  "type": "motorcycle_rider",
+  "colour": "black",
+  "people_on_it": 1,
+  "uniformed": false
+ },
+ "person_33": {
+  "type": "motorcycle_rider",
+  "colour": "black",
+  "people_on_it": 2,
+  "uniformed": false
+ },
+ "motorcycle_47": {
+  "type": "motorcycle_rider",
+  "colour": "black",
+  "people_on_it": 1,
+  "uniformed": false
+ },
+ "motorcycle_159": {
+  "type": "motorcycle_rider",
+  "colour": "black",
+  "people_on_it": 1,
+  "uniformed": false
+ },
+ "person_226": {
+  "type": "pedestrian",
+  "colour": "grey",
+  "people_on_it": 0,
+  "uniformed": false
+ },
+ "person_162": {
+  "type": "motorcycle_rider",
+  "colour": "black",
+  "people_on_it": 2,
+  "uniformed": false
+ },
+ "person_176": {
+  "type": "motorcycle_rider",
+  "colour": "black",
+  "people_on_it": 2,
+  "uniformed": false
+ },
+ "person_80": {
+  "type": "motorcycle_rider",
+  "colour": "black",
+  "people_on_it": 1,
+  "uniformed": false
+ },
+ "person_29": {
+  "type": "motorcycle_rider",
+  "colour": "black",
+  "people_on_it": 2,
+  "uniformed": false
+ },
+ "person_6": {
+  "type": "motorcycle_rider",
+  "colour": "blue",
+  "people_on_it": 2,
+  "uniformed": false
+ },
+ "person_198": {
+  "type": "bicycle_rider",
+  "colour": "black",
+  "people_on_it": 1,
+  "uniformed": false
+ },
+ "person_175": {
+  "type": "motorcycle_rider",
+  "colour": "black",
+  "people_on_it": 1,
+  "uniformed": false
+ },
+ "person_10": {
+  "type": "motorcycle_rider",
+  "colour": "orange",
+  "people_on_it": 2,
+  "uniformed": false
+ },
+ "motorcycle_7": {
+  "type": "motorcycle_rider",
+  "colour": "black",
+  "people_on_it": 1,
+  "uniformed": false
+ },
+ "motorcycle_13": {
+  "type": "motorcycle_rider",
+  "colour": "black",
+  "people_on_it": 1,
+  "uniformed": false
+ },
+ "person_249": {
+  "type": "pedestrian",
+  "colour": null,
+  "people_on_it": 0,
+  "uniformed": false
+ },
+ "person_135": {
+  "type": "motorcycle_rider",
+  "colour": "black",
+  "people_on_it": 1,
+  "uniformed": false
+ },
+ "person_35": {
+  "type": "pedestrian",
+  "colour": null,
+  "people_on_it": 0,
+  "uniformed": false
+ },
+ "motorcycle_44": {
+  "type": "motorcycle_rider",
+  "colour": "black",
+  "people_on_it": 1,
+  "uniformed": false
+ },
+ "person_242": {
+  "type": "pedestrian",
+  "colour": null,
+  "people_on_it": 0,
+  "uniformed": false
+ },
+ "person_51": {
+  "type": "motorcycle_rider",
+  "colour": "black",
+  "people_on_it": 2,
+  "uniformed": false
+ },
+ "motorcycle_180": {
+  "type": "motorcycle_rider",
+  "colour": "black",
+  "people_on_it": 1,
+  "uniformed": false
+ },
+ "person_53": {
+  "type": "pedestrian",
+  "colour": null,
+  "people_on_it": 0,
+  "uniformed": false
+ },
+ "person_26": {
+  "type": "motorcycle_rider",
+  "colour": "black",
+  "people_on_it": 1,
+  "uniformed": false
+ },
+ "person_181": {
+  "type": "pedestrian",
+  "colour": null,
+  "people_on_it": 0,
+  "uniformed": false
+ },
+ "person_207": {
+  "type": "motorcycle_rider",
+  "colour": "black",
+  "people_on_it": 2,
+  "uniformed": false
+ },
+ "person_151": {
+  "type": "motorcycle_rider",
+  "colour": "black",
+  "people_on_it": 2,
+  "uniformed": false
+ },
+ "person_57": {
+  "type": "motorcycle_rider",
+  "colour": "black",
+  "people_on_it": 2,
+  "uniformed": false
+ },
+ "person_81": {
+  "type": "motorcycle_rider",
+  "colour": "black",
+  "people_on_it": 2,
+  "uniformed": false
+ },
+ "person_82": {
+  "type": "pedestrian",
+  "colour": null,
+  "people_on_it": 0,
+  "uniformed": false
+ },
+ "motorcycle_5": {
+  "type": "motorcycle_rider",
+  "colour": "black",
+  "people_on_it": 1,
+  "uniformed": false
+ }
+}

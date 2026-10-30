@@ -31,7 +31,7 @@ class Event(BaseModel):
 
 class Contradiction(BaseModel):
     id: str
-    type: Literal["temporal", "state", "quantity", "presence", "witness"]
+    type: Literal["temporal", "state", "quantity", "presence", "witness", "physics", "registry"]
     events: list[str]
     summary: str
     explanation: str | None = None       # LLM suggestion, labelled as such in the UI

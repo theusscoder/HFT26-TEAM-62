@@ -20,7 +20,7 @@ Answer ONLY with one JSON object, no prose:
 {"boxed_vehicle_type": "car|bus|truck|van|motorcycle|auto-rickshaw|bicycle|none",
  "boxed_vehicle_colour": "<one word or null>",
  "signal_visible": true|false, "signal_state": "red|amber|green|not_visible",
- "people_on_ground": true|false,
+ "people_on_ground": true|false, "fire_or_smoke": true|false, "vehicle_overturned": true|false,
  "weather": "clear|rain|fog|night|unknown", "road_surface": "dry|wet|unknown",
  "overlay_clock": "<HH:MM:SS if a timestamp is burned into the image, else null>",
  "uncertain_about": ["<short items>"]}
@@ -59,7 +59,7 @@ def run(case_dir: Path, case: dict, primary_id: str | None, yolo_class: str | No
     prim_ui = next((t for t in ui["tracks"] if t["id"] == primary_id), None)
     frames = keyframes(case_dir, case, prim_ui)
     res = {"model": llm.VISION_MODEL, "frames": frames, "primary_type": None, "signal_state": None, "signal_frame": None,
-           "overlay_clock": None, "agree_with_detector": None}
+           "overlay_clock": None, "agree_with_detector": None, "primary_colour": None}
     ran = 0
     for fr in frames:
         msgs = [{"role": "user", "content": [{"type": "text", "text": QUESTION}, llm.image_part(case_dir / fr["file"])]}]
@@ -75,6 +75,9 @@ def run(case_dir: Path, case: dict, primary_id: str | None, yolo_class: str | No
         if types:
             res["primary_type"] = max(set(types), key=types.count)
             res["agree_with_detector"] = res["primary_type"] == yolo_class
+        colours = [str(f["answer"]["boxed_vehicle_colour"]).lower() for f in answered if f["name"] != "first" and f["answer"].get("boxed_vehicle_colour")]
+        if colours:
+            res["primary_colour"] = max(set(colours), key=colours.count)
         sig = [f for f in answered if f["name"] in ("before", "impact") and f["answer"].get("signal_visible")]
         if sig:
             res["signal_state"], res["signal_frame"] = sig[-1]["answer"].get("signal_state"), sig[-1]["file"]

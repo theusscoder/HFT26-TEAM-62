@@ -13,6 +13,8 @@ from . import llm
 
 REFUSE = re.compile(r"\b(fault|blame|guilty|liable|liability|responsible|responsibility|who caused|whose mistake|negligen\w*|punish\w*|arrest\w*|"
                     r"compensat\w*|convict\w*|sue|lawsuit|criminal|innocent|should be (fined|jailed|charged))\b", re.I)
+IDENTITY = re.compile(r"\b(who (?:was|is) the (?:driver|owner|rider)|driver'?s? name|owner'?s? name|name of the (?:driver|owner)|identify the (?:driver|owner)|address of|phone number|whose (?:car|vehicle|bus|truck)|who owns)\b", re.I)
+INJURY = re.compile(r"\b(injur\w*|hurt|die|dies|dying|dead|died|death|fatal\w*|killed|wounded|casualt\w*|hospitali[sz]ed|survive\w*|bleeding)\b", re.I)
 VERDICT_WORDS = re.compile(r"\b(guilty|at fault|is to blame|caused the (crash|accident)|negligent|reckless|liable|innocent)\b", re.I)
 SYN = {"speed": ["speed", "fast", "km", "slow", "quick"], "brake": ["brake", "braking", "slow", "stop", "decel"], "signal": ["signal", "light", "red", "green", "amber"],
        "time": ["time", "clock", "when", "o'clock", "pm", "am"], "witness": ["witness", "said", "saw", "statement", "claim"],
@@ -71,10 +73,18 @@ def _retrieve(q: str, items: list[dict], k: int = 8, name_words: set = frozenset
 
 def ask(d: Path, question: str) -> dict:
     if REFUSE.search(question):
-        return {"refused": True, "method": "guard",
+        return {"refused": True, "reason": "legal_fault", "method": "guard",
                 "answer": [{"text": "This tool does not decide fault, blame or liability. That is for investigators and courts. "
                                     "It can tell you what the evidence shows: speeds, braking, timings, who said what, and where the sources disagree.", "cites": []}],
                 "suggestions": ["How fast was the primary vehicle going?", "Did it brake before the impact?", "Which witness statements are contradicted?"]}
+    if IDENTITY.search(question):
+        return {"refused": True, "reason": "identity", "method": "guard",
+                "answer": [{"text": "Ask the case answers about the evidence, not about who someone is. A registered owner may not be the driver. It can describe the vehicles and what they did.", "cites": []}],
+                "suggestions": ["What did the primary vehicle do before the impact?"]}
+    if INJURY.search(question):
+        return {"refused": True, "reason": "injury", "method": "guard",
+                "answer": [{"text": "This tool rates the crash, not injuries. Footage and telematics can't establish a medical outcome. It can say whether a person is seen falling or moving afterwards.", "cites": []}],
+                "suggestions": ["Did anyone fall?", "How severe was the crash?"]}
     wm = json.loads((d / "witnesses.json").read_text()) if (d / "witnesses.json").exists() else {}
     name_words = {w for m in wm.values() for w in re.findall(r"[a-z]{4,}", m.get("name", "").lower())} - {"duty", "traffic"}
     items = _retrieve(question, _items(d), name_words=name_words)

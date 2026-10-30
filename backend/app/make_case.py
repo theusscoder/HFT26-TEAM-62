@@ -13,15 +13,16 @@ from pathlib import Path
 
 import numpy as np
 
-from . import build_case, calibration, severity
+from . import build_case, calibration, emergency, severity
 from .custody import Ledger, sha256_file
-from .pipeline import fusion, sensor, sensor_sim, video, vision, witness
+from .pipeline import fusion, pursuit, scene3d, sensor, sensor_sim, video, vision, witness
 
 DATA = Path(__file__).resolve().parents[2] / "data" / "cases"
-STAGES = ["video", "calibration", "vision", "sensor", "witnesses", "fusion", "severity"]
+STAGES = ["video", "calibration", "vision", "sensor", "witnesses", "fusion", "severity", "pursuit", "scene3d"]
 
 
 def severity_for(case_dir: Path, ent: dict, metric: dict, events: list[dict]) -> dict:
+    seen = emergency.scene_signals(json.loads((case_dir / "vision.json").read_text()) if (case_dir / "vision.json").exists() else None)
     tracks = {t["id"]: t for t in metric["tracks"]}
     sig, refs = {}, {}
     csv_p = case_dir / "evidence" / "sensor.csv"
@@ -44,6 +45,9 @@ def severity_for(case_dir: Path, ent: dict, metric: dict, events: list[dict]) ->
     sig["person_down_s"] = max((e["t"]["end"] - e["t"]["start"] for e in downs), default=0)
     if downs:
         refs["person_down_s"] = downs[0]["ref"]
+    sig["fire_smoke"], sig["rollover"] = seen["fire_smoke_seen"], seen["overturned_seen"]
+    if seen["fire_smoke_seen"] or seen["overturned_seen"]:
+        refs["fire_smoke"] = refs["rollover"] = "vision.json"
     sig["refs"] = refs
     out = severity.score(sig)
     out["signals"] = sig
@@ -52,15 +56,19 @@ def severity_for(case_dir: Path, ent: dict, metric: dict, events: list[dict]) ->
 
 
 def score_against(gt: dict, analysis: dict, witness_events: list[dict]) -> dict:
-    """A planted contradiction is caught when a contradiction of the same type cites a claim from that witness.
-    A false flag is a contradiction on a claim the ground truth lists as consistent."""
+    """A planted contradiction is caught when a contradiction of the same type cites a claim from that witness,
+    each planted item matching once. Any other contradiction is a false flag, apart from witness-vs-witness,
+    which is a real extra finding about the statements rather than a claim against the evidence."""
     src = {e["id"]: e["source"] for e in witness_events}
-    quote = {e["id"]: e.get("quote", "") for e in witness_events}
-    found = [(c["type"], {src[i] for i in c["events"] if i in src}, [quote[i] for i in c["events"] if i in quote]) for c in analysis["contradictions"]]
-    caught = [p["id"] for p in gt["planted"] if any(t == p["type"] and p["witness"] in ws for t, ws, _ in found)]
-    false_flags = sum(1 for c in gt.get("consistent", []) for t, ws, qs in found
-                      if t != "witness" and c["witness"] in ws and any(c["claim"].split()[1] in q.lower() for q in qs))
-    return {"planted": len(gt["planted"]), "caught": len(caught), "caught_ids": caught, "false_flags": false_flags,
+    remaining = [c for c in analysis["contradictions"] if c["type"] != "witness"]
+    caught = []
+    for p in gt["planted"]:
+        hit = next((c for c in remaining if c["type"] == p["type"] and p["witness"] in {src.get(i) for i in c["events"]}), None)
+        if hit is not None:
+            caught.append(p["id"])
+            remaining.remove(hit)
+    return {"planted": len(gt["planted"]), "caught": len(caught), "caught_ids": caught, "false_flags": len(remaining),
+            "false_flag_ids": [c["id"] for c in remaining],
             "extra_found": [c["id"] for c in analysis["contradictions"] if c["type"] == "witness"]}
 
 
@@ -79,7 +87,7 @@ def make(case_id: str, video_path: Path | None = None, title: str | None = None,
     say("video", "done", "tracks + annotated video")
     case = build_case.build(case_id, src, title or prev.get("title", case_id), location or prev.get("location", {}).get("name", ""),
                             prev.get("location", {}).get("lat"), prev.get("location", {}).get("lon"))
-    for k in ("clock_overlay",):
+    for k in ("clock_overlay", "weather", "incident_time_utc", "heading_deg"):
         if k in prev:
             case[k] = prev[k]
     (d / "case.json").write_text(json.dumps(case, indent=2))
@@ -91,7 +99,7 @@ def make(case_id: str, video_path: Path | None = None, title: str | None = None,
     say("calibration", "done", report["calibration"])
 
     ui = json.loads((d / "tracks_ui.json").read_text())
-    sc = fusion.scene(metric, ui)
+    sc = fusion.scene(metric, ui, fusion.override_of(d))
     prim = sc["primary"]
     say("vision", "running", "keyframes → Featherless vision model")
     vis = vision.run(d, case, prim, sc["tracks"].get(prim, {}).get("class") if prim else None)
@@ -99,7 +107,8 @@ def make(case_id: str, video_path: Path | None = None, title: str | None = None,
         case["clock_overlay"] = {"at_video_s": 0.0, "value": vis["overlay_clock"], "method": "read by vision model from the burned-in overlay"}
         (d / "case.json").write_text(json.dumps(case, indent=2))
     report["vision"] = vis["method"]
-    say("vision", "done", vis["method"])
+    report["road_users"] = f"{len(scene3d.identify(d))} checked by vision"
+    say("vision", "done", f"{vis['method']}; {report['road_users']}")
 
     csv_p = d / "evidence" / "sensor.csv"
     if simulate_sensor and not csv_p.exists() and prim:
@@ -132,6 +141,18 @@ def make(case_id: str, video_path: Path | None = None, title: str | None = None,
     report["severity"] = f"{sev['level']} {sev['label']} ({sev['score']})"
     say("severity", "done", report["severity"])
 
+    left = pursuit.run(d, say)
+    report["pursuit"] = f"{left['status']}: {left['plates_method']}"
+    say("pursuit", "done", left["status"])
+
+    from . import faces
+    if faces.available() and (d / "evidence" / "cctv.mp4").exists():
+        report["faces"] = f"{faces.scan(d)['usable']} usable faces in the footage"
+    say("scene3d", "running", "solving the camera, fitting vehicles to the footage")
+    built = scene3d.run(d)
+    report["scene3d"] = f"camera {built['camera']['height_m']:.1f} m up, fit IoU {built['fit']['iou_all']}, {built['actors']['asked']} road users checked by vision" if built else "skipped"
+    say("scene3d", "done", report["scene3d"])
+
     case["evidence"] = [e for e in case["evidence"] if e["type"] in ("video", "derived")]
     if csv_p.exists():
         case["evidence"].append({"id": "sensor", "type": "sensor", "file": "sensor.csv", "label": "Vehicle telematics"})
@@ -142,12 +163,15 @@ def make(case_id: str, video_path: Path | None = None, title: str | None = None,
     (d / "case.json").write_text(json.dumps(case, indent=2))
 
     led = Ledger(d / "custody.jsonl")
-    known = {(e["details"].get("file"), e["details"].get("sha256")) for e in led.entries()}
+    entries = led.entries()
+    known = {(e["details"].get("stored") or e["details"].get("file"), e["details"].get("sha256")) for e in entries}
+    named = {e["details"].get("stored") or e["details"].get("file") for e in entries}
     for e in case["evidence"]:
         p = d / "evidence" / e["file"]
         h = sha256_file(p)
         if (e["file"], h) not in known:
-            led.append("evidence_registered", file=e["file"], sha256=h)
+            # A known file with a new hash is a change, and the ledger says so rather than registering it afresh.
+            led.append("evidence_changed" if e["file"] in named else "evidence_registered", file=e["file"], sha256=h)
     return report
 
 

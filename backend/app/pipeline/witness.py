@@ -7,8 +7,9 @@ import json
 import re
 from pathlib import Path
 
-from .. import llm
+from .. import asr, llm
 
+AUDIO_SUFFIXES = {".wav", ".mp3", ".m4a", ".ogg", ".flac", ".opus"}
 ACTIONS = {
     "speed": "a speed estimate; value = number in km/h (midpoint if a range)",
     "no_brake": "says a vehicle did not slow down / brake",
@@ -17,18 +18,29 @@ ACTIONS = {
     "impact": "says a road user hit something; value = what it hit",
     "turn": "says a vehicle turned or swerved; value = left / right / towards <thing>",
     "fell": "says a person fell / was lying on the road",
+    "stopped_in_time": "says a vehicle stopped before hitting anything",
     "signal": "states a traffic signal colour; value = red / amber / green",
     "time_of_day": "states the clock time; value = HH:MM 24h",
     "presence": "says something was present; value = what",
+}
+_BRAKING = r"\b(brake|brakes|braked|braking|slow|slowed|slows|slowing|stop|stopped)\b"
+ACTION_WORDS = {  # every pattern listed must appear
+    "fell": [r"\b(fell|fall|falls|fallen|falling|lying|lay|collapsed|knocked|thrown)\b"],
+    "no_brake": [r"\b(not|never|no|without|didn't|didnt|wasn't)\b|n't\b", _BRAKING],
+    "stopped_in_time": [r"\b(stop|stopped|stops|halted|in time)\b"],
+    "speed": [r"\d|\b(fast|slow|slowly|speed|speeding|crawling|parked|stationary|still|ten|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|hundred)\b"],
 }
 HEDGES = ["i think", "maybe", "around", "about", "probably", "i guess", "not sure", "approximately", "at least", "roughly", "seemed"]
 
 PROMPT = """You extract checkable claims from a road-accident witness statement.
 Return ONE JSON object: {{"claims": [{{"actor": <short noun phrase from the statement, e.g. "the bus", "a white car", "the policeman", "I">,
 "action": <one of the actions>, "value": <string or null>, "order": <"before_impact"|"at_impact"|"after_impact"|"unknown">,
-"quote": <exact substring of the statement>}}]}}
+"quote": <exact substring of the statement>,
+"translation": <English meaning of the quote if the statement isn't in English, else null>}}],
+"orderings": [{{"before": <claim index>, "after": <claim index>, "quote": <exact words stating the order>}}]}}
 Actions: {actions}
-Rules: quote must be copied character-for-character from the statement. One claim per checkable fact.
+Rules: quote must be copied character-for-character from the statement, in its original language and script.
+One claim per checkable fact. "orderings" lists only sequences the witness states outright, such as "X and then Y".
 Do not infer anything that is not said. Do not judge who is at fault.
 Statement ({witness}): \"\"\"{text}\"\"\""""
 
@@ -94,6 +106,8 @@ def rule_extract(text: str) -> list[dict]:
         for w, n in WORDNUM.items():
             if re.search(rf"\b{w}\b", low) and re.search(r"\b(speed|fast|km|going)\b", low):
                 add("speed", str(n), rf"\b{w}\b")
+        if re.search(r"\bstopped\s+(in time|before|short)\b|\bmanaged to stop\b", low):
+            add("stopped_in_time", None, r"\bstopped\s+(in time|before|short)\b[^,.]*|\bmanaged to stop\b[^,.]*")
         if re.search(r"(did not|didn't|never|no)\s+(slow|brak|stop)", low):
             add("no_brake", None, r"(did not|didn't|never|no)\s+(slow|brak|stop)\w*(\s+down)?(\s+at all)?")
         elif re.search(r"\b(braked|braking|slowed|applied (the )?brakes?)\b", low):
@@ -133,11 +147,19 @@ def hedge_conf(quote: str) -> float:
 
 
 def verify(statement: str, claims: list[dict]) -> tuple[list[dict], list[dict]]:
+    """A claim survives only if its quote is verbatim and its words can actually say what the action means. So
+    "I had to jump away" can't become a claim that someone fell, however the model labelled it."""
     ok, rejected = [], []
     for c in claims:
         quote = (c.get("quote") or "").strip()
         i = statement.find(quote) if quote else -1
         if i < 0 or c.get("action") not in ACTIONS:
+            c["rejected_because"] = "quote not verbatim" if i < 0 else "unknown action"
+            rejected.append(c)
+            continue
+        readable = (quote if quote.isascii() or not c.get("translation") else c["translation"]).lower()
+        if not all(re.search(p, readable) for p in ACTION_WORDS.get(c["action"], [])):
+            c["rejected_because"] = f"quote doesn't say {c['action']}"
             rejected.append(c)
             continue
         c["span"] = [i, i + len(quote)]
@@ -150,14 +172,25 @@ def extract(statement: str, witness_id: str, seed: dict | None = None) -> dict:
     try:
         r = llm.chat_json(msgs)
         claims, method = r["data"].get("claims", []), f"featherless:{r['model']}{' (cached)' if r['cached'] else ''}"
+        orderings = r["data"].get("orderings", [])
     except Exception as e:
         if seed and witness_id in seed:
             claims, method = json.loads(json.dumps(seed[witness_id])), "seed (hand-annotated)"
         else:
             claims, method = rule_extract(statement), "offline rule-based extractor"
         method += f" · LLM unavailable: {str(e)[:50]}"
+        orderings = []
+    raw = list(claims)
     ok, rejected = verify(statement, claims)
-    return {"witness": witness_id, "method": method, "claims": ok, "rejected": rejected}
+    kept_index = {i: next(j for j, k in enumerate(ok) if k is c) for i, c in enumerate(raw) if any(c is k for k in ok)}
+    # An order only counts if both claims survived and its own words are in the statement.
+    verified = [
+        {"before": kept_index[o["before"]], "after": kept_index[o["after"]], "quote": o["quote"]}
+        for o in orderings
+        if isinstance(o, dict) and o.get("before") in kept_index and o.get("after") in kept_index
+        and o.get("before") != o.get("after") and o.get("quote") and o["quote"] in statement
+    ]
+    return {"witness": witness_id, "statement": statement, "method": method, "claims": ok, "rejected": rejected, "orderings": verified}
 
 
 def to_events(ex: dict) -> list[dict]:
@@ -167,10 +200,33 @@ def to_events(ex: dict) -> list[dict]:
     for i, c in enumerate(ex["claims"]):
         a, b = order_t.get(c.get("order", "unknown"), order_t["unknown"])
         out.append({"id": f"EV-W-{num}{i + 1:02d}", "source": ex["witness"], "kind": "CLAIMED",
-                    "t": {"start": a, "end": b, "sigma": 1.0}, "clock": "order", "actor": c["actor"], "actor_text": c["actor"],
-                    "action": c["action"], "value": c.get("value"), "confidence": hedge_conf(c["quote"]), "quote": c["quote"],
+                    "t": {"start": a, "end": b, "sigma": 1.0}, "clock": "order", "order": c.get("order", "unknown"), "actor": c["actor"], "actor_text": c["actor"],
+                    "action": c["action"], "value": c.get("value"), "confidence": hedge_conf(c["quote"]), "quote": c["quote"], "translation": c.get("translation"),
                     "span": c["span"], "ref": f"{ex['witness']}.txt#c={c['span'][0]}-{c['span'][1]}", "derived_from": [],
                     "rule": "R_claim_extraction", "method": ex["method"]})
+    return out
+
+
+def transcribe_voice_notes(ev_dir: Path, languages: dict) -> list[str]:
+    """Voice statements become witness_N.txt, so quotes get checked against the transcript like any other."""
+    done = []
+    for audio in sorted(p for p in ev_dir.glob("witness_*") if p.suffix.lower() in AUDIO_SUFFIXES):
+        target = audio.with_suffix(".txt")
+        if not target.exists():
+            target.write_text(asr.transcribe(audio, languages.get(audio.stem, "te")) + "\n", encoding="utf-8")
+            done.append(audio.stem)
+    return done
+
+
+def orderings_as_constraints(ex: dict, events_by_index: dict[int, dict]) -> list[dict]:
+    out = []
+    for n, o in enumerate(ex.get("orderings", []), start=1):
+        before, after = events_by_index.get(o["before"]), events_by_index.get(o["after"])
+        if before and after:
+            start = ex["statement"].find(o["quote"])
+            ref = f"{ex['witness']}.txt#c={start}-{start + len(o['quote'])}" if start >= 0 else before["ref"]
+            out.append({"id": f"ORDER-{ex['witness']}-{n}", "from": before["id"], "to": after["id"], "min_s": 0.0, "max_s": None,
+                        "confidence": before["confidence"], "ref": ref, "quote": o["quote"]})
     return out
 
 
@@ -178,12 +234,18 @@ def run(case_dir: Path) -> list[dict]:
     ev_dir = case_dir / "evidence"
     seed_p = case_dir / "witness_extractions.seed.json"
     seed = json.loads(seed_p.read_text()) if seed_p.exists() else None
-    events, extractions = [], []
+    meta_p = case_dir / "witnesses.json"
+    meta = json.loads(meta_p.read_text(encoding="utf-8")) if meta_p.exists() else {}
+    transcribe_voice_notes(ev_dir, {k: v.get("language", "te") for k, v in meta.items()})
+    events, extractions, constraints = [], [], []
     for f in sorted(ev_dir.glob("witness_*.txt")):
         ex = extract(f.read_text(encoding="utf-8").strip(), f.stem, seed)
         extractions.append(ex)
-        events += to_events(ex)
+        new_events = to_events(ex)
+        events += new_events
+        constraints += orderings_as_constraints(ex, dict(enumerate(new_events)))
     (case_dir / "witness_extractions.json").write_text(json.dumps(extractions, indent=2))
+    (case_dir / "witness_orderings.json").write_text(json.dumps(constraints, indent=2))
     return events
 
 

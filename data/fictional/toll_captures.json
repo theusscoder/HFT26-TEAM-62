@@ -1,0 +1,80 @@
+[
+  {
+    "id": "CAP-001",
+    "plate": "TS07GK5521",
+    "plaza": "Gachibowli ORR Exit 17",
+    "lane": 3,
+    "time": "2026-01-01 14:04:31",
+    "class": "car",
+    "colour": "red",
+    "fastag": "DEMO-FT-88213",
+    "owner": "DEMO OWNER 02",
+    "contact": "+91 90000 00002",
+    "driver_image": "CAP-001.svg"
+  },
+  {
+    "id": "CAP-002",
+    "plate": "TS09EA1234",
+    "plaza": "Nanakramguda Toll",
+    "lane": 1,
+    "time": "2026-01-01 13:41:07",
+    "class": "car",
+    "colour": "white",
+    "fastag": "DEMO-FT-71044",
+    "owner": "DEMO OWNER 01",
+    "contact": "+91 90000 00001",
+    "driver_image": "CAP-002.svg"
+  },
+  {
+    "id": "CAP-003",
+    "plate": "TS07GX5521",
+    "plaza": "Gachibowli ORR Exit 17",
+    "lane": 2,
+    "time": "2026-01-01 14:05:01",
+    "class": "car",
+    "colour": "white",
+    "fastag": "DEMO-FT-90001",
+    "owner": "DEMO OWNER 03",
+    "contact": "+91 90000 00003",
+    "driver_image": "CAP-003.svg"
+  },
+  {
+    "id": "CAP-004",
+    "plate": "TS07GP5521",
+    "plaza": "Gachibowli ORR Exit 17",
+    "lane": 4,
+    "time": "2026-01-01 14:05:31",
+    "class": "truck",
+    "colour": "red",
+    "fastag": "DEMO-FT-90002",
+    "owner": "DEMO OWNER 04",
+    "contact": "+91 90000 00004",
+    "driver_image": "CAP-004.svg"
+  },
+  {
+    "id": "CAP-005",
+    "plate": "KA01ZZ0001",
+    "plaza": "Kokapet ORR Toll",
+    "lane": 2,
+    "time": "2026-01-01 12:15:44",
+    "class": "bus",
+    "colour": "blue",
+    "fastag": "DEMO-FT-55210",
+    "owner": "DEMO OWNER 05",
+    "contact": "+91 90000 00005",
+    "driver_image": "CAP-005.svg"
+  },
+  {
+    "id": "CAP-006",
+    "plate": "AP16ZZ0042",
+    "plaza": "Shamshabad ORR Toll",
+    "lane": 1,
+    "time": "2026-01-01 11:02:18",
+    "class": "truck",
+    "colour": "white",
+    "fastag": "DEMO-FT-44871",
+    "owner": "DEMO OWNER 06",
+    "contact": "+91 90000 00006",
+    "driver_image": "CAP-006.svg"
+  }
+]

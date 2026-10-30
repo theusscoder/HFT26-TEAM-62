@@ -7,7 +7,7 @@ import { useNavigate, Link } from "react-router-dom";
 
 const STAGES: [string, string][] = [
   ["video", "Detect & track road users"], ["calibration", "Calibrate road (metres, km/h)"], ["vision", "Vision model on key frames"],
-  ["sensor", "Telematics events"], ["witnesses", "Witness claims"], ["fusion", "Align, cross-check, contradictions"], ["severity", "Severity"],
+  ["sensor", "Telematics events"], ["witnesses", "Witness claims"], ["fusion", "Align, cross-check, contradictions"], ["severity", "Severity"], ["pursuit", "Who stayed, who left; read plates"], ["scene3d", "Solve the camera, build the 3D scene"],
 ];
 
 export default function NewCase() {
@@ -28,7 +28,7 @@ export default function NewCase() {
     for (const f of files) {
       const n = f.name.toLowerCase();
       if (/\.(mp4|mov|avi|mkv|webm|m4v)$/.test(n)) setVideo(f);
-      else if (n.endsWith(".txt")) setWit((w) => [...w.filter((x) => x.name !== f.name), f].sort((a, b) => a.name.localeCompare(b.name)));
+      else if (/\.(txt|wav|mp3|m4a|ogg|flac|opus)$/.test(n)) setWit((w) => [...w.filter((x) => x.name !== f.name), f].sort((a, b) => a.name.localeCompare(b.name)));
       else if (n.endsWith(".csv")) setSensor(f);
       else if (n === "witnesses.json" || n === "ground_truth.json") setMeta((m) => [...m.filter((x) => x.name !== f.name), f]);
     }
@@ -68,9 +68,9 @@ export default function NewCase() {
       {!cid && (
         <>
           <div onDragOver={(e) => e.preventDefault()} onDrop={(e) => { e.preventDefault(); add(Array.from(e.dataTransfer.files)); }} onClick={() => input.current?.click()}
-            className="mt-6 flex h-36 cursor-pointer flex-col items-center justify-center rounded-xl border border-dashed border-line bg-panel text-sm text-muted hover:border-accent">
+            className="mt-6 flex h-36 cursor-pointer flex-col items-center justify-center  border border-dashed border-line bg-panel text-sm text-muted hover:border-accent">
             <span className="text-ink">Drop files or click to choose</span>
-            <span className="mt-1 text-xs">video (.mp4 .mov .avi .mkv) · witness_*.txt · sensor.csv · witnesses.json · ground_truth.json</span>
+            <span className="mt-1 text-xs">video (.mp4 .mov .avi .mkv) · witness_*.txt or a Telugu/Hindi voice note (.wav .mp3 .m4a) · sensor.csv · witnesses.json · ground_truth.json</span>
             <input ref={input} type="file" multiple className="hidden" onChange={(e) => add(Array.from(e.target.files ?? []))} />
           </div>
 
@@ -99,7 +99,7 @@ export default function NewCase() {
       )}
 
       {cid && (
-        <div className="mt-8 rounded-xl border border-line bg-panel p-5">
+        <div className="mt-8  border border-line bg-panel p-5">
           <div className="flex items-center justify-between">
             <span className="mono text-sm">{cid}</span>
             <span className={`text-sm ${job?.status === "error" ? "text-bad" : job?.status === "done" ? "text-ok" : "text-muted"}`}>{job?.status ?? "starting…"}</span>

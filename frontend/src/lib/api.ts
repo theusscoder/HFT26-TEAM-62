@@ -7,6 +7,7 @@ export interface Event {
   t: { start: number; end: number; sigma: number };
   actor: string; action: string; value?: string | null; xy?: number[] | null;
   confidence: number; ref: string; quote?: string | null; derived_from: string[]; rule?: string | null;
+  translation?: string | null; reliability_weight?: number; reliability_reasons?: string[];
 }
 export interface Contradiction {
   id: string; type: string; events: string[]; summary: string; explanation?: string | null; severity: string;
@@ -18,6 +19,9 @@ export interface Analysis {
   hypotheses: { id: string; text: string; status: string; for: string[]; against: string[]; untested: string[] }[];
   counterfactual: { actor: string; observed_speed_kmh: number; hazard_at_m: number; brake_start_s: number; note: string };
   offsets: Record<string, { offset_s: number | null; sigma?: number; note?: string }>;
+  reliability_detail?: Record<string, { evidence_score: number | null; weight: number; reasons: string[] }>;
+  stn?: { consistent: boolean; windows: Record<string, [number | null, number | null]>; excluded: string[]; constraints: { id: string; quote?: string }[] };
+  sensitivity?: { earlier: string; later: string; margin_s: number; clock: string; sensitive: boolean; text: string }[];
 }
 export interface Track { id: string; class: string; colour: string; points: { t: number; x: number; y: number }[] }
 

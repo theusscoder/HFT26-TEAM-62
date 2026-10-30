@@ -1,17 +1,19 @@
-import type { ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { motion } from "framer-motion";
 import type { Kind } from "../lib/api";
 
-export function Panel({ title, right, children, className = "" }: { title?: string; right?: ReactNode; children: ReactNode; className?: string }) {
+export function Panel({ title, right, children, className = "", delay = 0 }: { title?: string; right?: ReactNode; children: ReactNode; className?: string; delay?: number }) {
   return (
-    <section className={`rounded-xl border border-line bg-panel ${className}`}>
+    <motion.section initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, delay, ease: "easeOut" }}
+      className={`border border-ink bg-panel ${className}`}>
       {title && (
-        <header className="flex items-center justify-between border-b border-line px-4 py-2.5">
-          <h2 className="text-xs font-semibold uppercase tracking-wider text-muted">{title}</h2>
+        <header className="flex items-center justify-between gap-3 border-b-2 border-ink px-4 py-2.5">
+          <h2 className="text-[11px] font-bold uppercase tracking-[0.14em] text-ink">{title}</h2>
           {right}
         </header>
       )}
       <div className="p-4">{children}</div>
-    </section>
+    </motion.section>
   );
 }
 
@@ -33,17 +35,62 @@ export function Status({ value }: { value: string }) {
   return <span className={`text-xs font-semibold uppercase ${STATUS[value] ?? "text-muted"}`}>{value}</span>;
 }
 
+const LEVEL_STYLE: Record<string, string> = { L0: "border-line text-muted", L1: "border-ok/50 bg-ok/10 text-ok", L2: "border-warn/50 bg-warn/10 text-warn", L3: "border-bad/60 bg-bad/15 text-bad" };
+export function LevelPill({ level, label }: { level?: string | null; label?: string | null }) {
+  if (!level) return null;
+  return <span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs font-semibold ${LEVEL_STYLE[level] ?? "border-line text-muted"}`}>{level}{label ? ` · ${label}` : ""}</span>;
+}
+
 export function Ref({ value }: { value: string }) {
   return value ? <span className="mono text-[11px] text-muted">{value}</span> : null;
 }
 
+/** Counts up to its value when it appears or changes. */
+export function CountUp({ value, decimals = 0, suffix = "" }: { value: number; decimals?: number; suffix?: string }) {
+  const [shown, setShown] = useState(0);
+  const from = useRef(0);
+  useEffect(() => {
+    const start = performance.now(), a = from.current;
+    let raf = 0;
+    const step = (now: number) => {
+      const k = Math.min(1, (now - start) / 700), e = 1 - (1 - k) ** 3;
+      setShown(a + (value - a) * e);
+      if (k < 1) raf = requestAnimationFrame(step);
+      else from.current = value;
+    };
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, [value]);
+  return <>{shown.toFixed(decimals)}{suffix}</>;
+}
+
+export function Stat({ label, value, tone = "", hint, delay = 0, decimals = 0, suffix = "" }: { label: string; value: number; tone?: string; hint?: string; delay?: number; decimals?: number; suffix?: string }) {
+  return (
+    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, delay }} className="border border-ink bg-panel p-4">
+      <div className={`text-4xl font-extrabold tracking-tighter ${tone}`}><CountUp value={value} decimals={decimals} suffix={suffix} /></div>
+      <div className="mt-1 text-xs text-muted">{label}</div>
+      {hint && <div className="mt-0.5 text-[11px] text-muted/70">{hint}</div>}
+    </motion.div>
+  );
+}
+
+/** A bar that grows to its share when it appears. */
+export function Meter({ value, tone = "bg-accent", delay = 0 }: { value: number; tone?: string; delay?: number }) {
+  return (
+    <div className="h-1.5 overflow-hidden rounded-full bg-panel-2">
+      <motion.div className={`h-full rounded-full ${tone}`} initial={{ width: 0 }} animate={{ width: `${Math.max(0, Math.min(1, value)) * 100}%` }} transition={{ duration: 0.8, delay, ease: "easeOut" }} />
+    </div>
+  );
+}
+
 export function Loading({ error }: { error?: string | null }) {
-  if (error?.startsWith("404"))
+  if (error?.startsWith("404") || error?.includes(" 404 "))
     return (
-      <div className="rounded-xl border border-dashed border-line p-10 text-center text-sm text-muted">
-        Not computed yet for this case. This view fills in when its pipeline stage runs
-        <div className="mono mt-2 text-[11px]">{error.replace(/^404 /, "")}</div>
+      <div className=" border border-dashed border-line p-10 text-center text-sm text-muted">
+        Not computed yet for this case. This view fills in when its pipeline stage runs.
+        <div className="mono mt-2 text-[11px]">{error.replace(/^(Error: )?404 /, "")}</div>
       </div>
     );
-  return <div className="p-8 text-sm text-muted">{error ? `Could not load: ${error}. Is the API running on :8000?` : "Loading…"}</div>;
+  if (error) return <div className=" border border-bad/40 bg-bad/10 p-6 text-sm">Couldn't load this: {error}. If it says 500 or 502, the API isn't running on port 8000. Run start.bat from the repo folder.</div>;
+  return <div className="space-y-3 p-2">{[0, 1, 2].map((i) => <div key={i} className="h-16 animate-pulse  bg-panel-2/70" />)}</div>;
 }

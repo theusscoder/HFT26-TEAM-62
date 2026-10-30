@@ -49,7 +49,7 @@ def colour_name(bgr_patch) -> str | None:
 
 
 def detect_and_track(video: Path, model_name: str, annotated: Path, progress=None):
-    from ultralytics import YOLO
+    from ultralytics import YOLO  # only needed when a new clip is tracked
     model = YOLO(model_name)
     cap = cv2.VideoCapture(str(video))
     fps = cap.get(cv2.CAP_PROP_FPS) or 25

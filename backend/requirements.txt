@@ -4,4 +4,9 @@ pydantic>=2.7
 httpx>=0.27
 python-multipart>=0.0.9
 openai>=1.40        # Featherless is OpenAI-compatible: base_url=https://api.featherless.ai/v1
+numpy
+opencv-python-headless>=4.10   # reads video metadata and stills; requirements-cv.txt adds tracking
+scipy
+sherpa-onnx>=1.12   # Telugu and Hindi voice notes, local CPU
+pytest>=8
 weasyprint>=62      # PDF report (optional on Windows; HTML report works without it)

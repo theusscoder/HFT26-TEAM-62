@@ -133,6 +133,39 @@
     "video_t": 0.5
   },
   {
+    "id": "EV-W-204",
+    "source": "witness_2",
+    "kind": "CLAIMED",
+    "t": {
+      "start": -6.0,
+      "end": 6.0,
+      "sigma": 1.0
+    },
+    "clock": "order",
+    "order": "unknown",
+    "actor": "car_38",
+    "actor_text": "the bus",
+    "action": "speed",
+    "value": "20",
+    "confidence": 0.45,
+    "quote": "I think the bus was going normal speed, maybe 20",
+    "translation": null,
+    "span": [
+      168,
+      216
+    ],
+    "ref": "witness_2.txt#c=168-216",
+    "derived_from": [],
+    "rule": "R_claim_extraction",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
+    "reliability_weight": 0.39,
+    "reliability_reasons": [
+      "some distance from the impact, about 5 m",
+      "hedged wording",
+      "speed estimates by eye are unreliable (Loftus & Palmer, 1974)"
+    ]
+  },
+  {
     "id": "EV-W-301",
     "source": "witness_3",
     "kind": "CLAIMED",
@@ -142,12 +175,46 @@
       "sigma": 1.0
     },
     "clock": "order",
+    "order": "unknown",
     "actor": "witness",
     "actor_text": "I",
+    "action": "presence",
+    "value": "the shop on the footpath across the road",
+    "confidence": 0.7,
+    "quote": "I run the shop on the footpath across the road",
+    "translation": null,
+    "span": [
+      0,
+      46
+    ],
+    "ref": "witness_3.txt#c=0-46",
+    "derived_from": [],
+    "rule": "R_claim_extraction",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
+    "reliability_weight": 0.65,
+    "reliability_reasons": [
+      "some distance from the impact, about 11 m",
+      "hedged wording"
+    ]
+  },
+  {
+    "id": "EV-W-302",
+    "source": "witness_3",
+    "kind": "CLAIMED",
+    "t": {
+      "start": -6.0,
+      "end": 6.0,
+      "sigma": 1.0
+    },
+    "clock": "order",
+    "order": "unknown",
+    "actor": null,
+    "actor_text": null,
     "action": "time_of_day",
     "value": "17:45",
     "confidence": 0.45,
     "quote": "It was around 5:45 in the evening",
+    "translation": null,
     "span": [
       48,
       81
@@ -155,7 +222,44 @@
     "ref": "witness_3.txt#c=48-81",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "seed (hand-annotated) \u00b7 LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer"
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
+    "reliability_weight": 0.65,
+    "reliability_reasons": [
+      "some distance from the impact, about 11 m",
+      "hedged wording"
+    ]
+  },
+  {
+    "id": "EV-W-305",
+    "source": "witness_3",
+    "kind": "CLAIMED",
+    "t": {
+      "start": -6.0,
+      "end": 6.0,
+      "sigma": 1.0
+    },
+    "clock": "order",
+    "order": "unknown",
+    "actor": "group:motorcycle",
+    "actor_text": "Many bikes",
+    "action": "presence",
+    "value": "at the signal",
+    "confidence": 0.7,
+    "quote": "Many bikes were waiting at the signal",
+    "translation": null,
+    "span": [
+      153,
+      190
+    ],
+    "ref": "witness_3.txt#c=153-190",
+    "derived_from": [],
+    "rule": "R_claim_extraction",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
+    "reliability_weight": 0.65,
+    "reliability_reasons": [
+      "some distance from the impact, about 11 m",
+      "hedged wording"
+    ]
   },
   {
     "id": "EV-S-000",
@@ -511,12 +615,14 @@
       "sigma": 1.0
     },
     "clock": "order",
+    "order": "before_impact",
     "actor": "witness",
     "actor_text": "I",
     "action": "presence",
-    "value": "on the divider near the zebra",
+    "value": "standing on the divider controlling traffic near the zebra crossing",
     "confidence": 0.7,
     "quote": "I was standing on the divider controlling traffic near the zebra crossing",
+    "translation": null,
     "span": [
       0,
       73
@@ -524,7 +630,12 @@
     "ref": "witness_1.txt#c=0-73",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "seed (hand-annotated) \u00b7 LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer"
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
+    "reliability_weight": 0.72,
+    "reliability_reasons": [
+      "close to the impact, about 1 m",
+      "hedged wording"
+    ]
   },
   {
     "id": "EV-W-102",
@@ -536,12 +647,14 @@
       "sigma": 1.0
     },
     "clock": "order",
+    "order": "before_impact",
     "actor": "car_38",
     "actor_text": "the bus",
     "action": "speed",
     "value": "55",
     "confidence": 0.45,
     "quote": "The bus came very fast, at least 50 or 60",
+    "translation": null,
     "span": [
       75,
       116
@@ -549,7 +662,13 @@
     "ref": "witness_1.txt#c=75-116",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "seed (hand-annotated) \u00b7 LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer"
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
+    "reliability_weight": 0.43,
+    "reliability_reasons": [
+      "close to the impact, about 1 m",
+      "hedged wording",
+      "speed estimates by eye are unreliable (Loftus & Palmer, 1974)"
+    ]
   },
   {
     "id": "EV-W-103",
@@ -561,12 +680,14 @@
       "sigma": 1.0
     },
     "clock": "order",
+    "order": "before_impact",
     "actor": "car_38",
     "actor_text": "the bus",
     "action": "no_brake",
     "value": null,
     "confidence": 0.7,
     "quote": "it did not slow down at all",
+    "translation": null,
     "span": [
       122,
       149
@@ -574,7 +695,12 @@
     "ref": "witness_1.txt#c=122-149",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "seed (hand-annotated) \u00b7 LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer"
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
+    "reliability_weight": 0.72,
+    "reliability_reasons": [
+      "close to the impact, about 1 m",
+      "hedged wording"
+    ]
   },
   {
     "id": "EV-W-201",
@@ -586,20 +712,27 @@
       "sigma": 1.0
     },
     "clock": "order",
-    "actor": "car_1",
-    "actor_text": "a white car",
-    "action": "cut_in",
-    "value": "bus",
+    "order": "before_impact",
+    "actor": "witness",
+    "actor_text": "I",
+    "action": "presence",
+    "value": "on my bike in the right lane, waiting near the crossing",
     "confidence": 0.7,
-    "quote": "a white car cut in front of the bus",
+    "quote": "I was on my bike in the right lane, waiting near the crossing",
+    "translation": null,
     "span": [
-      88,
-      123
+      0,
+      61
     ],
-    "ref": "witness_2.txt#c=88-123",
+    "ref": "witness_2.txt#c=0-61",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "seed (hand-annotated) \u00b7 LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer"
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
+    "reliability_weight": 0.65,
+    "reliability_reasons": [
+      "some distance from the impact, about 5 m",
+      "hedged wording"
+    ]
   },
   {
     "id": "EV-W-202",
@@ -611,20 +744,27 @@
       "sigma": 1.0
     },
     "clock": "order",
-    "actor": "car_38",
-    "actor_text": "the bus",
-    "action": "turn",
-    "value": "right",
+    "order": "before_impact",
+    "actor": "car_1",
+    "actor_text": "a white car",
+    "action": "cut_in",
+    "value": "the bus",
     "confidence": 0.7,
-    "quote": "the bus swerved right into the divider",
+    "quote": "a white car cut in front of the bus",
+    "translation": null,
     "span": [
-      128,
-      166
+      88,
+      123
     ],
-    "ref": "witness_2.txt#c=128-166",
+    "ref": "witness_2.txt#c=88-123",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "seed (hand-annotated) \u00b7 LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer"
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
+    "reliability_weight": 0.65,
+    "reliability_reasons": [
+      "some distance from the impact, about 5 m",
+      "hedged wording"
+    ]
   },
   {
     "id": "EV-W-203",
@@ -636,23 +776,30 @@
       "sigma": 1.0
     },
     "clock": "order",
+    "order": "before_impact",
     "actor": "car_38",
     "actor_text": "the bus",
-    "action": "speed",
-    "value": "20",
-    "confidence": 0.45,
-    "quote": "I think the bus was going normal speed, maybe 20",
+    "action": "turn",
+    "value": "right",
+    "confidence": 0.7,
+    "quote": "the bus swerved right into the divider",
+    "translation": null,
     "span": [
-      168,
-      216
+      128,
+      166
     ],
-    "ref": "witness_2.txt#c=168-216",
+    "ref": "witness_2.txt#c=128-166",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "seed (hand-annotated) \u00b7 LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer"
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
+    "reliability_weight": 0.65,
+    "reliability_reasons": [
+      "some distance from the impact, about 5 m",
+      "hedged wording"
+    ]
   },
   {
-    "id": "EV-W-304",
+    "id": "EV-W-303",
     "source": "witness_3",
     "kind": "CLAIMED",
     "t": {
@@ -661,20 +808,27 @@
       "sigma": 1.0
     },
     "clock": "order",
-    "actor": "group:motorcycle",
-    "actor_text": "bikes",
-    "action": "presence",
-    "value": "waiting at the signal",
+    "order": "before_impact",
+    "actor": "car_38",
+    "actor_text": "the bus",
+    "action": "impact",
+    "value": "the divider",
     "confidence": 0.7,
-    "quote": "Many bikes were waiting at the signal",
+    "quote": "The bus hit the divider",
+    "translation": null,
     "span": [
-      153,
-      190
+      83,
+      106
     ],
-    "ref": "witness_3.txt#c=153-190",
+    "ref": "witness_3.txt#c=83-106",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "seed (hand-annotated) \u00b7 LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer"
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
+    "reliability_weight": 0.65,
+    "reliability_reasons": [
+      "some distance from the impact, about 11 m",
+      "hedged wording"
+    ]
   },
   {
     "id": "EV-V-026",
@@ -734,6 +888,27 @@
     "video_t": 5.21
   },
   {
+    "id": "EV-I-002",
+    "source": "fusion",
+    "kind": "INFERRED",
+    "t": {
+      "start": -1.5,
+      "end": 0,
+      "sigma": 0.2
+    },
+    "clock": "T0",
+    "actor": "car_38",
+    "action": "brake",
+    "value": "slowing before impact (7 km/h drop on video)",
+    "confidence": 0.6,
+    "ref": "",
+    "derived_from": [
+      "EV-V-023",
+      "EV-V-024"
+    ],
+    "rule": "R_brake_evidence"
+  },
+  {
     "id": "EV-I-004",
     "source": "fusion",
     "kind": "INFERRED",
@@ -763,12 +938,14 @@
       "sigma": 1.0
     },
     "clock": "order",
+    "order": "at_impact",
     "actor": "car_38",
     "actor_text": "the bus",
     "action": "impact",
-    "value": "divider",
+    "value": "the divider",
     "confidence": 0.7,
     "quote": "It hit the divider right next to me",
+    "translation": null,
     "span": [
       151,
       186
@@ -776,72 +953,12 @@
     "ref": "witness_1.txt#c=151-186",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "seed (hand-annotated) \u00b7 LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer"
-  },
-  {
-    "id": "EV-W-302",
-    "source": "witness_3",
-    "kind": "CLAIMED",
-    "t": {
-      "start": -0.5,
-      "end": 0.5,
-      "sigma": 1.0
-    },
-    "clock": "order",
-    "actor": "car_38",
-    "actor_text": "the bus",
-    "action": "impact",
-    "value": "divider",
-    "confidence": 0.7,
-    "quote": "The bus hit the divider",
-    "span": [
-      83,
-      106
-    ],
-    "ref": "witness_3.txt#c=83-106",
-    "derived_from": [],
-    "rule": "R_claim_extraction",
-    "method": "seed (hand-annotated) \u00b7 LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer"
-  },
-  {
-    "id": "EV-I-002",
-    "source": "fusion",
-    "kind": "INFERRED",
-    "t": {
-      "start": -0.3,
-      "end": 0,
-      "sigma": 0.2
-    },
-    "clock": "T0",
-    "actor": "car_38",
-    "action": "brake",
-    "value": "slowing before impact (telematics min -2.24 g)",
-    "confidence": 0.85,
-    "ref": "",
-    "derived_from": [
-      "EV-S-001",
-      "EV-V-023",
-      "EV-V-024"
-    ],
-    "rule": "R_brake_evidence"
-  },
-  {
-    "id": "EV-S-001",
-    "source": "sensor",
-    "kind": "OBSERVED",
-    "t": {
-      "start": -0.3,
-      "end": 0.3,
-      "sigma": 0.05
-    },
-    "clock": "T0",
-    "actor": "car_38",
-    "action": "brake",
-    "value": "min -2.24 g",
-    "confidence": 0.93,
-    "ref": "sensor.csv#r=51-57",
-    "derived_from": [],
-    "rule": "R_brake_0.12g_0.3s"
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
+    "reliability_weight": 0.72,
+    "reliability_reasons": [
+      "close to the impact, about 1 m",
+      "hedged wording"
+    ]
   },
   {
     "id": "EV-L-001",
@@ -913,18 +1030,18 @@
       "sigma": 0.2
     },
     "clock": "T0",
-    "actor": "person_57",
+    "actor": "person_2",
     "action": "posture",
     "value": "upright after impact (box taller than wide)",
     "confidence": 0.65,
     "ref": "",
     "derived_from": [
-      "tracks_metric:person_57"
+      "tracks_metric:person_2"
     ],
     "rule": "R_box_aspect_posture"
   },
   {
-    "id": "EV-S-002",
+    "id": "EV-S-001",
     "source": "sensor",
     "kind": "OBSERVED",
     "t": {
@@ -935,8 +1052,8 @@
     "clock": "T0",
     "actor": "car_38",
     "action": "impact",
-    "value": "-2.24 g",
-    "confidence": 0.96,
+    "value": "-2.24 g (candidate: below 5 g, needs a second source)",
+    "confidence": 0.6,
     "ref": "sensor.csv#r=54",
     "derived_from": [],
     "rule": "R_peak_accel"
@@ -961,7 +1078,7 @@
     "video_t": 6.74
   },
   {
-    "id": "EV-W-303",
+    "id": "EV-W-304",
     "source": "witness_3",
     "kind": "CLAIMED",
     "t": {
@@ -970,12 +1087,14 @@
       "sigma": 1.0
     },
     "clock": "order",
-    "actor": "person_57",
+    "order": "after_impact",
+    "actor": "person_2",
     "actor_text": "the policeman",
     "action": "fell",
     "value": null,
     "confidence": 0.7,
     "quote": "the policeman fell down on the road",
+    "translation": null,
     "span": [
       116,
       151
@@ -983,7 +1102,12 @@
     "ref": "witness_3.txt#c=116-151",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "seed (hand-annotated) \u00b7 LLM unavailable: FEATHERLESS_API_KEY not set and no cached answer"
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
+    "reliability_weight": 0.65,
+    "reliability_reasons": [
+      "some distance from the impact, about 11 m",
+      "hedged wording"
+    ]
   },
   {
     "id": "EV-V-004",
@@ -1005,7 +1129,7 @@
     "video_t": 7.14
   },
   {
-    "id": "EV-S-003",
+    "id": "EV-S-002",
     "source": "sensor",
     "kind": "OBSERVED",
     "t": {

@@ -3,27 +3,36 @@
 
 /* Design tokens: dark forensic theme. One accent + status colours only. Change here, not inline. */
 @theme {
-  --font-sans: "Inter", system-ui, sans-serif;
+  --font-sans: "Inter Tight", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
-  --color-bg: #0b0d10;
-  --color-panel: #12151a;
-  --color-panel-2: #181c22;
-  --color-line: #252a32;
-  --color-ink: #e7eaee;
-  --color-muted: #8a93a0;
+  --color-bg: #f3f3f0;
+  --color-panel: #ffffff;
+  --color-panel-2: #ececE8;
+  --color-line: #c9c9c4;
+  --color-ink: #0a0a0a;
+  --color-muted: #5c5c58;
 
-  --color-accent: #4f8cff;      /* brand / selection */
-  --color-observed: #4f8cff;    /* OBSERVED = blue */
-  --color-claimed: #c58cff;     /* CLAIMED  = violet */
-  --color-inferred: #f5b84f;    /* INFERRED = amber */
-  --color-ok: #3ecf8e;
-  --color-warn: #f5b84f;
-  --color-bad: #ff5d5d;
+  --color-accent: #e30613;      /* the one red */
+  --color-observed: #0047ab;    /* OBSERVED = blue */
+  --color-claimed: #6b2fd6;     /* CLAIMED  = violet */
+  --color-inferred: #b86e00;    /* INFERRED = ochre */
+  --color-ok: #0e7a43;
+  --color-warn: #b86e00;
+  --color-bad: #e30613;
 }
 
 html, body, #root { height: 100%; }
-body { background: var(--color-bg); color: var(--color-ink); font-family: var(--font-sans); }
+body { background-color: var(--color-bg); background-image: linear-gradient(to right, rgba(10, 10, 10, 0.045) 1px, transparent 1px), linear-gradient(to bottom, rgba(10, 10, 10, 0.045) 1px, transparent 1px); background-size: 48px 48px; color: var(--color-ink); font-family: var(--font-sans); letter-spacing: -0.005em; }
+/* Swiss: no rounding, no soft shadows, no glow. */
+*, ::before, ::after { border-radius: 0 !important; box-shadow: none !important; }
+h1, h2 { letter-spacing: -0.025em; }
+input, select, textarea { background: #fff !important; border-color: var(--color-ink) !important; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: var(--color-line); border-radius: 8px; border: 2px solid transparent; background-clip: content-box; }
+button { cursor: pointer; }
+button:disabled { cursor: not-allowed; }
+@media (prefers-reduced-motion: reduce) { *, ::before, ::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
 .mono { font-family: var(--font-mono); }
-.leaflet-container { background: #0e1116; }
-.dark-tiles { filter: invert(1) hue-rotate(180deg) brightness(0.85) contrast(0.9); }
+.leaflet-container { background: #f3f3f0; }
+.dark-tiles { filter: grayscale(1) contrast(1.05); }

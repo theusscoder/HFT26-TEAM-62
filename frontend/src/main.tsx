@@ -16,6 +16,8 @@ import Report from "./pages/Report";
 import Calibrate from "./pages/Calibrate";
 import Reconstruction from "./pages/Reconstruction";
 import Ask from "./pages/Ask";
+import Intercept from "./pages/Intercept";
+import Live from "./pages/Live";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -23,6 +25,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/new" element={<NewCase />} />
+        <Route path="/live" element={<Live />} />
         <Route path="/case/:id" element={<CaseLayout />}>
           <Route index element={<Overview />} />
           <Route path="golden-hour" element={<GoldenHour />} />
@@ -35,6 +38,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route path="calibrate" element={<Calibrate />} />
           <Route path="reconstruction" element={<Reconstruction />} />
           <Route path="ask" element={<Ask />} />
+          <Route path="intercept" element={<Intercept />} />
         </Route>
       </Routes>
     </BrowserRouter>

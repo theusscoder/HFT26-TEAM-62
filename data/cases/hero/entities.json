@@ -2,7 +2,7 @@
   "primary": "car_38",
   "involved": [
     "motorcycle_3",
-    "person_57"
+    "person_2"
   ],
   "impact_xy": [
     0.28,
@@ -11,8 +11,8 @@
   "names": {
     "car_1": "White car",
     "person_4": "Person",
-    "person_2": "Person",
-    "car_38": "Silver bus (primary)",
+    "person_2": "Policeman",
+    "car_38": "Blue bus (primary)",
     "motorcycle_12": "Grey motorcycle",
     "motorcycle_3": "Grey motorcycle",
     "person_33": "Person",
@@ -41,7 +41,7 @@
     "person_181": "Person",
     "person_207": "Person",
     "person_151": "Person",
-    "person_57": "Policeman",
+    "person_57": "Person",
     "person_81": "Person",
     "person_82": "Person",
     "motorcycle_5": "Grey motorcycle",

@@ -1,0 +1,31 @@
+{
+  "vehicles": [
+    {
+      "track": "car_38",
+      "plate": "MP04PA0?02",
+      "confidence": 0.85,
+      "reads": [
+        "MP04PB0802",
+        "MP0274P4002",
+        "MP04PA0002",
+        "MP04PA8082",
+        "UP04PA0802"
+      ],
+      "frames": [
+        259,
+        247,
+        336,
+        195,
+        322
+      ],
+      "asked": 5,
+      "well_formed": true,
+      "errors": []
+    }
+  ],
+  "checked": [
+    "car_38"
+  ],
+  "model": "Qwen/Qwen3-VL-8B-Instruct",
+  "method": "featherless:Qwen/Qwen3-VL-8B-Instruct on 5 crops"
+}

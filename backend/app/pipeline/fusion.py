@@ -11,6 +11,9 @@ from pathlib import Path
 
 import numpy as np
 
+from .. import physics
+from .. import reliability as rel_rules
+from . import sensor, stn
 from . import witness as W
 
 VEHICLE_CLASSES = ("car", "bus", "truck", "motorcycle", "bicycle")
@@ -22,19 +25,12 @@ COLOUR_SYN = {"white": {"white", "silver"}, "silver": {"silver", "white", "grey"
 SPEED_TOL = lambda measured: max(10.0, 0.35 * measured)   # eyewitness speed estimates are coarse
 
 
-def stn_consistent(n: int, edges: list[tuple[int, int, float, float]]):
-    """edges: (i, j, lo, hi) meaning lo <= t_j - t_i <= hi. Returns (ok, dist matrix)."""
-    INF = float("inf")
-    d = [[0 if i == j else INF for j in range(n)] for i in range(n)]
-    for i, j, lo, hi in edges:
-        d[i][j] = min(d[i][j], hi)
-        d[j][i] = min(d[j][i], -lo)
-    for k in range(n):
-        for i in range(n):
-            for j in range(n):
-                if d[i][k] + d[k][j] < d[i][j]:
-                    d[i][j] = d[i][k] + d[k][j]
-    return all(d[i][i] >= 0 for i in range(n)), d
+def speed_flip_pct(claim: float, measured: float) -> float:
+    """How wrong the speed scale must be for the claim to fall inside the tolerance. That needs the measured speed
+    scaled to s*v with |claim - s*v| <= SPEED_TOL(s*v), and the tolerance is the larger of 10 km/h and 35%."""
+    v = max(measured, 1.0)
+    s = min((claim - 10) / v, claim / (1.35 * v)) if claim > v else max((claim + 10) / v, claim / (0.65 * v))
+    return abs(s - 1) * 100
 
 
 # ---------------- scene model ----------------
@@ -53,7 +49,13 @@ def window(tr, t0, t1):
     return [p for p in tr["points"] if t0 <= p["t"] <= t1]
 
 
-def scene(metric: dict, ui: dict) -> dict:
+def override_of(case_dir: Path) -> dict:
+    """What a person corrected on the Contradictions page; it outranks the geometry and survives every re-run."""
+    p = case_dir / "entities_override.json"
+    return json.loads(p.read_text(encoding="utf-8")) if p.exists() else {}
+
+
+def scene(metric: dict, ui: dict, override: dict | None = None) -> dict:
     """Primary vehicle, impact point, the road user it met, sizes and colours, from geometry alone."""
     tracks = {t["id"]: t for t in metric["tracks"]}
     boxes = {t["id"]: np.median([q["box"][3] - q["box"][1] for q in t["points"]]) for t in ui["tracks"]}
@@ -73,6 +75,7 @@ def scene(metric: dict, ui: dict) -> dict:
         primary = max((a, b), key=pre_speed)
     else:
         primary = max(vehicles, key=lambda t: (pre_speed(t), boxes.get(t["id"], 0)), default=None)
+    primary = tracks.get((override or {}).get("primary"), primary)
     impact = at(primary, 0) if primary else None
     others = []
     if primary:
@@ -101,6 +104,14 @@ def resolve(text: str, sc: dict) -> str | None:
             return f"group:{cls or 'vehicle'}"
     if re.search(PERSON_WORDS, s):
         people = [t for t in tracks.values() if t["class"] == "person" and window(t, -1, 2)]
+        # What vision saw of each person narrows it: "the policeman" is someone in uniform, and not a passing rider.
+        seen = sc.get("actors", {})
+        uniformed = [t for t in people if seen.get(t["id"], {}).get("uniformed")]
+        on_foot = [t for t in people if not str(seen.get(t["id"], {}).get("type", "")).endswith("_rider")]
+        if re.search(r"police|constable|officer", s) and uniformed:
+            people = uniformed
+        elif not re.search(r"rider|driver", s) and on_foot:
+            people = on_foot
         if not people or not sc["impact_xy"]:
             return None
         ix, iy = sc["impact_xy"]
@@ -150,11 +161,21 @@ def run(case_dir: Path, video_events: list[dict], sensor_events: list[dict], wit
     metric = json.loads((case_dir / "tracks_metric.json").read_text())
     ui = json.loads((case_dir / "tracks_ui.json").read_text())
     vision = json.loads((case_dir / "vision.json").read_text()) if (case_dir / "vision.json").exists() else None
-    sc = scene(metric, ui)
+    override = override_of(case_dir)
+    sc = scene(metric, ui, override)
     tracks, prim = sc["tracks"], sc["primary"]
+    sc["actors"] = json.loads((case_dir / "vision_actors.json").read_text()) if (case_dir / "vision_actors.json").exists() else {}
     ui_tracks = {t["id"]: t for t in ui["tracks"]}
     wit_meta = json.loads((case_dir / "witnesses.json").read_text()) if (case_dir / "witnesses.json").exists() else {}
     who = lambda src: wit_meta.get(src, {}).get("name", src.replace("_", " ").title())
+
+    def stop_check():
+        csv_p = case_dir / "evidence" / "sensor.csv"
+        if not csv_p.exists():
+            return None
+        weather = case.get("weather") or {}
+        return physics.stop_claim_check(sensor.rows_of(csv_p), weather.get("mu", physics.MU_DRY),
+                                        weather.get("mu_basis", "assumed dry road; no weather data"))
 
     inferred, n_inf = [], 0
     def infer(actor, action, value, t0, t1, derived, rule, conf):
@@ -251,10 +272,9 @@ def run(case_dir: Path, video_events: list[dict], sensor_events: list[dict], wit
             if abs(claim - v) <= SPEED_TOL(v):
                 verdict(e, "consistent", [mid])
             else:
-                ratio = claim / max(v, 1)
                 verdict(e, "contradicted", [mid], "quantity", f"{w} puts {name} at ~{claim:.0f} km/h; the evidence measures {v:.0f} km/h.",
                         "Suggestion: eyewitness speed estimates are often off by 30-50%, more so for large vehicles and under stress.", "high",
-                        f"the speed scale is off by more than {abs(ratio - 1) * 100 - 35:.0f}% (calibration is ±{metric['scale_sigma'] * 100:.0f}%)")
+                        f"the speed scale is off by more than {speed_flip_pct(claim, v):.0f}% (calibration is ±{metric['scale_sigma'] * 100:.0f}%)")
         elif act in ("no_brake", "brake") and tid == prim:
             if "prim_brake" in M:
                 if act == "brake":
@@ -275,6 +295,11 @@ def run(case_dir: Path, video_events: list[dict], sensor_events: list[dict], wit
                         "a different vehicle, outside the camera's view, did the cutting in")
             else:
                 verdict(e, "consistent", [mid])
+        elif act == "impact" and tr and tid != prim and tr["class"] in VEHICLE_CLASSES and max((p["v_kmh"] for p in window(tr, -3, 0.2)), default=99) < 4:
+            # A vehicle that isn't moving can't have rammed anything, however close it was.
+            mid = infer(tid, "speed", "stationary before impact", -3, 0.2, [f"tracks_metric:{tid}"], "R_track_state", 0.75)
+            verdict(e, "contradicted", [mid], "presence", f"{w} says {name} hit {e.get('value') or 'something'}; that vehicle is stationary before the impact.", None, "high",
+                    "a different vehicle, outside the camera's view, did the hitting")
         elif act == "impact" and tr:
             target = resolve(e.get("value") or "", sc)
             if target and target in tracks:
@@ -323,6 +348,18 @@ def run(case_dir: Path, video_events: list[dict], sensor_events: list[dict], wit
             ok = said == M["signal"][1]
             verdict(e, "consistent" if ok else "contradicted", [M["signal"][0]], "state", f"{w} says the signal was {said}; the frame shows {M['signal'][1]}.",
                     "Suggestion: the witness may have been looking at a different signal head.", "high", "the vision model misread the signal colour")
+        elif act == "stopped_in_time" and tid == prim:
+            check = stop_check()
+            if check is None:
+                verdict(e, "unverifiable", [])
+            elif check["possible"]:
+                verdict(e, "consistent", [])
+            else:
+                verdict(e, "contradicted", [s["id"] for s in sensor_events if s["action"] == "impact"], "physics",
+                        f"{w} says {name} stopped in time. From {check['speed_kmh']:.0f} km/h at friction {check['mu']} ({check['mu_basis']}), "
+                        f"braking needs about {check['needed_m']:.1f} m, but only {check['had_m']:.1f} m were covered before the logged impact "
+                        f"(sensor.csv rows {check['start_row']}-{check['impact_row']}), still at {check['speed_at_impact_kmh']:.0f} km/h.", None, "high",
+                        f"the telematics speed is wrong by more than {check['speed_at_impact_kmh'] - physics.STOPPED_KMH:.0f} km/h")
         elif act == "presence" and isinstance(tid, str) and tid.startswith("group:"):
             cls = tid.split(":")[1]
             n = sum(1 for t in tracks.values() if (cls == "vehicle" and t["class"] in VEHICLE_CLASSES) or t["class"] == cls)
@@ -365,6 +402,14 @@ def run(case_dir: Path, video_events: list[dict], sensor_events: list[dict], wit
 
     reliability = {w: round(c / (c + x), 2) if c + x else None for w, (c, x) in rel.items()}
 
+    # conditions-based reliability, and a weight on each claim, with reasons
+    statements = {w: (case_dir / "evidence" / f"{w}.txt").read_text(encoding="utf-8") for w in rel if (case_dir / "evidence" / f"{w}.txt").exists()}
+    reliability_detail = {w: {"evidence_score": reliability[w], **rel_rules.weigh_statement(statements.get(w, ""), wit_meta.get(w, {}))} for w in rel}
+    for e in witness_events:
+        base = reliability_detail[e["source"]]
+        weighed = rel_rules.weigh_claim(base["weight"], e["action"], base["reasons"])
+        e["reliability_weight"], e["reliability_reasons"] = weighed["weight"], weighed["reasons"]
+
     # 6. hypotheses (status from evidence, never from the LLM)
     pname = prim or "the vehicle"
     hyps = []
@@ -404,7 +449,7 @@ def run(case_dir: Path, video_events: list[dict], sensor_events: list[dict], wit
             if m:
                 said.setdefault(e["actor"], m.group(1))
     for tid, t in tracks.items():
-        col = sc["colours"].get(tid)
+        col = ((vision or {}).get("primary_colour") if tid == prim else None) or sc["colours"].get(tid)
         base = (vis_type if tid == prim and vis_type else said.get(tid) or t["class"]).replace("_", " ")
         names[tid] = f"{col + ' ' if col and t['class'] != 'person' else ''}{base}".strip().capitalize()
     for tid in list(names):
@@ -416,10 +461,33 @@ def run(case_dir: Path, video_events: list[dict], sensor_events: list[dict], wit
     named_p = [tid for tid in dict.fromkeys(e["actor"] for e in witness_events if isinstance(e["actor"], str) and tracks.get(e["actor"], {}).get("class") == "person")
                if any(n["id"] == tid and n["dist_m"] < 4.0 for n in sc["nearest"]) or tid in [n["id"] for n in sc["nearest"]]]
     near_p = named_p or [n["id"] for n in sc["nearest"] if tracks[n["id"]]["class"] == "person" and n["dist_m"] < 2.5][:1]
-    ent = {"primary": prim, "involved": near_v + near_p, "impact_xy": sc["impact_xy"], "names": names,
+    ent = {"primary": prim, "involved": override.get("involved") or near_v + near_p, "impact_xy": sc["impact_xy"], "names": names,
            "large": sc["large"], "colours": sc["colours"]}
     (case_dir / "entities.json").write_text(json.dumps(ent, indent=2))
+
+    # 9. STN over the vehicles in question: tightest windows, plus any stated order that can't be true
+    actors = {prim, *ent["involved"], *(e["actor"] for e in witness_events)}
+    timed = [e for e in [*video_events, *sensor_events, *inferred, *witness_events] if e["actor"] in actors]
+    orders_p = case_dir / "witness_orderings.json"
+    known = {e["id"] for e in witness_events}
+    orders = [c for c in (json.loads(orders_p.read_text(encoding="utf-8")) if orders_p.exists() else []) if c["from"] in known and c["to"] in known]
+    ordered_ids = {c["from"] for c in orders} | {c["to"] for c in orders}
+    constraints = orders + stn.match_constraints([e for e in witness_events if e["id"] in ordered_ids], timed)
+    solved = stn.solve(timed, constraints)
+    for conflict in solved["conflicts"]:
+        said = [e for e in witness_events if e["id"] in conflict["events"]]
+        clocks = sorted({e["source"] for e in timed if e["id"] in conflict["events"] and e.get("clock") != "order"})
+        quotes = " / ".join(f'"{e["quote"]}"' for e in said[:2])
+        nC += 1
+        contradictions.append({"id": f"C{nC}", "type": "temporal", "events": conflict["events"], "severity": "high", "explanation": None,
+                               "constraints": conflict["constraints"],
+                               "summary": f"{who(said[0]['source']) if said else 'A statement'}'s order ({quotes}) and the timing from {', '.join(clocks) or 'other statements'} can't both be true: "
+                                          f"it would need an ordering that is off by at least {conflict['off_by_s']} s.",
+                               "holds_unless": f"the {' or '.join(clocks) or 'stated'} timing is off by more than {conflict['off_by_s']} s"})
+    order_flips = stn.sensitivity(timed, offsets, {prim, *ent["involved"]}, names)
     analysis = {"status": "computed", "offsets": offsets, "entities": ent, "contradictions": contradictions, "gaps": gaps,
-                "reliability": reliability, "checks": checks, "hypotheses": hyps, "counterfactual": cf}
+                "reliability": reliability, "reliability_detail": reliability_detail, "checks": checks, "hypotheses": hyps, "counterfactual": cf,
+                "stn": {"consistent": solved["consistent"], "windows": solved["windows"], "excluded": solved["excluded"], "constraints": constraints},
+                "sensitivity": order_flips}
     (case_dir / "analysis.json").write_text(json.dumps(analysis, indent=2, default=str))
     return {"analysis": analysis, "inferred": inferred, "sensor_events": sensor_events, "witness_events": witness_events}
