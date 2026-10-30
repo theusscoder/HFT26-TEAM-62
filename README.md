@@ -1,5 +1,29 @@
 # YATHARTH: evidence-driven accident reconstruction
 
+> CBIT Hacktoberfest '26 · Team **CAPS LOCK** (`HFT26-TEAM-62`) · fork of [cbitosc/HFT26-TEAM-62](https://github.com/cbitosc/HFT26-TEAM-62)
+
+## 📋 Team Information
+
+| Attribute | Details |
+| :--- | :--- |
+| **Team Name** | **CAPS LOCK** |
+| **Team Number** | `TEAM-62` (`HFT26-TEAM-62`) |
+| **Registration ID** | `HFEST26-SARZMANC` |
+| **Problem Track** | **PS #5 · AI-Powered Timeline Reconstruction for Road Accident Forensics** |
+| **Domain** | `Computer Vision & Intelligent Systems` |
+| **Team Leader** | Shridhar Udayagiri (theusscode@gmail.com) |
+| **Institution** | Keshav Memorial Institute of Technology |
+
+### 👥 Team Members
+
+| # | Name | Email | Institution |
+| :--- | :--- | :--- | :--- |
+| 1 | Priyansu Mohanty | priyanshu.mohantyy@gmail.com | Keshav Memorial Institute of Technology |
+| 2 | Chinmayee Wuriti | wuritichinmayee@gmail.com | Keshav Memorial Institute of Technology |
+| 3 | Aditya Tipirneni | saiadityatipirneni@gmail.com | Keshav Memorial Institute of Technology |
+
+---
+
 CBIT Hacktoberfest '26 · Team CAPS LOCK · PS #5: AI-Powered Timeline Reconstruction for Road Accident Forensics.
 
 YATHARTH takes the evidence from one road accident (CCTV video, a vehicle's telematics and witness statements) and builds:
