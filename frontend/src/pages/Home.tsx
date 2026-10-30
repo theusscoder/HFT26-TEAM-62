@@ -18,7 +18,8 @@ export default function Home() {
     <div className="mx-auto h-full max-w-7xl overflow-auto p-8">
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <motion.h1 initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} className="text-4xl font-bold tracking-tight">YATHARTH</motion.h1>
+          <Link to="/" className="text-xs text-muted hover:text-ink">← Live city map</Link>
+          <motion.h1 initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} className="text-4xl font-bold tracking-tight">YATHARTH · all cases</motion.h1>
           <div className="mt-2"><ThemePicker /></div>
           <p className="mt-1 max-w-2xl text-muted">Every claim proven or flagged, nothing asserted. Crash evidence put back together: what happened, whose account holds up, and who must be told right now.</p>
         </div>

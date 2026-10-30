@@ -1,0 +1,54 @@
+{
+  "score": 18,
+  "level": "L1",
+  "label": "Minor",
+  "notify": [
+    "owner"
+  ],
+  "breakdown": [
+    {
+      "signal": "peak_g",
+      "points": 15,
+      "why": "peak deceleration 2.0 g",
+      "ref": "sensor.csv#r=38"
+    },
+    {
+      "signal": "dv_kmh",
+      "points": 3,
+      "why": "speed change at impact 4.2 km/h",
+      "ref": "tracks_metric:car_1"
+    }
+  ],
+  "signals": {
+    "peak_g": 2.0,
+    "dv_kmh": 4.2,
+    "vru_involved": false,
+    "person_down_s": 0,
+    "refs": {
+      "peak_g": "sensor.csv#r=38",
+      "dv_kmh": "tracks_metric:car_1"
+    }
+  },
+  "minor_example": {
+    "score": 8,
+    "level": "L0",
+    "label": "Near-miss",
+    "notify": [
+      "log"
+    ],
+    "breakdown": [
+      {
+        "signal": "peak_g",
+        "points": 5,
+        "why": "peak deceleration 0.8 g",
+        "ref": null
+      },
+      {
+        "signal": "dv_kmh",
+        "points": 3,
+        "why": "speed change at impact 4 km/h",
+        "ref": null
+      }
+    ]
+  }
+}

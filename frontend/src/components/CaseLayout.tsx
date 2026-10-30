@@ -30,7 +30,7 @@ export default function CaseLayout() {
       <div className="flex h-full">
         <aside className="flex w-60 shrink-0 flex-col border-r border-line bg-panel/60 backdrop-blur">
           <Link to="/" className="flex items-center gap-2 px-4 pb-1 pt-4 text-lg font-bold tracking-tight"><ClipboardList size={18} className="text-accent" />YATHARTH</Link>
-          <Link to="/" className="flex items-center gap-1 px-4 text-[11px] text-muted hover:text-ink"><ChevronLeft size={12} />Command centre</Link>
+          <Link to="/" className="flex items-center gap-1 px-4 text-[11px] text-muted hover:text-ink"><ChevronLeft size={12} />Live city map</Link>
           <nav className="mt-4 flex flex-1 flex-col gap-4 overflow-auto px-3 pb-4">
             {NAV.map(({ group, items }) => (
               <div key={group}>

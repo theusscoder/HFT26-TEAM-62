@@ -16,6 +16,8 @@ data/cases/*
 !data/cases/demo/
 !data/cases/dashcam/
 !data/cases/india-junction/
+!data/cases/rear-end/
+!data/cases/rear-end/evidence/*.mp4
 !data/cases/dashcam/evidence/*.mp4
 !data/cases/india-junction/evidence/*.mp4
 frontend/*.tsbuildinfo

@@ -26,13 +26,13 @@ def _latlon(c, x, y):
     return round(y / c.ky + c.lat0, 6), round(x / c.kx + c.lon0, 6)
 
 
-def run(seed: int = 7) -> dict:
+def run(seed: int = 7, fixed: list | None = None, sims: int = INCIDENTS) -> dict:
     c = intercept.city()
     rng = random.Random(seed)
     s, w, n, e = c.raw["bbox"]
     majors = [nd for nd in c.pos if any(intercept.RANK.get(c.segs[o[1]]["class"], 0) >= 2 for o in c.out[nd]) and not c.near_edge(nd)]
-    incidents = []
-    for cdir in sorted(CASES.iterdir()):   # real cases located on this map
+    incidents = [{**f, "node": c.nearest(*c.xy(f["lat"], f["lon"]), major=True)} for f in (fixed or [])]
+    for cdir in ([] if fixed is not None else sorted(CASES.iterdir())):   # real cases located on this map
         cj = cdir / "case.json"
         if not cj.exists():
             continue
@@ -43,7 +43,7 @@ def run(seed: int = 7) -> dict:
         sev = json.loads((cdir / "severity.json").read_text()) if (cdir / "severity.json").exists() else {}
         incidents.append({"id": case["id"], "t": 60, "node": c.nearest(*c.xy(loc["lat"], loc["lon"]), major=True), "level": sev.get("level", "L2"),
                           "title": case.get("title", case["id"]), "real": True, "case": case["id"]})
-    for i in range(INCIDENTS):
+    for i in range(sims):
         r, acc = rng.random(), 0.0
         level = next(l for l, p in SEVERITY_MIX if (acc := acc + p) >= r)
         kind = rng.choice(["Two-wheeler skid", "Car rear-ended", "Pedestrian struck", "Auto-rickshaw collision", "Bus scraped a car", "Bike hit a divider"])

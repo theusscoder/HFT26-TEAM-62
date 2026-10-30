@@ -1,0 +1,29 @@
+{
+  "vehicles": [
+    {
+      "track": "car_1",
+      "plate": "P555RJ?",
+      "confidence": 0.89,
+      "reads": [
+        "P555ROR",
+        "P555RJP",
+        "P555RJR",
+        "P555RJE"
+      ],
+      "frames": [
+        69,
+        61,
+        79,
+        98
+      ],
+      "asked": 5,
+      "well_formed": false,
+      "errors": []
+    }
+  ],
+  "checked": [
+    "car_1"
+  ],
+  "model": "Qwen/Qwen3-VL-8B-Instruct",
+  "method": "featherless:Qwen/Qwen3-VL-8B-Instruct on 5 crops"
+}

@@ -1,0 +1,60 @@
+{
+  "id": "rear-end",
+  "title": "03-minor-rear-end",
+  "location": {
+    "name": "",
+    "lat": null,
+    "lon": null
+  },
+  "t0_video_s": 3.57,
+  "t0_anchor": "EV-V-002",
+  "range": [
+    -3.57,
+    3.4
+  ],
+  "video": {
+    "fps": 19.626168224299064,
+    "width": 1920,
+    "height": 1080,
+    "duration": 6.966666666666667
+  },
+  "evidence": [
+    {
+      "id": "cctv",
+      "type": "video",
+      "file": "cctv.mp4",
+      "label": "Junction CCTV (real, ACCIDENT benchmark)",
+      "fps": 19.626168224299064
+    },
+    {
+      "id": "annotated",
+      "type": "derived",
+      "file": "annotated.mp4",
+      "label": "Annotated reconstruction (YOLO11 + ByteTrack)"
+    },
+    {
+      "id": "sensor",
+      "type": "sensor",
+      "file": "sensor.csv",
+      "label": "Vehicle telematics"
+    },
+    {
+      "id": "witness_1",
+      "type": "witness",
+      "file": "witness_1.txt",
+      "label": "Resident \u00b7 front garden across the street"
+    },
+    {
+      "id": "witness_2",
+      "type": "witness",
+      "file": "witness_2.txt",
+      "label": "Dog walker \u00b7 pavement further down the street"
+    }
+  ],
+  "check": {
+    "detected_impact_video_s": 3.57,
+    "label_impact_video_s": null
+  },
+  "simulated": false,
+  "license": "ACCIDENT benchmark, CC BY-NC-SA 4.0"
+}

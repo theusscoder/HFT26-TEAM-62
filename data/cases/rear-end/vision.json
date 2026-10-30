@@ -1,0 +1,89 @@
+{
+  "model": "Qwen/Qwen3-VL-8B-Instruct",
+  "frames": [
+    {
+      "name": "first",
+      "file": "keyframes/kf_first.jpg",
+      "video_t": 0.0,
+      "t": -3.57,
+      "answer": {
+        "boxed_vehicle_type": "car",
+        "boxed_vehicle_colour": "red",
+        "signal_visible": false,
+        "signal_state": "not_visible",
+        "people_on_ground": false,
+        "weather": "clear",
+        "road_surface": "dry",
+        "overlay_clock": null,
+        "uncertain_about": [
+          "vehicle movement",
+          "exact time of day"
+        ]
+      },
+      "cached": true
+    },
+    {
+      "name": "before",
+      "file": "keyframes/kf_before.jpg",
+      "video_t": 2.07,
+      "t": -1.5,
+      "answer": {
+        "boxed_vehicle_type": "car",
+        "boxed_vehicle_colour": "black",
+        "signal_visible": false,
+        "signal_state": "not_visible",
+        "people_on_ground": false,
+        "weather": "clear",
+        "road_surface": "dry",
+        "overlay_clock": null,
+        "uncertain_about": [
+          "vehicle movement"
+        ]
+      },
+      "cached": true
+    },
+    {
+      "name": "impact",
+      "file": "keyframes/kf_impact.jpg",
+      "video_t": 3.57,
+      "t": 0.0,
+      "answer": {
+        "boxed_vehicle_type": "car",
+        "boxed_vehicle_colour": "black",
+        "signal_visible": false,
+        "signal_state": "not_visible",
+        "people_on_ground": false,
+        "weather": "clear",
+        "road_surface": "dry",
+        "overlay_clock": null,
+        "uncertain_about": []
+      },
+      "cached": true
+    },
+    {
+      "name": "after",
+      "file": "keyframes/kf_after.jpg",
+      "video_t": 5.07,
+      "t": 1.5,
+      "answer": {
+        "boxed_vehicle_type": "car",
+        "boxed_vehicle_colour": "black",
+        "signal_visible": false,
+        "signal_state": "not_visible",
+        "people_on_ground": false,
+        "weather": "clear",
+        "road_surface": "dry",
+        "overlay_clock": null,
+        "uncertain_about": []
+      },
+      "cached": true
+    }
+  ],
+  "primary_type": "car",
+  "signal_state": null,
+  "signal_frame": null,
+  "overlay_clock": null,
+  "agree_with_detector": true,
+  "primary_colour": "black",
+  "method": "featherless:Qwen/Qwen3-VL-8B-Instruct on 4/4 keyframes"
+}

@@ -252,6 +252,12 @@ def telegram_chats():
     return alerts.telegram_chats()
 
 
+@router.get("/api/live")
+def live_feed():
+    from . import live
+    return live.run()
+
+
 @router.get("/api/city")
 def city_ops(seed: int = 7):
     from . import city_ops as ops

@@ -1,0 +1,38 @@
+[
+  {
+    "id": "EV-V-001",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 0.2,
+      "end": 3.53,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "car_1",
+    "action": "moving",
+    "value": "peak 1.2 body-lengths/s (uncalibrated)",
+    "confidence": 0.74,
+    "ref": "cctv.mp4#f=2-69",
+    "derived_from": [],
+    "rule": "R_rel_speed_gt_0.6"
+  },
+  {
+    "id": "EV-V-002",
+    "source": "cctv",
+    "kind": "OBSERVED",
+    "t": {
+      "start": 3.57,
+      "end": 6.97,
+      "sigma": 0.1
+    },
+    "clock": "video",
+    "actor": "car_1",
+    "action": "stop",
+    "value": "stationary after moving",
+    "confidence": 0.74,
+    "ref": "cctv.mp4#f=70-139",
+    "derived_from": [],
+    "rule": "R_rel_speed_below_0.6_1s"
+  }
+]

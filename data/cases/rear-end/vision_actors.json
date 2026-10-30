@@ -1,0 +1,32 @@
+{
+ "car_1": {
+  "type": "car",
+  "colour": "black",
+  "people_on_it": 0,
+  "uniformed": false
+ },
+ "car_2": {
+  "type": "car",
+  "colour": "red",
+  "people_on_it": 0,
+  "uniformed": false
+ },
+ "car_3": {
+  "type": "car",
+  "colour": "black",
+  "people_on_it": 1,
+  "uniformed": false
+ },
+ "truck_4": {
+  "type": "van",
+  "colour": "white",
+  "people_on_it": 0,
+  "uniformed": false
+ },
+ "car_5": {
+  "type": "car",
+  "colour": "black",
+  "people_on_it": 0,
+  "uniformed": false
+ }
+}

@@ -1,0 +1,91 @@
+{
+  "demo": {
+    "victim": "Car A (the car that was hit)",
+    "plate": "TS09EA1234",
+    "registration": {
+      "owner": "MOCK PERSON A",
+      "vehicle": "White hatchback",
+      "rto": "Hyderabad (Central)",
+      "insurance": "Valid",
+      "emergency_contact": "+91 90000 00001"
+    },
+    "licence": {
+      "dl_no": "MOCK-DL-TS09-2019-0012345",
+      "holder": "MOCK PERSON A",
+      "class": "LMV",
+      "valid_till": "2034-05-11",
+      "photo": "DL-01.svg"
+    },
+    "face_match": 0.82
+  },
+  "hero": {
+    "victim": "Traffic constable on duty (pedestrian beside the divider)",
+    "plate": null,
+    "registration": null,
+    "licence": {
+      "dl_no": "MOCK-DL-TS07-2012-0044120",
+      "holder": "MOCK PERSON B",
+      "class": "LMV, MCWG",
+      "valid_till": "2032-01-19",
+      "photo": "DL-02.svg"
+    },
+    "face_match": 0.77
+  },
+  "india-junction": {
+    "victim": "Motorcycle rider struck by the van",
+    "plate": "TS08MK4410",
+    "registration": {
+      "owner": "MOCK PERSON C",
+      "vehicle": "Black motorcycle",
+      "rto": "Ranga Reddy",
+      "insurance": "Valid",
+      "emergency_contact": "+91 90000 00003"
+    },
+    "licence": {
+      "dl_no": "MOCK-DL-TS08-2020-0031877",
+      "holder": "MOCK PERSON C",
+      "class": "MCWG",
+      "valid_till": "2040-03-02",
+      "photo": "CAP-002.svg"
+    },
+    "face_match": 0.71
+  },
+  "dashcam": {
+    "victim": "Motorcycle rider (the camera's own vehicle)",
+    "plate": "TS10RB0921",
+    "registration": {
+      "owner": "MOCK PERSON D",
+      "vehicle": "Black motorcycle",
+      "rto": "Medchal",
+      "insurance": "Expired",
+      "emergency_contact": "+91 90000 00004"
+    },
+    "licence": {
+      "dl_no": "MOCK-DL-TS10-2018-0077340",
+      "holder": "MOCK PERSON D",
+      "class": "MCWG",
+      "valid_till": "2028-09-30",
+      "photo": "CAP-003.svg"
+    },
+    "face_match": 0.79
+  },
+  "rear-end": {
+    "victim": "Parked car (rear-ended)",
+    "plate": "TS09EX7781",
+    "registration": {
+      "owner": "MOCK PERSON E",
+      "vehicle": "Silver sedan",
+      "rto": "Hyderabad (West)",
+      "insurance": "Valid",
+      "emergency_contact": "+91 90000 00005"
+    },
+    "licence": {
+      "dl_no": "MOCK-DL-TS09-2015-0020456",
+      "holder": "MOCK PERSON E",
+      "class": "LMV",
+      "valid_till": "2035-07-14",
+      "photo": "CAP-004.svg"
+    },
+    "face_match": 0.68
+  }
+}

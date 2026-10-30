@@ -20,6 +20,7 @@ import Ask from "./pages/Ask";
 import Intercept from "./pages/Intercept";
 import Live from "./pages/Live";
 import City from "./pages/City";
+import LiveCity from "./pages/LiveCity";
 import DashcamPage, { DashcamIndex } from "./pages/Dashcam";
 
 initTheme();
@@ -28,9 +29,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<LiveCity />} />
+        <Route path="/cases" element={<Home />} />
         <Route path="/new" element={<NewCase />} />
         <Route path="/live" element={<Live />} />
+        <Route path="/cameras" element={<Live />} />
         <Route path="/city" element={<City />} />
         <Route path="/dashcam" element={<DashcamIndex />} />
         <Route path="/case/:id" element={<CaseLayout />}>

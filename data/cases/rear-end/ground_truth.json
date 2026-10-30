@@ -1,0 +1,5 @@
+{
+  "note": "Low-speed bump. Shows severity gating: L1 notifies the owner only, no police or hospital.",
+  "planted": [{"id": "P1", "witness": "witness_2", "type": "quantity", "claim": "speeding at 40 km/h", "truth": "about 5 km/h"}],
+  "consistent": [{"witness": "witness_1", "claim": "car going maybe 5"}]
+}

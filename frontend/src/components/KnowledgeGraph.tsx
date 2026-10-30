@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 const COLUMN: Record<string, number> = { case: 0, suspect: 0, record: 0, agent: 1, camera: 2, signal: 2, unit: 2, spot: 3, outcome: 3 };
 const COLOUR: Record<string, string> = { case: "#5c5c58", suspect: "#e30613", record: "#6b2fd6", agent: "#0a0a0a", camera: "#0047ab", signal: "#b86e00", unit: "#0047ab", spot: "#0e7a43", outcome: "#e30613" };
 
-export default function KnowledgeGraph({ graph, t }: { graph: { nodes: any[]; edges: any[] }; t: number }) {
+export default function KnowledgeGraph({ graph, t, headers = ["Case and vehicle", "Agents", "What they act on", "Outcome"] }: { graph: { nodes: any[]; edges: any[] }; t: number; headers?: string[] }) {
   const W = 1100, rowH = 34;
   const layout = useMemo(() => {
     const cols: any[][] = [[], [], [], []];
@@ -23,7 +23,7 @@ export default function KnowledgeGraph({ graph, t }: { graph: { nodes: any[]; ed
   graph.edges.forEach((e, i) => { if (e.t <= t + 0.01) latest.set(`${e.source}>${e.target}`, i); });
   return (
     <svg viewBox={`0 0 ${W} ${H}`} className="w-full" role="img" aria-label="Knowledge graph of the intercept">
-      {["Case and vehicle", "Agents", "What they act on", "Outcome"].map((h, i) => <text key={h} x={90 + i * ((W - 180) / 3)} y={14} fill="#0a0a0a" fontWeight={700} fontSize={11} textAnchor="middle" letterSpacing={1}>{h.toUpperCase()}</text>)}
+      {headers.map((h, i) => <text key={h} x={90 + i * ((W - 180) / 3)} y={14} fill="#0a0a0a" fontWeight={700} fontSize={11} textAnchor="middle" letterSpacing={1}>{h.toUpperCase()}</text>)}
       {graph.edges.map((e, i) => {
         const a = pos[e.source], b = pos[e.target];
         if (!a || !b) return null;

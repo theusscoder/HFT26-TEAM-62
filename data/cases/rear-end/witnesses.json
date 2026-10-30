@@ -1,0 +1,4 @@
+{
+  "witness_1": {"name": "Resident", "vantage": "front garden across the street", "distance_m": 10},
+  "witness_2": {"name": "Dog walker", "vantage": "pavement further down the street", "distance_m": 25}
+}
