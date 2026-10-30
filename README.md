@@ -60,6 +60,12 @@ npm install
 npm run dev                                  # http://localhost:5173/case/hero
 ```
 
+Upload evidence from the command line (any clip, or a demo-kit folder), with live progress:
+
+```bash
+backend/.venv/Scripts/python scripts/upload.py demo_kits/01-india-bus-divider
+```
+
 Rebuild the hero case after changing any pipeline code (no video re-run needed):
 
 ```bash

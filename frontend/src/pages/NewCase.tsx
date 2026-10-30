@@ -1,5 +1,5 @@
-import { useRef, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate, useSearchParams, Link } from "react-router-dom";
 
 /* OWNER: P4. N1: upload ANY road video (+ optional witness statements, telematics CSV, demo-kit metadata), create a
    case, and watch the real pipeline run stage by stage. Files are sorted by type, so dropping a whole demo-kit
@@ -23,6 +23,27 @@ export default function NewCase() {
   const [job, setJob] = useState<any>(null);
   const [cid, setCid] = useState<string | null>(null);
   const [err, setErr] = useState<string | null>(null);
+
+  // Files dropped on the home page arrive as router state; ?job=<id> watches a case already running (e.g. a demo kit).
+  const loc = useLocation();
+  const [params] = useSearchParams();
+  useEffect(() => {
+    const files = (loc.state as any)?.files as File[] | undefined;
+    if (files?.length) add(files);
+    const j = params.get("job");
+    if (j) watch(j);
+  }, []);
+
+  function watch(id: string) {
+    setCid(id);
+    const ws = new WebSocket(`${window.location.protocol === "https:" ? "wss" : "ws"}://${window.location.host}/ws/cases/${id}/run`);
+    ws.onmessage = (m) => {
+      const j = JSON.parse(m.data);
+      if (j.status === "unknown") { nav(`/case/${id}`); return; }   // finished before we connected
+      setJob(j);
+      if (j.status === "done") setTimeout(() => nav(`/case/${id}`), 900);
+    };
+  }
 
   function add(files: File[]) {
     for (const f of files) {
@@ -48,13 +69,7 @@ export default function NewCase() {
     const r = await fetch("/api/cases", { method: "POST", body: fd });
     if (!r.ok) { setErr((await r.json()).detail ?? `upload failed (${r.status})`); return; }
     const { id } = await r.json();
-    setCid(id);
-    const ws = new WebSocket(`${window.location.protocol === "https:" ? "wss" : "ws"}://${window.location.host}/ws/cases/${id}/run`);
-    ws.onmessage = (m) => {
-      const j = JSON.parse(m.data);
-      setJob(j);
-      if (j.status === "done") setTimeout(() => nav(`/case/${id}`), 900);
-    };
+    watch(id);
   }
 
   const busy = !!cid && job?.status !== "error";
@@ -63,7 +78,7 @@ export default function NewCase() {
       <Link to="/" className="text-sm text-muted">← cases</Link>
       <h1 className="mt-2 text-2xl font-bold">New case</h1>
       <p className="mt-1 text-sm text-muted">Any road CCTV or dashcam clip works. Witness statements and a telematics log are optional; each one adds cross-checks.
-        Ready-made sets are in <span className="mono">demo_kits/</span>: drop a whole folder's files here.</p>
+        Ready-made sets are in <span className="mono">demo_kits/</span>: drop a whole folder's files here, or run one from the home page.</p>
 
       {!cid && (
         <>

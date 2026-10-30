@@ -13,4 +13,3 @@ data/cases/*/evidence/*.mp4
 # Processed cases stay local; the hero case and the mock demo are shared. Uploads land in data/cases/<slug>-HHMMSS
 data/cases/*
 !data/cases/hero/
-!data/cases/demo/
