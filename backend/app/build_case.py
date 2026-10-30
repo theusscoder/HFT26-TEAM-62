@@ -51,7 +51,7 @@ def pick_t0(events: list[dict], tracks: dict | None = None, height: float = 720)
     return (label[0]["t"]["start"], label[0]["id"]) if label else (0.0, "")
 
 
-def build(case_id: str, video: Path, title: str, location: str, lat: float | None, lon: float | None):
+def build(case_id: str, video: Path, title: str, location: str, lat: float | None, lon: float | None, t0_override: tuple[float, str] | None = None):
     d = DATA / case_id
     ev_dir = d / "evidence"
     ev_dir.mkdir(parents=True, exist_ok=True)
@@ -65,10 +65,10 @@ def build(case_id: str, video: Path, title: str, location: str, lat: float | Non
         shutil.copy(d / "annotated.mp4", ev_dir / "annotated.mp4")
     cap = cv2.VideoCapture(str(video))
     ok, frame = cap.read()
-    if ok:
+    if ok and not (ev_dir / "background.jpg").exists():  # registered evidence: a rebuild must not rewrite it
         cv2.imwrite(str(ev_dir / "background.jpg"), frame)
 
-    t0, anchor = pick_t0(raw_events, tr["tracks"], info["height"])
+    t0, anchor = t0_override or pick_t0(raw_events, tr["tracks"], info["height"])
     events = []
     for e in raw_events:
         e = dict(e)
@@ -112,6 +112,7 @@ def build(case_id: str, video: Path, title: str, location: str, lat: float | Non
     case = {"id": case_id, "title": title, "location": {"name": location, "lat": lat, "lon": lon},
             "t0_video_s": t0, "t0_anchor": anchor, "range": [round(-t0, 2), round(info["duration"] - t0, 2)],
             "video": {"fps": info["fps"], "width": info["width"], "height": info["height"], "duration": info["duration"]},
+            "camera": info.get("camera", {"type": "cctv"}),
             "evidence": [{"id": "cctv", "type": "video", "file": "cctv.mp4", "label": "Junction CCTV (real, ACCIDENT benchmark)", "fps": info["fps"]},
                          {"id": "annotated", "type": "derived", "file": "annotated.mp4", "label": "Annotated reconstruction (YOLO11 + ByteTrack)"}],
             "check": {"detected_impact_video_s": t0, "label_impact_video_s": label["video_t"] if label else None},

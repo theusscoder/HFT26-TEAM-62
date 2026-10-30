@@ -3,6 +3,7 @@ Run: uvicorn app.main:app --reload --port 8000   (from backend/)"""
 import asyncio
 import json
 import re
+import shutil
 import subprocess
 import threading
 import traceback
@@ -20,7 +21,7 @@ from .custody import Ledger, sha256_file
 
 DATA = Path(__file__).resolve().parents[2] / "data" / "cases"
 ARTIFACTS = ["case", "events", "tracks", "tracks_ui", "tracks_metric", "calibration", "entities", "witnesses",
-             "witness_extractions", "ground_truth", "vision", "analysis", "severity", "plates", "pursuit", "facilities", "scene3d"]
+             "witness_extractions", "ground_truth", "vision", "analysis", "severity", "plates", "pursuit", "facilities", "scene3d", "insights", "dashcam"]
 
 app = FastAPI(title="YATHARTH")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
@@ -261,13 +262,77 @@ async def create_case(video: UploadFile, witnesses: list[UploadFile] = File(defa
     for m in meta:
         if m.filename in ("witnesses.json", "ground_truth.json"):
             (d / m.filename).write_bytes(await m.read())
-    if ext != ".mp4":  # normalise for the browser and the pipeline
-        mp4 = ev / "upload.mp4"
+    return {"id": _start(cid, vpath, title or Path(video.filename).stem, location, simulate_sensor)}
+
+
+def _start(cid: str, vpath: Path, title: str, location: str, simulate_sensor: bool) -> str:
+    """Normalise the clip to H.264 MP4 if needed and launch the pipeline thread."""
+    if vpath.suffix.lower() != ".mp4":
+        mp4 = vpath.with_name("upload.mp4")
         subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(vpath), "-c:v", "libx264", "-pix_fmt", "yuv420p", str(mp4)], check=True)
         vpath = mp4
     JOBS[cid] = {"status": "running", "stages": {s: {"status": "pending", "detail": ""} for s in make_case.STAGES}, "report": None}
-    threading.Thread(target=_run_job, args=(cid, vpath, title or Path(video.filename).stem, location, simulate_sensor), daemon=True).start()
-    return {"id": cid}
+    threading.Thread(target=_run_job, args=(cid, vpath, title, location, simulate_sensor), daemon=True).start()
+    return cid
+
+
+# ---------------- demo kits: ready-made evidence sets in demo_kits/<name>/ ----------------
+KITS = Path(__file__).resolve().parents[2] / "demo_kits"
+
+
+def _kit_info(d: Path) -> dict:
+    meta = {}
+    if (d / "kit.json").exists():
+        meta = json.loads((d / "kit.json").read_text(encoding="utf-8"))
+    video = next((f.name for f in sorted(d.iterdir()) if f.suffix.lower() in VIDEO_EXT), None)
+    return {"name": d.name, "title": meta.get("title", d.name), "summary": meta.get("summary", ""), "location": meta.get("location", ""),
+            "camera": meta.get("camera", "cctv"), "ego_class": meta.get("ego_class"),
+            "video": video, "witnesses": sorted(f.name for f in d.glob("witness_*.txt")),
+            "sensor": (d / "sensor.csv").exists(), "ground_truth": (d / "ground_truth.json").exists()}
+
+
+@app.get("/api/kits")
+def list_kits():
+    return [_kit_info(d) for d in sorted(KITS.iterdir()) if d.is_dir()] if KITS.exists() else []
+
+
+@app.get("/api/kits/{name}/file/{fname}")
+def kit_file(name: str, fname: str):
+    p = KITS / Path(name).name / Path(fname).name
+    if not p.exists():
+        raise HTTPException(404)
+    return FileResponse(p)
+
+
+@app.post("/api/kits/{name}/run")
+def run_kit(name: str):
+    """One click: create a new case from a demo kit's files exactly as an upload would, and start the pipeline."""
+    k = KITS / Path(name).name
+    if not k.is_dir():
+        raise HTTPException(404, "no such kit")
+    info = _kit_info(k)
+    if not info["video"]:
+        raise HTTPException(400, "kit has no video")
+    cid = f"{_slug(info['title'])}-{datetime.now().strftime('%H%M%S')}"
+    d = DATA / cid
+    ev = d / "evidence"
+    ev.mkdir(parents=True)
+    led = Ledger(d / "custody.jsonl")
+    vpath = ev / f"upload{Path(info['video']).suffix.lower()}"
+    shutil.copy(k / info["video"], vpath)
+    led.append("evidence_received", file=info["video"], stored=vpath.name, sha256=sha256_file(vpath), via=f"demo kit {name}")
+    for i, w in enumerate(info["witnesses"], 1):
+        shutil.copy(k / w, ev / f"witness_{i}.txt")
+        led.append("evidence_received", file=w, stored=f"witness_{i}.txt", sha256=sha256_file(ev / f"witness_{i}.txt"))
+    if info["sensor"]:
+        shutil.copy(k / "sensor.csv", ev / "sensor.csv")
+        led.append("evidence_received", file="sensor.csv", stored="sensor.csv", sha256=sha256_file(ev / "sensor.csv"))
+    for m in ("witnesses.json", "ground_truth.json"):
+        if (k / m).exists():
+            shutil.copy(k / m, d / m)
+    if info.get("ego_class"):   # camera type is still auto-detected; the kit only names the vehicle the camera is in
+        (d / "case_hint.json").write_text(json.dumps({"ego_class": info["ego_class"]}))
+    return {"id": _start(cid, vpath, info["title"], info["location"], False)}
 
 
 @app.get("/api/jobs/{cid}")

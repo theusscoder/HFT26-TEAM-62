@@ -57,7 +57,10 @@ export default function CaseLayout() {
               <div className="truncate text-sm font-semibold">{c.title}</div>
               <div className="truncate text-[11px] text-muted">{c.location?.name || "Location not set"}</div>
             </div>
-            <Link to={`/case/${id}/golden-hour`}><LevelPill level={sev.data?.level} label={sev.data?.label} /></Link>
+            <div className="flex items-center gap-2">
+              {(c as any).camera && <span title={(c as any).camera.why} className={`border px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${(c as any).camera.type === "dashcam" ? "border-accent text-accent" : "border-ink"}`}>{(c as any).camera.type === "dashcam" ? "Dashcam" : "CCTV"}{(c as any).camera.confidence ? ` · auto ${Math.round((c as any).camera.confidence * 100)}%` : ""}</span>}
+              <Link to={`/case/${id}/golden-hour`}><LevelPill level={sev.data?.level} label={sev.data?.label} /></Link>
+            </div>
           </header>
           <main className="min-w-0 flex-1 overflow-auto p-6">
             <motion.div key={pathname} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25, ease: "easeOut" }}><Outlet /></motion.div>

@@ -30,6 +30,8 @@
     "dv_kmh": 9.5,
     "vru_involved": true,
     "person_down_s": 0,
+    "fire_smoke": false,
+    "rollover": false,
     "refs": {
       "peak_g": "sensor.csv#r=54",
       "dv_kmh": "tracks_metric:car_38",

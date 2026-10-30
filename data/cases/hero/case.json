@@ -18,6 +18,9 @@
     "height": 720,
     "duration": 17.65096666666667
   },
+  "camera": {
+    "type": "cctv"
+  },
   "evidence": [
     {
       "id": "cctv",

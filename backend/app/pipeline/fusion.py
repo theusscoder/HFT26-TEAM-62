@@ -70,7 +70,9 @@ def scene(metric: dict, ui: dict, override: dict | None = None) -> dict:
         return min(np.hypot(at(a, s)["x"] - at(b, s)["x"], at(a, s)["y"] - at(b, s)["y"]) for s in (-0.5, -0.25, 0, 0.25, 0.5))
     # a collision needs at least one of the pair to be moving (two parked cars side by side are not a crash)
     pairs = sorted((gap(a, b), a["id"], b["id"]) for i, a in enumerate(vehicles) for b in vehicles[i + 1:] if max(pre_speed(a), pre_speed(b)) > 3.0)
-    if pairs and pairs[0][0] < 4.0:  # a vehicle-vehicle collision: primary = the faster of the closest pair
+    if metric.get("mode") == "dashcam" and tracks.get("ego", {}).get("points"):   # the camera vehicle is the subject of a dashcam case
+        primary = tracks["ego"]
+    elif pairs and pairs[0][0] < 4.0:  # a vehicle-vehicle collision: primary = the faster of the closest pair
         a, b = tracks[pairs[0][1]], tracks[pairs[0][2]]
         primary = max((a, b), key=pre_speed)
     else:
@@ -214,7 +216,7 @@ def run(case_dir: Path, video_events: list[dict], sensor_events: list[dict], wit
             if sp is not None:
                 return (max(v or 0, sp), s_speed["id"])
         return (v, None)
-    if prim:
+    if prim and speed_of(prim)[0] is not None:
         v, sid = speed_of(prim)
         sig = round((v or 0) * metric["scale_sigma"] + 2, 1)
         M["prim_speed"] = (infer(prim, "speed", f"{v:.0f} ± {sig:.0f} km/h (calibrated CCTV{' + telematics' if sid else ''})", -3.0, -0.1,
@@ -223,6 +225,8 @@ def run(case_dir: Path, video_events: list[dict], sensor_events: list[dict], wit
         decel = [e for e in video_events if e["actor"] == prim and e["action"] in ("sudden_decel", "stop")]
         pre = window(tracks[prim], -2.5, 0)
         v_drop = (max(p["v_kmh"] for p in pre) - pre[-1]["v_kmh"]) if len(pre) > 2 else 0
+        if metric.get("mode") == "dashcam":   # dashcam: only the sustained-slowdown rule on ego speed counts
+            brakes, decel, v_drop = [], [e for e in video_events if e["actor"] == prim and e["action"] == "brake"], 0
         if brakes or decel or v_drop > 5:
             M["prim_brake"] = (infer(prim, "brake", f"slowing before impact ({'telematics ' + brakes[0]['value'] if brakes else f'{v_drop:.0f} km/h drop on video'})",
                                      min([e["t"]["start"] for e in brakes] or [-1.5]), 0, [e["id"] for e in brakes + decel] or [f"tracks_metric:{prim}"],
@@ -458,6 +462,10 @@ def run(case_dir: Path, video_events: list[dict], sensor_events: list[dict], wit
 
     # involved = the vehicle it met (nearest, < 4 m) + people the witnesses name near the impact; else the nearest person
     near_v = [n["id"] for n in sc["nearest"] if tracks[n["id"]]["class"] in VEHICLE_CLASSES and n["dist_m"] < 4.0][:1]
+    hz = json.loads((case_dir / "dashcam.json").read_text()).get("hazard") if (case_dir / "dashcam.json").exists() else None
+    if hz and hz in tracks and hz != prim:
+        near_v = [hz]
+    near_v = [i for i in near_v if i != prim]
     named_p = [tid for tid in dict.fromkeys(e["actor"] for e in witness_events if isinstance(e["actor"], str) and tracks.get(e["actor"], {}).get("class") == "person")
                if any(n["id"] == tid and n["dist_m"] < 4.0 for n in sc["nearest"]) or tid in [n["id"] for n in sc["nearest"]]]
     near_p = named_p or [n["id"] for n in sc["nearest"] if tracks[n["id"]]["class"] == "person" and n["dist_m"] < 2.5][:1]

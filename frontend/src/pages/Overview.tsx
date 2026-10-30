@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { useApi, type Analysis, type Event } from "../lib/api";
 import { Loading, Panel, Stat, Status } from "../components/ui";
 import ContextPanel from "../components/ContextPanel";
+import KeyFindings, { type Finding } from "../components/Findings";
 
 /* What happened, in a sentence built from the evidence, then the moments, the findings and how far to trust them. */
 function storyOf(ev: Event[], an: any): string[] {
@@ -30,6 +31,7 @@ export default function Overview() {
   const vis = useApi<any>(`/cases/${id}/vision`);
   const wx = useApi<any[]>(`/cases/${id}/witness_extractions`);
   const scene = useApi<any>(`/cases/${id}/scene3d`);
+  const ins = useApi<Finding[]>(`/cases/${id}/insights`);
   if (!c.data || !ev.data || !an.data || !sev.data) return <Loading error={c.error ?? ev.error ?? an.error ?? sev.error} />;
   const a: any = an.data;
   const score = a.score;
@@ -61,6 +63,12 @@ export default function Overview() {
             </motion.figure>
           ))}
         </div>
+      )}
+
+      {ins.data && ins.data.length > 0 && (
+        <Panel title="Key findings" right={<Link to="reconstruction" className="text-xs text-accent">see them on the reconstruction →</Link>}>
+          <KeyFindings findings={ins.data} compact />
+        </Panel>
       )}
 
       <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">

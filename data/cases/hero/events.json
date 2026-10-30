@@ -157,7 +157,7 @@
     "ref": "witness_2.txt#c=168-216",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
     "reliability_weight": 0.39,
     "reliability_reasons": [
       "some distance from the impact, about 5 m",
@@ -190,7 +190,7 @@
     "ref": "witness_3.txt#c=0-46",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
     "reliability_weight": 0.65,
     "reliability_reasons": [
       "some distance from the impact, about 11 m",
@@ -222,7 +222,7 @@
     "ref": "witness_3.txt#c=48-81",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
     "reliability_weight": 0.65,
     "reliability_reasons": [
       "some distance from the impact, about 11 m",
@@ -254,7 +254,7 @@
     "ref": "witness_3.txt#c=153-190",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
     "reliability_weight": 0.65,
     "reliability_reasons": [
       "some distance from the impact, about 11 m",
@@ -630,7 +630,7 @@
     "ref": "witness_1.txt#c=0-73",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
     "reliability_weight": 0.72,
     "reliability_reasons": [
       "close to the impact, about 1 m",
@@ -662,7 +662,7 @@
     "ref": "witness_1.txt#c=75-116",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
     "reliability_weight": 0.43,
     "reliability_reasons": [
       "close to the impact, about 1 m",
@@ -695,7 +695,7 @@
     "ref": "witness_1.txt#c=122-149",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
     "reliability_weight": 0.72,
     "reliability_reasons": [
       "close to the impact, about 1 m",
@@ -727,7 +727,7 @@
     "ref": "witness_2.txt#c=0-61",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
     "reliability_weight": 0.65,
     "reliability_reasons": [
       "some distance from the impact, about 5 m",
@@ -759,7 +759,7 @@
     "ref": "witness_2.txt#c=88-123",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
     "reliability_weight": 0.65,
     "reliability_reasons": [
       "some distance from the impact, about 5 m",
@@ -791,7 +791,7 @@
     "ref": "witness_2.txt#c=128-166",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
     "reliability_weight": 0.65,
     "reliability_reasons": [
       "some distance from the impact, about 5 m",
@@ -823,7 +823,7 @@
     "ref": "witness_3.txt#c=83-106",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
     "reliability_weight": 0.65,
     "reliability_reasons": [
       "some distance from the impact, about 11 m",
@@ -953,7 +953,7 @@
     "ref": "witness_1.txt#c=151-186",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
     "reliability_weight": 0.72,
     "reliability_reasons": [
       "close to the impact, about 1 m",
@@ -1102,7 +1102,7 @@
     "ref": "witness_3.txt#c=116-151",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
     "reliability_weight": 0.65,
     "reliability_reasons": [
       "some distance from the impact, about 11 m",

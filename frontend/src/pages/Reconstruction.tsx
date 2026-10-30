@@ -5,6 +5,8 @@ import { useApi, type Event } from "../lib/api";
 import { useClock } from "../lib/clock";
 import { Loading, Panel } from "../components/ui";
 import TopView, { type Metric, type Selection } from "../components/TopView";
+import KeyFindings, { type Finding } from "../components/Findings";
+import DriverView, { type Dashcam } from "../components/DriverView";
 import { at, type CamPreset, type Look, type SceneData } from "../components/Scene3D";
 
 /* OWNER: P4. B1: the reconstruction, built for the person investigating.
@@ -39,7 +41,9 @@ export default function Reconstruction() {
   const events = useApi<Event[]>(`/cases/${id}/events`);
   const an = useApi<any>(`/cases/${id}/analysis`);
   const wit = useApi<Record<string, any>>(`/cases/${id}/witnesses`);
-  const [view, setView] = useState<"top" | "3d">("3d");
+  const ins = useApi<Finding[]>(`/cases/${id}/insights`);
+  const dash = useApi<Dashcam>(`/cases/${id}/dashcam`);
+  const [view, setView] = useState<"driver" | "top" | "3d">("3d");
   const [preset, setPreset] = useState<CamPreset>("bird");
   const [look, setLook] = useState<Look>("twin");
   const [curtain, setCurtain] = useState(false);
@@ -115,8 +119,10 @@ export default function Reconstruction() {
 
       <div className="grid grid-cols-1 gap-4 xl:grid-cols-[minmax(0,1fr)_320px]">
         <div className={immersive ? "fixed inset-0 z-50 overflow-hidden bg-black" : "relative aspect-[16/9] w-full overflow-hidden  border border-line bg-black"}>
-          {view === "top"
-            ? <TopView metric={metric.data} t={t} events={events.data} entities={ent} witnesses={W} sight={sight} large={large} onSelect={setSel} />
+          {view === "driver" && dash.data
+            ? <div className="h-full bg-white p-3"><DriverView dc={dash.data} t={t} names={ent?.names ?? {}} egoName={(ent?.names?.[ent?.primary] ?? "You").replace(" (primary)", "")} /></div>
+            : view === "top"
+            ? <TopView metric={metric.data} t={t} events={events.data} entities={ent} witnesses={W} sight={sight} large={large} onSelect={setSel} findings={ins.data} />
             : <Suspense fallback={<div className="p-6 text-sm text-muted">Loading 3D…</div>}>
                 {/* In CCTV match the frame takes the video's own shape, because the solved lens assumes it. */}
                 {/* Oversized, not CSS-scaled, to crop the video's black bars: the 3D canvas measures its own box, and a scale would apply twice. */}
@@ -130,7 +136,7 @@ export default function Reconstruction() {
                 </div>
               </Suspense>}
           <div className="absolute right-3 top-1/2 z-10 flex -translate-y-1/2 flex-col overflow-hidden rounded-lg border border-line bg-bg/85 text-xs">
-            {([["top", "2D"], ["3d", "3D"]] as const).map(([v, l]) => (
+            {((dash.data ? [["driver", "DRV"], ["top", "2D"], ["3d", "3D"]] : [["top", "2D"], ["3d", "3D"]]) as ["driver" | "top" | "3d", string][]).map(([v, l]) => (
               <button key={v} onClick={() => setView(v)} aria-pressed={view === v} className={`px-2.5 py-2 font-semibold ${view === v ? "bg-ink text-white" : "text-muted hover:text-ink"}`}>{l}</button>
             ))}
           </div>
@@ -162,6 +168,11 @@ export default function Reconstruction() {
         </div>
 
         <div className={immersive ? "fixed bottom-24 left-5 top-24 z-[60] flex w-[300px] flex-col gap-3 overflow-auto opacity-95" : "flex flex-col gap-4"}>
+          {ins.data && ins.data.length > 0 && (
+            <Panel title="Key findings" className="max-h-[420px] overflow-auto" right={<span className="text-[10px] text-muted">click to jump</span>}>
+              <KeyFindings findings={ins.data} />
+            </Panel>
+          )}
           <Panel title="Key actors">
             <ul className="space-y-3">
               {keyTracks.map((tr) => {

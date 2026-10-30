@@ -12,9 +12,11 @@
         "signal_visible": false,
         "signal_state": "not_visible",
         "people_on_ground": true,
+        "fire_or_smoke": false,
+        "vehicle_overturned": false,
         "weather": "clear",
         "road_surface": "dry",
-        "overlay_clock": "17:31:38",
+        "overlay_clock": "25-01-2015 17:31:38",
         "uncertain_about": []
       },
       "cached": true
@@ -30,6 +32,8 @@
         "signal_visible": false,
         "signal_state": "not_visible",
         "people_on_ground": true,
+        "fire_or_smoke": false,
+        "vehicle_overturned": false,
         "weather": "clear",
         "road_surface": "dry",
         "overlay_clock": "25-01-2015 17:31:43",
@@ -48,10 +52,14 @@
         "signal_visible": false,
         "signal_state": "not_visible",
         "people_on_ground": true,
+        "fire_or_smoke": false,
+        "vehicle_overturned": false,
         "weather": "clear",
-        "road_surface": "dry",
+        "road_surface": "wet",
         "overlay_clock": "25-01-2015 17:31:45",
-        "uncertain_about": []
+        "uncertain_about": [
+          "vehicle type"
+        ]
       },
       "cached": true
     },
@@ -66,11 +74,13 @@
         "signal_visible": false,
         "signal_state": "not_visible",
         "people_on_ground": true,
+        "fire_or_smoke": false,
+        "vehicle_overturned": false,
         "weather": "clear",
         "road_surface": "wet",
         "overlay_clock": "25-01-2015 17:31:46",
         "uncertain_about": [
-          "signal_state"
+          "vehicle_overturned"
         ]
       },
       "cached": true
@@ -79,7 +89,7 @@
   "primary_type": "bus",
   "signal_state": null,
   "signal_frame": null,
-  "overlay_clock": "17:31:38",
+  "overlay_clock": "25-01-2015 17:31:38",
   "agree_with_detector": false,
   "primary_colour": "blue",
   "method": "featherless:Qwen/Qwen3-VL-8B-Instruct on 4/4 keyframes"

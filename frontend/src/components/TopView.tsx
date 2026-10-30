@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import type { Event } from "../lib/api";
 import { at, blocked, dimsFor, headingAt, speedColour } from "./Scene3D";
+import { activeFindings, type Finding } from "./Findings";
 
 /* OWNER: P4. B1 top view: the calibrated reconstruction as a plan, read like an F1 telemetry map.
    Only the key actors carry paths (coloured by speed, 1-second ticks); everything else is a faint dot.
@@ -17,8 +18,8 @@ export interface Selection { kind: string; title: string; lines: string[]; refs?
 
 const hex = (v: number, vmax: number) => `#${speedColour(v, vmax).getHexString()}`;
 
-export default function TopView({ metric, t, events, entities, witnesses, sight, large, onSelect }: {
-  metric: Metric; t: number; events: Event[]; entities: any; witnesses: Record<string, any>; sight: boolean; large: Set<string>;
+export default function TopView({ metric, t, events, entities, witnesses, sight, large, onSelect, findings }: {
+  metric: Metric; t: number; events: Event[]; entities: any; witnesses: Record<string, any>; sight: boolean; large: Set<string>; findings?: Finding[] | null;
   onSelect?: (s: Selection) => void;
 }) {
   const key = new Set<string>([entities?.primary, ...(entities?.involved ?? [])].filter(Boolean));
@@ -47,12 +48,12 @@ export default function TopView({ metric, t, events, entities, witnesses, sight,
   const brakes = events.filter((e) => e.action === "brake" && (e.source === "sensor" || e.kind === "INFERRED") && e.actor === prim?.id && e.t.start < 0.1);
 
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} className="h-full w-full rounded-lg bg-[#0e1116]">
+    <svg viewBox={`0 0 ${W} ${H}`} className="h-full w-full bg-white">
       <defs>
         <pattern id="hatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-          <rect width="10" height="10" fill="#3a3f47" /><line x1="0" y1="0" x2="0" y2="10" stroke="#e7eaee" strokeOpacity="0.45" strokeWidth="4" />
+          <rect width="10" height="10" fill="#bdbdb8" /><line x1="0" y1="0" x2="0" y2="10" stroke="#0a0a0a" strokeOpacity="0.45" strokeWidth="4" />
         </pattern>
-        <pattern id="grid" width={S * 5} height={S * 5} patternUnits="userSpaceOnUse"><path d={`M ${S * 5} 0 L 0 0 0 ${S * 5}`} fill="none" stroke="#1d232b" strokeWidth="1" /></pattern>
+        <pattern id="grid" width={S * 5} height={S * 5} patternUnits="userSpaceOnUse"><path d={`M ${S * 5} 0 L 0 0 0 ${S * 5}`} fill="none" stroke="#e2e2de" strokeWidth="1" /></pattern>
         <radialGradient id="burst"><stop offset="0%" stopColor="#ff5d5d" stopOpacity="0.85" /><stop offset="100%" stopColor="#ff5d5d" stopOpacity="0" /></radialGradient>
       </defs>
       <rect width={W} height={H} fill="url(#grid)" />
@@ -60,17 +61,17 @@ export default function TopView({ metric, t, events, entities, witnesses, sight,
       {/* road */}
       {f.carriageway ? (
         <g>
-          <rect x={0} y={sy(f.carriageway.x[0])} width={W} height={(f.carriageway.x[1] - f.carriageway.x[0]) * S} fill="#23272e" />
+          <rect x={0} y={sy(f.carriageway.x[0])} width={W} height={(f.carriageway.x[1] - f.carriageway.x[0]) * S} fill="#d9d9d4" />
           {f.divider && <rect x={0} y={sy(f.divider.x[0])} width={W} height={(f.divider.x[1] - f.divider.x[0]) * S} fill="url(#hatch)" />}
-          <line x1={0} x2={W} y1={sy((f.carriageway.x[0] + f.carriageway.x[1]) / 2)} y2={sy((f.carriageway.x[0] + f.carriageway.x[1]) / 2)} stroke="#e7eaee" strokeOpacity={0.3} strokeWidth={3} strokeDasharray="28 28" />
+          <line x1={0} x2={W} y1={sy((f.carriageway.x[0] + f.carriageway.x[1]) / 2)} y2={sy((f.carriageway.x[0] + f.carriageway.x[1]) / 2)} stroke="#0a0a0a" strokeOpacity={0.3} strokeWidth={3} strokeDasharray="28 28" />
           {f.zebra && Array.from({ length: Math.round((f.carriageway.x[1] - f.carriageway.x[0]) / 0.9) }).map((_, i) => (
-            <rect key={i} x={sx(f.zebra!.y[1])} y={sy(f.carriageway!.x[0] + 0.2 + i * 0.9)} width={(f.zebra!.y[1] - f.zebra!.y[0]) * S} height={0.5 * S} fill="#e7eaee" opacity={0.7} />
+            <rect key={i} x={sx(f.zebra!.y[1])} y={sy(f.carriageway!.x[0] + 0.2 + i * 0.9)} width={(f.zebra!.y[1] - f.zebra!.y[0]) * S} height={0.5 * S} fill="#0a0a0a" opacity={0.7} />
           ))}
         </g>
       ) : f.road_hull && f.road_hull.length > 2 ? (
         <g>
-          <polygon points={f.road_hull.map(([x, y]) => `${sx(y)},${sy(x)}`).join(" ")} fill="#23272e" stroke="#3a404a" strokeDasharray="8 6" />
-          <text x={sx(f.road_hull[0][1]) + 6} y={sy(f.road_hull[0][0]) - 6} fill="#5d6570" fontSize={13}>observed drivable area</text>
+          <polygon points={f.road_hull.map(([x, y]) => `${sx(y)},${sy(x)}`).join(" ")} fill="#d9d9d4" stroke="#3a404a" strokeDasharray="8 6" />
+          <text x={sx(f.road_hull[0][1]) + 6} y={sy(f.road_hull[0][0]) - 6} fill="#8a8a85" fontSize={13}>observed drivable area</text>
         </g>
       ) : null}
 
@@ -100,7 +101,7 @@ export default function TopView({ metric, t, events, entities, witnesses, sight,
             {done.slice(1).map((p, i) => <line key={i} x1={sx(done[i].y)} y1={sy(done[i].x)} x2={sx(p.y)} y2={sy(p.x)} stroke={hex(p.v_kmh, vmax)} strokeWidth={7} strokeLinecap="round" />)}
             {ticks.map((p) => (
               <g key={p.t}>
-                <circle cx={sx(p.y)} cy={sy(p.x)} r={5} fill="#0b0d10" stroke="#e7eaee" strokeWidth={2} />
+                <circle cx={sx(p.y)} cy={sy(p.x)} r={5} fill="#ffffff" stroke="#0a0a0a" strokeWidth={2} />
                 <text x={sx(p.y)} y={sy(p.x) + 22} fill="#8a93a0" fontSize={12} textAnchor="middle">{Math.round(p.t) > 0 ? "+" : ""}{Math.round(p.t)}s</text>
               </g>
             ))}
@@ -111,7 +112,7 @@ export default function TopView({ metric, t, events, entities, witnesses, sight,
       {/* everyone else: faint dots at the playhead */}
       {metric.tracks.filter((tr) => !key.has(tr.id)).map((tr) => {
         const p = at(tr, t);
-        return p.live && p.x > X0 && p.x < X1 && p.y > Y0 && p.y < Y1 ? <circle key={tr.id} cx={sx(p.y)} cy={sy(p.x)} r={tr.class === "person" ? 5 : 8} fill="#5d6570" opacity={0.5} /> : null;
+        return p.live && p.x > X0 && p.x < X1 && p.y > Y0 && p.y < Y1 ? <circle key={tr.id} cx={sx(p.y)} cy={sy(p.x)} r={tr.class === "person" ? 5 : 8} fill="#8a8a85" opacity={0.5} /> : null;
       })}
 
       {/* witness pins + line of sight to the primary */}
@@ -126,7 +127,7 @@ export default function TopView({ metric, t, events, entities, witnesses, sight,
             <g transform={`translate(${sx(wp.y)},${sy(wp.x)})`} className="cursor-pointer"
               onClick={() => sel({ kind: "witness", title: m.name, lines: [m.vantage ?? "", by ? `view of the primary blocked by ${names[by] ?? by} at this instant` : "clear line of sight to the primary at this instant"], refs: [`${w}.txt`] })}>
               <path d="M0,0 C-13,-17 -13,-32 0,-32 C13,-32 13,-17 0,0 Z" fill="#c58cff" />
-              <text y={-15} fill="#0b0d10" fontSize={13} fontWeight={700} textAnchor="middle">{w.replace(/\D/g, "")}</text>
+              <text y={-15} fill="#ffffff" fontSize={13} fontWeight={700} textAnchor="middle">{w.replace(/\D/g, "")}</text>
             </g>
           </g>
         );
@@ -144,13 +145,13 @@ export default function TopView({ metric, t, events, entities, witnesses, sight,
           <g key={tr.id} transform={`translate(${sx(p.y)},${sy(p.x)})`}>
             {d ? (
               <g transform={`rotate(${ang})`}>
-                <rect x={(-d[0] / 2) * S} y={(-d[2] / 2) * S} width={d[0] * S} height={d[2] * S} rx={5} fill="#0b0d10" stroke={col} strokeWidth={4} />
+                <rect x={(-d[0] / 2) * S} y={(-d[2] / 2) * S} width={d[0] * S} height={d[2] * S} rx={5} fill="#ffffff" stroke={col} strokeWidth={4} />
                 <rect x={(d[0] / 2) * S - 9} y={(-d[2] / 2) * S + 4} width={5} height={d[2] * S - 8} fill={col} />
               </g>
             ) : <circle r={0.45 * S} fill="#5fd4e6" stroke="#0b0d10" strokeWidth={3} />}
             <g transform={`translate(0, ${-(d ? d[2] : 1.2) * S * 0.5 - 16})`}>
-              <rect x={-78} y={-22} width={156} height={26} rx={6} fill="#0b0d10" opacity={0.88} />
-              <text y={-4} fontSize={15} fill="#e7eaee" textAnchor="middle" fontWeight={600}>{(names[tr.id] ?? tr.id).replace(" (primary)", "")}{d ? ` · ${p.v_kmh.toFixed(0)} km/h` : ""}</text>
+              <rect x={-78} y={-22} width={156} height={26} rx={6} fill="#ffffff" opacity={0.88} />
+              <text y={-4} fontSize={15} fill="#0a0a0a" textAnchor="middle" fontWeight={600}>{(names[tr.id] ?? tr.id).replace(" (primary)", "")}{d ? ` · ${p.v_kmh.toFixed(0)} km/h` : ""}</text>
             </g>
           </g>
         );
@@ -161,13 +162,28 @@ export default function TopView({ metric, t, events, entities, witnesses, sight,
         <g transform={`translate(${sx(ix[1])},${sy(ix[0])})`} className="cursor-pointer"
           onClick={() => sel({ kind: "impact", title: "Impact (T0)", lines: [`at x ${ix[0].toFixed(1)} m, y ${ix[1].toFixed(1)} m`, ...(entities?.involved ?? []).map((i: string) => `involved: ${names[i] ?? i}`)], refs: events.filter((e) => Math.abs(e.t.start) < 0.35 && /impact|contact/.test(e.action)).map((e) => e.ref || e.id) })}>
           <circle r={2.2 * S} fill="url(#burst)"><animate attributeName="r" values={`${1.3 * S};${2.6 * S};${1.3 * S}`} dur="1.6s" repeatCount="indefinite" /></circle>
-          <g transform={`translate(0, ${2.4 * S})`}><rect x={-58} y={-18} width={116} height={26} rx={6} fill="#ff5d5d" /><text y={1} fill="#0b0d10" fontSize={15} fontWeight={800} textAnchor="middle">IMPACT · T0</text></g>
+          <g transform={`translate(0, ${2.4 * S})`}><rect x={-58} y={-18} width={116} height={26} rx={6} fill="#ff5d5d" /><text y={1} fill="#ffffff" fontSize={15} fontWeight={800} textAnchor="middle">IMPACT · T0</text></g>
         </g>
       )}
 
+      {/* key findings pop up where and when they happen */}
+      {activeFindings(findings, t).map((k, i) => {
+        const x = Math.min(Math.max(sx(k.xy![1]), 170), W - 170), y = i % 2 === 0 ? Math.max(sy(k.xy![0]) - 80 - (i / 2) * 74, 20) : Math.min(sy(k.xy![0]) + 40 + ((i - 1) / 2) * 74, H - 70);   // alternate above / below
+        const d = k.detail.length > 92 ? k.detail.slice(0, 90) + "…" : k.detail;
+        return (
+          <g key={k.id} className="pointer-events-none">
+            <line x1={sx(k.xy![1])} y1={sy(k.xy![0])} x2={x} y2={y + 30} stroke="#0a0a0a" strokeOpacity={0.6} strokeWidth={1.5} />
+            <rect x={x - 165} y={y - 6} width={330} height={62} rx={8} fill="#ffffff" stroke={k.kind === "warning" ? "#ff5d5d" : k.kind === "counterfactual" ? "#f5b84f" : "#4f8cff"} strokeWidth={2} opacity={0.95} />
+            <text x={x - 152} y={y + 14} fill="#0a0a0a" fontSize={15} fontWeight={700}>{k.title}</text>
+            <text x={x - 152} y={y + 33} fill="#8a93a0" fontSize={12}>{d.slice(0, 50)}</text>
+            <text x={x - 152} y={y + 48} fill="#8a93a0" fontSize={12}>{d.slice(50)}</text>
+          </g>
+        );
+      })}
+
       {/* scale */}
       <g transform={`translate(${W - 5 * S - 24}, ${H - 22})`}>
-        <rect width={5 * S} height={5} fill="#e7eaee" /><rect width={2.5 * S} height={5} fill="#8a93a0" />
+        <rect width={5 * S} height={5} fill="#0a0a0a" /><rect width={2.5 * S} height={5} fill="#8a93a0" />
         <text y={-7} fill="#8a93a0" fontSize={12}>0</text><text x={5 * S} y={-7} fill="#8a93a0" fontSize={12} textAnchor="end">5 m</text>
       </g>
     </svg>

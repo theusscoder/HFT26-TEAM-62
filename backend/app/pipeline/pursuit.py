@@ -281,6 +281,12 @@ def run(case_dir: Path, say=None) -> dict:
             r = row(tid, "nearby")
             if r["status"] == "left_view":
                 near.append(r)
+    if case.get("camera", {}).get("type") == "dashcam":
+        # The camera moves with a vehicle, so others leave its frame without leaving the scene.
+        for v in vehicles + near:
+            if v["status"] == "left_view":
+                v["status"], v["label"] = "uncertain", "Out of the moving camera's view; that doesn't show it left the scene"
+        near = []
     leavers = [v for v in vehicles if v["status"] == "left_view"]
 
     # Plates: everyone who left, and the primary (the emergency flow needs it too).

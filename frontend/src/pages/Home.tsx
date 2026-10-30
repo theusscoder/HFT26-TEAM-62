@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { AlertTriangle, ArrowRight, CheckCircle2, Plus, Radio, Scale } from "lucide-react";
 import { useApi } from "../lib/api";
 import { LevelPill, Loading, Stat } from "../components/ui";
+import KitsPanel from "../components/KitsPanel";
 
 /* The command centre: what every case found, at a glance, each number read from the case's own files. */
 const RUN: Record<string, string> = { stayed: "No hit-and-run", departed: "Vehicle left", unclear: "Hit-and-run unclear" };
@@ -29,6 +30,7 @@ export default function Home() {
           <Stat label="Planted errors caught" value={T.caught} tone="text-ok" hint={`of ${T.planted}, in statements we wrote to test it`} delay={0.1} />
           <Stat label="False flags" value={T.false_flags} tone={T.false_flags ? "text-bad" : ""} hint="on those same test statements" delay={0.15} />
         </div>
+        <KitsPanel />
         <h2 className="mt-8 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted">Cases</h2>
         <div className="mt-3 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
           {data.cases.map((c: any, i: number) => (

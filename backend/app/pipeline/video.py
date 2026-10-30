@@ -59,6 +59,10 @@ def detect_and_track(video: Path, model_name: str, annotated: Path, progress=Non
     total = int(cap.get(cv2.CAP_PROP_FRAME_COUNT)) or 1
     tracks = defaultdict(lambda: {"cls": None, "points": [], "colours": []})
     times, f = [], 0
+    # Ego-motion: background feature flow (vehicles masked out) between consecutive frames. Static CCTV barely moves;
+    # a dashcam's whole scene streams out from a vanishing point. Stored for camera-type detection and ego speed.
+    flow, prev_gray, prev_t = [], None, None
+    scale = 480 / max(W, 1)
     while True:
         ok, frame = cap.read()
         if not ok:
@@ -75,6 +79,22 @@ def detect_and_track(video: Path, model_name: str, annotated: Path, progress=Non
                     x1, y1, x2, y2 = map(int, box)
                     cw, ch = (x2 - x1) // 4, (y2 - y1) // 4
                     tr["colours"].append(colour_name(frame[y1 + ch:y2 - ch, x1 + cw:x2 - cw]))
+        gray = cv2.cvtColor(cv2.resize(frame, (480, int(H * scale))), cv2.COLOR_BGR2GRAY)
+        if prev_gray is not None and f % 2 == 0:
+            mask = np.full(gray.shape, 255, np.uint8)
+            if r.boxes is not None and len(r.boxes):
+                for x1, y1, x2, y2 in (r.boxes.xyxy.cpu().numpy() * scale).astype(int):
+                    mask[max(0, y1):y2, max(0, x1):x2] = 0
+            p0 = cv2.goodFeaturesToTrack(prev_gray, 120, 0.01, 8, mask=mask)
+            if p0 is not None:
+                p1, st, _ = cv2.calcOpticalFlowPyrLK(prev_gray, gray, p0, None, winSize=(21, 21), maxLevel=3)
+                ok_ = st.reshape(-1) == 1
+                a, b = p0.reshape(-1, 2)[ok_] / scale, p1.reshape(-1, 2)[ok_] / scale
+                d = b - a
+                flow.append({"t": round(t, 3), "dt": round(t - prev_t, 4), "mag": round(float(np.median(np.hypot(d[:, 0], d[:, 1]))) if len(d) else 0.0, 2),
+                             "pts": [[round(float(u), 1), round(float(v), 1), round(float(du), 2), round(float(dv), 2)] for (u, v), (du, dv) in list(zip(a, d))[:80]]})
+        if f % 2 == 0 or prev_gray is None:
+            prev_gray, prev_t = gray, t
         draw(frame, tracks, f, t)
         out.write(frame)
         f += 1
@@ -89,7 +109,20 @@ def detect_and_track(video: Path, model_name: str, annotated: Path, progress=Non
         raw.unlink()
     else:
         raw.rename(annotated)
-    return dict(tracks), {"fps": fps, "width": W, "height": H, "frames": f, "duration": times[-1] if times else 0}
+    return dict(tracks), {"fps": fps, "width": W, "height": H, "frames": f, "duration": times[-1] if times else 0,
+                          "camera": classify_camera(flow, W), "ego_flow": flow}
+
+
+def classify_camera(flow: list[dict], width: int) -> dict:
+    """Moving camera (dashcam / helmet cam) vs fixed CCTV from background flow per frame pair, normalised by width."""
+    mags = np.array([s["mag"] / max(s["dt"], 1e-3) / width for s in flow if s["pts"]])   # frame widths per second
+    if not len(mags):
+        return {"type": "cctv", "confidence": 0.5, "why": "no background features"}
+    moving = float(np.mean(mags > 0.02))
+    typ = "dashcam" if moving > 0.35 else "cctv"
+    conf = round(min(0.99, 0.5 + abs(moving - 0.35) * 1.4), 2)
+    return {"type": typ, "confidence": conf, "moving_fraction": round(moving, 2), "median_flow": round(float(np.median(mags)), 4),
+            "why": f"background moves in {moving * 100:.0f}% of frame pairs ({'camera is moving' if typ == 'dashcam' else 'camera is fixed'})"}
 
 
 def draw(frame, tracks, f, t):
@@ -254,7 +287,7 @@ def run(video: Path, out_dir: Path, model_name: str = MODEL, impact_label: float
             if len(tr["points"]) >= MIN_TRACK_FRAMES}
     (out_dir / "tracks.json").write_text(json.dumps({"video": info, "model": model_name, "tracker": "bytetrack", "tracks": kept}))
     (out_dir / "video_events.json").write_text(json.dumps(events, indent=2))
-    return {"info": info, "tracks": len(kept), "events": len(events)}
+    return {"info": {k: v for k, v in info.items() if k != "ego_flow"}, "tracks": len(kept), "events": len(events)}
 
 
 if __name__ == "__main__":

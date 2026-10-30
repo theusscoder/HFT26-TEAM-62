@@ -99,7 +99,7 @@ def rule_extract(text: str) -> list[dict]:
                 actor = before[-1].group().strip() if before else (act or last_vehicle or "unknown")
             claims.append({"actor": actor, "action": action, "value": value, "order": _order(s), "quote": q})
         sp = re.search(r"(\d{1,3})(?:\s*(?:-|to|or)\s*(\d{1,3}))?\s*(?:km/?h|kmph|kph|km per hour)?", s, re.I)
-        if re.search(r"\b(speed|fast|slow|km|kmph|going|driving|maybe|around|at least)\b", low) and sp and not re.search(r"\d{1,2}:\d{2}", s):
+        if re.search(r"\b(speed|fast|slow|km|kmph|going|driving|doing|travelling|traveling|about|maybe|around|at least)\b", low) and sp and not re.search(r"\d{1,2}:\d{2}", s):
             v = (int(sp.group(1)) + int(sp.group(2))) / 2 if sp.group(2) else int(sp.group(1))
             if 3 <= v <= 200:
                 add("speed", str(v), re.escape(sp.group()))
