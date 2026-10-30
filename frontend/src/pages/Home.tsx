@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { AlertTriangle, ArrowRight, Camera, CheckCircle2, Plus, Radio, Scale } from "lucide-react";
+import { AlertTriangle, ArrowRight, Camera, CheckCircle2, Map, Plus, Radio, Scale } from "lucide-react";
 import { useApi } from "../lib/api";
 import { LevelPill, Loading, Stat } from "../components/ui";
 import KitsPanel from "../components/KitsPanel";
+import ThemePicker from "../components/ThemePicker";
 
 /* The command centre: what every case found, at a glance, each number read from the case's own files. */
 const RUN: Record<string, string> = { stayed: "No hit-and-run", departed: "Vehicle left", unclear: "Hit-and-run unclear" };
@@ -18,9 +19,11 @@ export default function Home() {
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <motion.h1 initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} className="text-4xl font-bold tracking-tight">YATHARTH</motion.h1>
+          <div className="mt-2"><ThemePicker /></div>
           <p className="mt-1 max-w-2xl text-muted">Every claim proven or flagged, nothing asserted. Crash evidence put back together: what happened, whose account holds up, and who must be told right now.</p>
         </div>
         <div className="flex gap-2">
+          <Link to="/city" className="inline-flex items-center gap-2 border border-ink px-4 py-2.5 text-sm font-semibold transition hover:bg-panel-2"><Map size={16} />City operations</Link>
           <Link to="/dashcam" className="inline-flex items-center gap-2 border border-ink px-4 py-2.5 text-sm font-semibold transition hover:bg-panel-2"><Camera size={16} />Dashcam</Link>
           <Link to="/live" className="inline-flex items-center gap-2  border border-bad/50 bg-bad/10 px-4 py-2.5 text-sm font-semibold text-bad transition hover:bg-bad/20"><Radio size={16} />Monitoring wall</Link>
           <Link to="/new" className="inline-flex items-center gap-2  bg-accent px-4 py-2.5 text-sm font-semibold text-white transition hover:brightness-110"><Plus size={16} />New case</Link>

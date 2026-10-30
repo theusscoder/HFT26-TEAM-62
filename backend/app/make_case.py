@@ -156,6 +156,10 @@ def make(case_id: str, video_path: Path | None = None, title: str | None = None,
     (d / "severity.json").write_text(json.dumps(sev, indent=2))
     report["severity"] = f"{sev['level']} {sev['label']} ({sev['score']})"
     say("severity", "done", report["severity"])
+    try:  # the moment a crash is analysed: police informed, urgent units out, the struck party's contact told
+        report["auto_response"] = f"{len(emergency.auto_trigger(d)['dispatched'])} unit(s) sent automatically"
+    except Exception as e:
+        report["auto_response"] = f"not run: {str(e)[:80]}"
     ins = insights.build(d)
     report["insights"] = f"{len(ins)} key findings"
     say("insights", "done", report["insights"])

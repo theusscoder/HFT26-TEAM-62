@@ -6,6 +6,7 @@ import { Ambulance, CheckCircle2, Flame, MapPin, ShieldAlert, Siren, Truck } fro
 import { post, useApi } from "../lib/api";
 import { CountUp, Loading, Panel, Ref, Status } from "../components/ui";
 import ContextPanel from "../components/ContextPanel";
+import EmergencyAuto from "../components/EmergencyAuto";
 
 /* Emergency response. Rules recommend from what the case shows; a named officer sends each unit; nothing goes out on its
    own and every step is in the custody ledger. Sends are simulated unless a channel is set up, and the page says so. */
@@ -61,7 +62,12 @@ export default function GoldenHour() {
   const [count, setCount] = useState<number | null>(null);
   const [sent, setSent] = useState<string | null>(null);
 
-  useEffect(() => { fetch(`/api/cases/${id}/emergency`).then((r) => r.ok ? r.json() : Promise.reject(r.status)).then(setPlan).catch((e) => setErr(String(e))); }, [id]);
+  // The crash being on screen means it was detected: if the automatic response hasn't run for this case yet, it runs now.
+  useEffect(() => {
+    fetch(`/api/cases/${id}/emergency`).then((r) => r.ok ? r.json() : Promise.reject(r.status))
+      .then((p) => p.auto ? setPlan(p) : post<any>(`/cases/${id}/emergency/auto`, {}).then((x) => setPlan(x.plan)))
+      .catch((e) => setErr(String(e)));
+  }, [id]);
   useEffect(() => {
     if (count == null || count <= 0) return;
     const h = setTimeout(() => setCount(count - 1), 1000);
@@ -97,6 +103,8 @@ export default function GoldenHour() {
         </div>
         {plan.started && <GoldenClock started={plan.started} limit={plan.golden_hour_s} />}
       </div>
+
+      <EmergencyAuto caseId={id!} plan={plan} setPlan={setPlan} officer={officer} />
 
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
         {plan.units.map((u: any, i: number) => {

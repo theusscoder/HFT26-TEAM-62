@@ -42,6 +42,23 @@ def search(plates: list[str]) -> dict:
             "method": "lookup by plate; no face matching"}
 
 
+LICENCES = FICTIONAL / "licences.json"
+
+
+def licences_for(plates: list[str]) -> list[dict]:
+    """The registered owner's driving licence for each exactly-read plate. The owner may not be the driver."""
+    from . import alerts
+    recs = json.loads(LICENCES.read_text(encoding="utf-8")) if LICENCES.exists() else {}
+    out = []
+    for p in plates:
+        if "?" in p or p not in recs:
+            continue
+        reg = alerts.lookup(p) or {}
+        out.append({"plate": p, **recs[p], "vehicle": reg.get("vehicle"), "insurance": reg.get("insurance"), "fictional": True,
+                    "caveat": "The registered owner may not be the driver. The face check compares this licence photo with the footage, one to one."})
+    return out
+
+
 def plates_of(case_dir: Path) -> list[str]:
     found = []
     p = case_dir / "plates.json"

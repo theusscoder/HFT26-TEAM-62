@@ -1,0 +1,18 @@
+{
+  "TS09EA1234": {
+    "dl_no": "DEMO-DL-TS09-2019-0012345",
+    "holder": "DEMO OWNER 01",
+    "class": "LMV",
+    "valid_till": "2034-05-11",
+    "issued_by": "RTA Hyderabad (Central), demo",
+    "photo": "DL-01.svg"
+  },
+  "TS07GK5521": {
+    "dl_no": "DEMO-DL-TS07-2016-0098765",
+    "holder": "DEMO OWNER 02",
+    "class": "LMV, MCWG",
+    "valid_till": "2031-11-02",
+    "issued_by": "RTA Ranga Reddy, demo",
+    "photo": "DL-02.svg"
+  }
+}

@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./index.css";
+import { initTheme } from "./components/ThemePicker";
 import CaseLayout from "./components/CaseLayout";
 import Home from "./pages/Home";
 import NewCase from "./pages/NewCase";
@@ -18,7 +19,10 @@ import Reconstruction from "./pages/Reconstruction";
 import Ask from "./pages/Ask";
 import Intercept from "./pages/Intercept";
 import Live from "./pages/Live";
+import City from "./pages/City";
 import DashcamPage, { DashcamIndex } from "./pages/Dashcam";
+
+initTheme();
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -27,6 +31,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="/" element={<Home />} />
         <Route path="/new" element={<NewCase />} />
         <Route path="/live" element={<Live />} />
+        <Route path="/city" element={<City />} />
         <Route path="/dashcam" element={<DashcamIndex />} />
         <Route path="/case/:id" element={<CaseLayout />}>
           <Route index element={<Overview />} />

@@ -204,6 +204,60 @@ def dispatch_unit(cid: str, body: EmergencyDispatch):
         raise HTTPException(422, str(e))
 
 
+@router.post("/api/cases/{cid}/emergency/auto")
+def emergency_auto(cid: str):
+    return {"auto": emergency.auto_trigger(case_path(cid)), "plan": emergency.plan(case_path(cid))}
+
+
+class CertBody(BaseModel):
+    officer: str = Field(min_length=1)
+    hospital: str | None = None
+
+
+@router.post("/api/cases/{cid}/emergency/certificate")
+def emergency_certificate(cid: str, body: CertBody):
+    if not body.officer.strip():
+        raise HTTPException(422, "a named officer issues the certificate")
+    return emergency.certificate(case_path(cid), body.officer.strip(), body.hospital)
+
+
+@router.get("/api/cases/{cid}/emergency/certificate.html", response_class=HTMLResponse)
+def emergency_certificate_html(cid: str):
+    return emergency.certificate_html(case_path(cid))
+
+
+@router.get("/api/cases/{cid}/licence")
+def case_licence(cid: str):
+    from . import toll_db
+    return {"licences": toll_db.licences_for(toll_db.plates_of(case_path(cid)))}
+
+
+@router.post("/api/cases/{cid}/licence/{plate}/face-check")
+def licence_face_check(cid: str, plate: str):
+    from . import faces, toll_db
+    d = case_path(cid)
+    lic = next((l for l in toll_db.licences_for(toll_db.plates_of(d)) if l["plate"] == plate), None)
+    if not lic:
+        raise HTTPException(404, "no licence linked to this case's plates")
+    if not faces.sources(d):
+        return {"status": "not_comparable", "reason": "This case has no footage yet. Add a frame or clip where the driver's face is visible."}
+    res = faces.compare(d, toll_db.IMAGES / lic["photo"])
+    Ledger(d / "custody.jsonl").append("face_check", against=f"licence {lic['dl_no']}", status=res["status"])
+    return res
+
+
+@router.get("/api/telegram/chats")
+def telegram_chats():
+    from . import alerts
+    return alerts.telegram_chats()
+
+
+@router.get("/api/city")
+def city_ops(seed: int = 7):
+    from . import city_ops as ops
+    return ops.run(seed)
+
+
 @router.get("/api/dashboard")
 def dashboard():
     """One row per case for the command centre: everything is read from the case's own files."""

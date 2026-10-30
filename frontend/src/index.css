@@ -23,11 +23,33 @@
 }
 
 html, body, #root { height: 100%; }
-body { background-color: var(--color-bg); background-image: linear-gradient(to right, rgba(10, 10, 10, 0.045) 1px, transparent 1px), linear-gradient(to bottom, rgba(10, 10, 10, 0.045) 1px, transparent 1px); background-size: 48px 48px; color: var(--color-ink); font-family: var(--font-sans); letter-spacing: -0.005em; }
-/* Swiss: no rounding, no soft shadows, no glow. */
-*, ::before, ::after { border-radius: 0 !important; box-shadow: none !important; }
+/* Themes override the tokens; every component reads them. Swiss is the default. */
+:root { --grid: rgba(10, 10, 10, 0.045); --grid-size: 48px; --field: #ffffff; }
+:root[data-theme="command"] {
+  --color-bg: #06120f; --color-panel: #0a1b17; --color-panel-2: #10271f; --color-line: #1f4a3e; --color-ink: #dafff2; --color-muted: #7fb8a6;
+  --color-accent: #19d88f; --color-observed: #4fb3ff; --color-claimed: #c58cff; --color-inferred: #ffc21a; --color-ok: #2bff88; --color-warn: #ffc21a; --color-bad: #ff4a4a;
+  --font-sans: "Inter", system-ui, sans-serif; --grid: rgba(43, 255, 176, 0.05); --grid-size: 32px; --field: #0f251e;
+}
+:root[data-theme="cockpit"] {
+  --color-bg: #0c0f13; --color-panel: #141920; --color-panel-2: #1b222b; --color-line: #2b3440; --color-ink: #e8ebef; --color-muted: #8b95a3;
+  --color-accent: #ffb020; --color-observed: #5aa9ff; --color-claimed: #c58cff; --color-inferred: #ffb020; --color-ok: #3ecf8e; --color-warn: #ffb020; --color-bad: #ff5d5d;
+  --font-sans: "Inter", system-ui, sans-serif; --grid: rgba(255, 255, 255, 0.025); --grid-size: 24px; --field: #1b222b;
+}
+:root[data-theme="paper"] {
+  --color-bg: #f5efe3; --color-panel: #fffaf0; --color-panel-2: #efe6d4; --color-line: #d8ccb4; --color-ink: #1f1a14; --color-muted: #6f6556;
+  --color-accent: #a8321d; --color-observed: #24508f; --color-claimed: #6b3f99; --color-inferred: #9a6200; --color-ok: #3d6b2f; --color-warn: #9a6200; --color-bad: #a8321d;
+  --font-sans: Georgia, "Times New Roman", serif; --grid: transparent; --field: #fffaf0;
+}
+body { background-color: var(--color-bg); background-image: linear-gradient(to right, var(--grid) 1px, transparent 1px), linear-gradient(to bottom, var(--grid) 1px, transparent 1px); background-size: var(--grid-size) var(--grid-size); color: var(--color-ink); font-family: var(--font-sans); letter-spacing: -0.005em; }
+/* Swiss and Paper: no rounding, no soft shadows. Command and Cockpit keep soft corners and a glow on the accent. */
+:root[data-theme="swiss"] *, :root[data-theme="swiss"] ::before, :root[data-theme="paper"] *, :root:not([data-theme]) * { border-radius: 0 !important; box-shadow: none !important; }
+:root[data-theme="command"] section, :root[data-theme="cockpit"] section { border-radius: 10px; border-color: var(--color-line) !important; }
+:root[data-theme="command"] .bg-accent { box-shadow: 0 0 18px rgba(25, 216, 143, 0.35); color: #04120d !important; }
+:root[data-theme="cockpit"] .bg-accent { color: #0c0f13 !important; }
+:root[data-theme="command"] .border-ink, :root[data-theme="cockpit"] .border-ink { border-color: var(--color-line) !important; }
+:root[data-theme="command"] .bg-white, :root[data-theme="cockpit"] .bg-white { background-color: var(--color-panel) !important; }
 h1, h2 { letter-spacing: -0.025em; }
-input, select, textarea { background: #fff !important; border-color: var(--color-ink) !important; }
+input, select, textarea { background: var(--field) !important; color: var(--color-ink); border-color: var(--color-line) !important; }
 ::-webkit-scrollbar { width: 10px; height: 10px; }
 ::-webkit-scrollbar-thumb { background: var(--color-line); border-radius: 8px; border: 2px solid transparent; background-clip: content-box; }
 button { cursor: pointer; }
@@ -36,3 +58,8 @@ button:disabled { cursor: not-allowed; }
 .mono { font-family: var(--font-mono); }
 .leaflet-container { background: #f3f3f0; }
 .dark-tiles { filter: grayscale(1) contrast(1.05); }
+:root[data-theme="command"] .dark-tiles { filter: invert(1) hue-rotate(160deg) brightness(0.75) saturate(0.6); }
+:root[data-theme="cockpit"] .dark-tiles { filter: invert(1) hue-rotate(180deg) brightness(0.7) contrast(0.95); }
+:root[data-theme="paper"] .dark-tiles { filter: sepia(0.45) contrast(0.95); }
+:root[data-theme="command"] .leaflet-container, :root[data-theme="cockpit"] .leaflet-container { background: var(--color-bg); }
+:root[data-theme="command"] .bg-ink.text-white, :root[data-theme="cockpit"] .bg-ink.text-white { color: var(--color-bg) !important; }

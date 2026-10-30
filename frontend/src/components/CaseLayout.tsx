@@ -5,6 +5,7 @@ import { Activity, Box, Camera, Car, Crosshair, ChevronLeft, ClipboardList, File
 import { useApi } from "../lib/api";
 import { ClockProvider } from "../lib/clock";
 import { LevelPill } from "./ui";
+import ThemePicker from "./ThemePicker";
 
 // Grouped by what the reader is trying to do, in demo order.
 const NAV = [
@@ -49,6 +50,7 @@ export default function CaseLayout() {
               </div>
             ))}
           </nav>
+          <div className="border-t border-line px-3 py-2"><div className="mb-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-muted">Theme</div><ThemePicker compact /></div>
           <p className="border-t border-line px-4 py-3 text-[11px] text-muted">{c.simulated ? "Demo case · simulated sensor, witnesses and registry" : `Real footage${c.license ? ` · ${c.license}` : ""}`}</p>
         </aside>
         <div className="flex min-w-0 flex-1 flex-col">
