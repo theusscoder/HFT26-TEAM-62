@@ -44,3 +44,5 @@ data/telegram_links.json
 # per-case live response state
 data/cases/*/response_timeline.json
 data/cases/*/emergency.json
+
+.claude/
