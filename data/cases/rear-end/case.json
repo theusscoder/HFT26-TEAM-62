@@ -2,9 +2,9 @@
   "id": "rear-end",
   "title": "03-minor-rear-end",
   "location": {
-    "name": "",
-    "lat": null,
-    "lon": null
+    "name": "Kondapur residential lane, Hyderabad",
+    "lat": 17.4382,
+    "lon": 78.3652
   },
   "t0_video_s": 3.57,
   "t0_anchor": "EV-V-002",
@@ -17,6 +17,9 @@
     "width": 1920,
     "height": 1080,
     "duration": 6.966666666666667
+  },
+  "camera": {
+    "type": "cctv"
   },
   "evidence": [
     {
@@ -56,5 +59,15 @@
     "label_impact_video_s": null
   },
   "simulated": false,
-  "license": "ACCIDENT benchmark, CC BY-NC-SA 4.0"
+  "license": "ACCIDENT benchmark, CC BY-NC-SA 4.0",
+  "weather": {
+    "provider": "Open-Meteo historical archive",
+    "time_utc": "2026-10-30T05:35:40+00:00",
+    "precipitation_mm": 0.0,
+    "visibility_m": null,
+    "road_state": "dry",
+    "mu": 0.7,
+    "mu_basis": "typical dry asphalt, from 0.0 mm of rain that hour"
+  },
+  "incident_time_utc": "2026-10-30T05:35:40+00:00"
 }

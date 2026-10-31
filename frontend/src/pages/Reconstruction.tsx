@@ -167,7 +167,7 @@ export default function Reconstruction() {
           </div>
         </div>
 
-        <div className={immersive ? "fixed bottom-24 left-5 top-24 z-[60] flex w-[300px] flex-col gap-3 overflow-auto opacity-95" : "flex flex-col gap-4"}>
+        <div className={immersive ? "fixed bottom-24 left-5 top-24 z-[60] flex w-[300px] flex-col gap-3 overflow-auto opacity-95 [&>*]:shrink-0" : "flex flex-col gap-4"}>
           {ins.data && ins.data.length > 0 && (
             <Panel title="Key findings" className="max-h-[420px] overflow-auto" right={<span className="text-[10px] text-muted">click to jump</span>}>
               <KeyFindings findings={ins.data} />

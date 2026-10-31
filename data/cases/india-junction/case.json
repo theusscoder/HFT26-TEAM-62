@@ -1,10 +1,10 @@
 {
   "id": "india-junction",
-  "title": "Car and motorcycles collide at a signalised junction",
+  "title": "White car turns across a grey sedan at a signalised junction",
   "location": {
-    "name": "Indian city junction (CCTV)",
-    "lat": null,
-    "lon": null
+    "name": "HITEC City junction, Hyderabad",
+    "lat": 17.4486,
+    "lon": 78.3622
   },
   "t0_video_s": 4.47,
   "t0_anchor": "EV-V-039",
@@ -38,6 +38,24 @@
       "type": "derived",
       "file": "annotated.mp4",
       "label": "Annotated reconstruction (YOLO11 + ByteTrack)"
+    },
+    {
+      "id": "witness_1",
+      "type": "witness",
+      "file": "witness_1.txt",
+      "label": "Tea stall owner \u00b7 corner stall beside the junction"
+    },
+    {
+      "id": "witness_2",
+      "type": "witness",
+      "file": "witness_2.txt",
+      "label": "Motorcyclist at the stop line \u00b7 waiting at the zebra crossing"
+    },
+    {
+      "id": "witness_3",
+      "type": "witness",
+      "file": "witness_3.txt",
+      "label": "Auto-rickshaw driver \u00b7 behind the white car"
     }
   ],
   "check": {
@@ -50,5 +68,15 @@
     "at_video_s": 0.0,
     "value": "18:15:22",
     "method": "read by vision model from the burned-in overlay"
-  }
+  },
+  "weather": {
+    "provider": "Open-Meteo historical archive",
+    "time_utc": "2015-11-09T03:48:50+00:00",
+    "precipitation_mm": 0.0,
+    "visibility_m": null,
+    "road_state": "dry",
+    "mu": 0.7,
+    "mu_basis": "typical dry asphalt, from 0.0 mm of rain that hour"
+  },
+  "incident_time_utc": "2015-11-09T03:48:50+00:00"
 }

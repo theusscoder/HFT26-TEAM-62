@@ -4,7 +4,7 @@
   "vehicles": [
     {
       "track": "ego",
-      "name": "Black motorcycle",
+      "name": "Silver motorcycle",
       "role": "primary",
       "class": "motorcycle",
       "colour": null,
@@ -255,10 +255,10 @@
     },
     {
       "track": "car_1",
-      "name": "Blue car",
+      "name": "Grey car",
       "role": "involved",
       "class": "car",
-      "colour": "blue",
+      "colour": "grey",
       "ref": "tracks_metric:car_1",
       "path": [
         [

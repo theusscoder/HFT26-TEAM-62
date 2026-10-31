@@ -47,5 +47,15 @@
       "label": "Auto driver, waiting at signal, ~10 m"
     }
   ],
-  "simulated": true
+  "simulated": true,
+  "incident_time_utc": "2026-10-31T03:17:30+00:00",
+  "weather": {
+    "provider": "Open-Meteo historical archive",
+    "time_utc": "2026-10-31T03:17:30+00:00",
+    "precipitation_mm": 0.0,
+    "visibility_m": null,
+    "road_state": "dry",
+    "mu": 0.7,
+    "mu_basis": "typical dry asphalt, from 0.0 mm of rain that hour"
+  }
 }

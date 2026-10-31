@@ -2,7 +2,7 @@
   {
     "witness": "witness_1",
     "statement": "My bike was doing about 30 when the SUV in front suddenly stopped. I braked hard but could not stop in time.",
-    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
     "claims": [
       {
         "actor": "My bike",
@@ -63,7 +63,7 @@
   {
     "witness": "witness_2",
     "statement": "I was slowing down for traffic ahead. The motorcycle never braked and crashed into the back of my car.",
-    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
     "claims": [
       {
         "actor": "I",

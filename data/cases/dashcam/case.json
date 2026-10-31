@@ -2,9 +2,9 @@
   "id": "dashcam",
   "title": "Motorcycle rear-ends a braking SUV (rider's camera)",
   "location": {
-    "name": "Highway (first-person camera)",
-    "lat": null,
-    "lon": null
+    "name": "ORR service road, Nanakramguda, Hyderabad",
+    "lat": 17.4305,
+    "lon": 78.3432
   },
   "t0_video_s": 3.57,
   "t0_anchor": "dashcam:vehicle fills the frame just before the jolt",
@@ -57,5 +57,15 @@
     "label_impact_video_s": null
   },
   "simulated": false,
-  "license": "ACCIDENT benchmark, CC BY-NC-SA 4.0"
+  "license": "ACCIDENT benchmark, CC BY-NC-SA 4.0",
+  "weather": {
+    "provider": "Open-Meteo historical archive",
+    "time_utc": "2026-10-29T15:44:05+00:00",
+    "precipitation_mm": 0.0,
+    "visibility_m": null,
+    "road_state": "dry",
+    "mu": 0.7,
+    "mu_basis": "typical dry asphalt, from 0.0 mm of rain that hour"
+  },
+  "incident_time_utc": "2026-10-29T15:44:05+00:00"
 }

@@ -1,1 +1,239 @@
-[]
+[
+  {
+    "witness": "witness_1",
+    "statement": "I run the tea stall at the corner. The white car came round from the right very fast, maybe 50, and turned straight across without stopping. The grey car had the green signal. After the bang the white car just kept going towards the flyover.",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
+    "claims": [
+      {
+        "actor": "the white car",
+        "action": "speed",
+        "value": "50",
+        "order": "before_impact",
+        "quote": "The white car came round from the right very fast, maybe 50",
+        "translation": null,
+        "span": [
+          35,
+          94
+        ]
+      },
+      {
+        "actor": "the white car",
+        "action": "turn",
+        "value": "straight across",
+        "order": "before_impact",
+        "quote": "turned straight across without stopping",
+        "translation": null,
+        "span": [
+          100,
+          139
+        ]
+      },
+      {
+        "actor": "the grey car",
+        "action": "signal",
+        "value": "green",
+        "order": "before_impact",
+        "quote": "The grey car had the green signal",
+        "translation": null,
+        "span": [
+          141,
+          174
+        ]
+      },
+      {
+        "actor": "the white car",
+        "action": "impact",
+        "value": null,
+        "order": "at_impact",
+        "quote": "After the bang",
+        "translation": null,
+        "span": [
+          176,
+          190
+        ]
+      },
+      {
+        "actor": "the white car",
+        "action": "presence",
+        "value": "the flyover",
+        "order": "after_impact",
+        "quote": "the white car just kept going towards the flyover",
+        "translation": null,
+        "span": [
+          191,
+          240
+        ]
+      }
+    ],
+    "rejected": [
+      {
+        "actor": "the white car",
+        "action": "no_brake",
+        "value": null,
+        "order": "before_impact",
+        "quote": "without stopping",
+        "translation": null,
+        "rejected_because": "quote doesn't say no_brake"
+      }
+    ],
+    "orderings": [
+      {
+        "before": 0,
+        "after": 3,
+        "quote": "After the bang"
+      }
+    ]
+  },
+  {
+    "witness": "witness_2",
+    "statement": "I was on my bike waiting at the line. The grey car was speeding, at least 60, and never braked. The white car was already turning, it was the grey car's fault. Nobody got down, both cars drove off.",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
+    "claims": [
+      {
+        "actor": "I",
+        "action": "presence",
+        "value": "on my bike waiting at the line",
+        "order": "before_impact",
+        "quote": "I was on my bike waiting at the line",
+        "translation": null,
+        "span": [
+          0,
+          36
+        ]
+      },
+      {
+        "actor": "the grey car",
+        "action": "speed",
+        "value": "60",
+        "order": "before_impact",
+        "quote": "The grey car was speeding, at least 60",
+        "translation": null,
+        "span": [
+          38,
+          76
+        ]
+      },
+      {
+        "actor": "the grey car",
+        "action": "no_brake",
+        "value": null,
+        "order": "before_impact",
+        "quote": "never braked",
+        "translation": null,
+        "span": [
+          82,
+          94
+        ]
+      },
+      {
+        "actor": "the white car",
+        "action": "turn",
+        "value": null,
+        "order": "before_impact",
+        "quote": "The white car was already turning",
+        "translation": null,
+        "span": [
+          96,
+          129
+        ]
+      },
+      {
+        "actor": "both cars",
+        "action": "presence",
+        "value": "drove off",
+        "order": "after_impact",
+        "quote": "both cars drove off",
+        "translation": null,
+        "span": [
+          177,
+          196
+        ]
+      }
+    ],
+    "rejected": [
+      {
+        "actor": "Nobody",
+        "action": "fell",
+        "value": null,
+        "order": "after_impact",
+        "quote": "Nobody got down",
+        "translation": null,
+        "rejected_because": "quote doesn't say fell"
+      }
+    ],
+    "orderings": []
+  },
+  {
+    "witness": "witness_3",
+    "statement": "I was driving the auto behind the white car. The signal was red for the white car but he went anyway. The grey car slowed down before they touched.",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
+    "claims": [
+      {
+        "actor": "I",
+        "action": "presence",
+        "value": "the auto behind the white car",
+        "order": "unknown",
+        "quote": "I was driving the auto behind the white car",
+        "translation": null,
+        "span": [
+          0,
+          43
+        ]
+      },
+      {
+        "actor": "the signal",
+        "action": "signal",
+        "value": "red",
+        "order": "unknown",
+        "quote": "The signal was red for the white car",
+        "translation": null,
+        "span": [
+          45,
+          81
+        ]
+      },
+      {
+        "actor": "the grey car",
+        "action": "brake",
+        "order": "before_impact",
+        "value": null,
+        "quote": "The grey car slowed down",
+        "translation": null,
+        "span": [
+          102,
+          126
+        ]
+      },
+      {
+        "actor": "the grey car",
+        "action": "impact",
+        "value": "the white car",
+        "order": "at_impact",
+        "quote": "they touched",
+        "translation": null,
+        "span": [
+          134,
+          146
+        ]
+      }
+    ],
+    "rejected": [
+      {
+        "actor": "the white car",
+        "action": "no_brake",
+        "value": null,
+        "order": "before_impact",
+        "quote": "he went anyway",
+        "translation": null,
+        "rejected_because": "quote doesn't say no_brake"
+      }
+    ],
+    "orderings": [
+      {
+        "before": 2,
+        "after": 3,
+        "quote": "The grey car slowed down before they touched."
+      }
+    ]
+  }
+]

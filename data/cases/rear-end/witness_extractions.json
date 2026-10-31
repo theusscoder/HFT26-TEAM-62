@@ -1,39 +1,31 @@
 [
   {
     "witness": "witness_1",
+    "statement": "I live on this street. The black hatchback with the white roof was moving slowly and bumped the parked car. It was going maybe 5. The driver got out straight away and nobody was hurt.",
     "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
     "claims": [
       {
-        "actor": "The blue car",
+        "actor": "The black hatchback with the white roof",
         "action": "speed",
         "value": "5",
         "order": "before_impact",
-        "quote": "It was going maybe 5",
+        "quote": "The black hatchback with the white roof was moving slowly and bumped the parked car. It was going maybe 5.",
+        "translation": null,
         "span": [
-          81,
-          101
+          23,
+          129
         ]
       },
       {
-        "actor": "The blue car",
+        "actor": "The black hatchback with the white roof",
         "action": "impact",
         "value": "the parked car",
         "order": "at_impact",
-        "quote": "bumped the parked car",
-        "span": [
-          58,
-          79
-        ]
-      },
-      {
-        "actor": "The blue car",
-        "action": "no_brake",
-        "value": null,
-        "order": "before_impact",
-        "quote": "The blue car was moving slowly and bumped the parked car",
+        "quote": "The black hatchback with the white roof was moving slowly and bumped the parked car.",
+        "translation": null,
         "span": [
           23,
-          79
+          107
         ]
       },
       {
@@ -41,42 +33,60 @@
         "action": "presence",
         "value": "got out straight away",
         "order": "after_impact",
-        "quote": "The driver got out straight away",
+        "quote": "The driver got out straight away and nobody was hurt.",
+        "translation": null,
         "span": [
-          103,
-          135
+          130,
+          183
         ]
       }
     ],
-    "rejected": []
+    "rejected": [],
+    "orderings": []
   },
   {
     "witness": "witness_2",
+    "statement": "I was walking my dog. The black hatchback with the white roof was speeding, at least 40, when it hit the other car.",
     "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
     "claims": [
       {
-        "actor": "the blue car",
-        "action": "speed",
-        "value": "40",
+        "actor": "I",
+        "action": "presence",
+        "value": "walking my dog",
         "order": "before_impact",
-        "quote": "The blue car was speeding, at least 40",
+        "quote": "I was walking my dog",
+        "translation": null,
         "span": [
-          22,
-          60
+          0,
+          20
         ]
       },
       {
-        "actor": "the blue car",
+        "actor": "the black hatchback with the white roof",
+        "action": "speed",
+        "value": "40",
+        "order": "before_impact",
+        "quote": "The black hatchback with the white roof was speeding, at least 40",
+        "translation": null,
+        "span": [
+          22,
+          87
+        ]
+      },
+      {
+        "actor": "the black hatchback with the white roof",
         "action": "impact",
         "value": "the other car",
         "order": "at_impact",
         "quote": "it hit the other car",
+        "translation": null,
         "span": [
-          67,
-          87
+          94,
+          114
         ]
       }
     ],
-    "rejected": []
+    "rejected": [],
+    "orderings": []
   }
 ]

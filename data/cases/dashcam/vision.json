@@ -6,8 +6,20 @@
       "file": "keyframes/kf_first.jpg",
       "video_t": 0.0,
       "t": -3.57,
-      "answer": null,
-      "error": "'choices'"
+      "answer": {
+        "boxed_vehicle_type": "motorcycle",
+        "boxed_vehicle_colour": "white",
+        "signal_visible": false,
+        "signal_state": "not_visible",
+        "people_on_ground": false,
+        "fire_or_smoke": false,
+        "vehicle_overturned": false,
+        "weather": "clear",
+        "road_surface": "dry",
+        "overlay_clock": null,
+        "uncertain_about": []
+      },
+      "cached": true
     },
     {
       "name": "before",
@@ -27,7 +39,7 @@
         "overlay_clock": null,
         "uncertain_about": []
       },
-      "cached": false
+      "cached": true
     },
     {
       "name": "impact",
@@ -47,7 +59,7 @@
         "overlay_clock": null,
         "uncertain_about": []
       },
-      "cached": false
+      "cached": true
     },
     {
       "name": "after",
@@ -70,7 +82,7 @@
           "vehicle colour"
         ]
       },
-      "cached": false
+      "cached": true
     }
   ],
   "primary_type": "motorcycle",
@@ -78,6 +90,6 @@
   "signal_frame": null,
   "overlay_clock": null,
   "agree_with_detector": true,
-  "primary_colour": "black",
-  "method": "featherless:Qwen/Qwen3-VL-8B-Instruct on 3/4 keyframes"
+  "primary_colour": "silver",
+  "method": "featherless:Qwen/Qwen3-VL-8B-Instruct on 4/4 keyframes"
 }

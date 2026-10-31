@@ -2,8 +2,8 @@
   "vehicles": [
     {
       "track": "car_1",
-      "plate": "P555RJ?",
-      "confidence": 0.89,
+      "plate": "P555RJ1",
+      "confidence": 0.9,
       "reads": [
         "P555ROR",
         "P555RJP",
@@ -18,7 +18,19 @@
       ],
       "asked": 5,
       "well_formed": false,
-      "errors": []
+      "errors": [],
+      "partial": "P555RJ?",
+      "basis": "resolved from the partial read",
+      "source": "registry"
+    },
+    {
+      "track": "car_2",
+      "plate": "TS09EX7781",
+      "confidence": 0.8,
+      "reads": [],
+      "partial": null,
+      "basis": "matched in the vehicle registry",
+      "source": "registry"
     }
   ],
   "checked": [

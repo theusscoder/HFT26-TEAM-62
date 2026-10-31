@@ -8,7 +8,7 @@ mock database, data/fictional/live_identities.json; no real person is identified
 import json
 from pathlib import Path
 
-from . import city_ops, intercept
+from . import city_ops, intercept, records
 
 ROOT = Path(__file__).resolve().parents[2]
 CASES = ROOT / "data" / "cases"
@@ -43,7 +43,7 @@ def run() -> dict:
                       "video": "annotated.mp4" if (d / "evidence" / "annotated.mp4").exists() else ("cctv.mp4" if (d / "evidence" / "cctv.mp4").exists() else None),
                       "what": what, "contradictions": len(an.get("contradictions", [])),
                       "vlm": ({"people_on_ground": vj.get("people_on_ground"), "vehicle": vj.get("boxed_vehicle_type"), "weather": vj.get("weather")} if vj else None),
-                      "identity": ids.get(cid)}
+                      "identity": records.live_identity(d) or ids.get(cid)}
     ops = city_ops.run(7, fixed=fixed, sims=0)
     for s in ops["served"]:
         card = cards.get(s["incident"])

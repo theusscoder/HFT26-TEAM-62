@@ -252,6 +252,38 @@ def telegram_chats():
     return alerts.telegram_chats()
 
 
+@router.get("/api/ops")
+def ops_snapshot():
+    from . import ops_center
+    return ops_center.snapshot()
+
+
+class AckBody(BaseModel):
+    case: str
+    hospital: str
+    by: str = Field(min_length=2, max_length=80)
+    bed: str = Field(min_length=1, max_length=60)
+    note: str = ""
+
+
+@router.post("/api/ops/ack")
+def ops_ack(body: AckBody):
+    from . import ops_center
+    return ops_center.ack(body.case, body.hospital, body.by, body.bed, body.note)
+
+
+@router.get("/api/ops/certificate/{cid}.html", response_class=HTMLResponse)
+def ops_certificate(cid: str):
+    from . import ops_center
+    return ops_center.certificate_html(cid)
+
+
+@router.get("/api/citymap")
+def citymap():
+    from . import citymap as cm
+    return cm.markers()
+
+
 @router.get("/api/incidents")
 def incidents_live():
     from . import incident_ops

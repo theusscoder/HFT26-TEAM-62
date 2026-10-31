@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import L from "leaflet";
 import { CircleMarker, MapContainer, Marker, Polyline, TileLayer, Tooltip, useMap } from "react-leaflet";
 import { AnimatePresence, motion } from "framer-motion";
@@ -72,7 +72,9 @@ function Person({ title, photo, show, rows, tone }: { title: string; photo?: str
 export default function Operations() {
   const d = useApi<any>("/incidents");
   const S: any[] = d.data?.scenarios ?? [];
+  const [params] = useSearchParams();
   const [idx, setIdx] = useState(0);
+  useEffect(() => { const i = S.findIndex((x) => x.id === params.get("case")); if (i > 0) setIdx(i); }, [S.length]);
   const [t, setT] = useState(0);
   const [playing, setPlaying] = useState(true);
   const [base, setBase] = useState(() => Date.now());
@@ -116,7 +118,9 @@ export default function Operations() {
           <span className="mono text-lg font-bold tabular-nums">{s ? clock(base + t * 1000) : clock(now)}</span>
         </div>
         <nav className="flex flex-wrap items-center gap-1.5 text-[13px]">
-          <Link to="/overview" className="flex items-center gap-1.5 border border-white/20 px-2.5 py-1 hover:bg-white/10"><Grid3x3 size={13} />City overview</Link>
+          <Link to="/" className="flex items-center gap-1.5 border border-white/20 px-2.5 py-1 hover:bg-white/10"><Grid3x3 size={13} />City map</Link>
+          <Link to="/police" className="border border-white/20 px-2.5 py-1 hover:bg-white/10">Police</Link>
+          <Link to="/hospital" className="border border-white/20 px-2.5 py-1 hover:bg-white/10">Hospital</Link>
           <Link to="/cases" className="border border-white/20 px-2.5 py-1 hover:bg-white/10">All cases</Link>
           <Link to="/dashcam" className="flex items-center gap-1.5 border border-white/20 px-2.5 py-1 hover:bg-white/10"><Camera size={13} />Dashcam</Link>
           <Link to="/cameras" className="flex items-center gap-1.5 border border-white/20 px-2.5 py-1 hover:bg-white/10"><Radio size={13} />Cameras</Link>

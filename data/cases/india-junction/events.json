@@ -1,5 +1,67 @@
 [
   {
+    "id": "EV-W-301",
+    "source": "witness_3",
+    "kind": "CLAIMED",
+    "t": {
+      "start": -6.0,
+      "end": 6.0,
+      "sigma": 1.0
+    },
+    "clock": "order",
+    "order": "unknown",
+    "actor": "witness",
+    "actor_text": "I",
+    "action": "presence",
+    "value": "the auto behind the white car",
+    "confidence": 0.7,
+    "quote": "I was driving the auto behind the white car",
+    "translation": null,
+    "span": [
+      0,
+      43
+    ],
+    "ref": "witness_3.txt#c=0-43",
+    "derived_from": [],
+    "rule": "R_claim_extraction",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
+    "reliability_weight": 0.81,
+    "reliability_reasons": [
+      "some distance from the impact, about 20 m"
+    ]
+  },
+  {
+    "id": "EV-W-302",
+    "source": "witness_3",
+    "kind": "CLAIMED",
+    "t": {
+      "start": -6.0,
+      "end": 6.0,
+      "sigma": 1.0
+    },
+    "clock": "order",
+    "order": "unknown",
+    "actor": "the signal",
+    "actor_text": "the signal",
+    "action": "signal",
+    "value": "red",
+    "confidence": 0.7,
+    "quote": "The signal was red for the white car",
+    "translation": null,
+    "span": [
+      45,
+      81
+    ],
+    "ref": "witness_3.txt#c=45-81",
+    "derived_from": [],
+    "rule": "R_claim_extraction",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
+    "reliability_weight": 0.81,
+    "reliability_reasons": [
+      "some distance from the impact, about 20 m"
+    ]
+  },
+  {
     "id": "EV-V-001",
     "source": "cctv",
     "kind": "OBSERVED",
@@ -294,15 +356,292 @@
       "sigma": 0.2
     },
     "clock": "T0",
-    "actor": "car_61",
+    "actor": "car_2",
     "action": "speed",
-    "value": "40 \u00b1 14 km/h (calibrated CCTV)",
+    "value": "47 \u00b1 16 km/h (calibrated CCTV)",
     "confidence": 0.8,
     "ref": "",
     "derived_from": [
-      "tracks_metric:car_61"
+      "tracks_metric:car_2"
     ],
     "rule": "R_speed_homography"
+  },
+  {
+    "id": "EV-I-006",
+    "source": "fusion",
+    "kind": "INFERRED",
+    "t": {
+      "start": -3,
+      "end": -0.1,
+      "sigma": 0.2
+    },
+    "clock": "T0",
+    "actor": "car_75",
+    "action": "speed",
+    "value": "33 km/h (calibrated CCTV)",
+    "confidence": 0.7,
+    "ref": "",
+    "derived_from": [
+      "tracks_metric:car_75"
+    ],
+    "rule": "R_speed_homography"
+  },
+  {
+    "id": "EV-W-101",
+    "source": "witness_1",
+    "kind": "CLAIMED",
+    "t": {
+      "start": -3.0,
+      "end": -0.2,
+      "sigma": 1.0
+    },
+    "clock": "order",
+    "order": "before_impact",
+    "actor": "car_2",
+    "actor_text": "the white car",
+    "action": "speed",
+    "value": "50",
+    "confidence": 0.45,
+    "quote": "The white car came round from the right very fast, maybe 50",
+    "translation": null,
+    "span": [
+      35,
+      94
+    ],
+    "ref": "witness_1.txt#c=35-94",
+    "derived_from": [],
+    "rule": "R_claim_extraction",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
+    "reliability_weight": 0.39,
+    "reliability_reasons": [
+      "some distance from the impact, about 15 m",
+      "hedged wording",
+      "speed estimates by eye are unreliable (Loftus & Palmer, 1974)"
+    ]
+  },
+  {
+    "id": "EV-W-102",
+    "source": "witness_1",
+    "kind": "CLAIMED",
+    "t": {
+      "start": -3.0,
+      "end": -0.2,
+      "sigma": 1.0
+    },
+    "clock": "order",
+    "order": "before_impact",
+    "actor": "car_2",
+    "actor_text": "the white car",
+    "action": "turn",
+    "value": "straight across",
+    "confidence": 0.7,
+    "quote": "turned straight across without stopping",
+    "translation": null,
+    "span": [
+      100,
+      139
+    ],
+    "ref": "witness_1.txt#c=100-139",
+    "derived_from": [],
+    "rule": "R_claim_extraction",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
+    "reliability_weight": 0.65,
+    "reliability_reasons": [
+      "some distance from the impact, about 15 m",
+      "hedged wording"
+    ]
+  },
+  {
+    "id": "EV-W-103",
+    "source": "witness_1",
+    "kind": "CLAIMED",
+    "t": {
+      "start": -3.0,
+      "end": -0.2,
+      "sigma": 1.0
+    },
+    "clock": "order",
+    "order": "before_impact",
+    "actor": "car_75",
+    "actor_text": "the grey car",
+    "action": "signal",
+    "value": "green",
+    "confidence": 0.7,
+    "quote": "The grey car had the green signal",
+    "translation": null,
+    "span": [
+      141,
+      174
+    ],
+    "ref": "witness_1.txt#c=141-174",
+    "derived_from": [],
+    "rule": "R_claim_extraction",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
+    "reliability_weight": 0.65,
+    "reliability_reasons": [
+      "some distance from the impact, about 15 m",
+      "hedged wording"
+    ]
+  },
+  {
+    "id": "EV-W-201",
+    "source": "witness_2",
+    "kind": "CLAIMED",
+    "t": {
+      "start": -3.0,
+      "end": -0.2,
+      "sigma": 1.0
+    },
+    "clock": "order",
+    "order": "before_impact",
+    "actor": "witness",
+    "actor_text": "I",
+    "action": "presence",
+    "value": "on my bike waiting at the line",
+    "confidence": 0.7,
+    "quote": "I was on my bike waiting at the line",
+    "translation": null,
+    "span": [
+      0,
+      36
+    ],
+    "ref": "witness_2.txt#c=0-36",
+    "derived_from": [],
+    "rule": "R_claim_extraction",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
+    "reliability_weight": 0.65,
+    "reliability_reasons": [
+      "some distance from the impact, about 12 m",
+      "hedged wording"
+    ]
+  },
+  {
+    "id": "EV-W-202",
+    "source": "witness_2",
+    "kind": "CLAIMED",
+    "t": {
+      "start": -3.0,
+      "end": -0.2,
+      "sigma": 1.0
+    },
+    "clock": "order",
+    "order": "before_impact",
+    "actor": "car_75",
+    "actor_text": "the grey car",
+    "action": "speed",
+    "value": "60",
+    "confidence": 0.45,
+    "quote": "The grey car was speeding, at least 60",
+    "translation": null,
+    "span": [
+      38,
+      76
+    ],
+    "ref": "witness_2.txt#c=38-76",
+    "derived_from": [],
+    "rule": "R_claim_extraction",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
+    "reliability_weight": 0.39,
+    "reliability_reasons": [
+      "some distance from the impact, about 12 m",
+      "hedged wording",
+      "speed estimates by eye are unreliable (Loftus & Palmer, 1974)"
+    ]
+  },
+  {
+    "id": "EV-W-203",
+    "source": "witness_2",
+    "kind": "CLAIMED",
+    "t": {
+      "start": -3.0,
+      "end": -0.2,
+      "sigma": 1.0
+    },
+    "clock": "order",
+    "order": "before_impact",
+    "actor": "car_75",
+    "actor_text": "the grey car",
+    "action": "no_brake",
+    "value": null,
+    "confidence": 0.7,
+    "quote": "never braked",
+    "translation": null,
+    "span": [
+      82,
+      94
+    ],
+    "ref": "witness_2.txt#c=82-94",
+    "derived_from": [],
+    "rule": "R_claim_extraction",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
+    "reliability_weight": 0.65,
+    "reliability_reasons": [
+      "some distance from the impact, about 12 m",
+      "hedged wording"
+    ]
+  },
+  {
+    "id": "EV-W-204",
+    "source": "witness_2",
+    "kind": "CLAIMED",
+    "t": {
+      "start": -3.0,
+      "end": -0.2,
+      "sigma": 1.0
+    },
+    "clock": "order",
+    "order": "before_impact",
+    "actor": "car_2",
+    "actor_text": "the white car",
+    "action": "turn",
+    "value": null,
+    "confidence": 0.7,
+    "quote": "The white car was already turning",
+    "translation": null,
+    "span": [
+      96,
+      129
+    ],
+    "ref": "witness_2.txt#c=96-129",
+    "derived_from": [],
+    "rule": "R_claim_extraction",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
+    "reliability_weight": 0.65,
+    "reliability_reasons": [
+      "some distance from the impact, about 12 m",
+      "hedged wording"
+    ]
+  },
+  {
+    "id": "EV-W-303",
+    "source": "witness_3",
+    "kind": "CLAIMED",
+    "t": {
+      "start": -3.0,
+      "end": -0.2,
+      "sigma": 1.0
+    },
+    "clock": "order",
+    "order": "before_impact",
+    "actor": "car_75",
+    "actor_text": "the grey car",
+    "action": "brake",
+    "value": null,
+    "confidence": 0.7,
+    "quote": "The grey car slowed down",
+    "translation": null,
+    "span": [
+      102,
+      126
+    ],
+    "ref": "witness_3.txt#c=102-126",
+    "derived_from": [],
+    "rule": "R_claim_extraction",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
+    "reliability_weight": 0.81,
+    "reliability_reasons": [
+      "some distance from the impact, about 20 m"
+    ]
   },
   {
     "id": "EV-V-015",
@@ -447,13 +786,13 @@
       "sigma": 0.2
     },
     "clock": "T0",
-    "actor": "car_61",
+    "actor": "car_2",
     "action": "brake",
-    "value": "slowing before impact (26 km/h drop on video)",
+    "value": "slowing before impact (1 km/h drop on video)",
     "confidence": 0.6,
     "ref": "",
     "derived_from": [
-      "EV-V-023"
+      "EV-V-004"
     ],
     "rule": "R_brake_evidence"
   },
@@ -467,13 +806,13 @@
       "sigma": 0.2
     },
     "clock": "T0",
-    "actor": "car_61",
+    "actor": "car_2",
     "action": "turn",
-    "value": "drifts right before impact",
+    "value": "drifts left before impact",
     "confidence": 0.65,
     "ref": "",
     "derived_from": [
-      "tracks_ui:car_61"
+      "tracks_ui:car_2"
     ],
     "rule": "R_heading_vs_displacement"
   },
@@ -590,6 +929,69 @@
     "derived_from": [],
     "rule": "R_overlap_while_moving",
     "video_t": 3.97
+  },
+  {
+    "id": "EV-W-104",
+    "source": "witness_1",
+    "kind": "CLAIMED",
+    "t": {
+      "start": -0.5,
+      "end": 0.5,
+      "sigma": 1.0
+    },
+    "clock": "order",
+    "order": "at_impact",
+    "actor": "car_2",
+    "actor_text": "the white car",
+    "action": "impact",
+    "value": null,
+    "confidence": 0.7,
+    "quote": "After the bang",
+    "translation": null,
+    "span": [
+      176,
+      190
+    ],
+    "ref": "witness_1.txt#c=176-190",
+    "derived_from": [],
+    "rule": "R_claim_extraction",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
+    "reliability_weight": 0.65,
+    "reliability_reasons": [
+      "some distance from the impact, about 15 m",
+      "hedged wording"
+    ]
+  },
+  {
+    "id": "EV-W-304",
+    "source": "witness_3",
+    "kind": "CLAIMED",
+    "t": {
+      "start": -0.5,
+      "end": 0.5,
+      "sigma": 1.0
+    },
+    "clock": "order",
+    "order": "at_impact",
+    "actor": "car_75",
+    "actor_text": "the grey car",
+    "action": "impact",
+    "value": "the white car",
+    "confidence": 0.7,
+    "quote": "they touched",
+    "translation": null,
+    "span": [
+      134,
+      146
+    ],
+    "ref": "witness_3.txt#c=134-146",
+    "derived_from": [],
+    "rule": "R_claim_extraction",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
+    "reliability_weight": 0.81,
+    "reliability_reasons": [
+      "some distance from the impact, about 20 m"
+    ]
   },
   {
     "id": "EV-V-032",
@@ -753,13 +1155,13 @@
       "sigma": 0.2
     },
     "clock": "T0",
-    "actor": "car_61",
-    "action": "moving",
-    "value": "keeps moving after impact (\u2264 23 km/h from T+1 s)",
+    "actor": "car_2",
+    "action": "stop",
+    "value": "comes to rest after impact (\u2264 0 km/h from T+1 s)",
     "confidence": 0.75,
     "ref": "",
     "derived_from": [
-      "tracks_metric:car_61"
+      "tracks_metric:car_2"
     ],
     "rule": "R_post_impact_motion"
   },
@@ -1086,6 +1488,70 @@
     "derived_from": [],
     "rule": "R_rel_speed_gt_0.6",
     "video_t": 4.67
+  },
+  {
+    "id": "EV-W-105",
+    "source": "witness_1",
+    "kind": "CLAIMED",
+    "t": {
+      "start": 0.2,
+      "end": 4.0,
+      "sigma": 1.0
+    },
+    "clock": "order",
+    "order": "after_impact",
+    "actor": "car_2",
+    "actor_text": "the white car",
+    "action": "presence",
+    "value": "the flyover",
+    "confidence": 0.7,
+    "quote": "the white car just kept going towards the flyover",
+    "translation": null,
+    "span": [
+      191,
+      240
+    ],
+    "ref": "witness_1.txt#c=191-240",
+    "derived_from": [],
+    "rule": "R_claim_extraction",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
+    "reliability_weight": 0.65,
+    "reliability_reasons": [
+      "some distance from the impact, about 15 m",
+      "hedged wording"
+    ]
+  },
+  {
+    "id": "EV-W-205",
+    "source": "witness_2",
+    "kind": "CLAIMED",
+    "t": {
+      "start": 0.2,
+      "end": 4.0,
+      "sigma": 1.0
+    },
+    "clock": "order",
+    "order": "after_impact",
+    "actor": "group:car",
+    "actor_text": "both cars",
+    "action": "presence",
+    "value": "drove off",
+    "confidence": 0.7,
+    "quote": "both cars drove off",
+    "translation": null,
+    "span": [
+      177,
+      196
+    ],
+    "ref": "witness_2.txt#c=177-196",
+    "derived_from": [],
+    "rule": "R_claim_extraction",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
+    "reliability_weight": 0.65,
+    "reliability_reasons": [
+      "some distance from the impact, about 12 m",
+      "hedged wording"
+    ]
   },
   {
     "id": "EV-V-063",

@@ -1,33 +1,33 @@
 [
   {
     "id": "K1",
-    "t": -1.83,
+    "t": -4.47,
     "kind": "moment",
-    "title": "White van first seen",
-    "detail": "5 m before the impact point, moving at 40 km/h (1.8 s before impact).",
-    "actor": "car_61",
+    "title": "White car first seen",
+    "detail": "36 m before the impact point, moving at 22 km/h (4.5 s before impact).",
+    "actor": "car_2",
     "xy": [
-      -15.99,
-      32.55
+      -1.82,
+      51.46
     ],
     "evidence": [
-      "tracks_metric:car_61"
+      "tracks_metric:car_2"
     ],
     "importance": 2
   },
   {
     "id": "K2",
-    "t": -1.83,
+    "t": -3.87,
     "kind": "measure",
-    "title": "Peak speed 40 \u00b1 14 km/h",
-    "detail": "White van was at its fastest 1.8 s before impact. Uncertainty comes from the road calibration (\u00b130%).",
-    "actor": "car_61",
+    "title": "Peak speed 49 \u00b1 17 km/h",
+    "detail": "White car was at its fastest 3.9 s before impact. Uncertainty comes from the road calibration (\u00b130%).",
+    "actor": "car_2",
     "xy": [
-      -15.99,
-      32.55
+      -2.37,
+      45.88
     ],
     "evidence": [
-      "tracks_metric:car_61"
+      "tracks_metric:car_2"
     ],
     "importance": 2
   },
@@ -36,14 +36,14 @@
     "t": -1.6,
     "kind": "counterfactual",
     "title": "Could it have stopped?",
-    "detail": "1.6 s before impact White van was at 6 km/h with 2.6 m to go. A full stop (1 s reaction + braking) needs 2.0 m. A stop was possible; the highest speed that would have allowed a stop is about 31 km/h.",
-    "actor": "car_61",
+    "detail": "1.6 s before impact White car was at 16 km/h with 11.4 m to go. A full stop (1 s reaction + braking) needs 5.7 m. A stop was possible; the highest speed that would have allowed a stop is about 51 km/h.",
+    "actor": "car_2",
     "xy": [
-      -15.76,
-      34.03
+      -1.25,
+      26.94
     ],
     "evidence": [
-      "tracks_metric:car_61"
+      "tracks_metric:car_2"
     ],
     "importance": 3
   },
@@ -52,15 +52,31 @@
     "t": -1.5,
     "kind": "moment",
     "title": "Braking began 1.5 s before impact",
-    "detail": "At 6 km/h with 2.6 m left to the impact point. Braking alone needs about 0.2 m to stop from that speed, so a stop was possible.",
-    "actor": "car_61",
+    "detail": "At 10 km/h with 10.7 m left to the impact point. Braking alone needs about 0.6 m to stop from that speed, so a stop was possible.",
+    "actor": "car_2",
     "xy": [
-      -15.76,
-      34.08
+      -1.01,
+      26.05
     ],
     "evidence": [
       "EV-I-002"
     ],
     "importance": 3
+  },
+  {
+    "id": "K5",
+    "t": 0.4,
+    "kind": "measure",
+    "title": "Closest approach: Grey car",
+    "detail": "Grey car came within 2.0 m of White car's body (3.0 m centre to centre) at T+0.4 s.",
+    "actor": "car_75",
+    "xy": [
+      3.53,
+      9.99
+    ],
+    "evidence": [
+      "tracks_metric:car_75"
+    ],
+    "importance": 2
   }
 ]

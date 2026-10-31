@@ -12,13 +12,12 @@
         "signal_visible": false,
         "signal_state": "not_visible",
         "people_on_ground": false,
+        "fire_or_smoke": false,
+        "vehicle_overturned": false,
         "weather": "clear",
         "road_surface": "dry",
         "overlay_clock": null,
-        "uncertain_about": [
-          "vehicle movement",
-          "exact time of day"
-        ]
+        "uncertain_about": []
       },
       "cached": true
     },
@@ -33,6 +32,8 @@
         "signal_visible": false,
         "signal_state": "not_visible",
         "people_on_ground": false,
+        "fire_or_smoke": false,
+        "vehicle_overturned": false,
         "weather": "clear",
         "road_surface": "dry",
         "overlay_clock": null,
@@ -53,10 +54,15 @@
         "signal_visible": false,
         "signal_state": "not_visible",
         "people_on_ground": false,
+        "fire_or_smoke": false,
+        "vehicle_overturned": false,
         "weather": "clear",
         "road_surface": "dry",
         "overlay_clock": null,
-        "uncertain_about": []
+        "uncertain_about": [
+          "vehicle movement",
+          "exact time of day"
+        ]
       },
       "cached": true
     },
@@ -71,6 +77,8 @@
         "signal_visible": false,
         "signal_state": "not_visible",
         "people_on_ground": false,
+        "fire_or_smoke": false,
+        "vehicle_overturned": false,
         "weather": "clear",
         "road_surface": "dry",
         "overlay_clock": null,

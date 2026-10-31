@@ -2,9 +2,9 @@
   "id": "hero",
   "title": "Bus veers into divider beside traffic officer",
   "location": {
-    "name": "Indian city road, CCTV 26-01-2016 17:31",
-    "lat": null,
-    "lon": null
+    "name": "IIIT junction, Gachibowli, Hyderabad",
+    "lat": 17.4455,
+    "lon": 78.3489
   },
   "t0_video_s": 6.74,
   "t0_anchor": "EV-V-024",
@@ -70,5 +70,15 @@
     "at_video_s": 0.0,
     "value": "17:31:38",
     "method": "read from burned-in overlay (manual until OCR, P1)"
-  }
+  },
+  "weather": {
+    "provider": "Open-Meteo historical archive",
+    "time_utc": "2026-10-30T13:12:10+00:00",
+    "precipitation_mm": 0.0,
+    "visibility_m": null,
+    "road_state": "dry",
+    "mu": 0.7,
+    "mu_basis": "typical dry asphalt, from 0.0 mm of rain that hour"
+  },
+  "incident_time_utc": "2026-10-30T13:12:10+00:00"
 }

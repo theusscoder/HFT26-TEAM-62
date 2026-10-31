@@ -51,10 +51,14 @@ def licences_for(plates: list[str]) -> list[dict]:
     recs = json.loads(LICENCES.read_text(encoding="utf-8")) if LICENCES.exists() else {}
     out = []
     for p in plates:
-        if "?" in p or p not in recs:
+        reg = alerts.lookup(p) or {} if "?" not in p else {}
+        drv = reg.get("driver") or {}
+        lic = {"dl_no": drv["dl_no"], "holder": drv["name"], "class": drv["class"], "valid_till": drv["valid_till"], "photo": drv["photo"],
+               "issued_by": f"RTA {reg.get('rto', 'Hyderabad')}", "age": drv.get("age"), "blood_group": drv.get("blood_group"),
+               "owner": reg.get("owner"), "owner_is_driver": drv.get("owner_is_driver")} if drv else recs.get(p)
+        if "?" in p or not lic:
             continue
-        reg = alerts.lookup(p) or {}
-        out.append({"plate": p, **recs[p], "vehicle": reg.get("vehicle"), "insurance": reg.get("insurance"), "fictional": True,
+        out.append({"plate": p, **lic, "vehicle": reg.get("vehicle"), "insurance": reg.get("insurance"), "fictional": True,
                     "caveat": "The registered owner may not be the driver. The face check compares this licence photo with the footage, one to one."})
     return out
 

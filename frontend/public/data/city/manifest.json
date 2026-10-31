@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-31T02:16:00.093Z",
+  "coverage": {
+    "kind": "phase2-sample",
+    "south": 17.415,
+    "north": 17.462,
+    "west": 78.33,
+    "east": 78.39,
+    "note": "Representative sample area around Hussain Sagar / Banjara Hills used for Phase 2 validation. This is a subset of the approved city window — NOT the full urban coverage area and NOT the GHMC boundary."
+  },
+  "fullWindow": {
+    "south": 17.36,
+    "north": 17.5,
+    "west": 78.33,
+    "east": 78.51
+  },
+  "projection": {
+    "origin": {
+      "lat": 17.43,
+      "lng": 78.42
+    },
+    "metresPerDegLat": 110673.9987016635,
+    "metresPerDegLng": 106239.98091584611
+  },
+  "sources": [
+    {
+      "id": "osm",
+      "name": "OpenStreetMap via Overpass API",
+      "license": "ODbL 1.0",
+      "attribution": "(c) OpenStreetMap contributors",
+      "fetchedAt": "2026-10-31"
+    },
+    {
+      "id": "terrarium",
+      "name": "AWS Terrain Tiles (Terrarium encoding), zoom 12",
+      "license": "Public domain (SRTM / USGS / NASA via Mapzen)",
+      "attribution": "Elevation: NASA SRTM / USGS via Mapzen Terrarium tiles",
+      "tiles": [
+        "12/2939/1845",
+        "12/2939/1846",
+        "12/2939/1847",
+        "12/2940/1845",
+        "12/2940/1846",
+        "12/2940/1847",
+        "12/2941/1845",
+        "12/2941/1846",
+        "12/2941/1847"
+      ]
+    }
+  ],
+  "terrain": {
+    "gridW": 192,
+    "gridH": 144,
+    "minElevationM": 478.4,
+    "maxElevationM": 632.7,
+    "storage": "real metres; exaggeration applied at runtime (cityConfig.terrainExaggeration)"
+  },
+  "counts": {
+    "buildings": {
+      "total": 11617,
+      "estimated": 11395,
+      "fromLevels": 212,
+      "verified": 10,
+      "landmarks": 27,
+      "droppedOutside": 98,
+      "droppedDegenerate": 3,
+      "droppedNonBuilding": 10
+    },
+    "roads": {
+      "total": 5017,
+      "byClass": {
+        "primary": 246,
+        "residential": 2224,
+        "secondary": 197,
+        "tertiary": 244,
+        "service": 2023,
+        "motorway": 38,
+        "unclassified": 18,
+        "living_street": 27
+      }
+    },
+    "waterAreas": 65,
+    "parks": 65
+  },
+  "simplification": {
+    "buildingsEpsM": 0.7,
+    "roadsEpsM": 1,
+    "note": "conservative; footprints and junction shapes preserved"
+  },
+  "heightEstimation": {
+    "method": "OSM height tag (plausibility-checked against building:levels) > building:levels x 3.2 m + 1.2 > deterministic estimate from mapped building type, else OSM way id + footprint area",
+    "note": "Estimated heights are approximations, NOT surveyed data. Verified heights cover a small fraction of buildings."
+  },
+  "landmarks": {
+    "definition": "Named OSM buildings with a city-scale use category (hotel, mall, hospital, government, place of worship, station, cinema, bank)",
+    "note": "Landmark flag marks recognisable geography; it does not alter heights."
+  }
+}

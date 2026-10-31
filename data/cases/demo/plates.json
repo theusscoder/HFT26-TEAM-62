@@ -24,8 +24,8 @@
     },
     {
       "track": "car_B",
-      "plate": "TS07G?5521",
-      "confidence": 0.5,
+      "plate": "TS07GK5521",
+      "confidence": 0.9,
       "frames": [
         186,
         190,
@@ -38,7 +38,9 @@
         "TS07GX5521",
         "TS07G?552?"
       ],
-      "partial": true
+      "partial": "TS07G?5521",
+      "basis": "resolved from the partial read",
+      "source": "registry"
     }
   ]
 }

@@ -1,0 +1,5 @@
+{
+  "witness_1": {"name": "Tea stall owner", "vantage": "corner stall beside the junction", "distance_m": 15},
+  "witness_2": {"name": "Motorcyclist at the stop line", "vantage": "waiting at the zebra crossing", "distance_m": 12},
+  "witness_3": {"name": "Auto-rickshaw driver", "vantage": "behind the white car", "distance_m": 20}
+}

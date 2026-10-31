@@ -1,0 +1,81 @@
+{
+  "case": "india-junction",
+  "victim": "car_75",
+  "suspect": "car_2",
+  "vehicles": [
+    {
+      "track": "car_2",
+      "role": "suspect",
+      "class": "car",
+      "plate": "TS13UB8016",
+      "plate_read": "TS13 ?? 80?6",
+      "plate_basis": "resolved from the partial read",
+      "registration": {
+        "owner": "Suresh Yadav",
+        "vehicle": "White Maruti Suzuki Dzire",
+        "rto": "Ranga Reddy (Medchal)",
+        "registered": "2015",
+        "fuel": "Petrol",
+        "insurance": "Bajaj Allianz \u00b7 valid till Jan 2027",
+        "insurance_ok": true,
+        "puc": "Valid",
+        "pending_challans": 0,
+        "emergency_contact": "+91 93\u2022\u2022\u2022 \u2022\u2022652",
+        "contact_relation": "wife",
+        "address_area": "Mehdipatnam"
+      },
+      "driver": {
+        "name": "Srinivas Goud",
+        "age": 59,
+        "dl_no": "TS08 2017 \u2022\u2022\u20227980",
+        "class": "LMV",
+        "valid_till": "2037-05-27",
+        "blood_group": "O+",
+        "photo": "CAP-006.svg",
+        "phone": "+91 96\u2022\u2022\u2022 \u2022\u2022574",
+        "owner_is_driver": true,
+        "face_match": 0.75
+      },
+      "name": "White car",
+      "left_scene": true
+    },
+    {
+      "track": "car_75",
+      "role": "victim",
+      "class": "car",
+      "plate": "TS08MK4410",
+      "plate_read": null,
+      "plate_basis": "matched in the vehicle registry",
+      "registration": {
+        "owner": "Mohammed Imran",
+        "vehicle": "Grey Honda City",
+        "rto": "Ranga Reddy (Medchal)",
+        "registered": "2015",
+        "fuel": "Diesel",
+        "insurance": "ICICI Lombard \u00b7 valid till Nov 2026",
+        "insurance_ok": true,
+        "puc": "Valid",
+        "pending_challans": 3,
+        "emergency_contact": "+91 97\u2022\u2022\u2022 \u2022\u2022903",
+        "contact_relation": "wife",
+        "address_area": "Madhapur"
+      },
+      "driver": {
+        "name": "Mohammed Imran",
+        "age": 56,
+        "dl_no": "TS08 2020 \u2022\u2022\u20221877",
+        "class": "LMV",
+        "valid_till": "2040-03-02",
+        "blood_group": "B+",
+        "photo": "CAP-002.svg",
+        "phone": "+91 77\u2022\u2022\u2022 \u2022\u2022270",
+        "owner_is_driver": true,
+        "face_match": 0.71
+      },
+      "name": "Grey car",
+      "left_scene": true
+    }
+  ],
+  "people": [],
+  "note": "Registry records for this case. People are fictional; numbers are shown masked."
+}

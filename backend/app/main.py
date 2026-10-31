@@ -21,7 +21,7 @@ from .custody import Ledger, sha256_file
 
 DATA = Path(__file__).resolve().parents[2] / "data" / "cases"
 ARTIFACTS = ["case", "events", "tracks", "tracks_ui", "tracks_metric", "calibration", "entities", "witnesses",
-             "witness_extractions", "ground_truth", "vision", "analysis", "severity", "plates", "pursuit", "facilities", "scene3d", "insights", "dashcam"]
+             "witness_extractions", "ground_truth", "vision", "analysis", "severity", "plates", "pursuit", "facilities", "scene3d", "insights", "dashcam", "records"]
 
 app = FastAPI(title="YATHARTH")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])

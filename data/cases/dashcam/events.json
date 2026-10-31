@@ -250,7 +250,7 @@
     "ref": "witness_1.txt#c=0-26",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
     "reliability_weight": 0.43,
     "reliability_reasons": [
       "hedged wording",
@@ -282,7 +282,7 @@
     "ref": "witness_1.txt#c=67-80",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
     "reliability_weight": 0.72,
     "reliability_reasons": [
       "hedged wording"
@@ -313,7 +313,7 @@
     "ref": "witness_2.txt#c=0-37",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
     "reliability_weight": 0.9,
     "reliability_reasons": []
   },
@@ -342,7 +342,7 @@
     "ref": "witness_2.txt#c=38-65",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
     "reliability_weight": 0.9,
     "reliability_reasons": []
   },
@@ -522,7 +522,7 @@
     "ref": "witness_1.txt#c=85-107",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
     "reliability_weight": 0.72,
     "reliability_reasons": [
       "hedged wording"
@@ -553,7 +553,7 @@
     "ref": "witness_2.txt#c=70-102",
     "derived_from": [],
     "rule": "R_claim_extraction",
-    "method": "featherless:deepseek-ai/DeepSeek-V3-0324",
+    "method": "featherless:deepseek-ai/DeepSeek-V3-0324 (cached)",
     "reliability_weight": 0.9,
     "reliability_reasons": []
   },

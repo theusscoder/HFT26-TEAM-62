@@ -7,7 +7,7 @@
       "name": "Black car",
       "role": "primary",
       "class": "car",
-      "colour": "blue",
+      "colour": "grey",
       "ref": "tracks_metric:car_1",
       "path": [
         [
@@ -299,10 +299,10 @@
     },
     {
       "track": "car_2",
-      "name": "Purple car",
+      "name": "Red car",
       "role": "involved",
       "class": "car",
-      "colour": "purple",
+      "colour": "blue",
       "ref": "tracks_metric:car_2",
       "path": [
         [

@@ -1,0 +1,102 @@
+{
+  "case": "hero",
+  "victim": "person_2",
+  "suspect": null,
+  "vehicles": [
+    {
+      "track": "car_38",
+      "role": "primary",
+      "class": "car",
+      "plate": "MP04PA0502",
+      "plate_read": "MP04PA0?02",
+      "plate_basis": "resolved from the partial read",
+      "registration": {
+        "owner": "Swathi Yadav",
+        "vehicle": "Silver Hyundai Creta",
+        "rto": "Bhopal",
+        "registered": "2019",
+        "fuel": "Petrol",
+        "insurance": "Tata AIG \u00b7 valid till Mar 2026",
+        "insurance_ok": true,
+        "puc": "Valid",
+        "pending_challans": 0,
+        "emergency_contact": "+91 60\u2022\u2022\u2022 \u2022\u2022974",
+        "contact_relation": "wife",
+        "address_area": "Begumpet"
+      },
+      "driver": {
+        "name": "Swathi Yadav",
+        "age": 44,
+        "dl_no": "MP04 2016 \u2022\u2022\u20227479",
+        "class": "LMV",
+        "valid_till": "2036-02-20",
+        "blood_group": "O-",
+        "photo": "CAP-002.svg",
+        "phone": "+91 65\u2022\u2022\u2022 \u2022\u2022691",
+        "owner_is_driver": true,
+        "face_match": 0.68
+      },
+      "name": "Blue bus",
+      "left_scene": false
+    },
+    {
+      "track": "motorcycle_3",
+      "role": "involved",
+      "class": "motorcycle",
+      "plate": "TS11XM6100",
+      "plate_read": null,
+      "plate_basis": "matched in the vehicle registry",
+      "registration": {
+        "owner": "Raju Patel",
+        "vehicle": "Grey Bajaj Pulsar 150",
+        "rto": "Hyderabad (North)",
+        "registered": "2016",
+        "fuel": "Petrol",
+        "insurance": "HDFC ERGO \u00b7 valid till Mar 2027",
+        "insurance_ok": true,
+        "puc": "Expired",
+        "pending_challans": 2,
+        "emergency_contact": "+91 69\u2022\u2022\u2022 \u2022\u2022982",
+        "contact_relation": "sister",
+        "address_area": "Tolichowki"
+      },
+      "driver": {
+        "name": "Raju Patel",
+        "age": 53,
+        "dl_no": "TS11 2020 \u2022\u2022\u20226800",
+        "class": "MCWG",
+        "valid_till": "2040-10-11",
+        "blood_group": "B+",
+        "photo": "CAP-004.svg",
+        "phone": "+91 81\u2022\u2022\u2022 \u2022\u2022356",
+        "owner_is_driver": true,
+        "face_match": 0.77
+      },
+      "name": "Black motorcycle",
+      "left_scene": false
+    }
+  ],
+  "people": [
+    {
+      "track": "person_2",
+      "role": "victim",
+      "name": "P. Srinivas Rao",
+      "age": 45,
+      "description": "Traffic constable on duty, beside the divider",
+      "identified_by": "duty roster (on-duty constable)",
+      "phone": "+91 77\u2022\u2022\u2022 \u2022\u2022517",
+      "emergency_contact": "+91 63\u2022\u2022\u2022 \u2022\u2022108",
+      "contact_relation": "wife",
+      "blood_group": "A+",
+      "photo": "DL-02.svg",
+      "licence": {
+        "dl_no": "TS07 2012 \u2022\u2022\u20224120",
+        "holder": "P. Srinivas Rao",
+        "class": "LMV, MCWG",
+        "valid_till": "2032-01-19",
+        "photo": "DL-02.svg"
+      }
+    }
+  ],
+  "note": "Registry records for this case. People are fictional; numbers are shown masked."
+}

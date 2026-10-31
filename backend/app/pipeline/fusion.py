@@ -20,8 +20,8 @@ VEHICLE_CLASSES = ("car", "bus", "truck", "motorcycle", "bicycle")
 PERSON_WORDS = r"police|constable|officer|pedestrian|lady|woman|man|boy|girl|person|rider|driver"
 GROUP_WORDS = {"bikes": "motorcycle", "motorcycles": "motorcycle", "cars": "car", "people": "person", "pedestrians": "person", "vehicles": None, "autos": "car"}
 CLASS_WORDS = [(r"bus|truck|lorry|van|tempo", "large"), (r"car|jeep|suv|auto", "car"), (r"motorbike|motorcycle|scooter|bike", "motorcycle"), (r"bicycle|cycle", "bicycle")]
-COLOUR_SYN = {"white": {"white", "silver"}, "silver": {"silver", "white", "grey"}, "grey": {"grey", "silver"}, "gray": {"grey", "silver"},
-              "black": {"black"}, "red": {"red", "orange"}, "blue": {"blue"}, "green": {"green"}, "yellow": {"yellow", "orange"}, "orange": {"orange", "red", "yellow"}}
+COLOUR_SYN = {"white": {"white", "silver"}, "silver": {"silver", "white", "grey"}, "grey": {"grey", "silver", "black"}, "gray": {"grey", "silver", "black"},
+              "black": {"black", "grey"}, "red": {"red", "orange"}, "blue": {"blue"}, "green": {"green"}, "yellow": {"yellow", "orange"}, "orange": {"orange", "red", "yellow"}}
 SPEED_TOL = lambda measured: max(10.0, 0.35 * measured)   # eyewitness speed estimates are coarse
 
 
@@ -62,16 +62,44 @@ def scene(metric: dict, ui: dict, override: dict | None = None) -> dict:
     colours = {t["id"]: t.get("colour_name") for t in ui["tracks"]}
     # candidates: vehicles tracked for at least 1 s around the impact (short flickering tracks are not the crash)
     vehicles = [t for t in tracks.values() if t["class"] in VEHICLE_CLASSES and len(window(t, -3, 0.5)) >= 3
-                and (window(t, -3, 0.5)[-1]["t"] - window(t, -3, 0.5)[0]["t"]) >= 1.0]
+                and (window(t, -3, 0.5)[-1]["t"] - window(t, -3, 0.5)[0]["t"]) >= 0.8]
     def pre_speed(t):
         w = [p["v_kmh"] for p in window(t, -2, 0)]
         return float(np.median(w)) if w else 0.0
     def gap(a, b):
         return min(np.hypot(at(a, s)["x"] - at(b, s)["x"], at(a, s)["y"] - at(b, s)["y"]) for s in (-0.5, -0.25, 0, 0.25, 0.5))
+    # Contact in the image: metres near the horizon are unreliable (two specks 200 m away can look 2 m apart), so a pair
+    # counts only if their boxes touch around the impact, and the most prominent touching pair (largest boxes) wins.
+    ui_pts = {t["id"]: t["points"] for t in ui["tracks"]}
+    def box_at(tid, s):
+        pts = ui_pts.get(tid) or []
+        q = min(pts, key=lambda q: abs(q["t"] - s), default=None)
+        return q["box"] if q and abs(q["t"] - s) < 0.15 else None
+    def touch(a, b):
+        best = None
+        for s in (-0.5, -0.25, 0, 0.25, 0.5):
+            p, q = box_at(a, s), box_at(b, s)
+            if not p or not q:
+                continue
+            h = min(p[3] - p[1], q[3] - q[1])
+            g = max(0.0, max(p[0] - q[2], q[0] - p[2])) + max(0.0, max(p[1] - q[3], q[1] - p[3]))
+            if g < 0.25 * h and (best is None or h > best):
+                best = h
+        return best
     # a collision needs at least one of the pair to be moving (two parked cars side by side are not a crash)
-    pairs = sorted((gap(a, b), a["id"], b["id"]) for i, a in enumerate(vehicles) for b in vehicles[i + 1:] if max(pre_speed(a), pre_speed(b)) > 3.0)
+    moving = [(a, b) for i, a in enumerate(vehicles) for b in vehicles[i + 1:] if max(pre_speed(a), pre_speed(b)) > 3.0]
+    pairs = sorted((gap(a, b), a["id"], b["id"]) for a, b in moving)
+    touching = [(g, touch(a, b), a, b) for g, a, b in pairs if g < 4.0]
+    touching = [r for r in touching if r[1]]
+    top = max((r[1] for r in touching), default=0)
+    touching = [r for r in touching if r[1] >= 0.5 * top]   # prominent pairs only, then the closest in metres
+    partner = None
     if metric.get("mode") == "dashcam" and tracks.get("ego", {}).get("points"):   # the camera vehicle is the subject of a dashcam case
         primary = tracks["ego"]
+    elif touching:
+        a, b = tracks[touching[0][2]], tracks[touching[0][3]]
+        primary = max((a, b), key=pre_speed)
+        partner = (b if primary is a else a)["id"]
     elif pairs and pairs[0][0] < 4.0:  # a vehicle-vehicle collision: primary = the faster of the closest pair
         a, b = tracks[pairs[0][1]], tracks[pairs[0][2]]
         primary = max((a, b), key=pre_speed)
@@ -92,7 +120,7 @@ def scene(metric: dict, ui: dict, override: dict | None = None) -> dict:
              or (tracks.get(tid, {}).get("class") == "car" and cars and h > 1.6 * np.median(cars))}
     return {"primary": primary["id"] if primary else None, "impact_xy": [round(impact["x"], 2), round(impact["y"], 2)] if impact else None,
             "nearest": [{"id": i, "dist_m": round(float(d), 2)} for d, i in others[:8]], "large": sorted(large), "colours": colours,
-            "tracks": tracks}
+            "partner": partner if primary and partner != primary["id"] else None, "tracks": tracks, "touch": touch}
 
 
 def resolve(text: str, sc: dict) -> str | None:
@@ -119,7 +147,9 @@ def resolve(text: str, sc: dict) -> str | None:
         ix, iy = sc["impact_xy"]
         return min(people, key=lambda t: min(np.hypot(p["x"] - ix, p["y"] - iy) for p in window(t, -1, 2)))["id"]
     want_cls = next((c for pat, c in CLASS_WORDS if re.search(rf"\b(?:{pat})\b", s)), None)
-    want_col = next((c for c in COLOUR_SYN if re.search(rf"\b{c}\b", s)), None)
+    # the first colour said describes the vehicle ("black hatchback with the white roof" is black)
+    found = sorted((m.start(), c) for c in COLOUR_SYN for m in [re.search(rf"\b{c}\b", s)] if m)
+    want_col = found[0][1] if found else None
     if not want_cls and not want_col:
         return None
     best, best_score = None, 0.0
@@ -127,13 +157,19 @@ def resolve(text: str, sc: dict) -> str | None:
         if t["class"] not in VEHICLE_CLASSES or not window(t, -4, 2):
             continue
         sc_ = 0.0
-        col = sc["colours"].get(t["id"])
+        col, px = sc["colours"].get(t["id"]), sc.get("pixel_colours", {}).get(t["id"])   # vision's word decides; pixels only hint
         if want_col:
-            sc_ += 2 if col in COLOUR_SYN[want_col] else (-1 if col else 0)
+            syn = COLOUR_SYN[want_col]
+            sc_ += 2 if col in syn else (0.5 if px in syn else (-1 if col else 0))
+        if t["id"] in sc.get("key", ()):   # on a tie, the vehicles in the crash
+            sc_ += 0.5
+        kind = t["class"]
+        if t["id"] == prim and sc.get("prim_type"):
+            kind = next((c for pat, c in CLASS_WORDS if re.search(rf"\b(?:{pat})\b", sc["prim_type"].replace("-", " "))), kind)
         if want_cls == "large":
-            sc_ += 1.5 if t["id"] in sc["large"] else 0
+            sc_ += 1.5 if t["id"] in sc["large"] or kind == "large" else 0
         elif want_cls:
-            sc_ += 1 if t["class"] == want_cls else 0
+            sc_ += 1 if kind == want_cls else 0
         if t["id"] == prim and not want_col:
             sc_ += 1.5
         if sc_ > best_score:
@@ -167,6 +203,20 @@ def run(case_dir: Path, video_events: list[dict], sensor_events: list[dict], wit
     sc = scene(metric, ui, override)
     tracks, prim = sc["tracks"], sc["primary"]
     sc["actors"] = json.loads((case_dir / "vision_actors.json").read_text()) if (case_dir / "vision_actors.json").exists() else {}
+    # The vision model's colour beats a pixel average (a windscreen full of sky makes a red car read blue).
+    sc["pixel_colours"] = dict(sc["colours"])
+    sc["key"] = {prim, sc.get("partner")} - {None}
+    # the primary as the vision model saw it on the keyframes (YOLO calls many buses "car")
+    sc["prim_type"] = (vision or {}).get("primary_type")
+    if prim and (vision or {}).get("primary_colour"):
+        sc["colours"][prim] = str(vision["primary_colour"]).lower().replace("gray", "grey")
+    # Only when it saw the same kind of thing: a car cropped behind riders comes back as a "motorcycle_rider", wrong colour too.
+    same = {"car": {"car", "van", "suv", "jeep", "taxi", "bus", "truck", "auto_rickshaw"}, "bus": {"bus", "van", "truck"}, "truck": {"truck", "bus", "van"},
+            "motorcycle": {"motorcycle", "motorcycle_rider", "scooter", "two_wheeler", "two_wheeler_rider"}, "bicycle": {"bicycle", "cyclist", "bicycle_rider"}}
+    for tid, a in sc["actors"].items():
+        cls = tracks.get(tid, {}).get("class")
+        if isinstance(a, dict) and a.get("colour") and tid in sc["colours"] and str(a.get("type", "")).lower() in same.get(cls, {str(a.get("type", "")).lower()}):
+            sc["colours"][tid] = str(a["colour"]).lower().replace("gray", "grey")
     ui_tracks = {t["id"]: t for t in ui["tracks"]}
     wit_meta = json.loads((case_dir / "witnesses.json").read_text()) if (case_dir / "witnesses.json").exists() else {}
     who = lambda src: wit_meta.get(src, {}).get("name", src.replace("_", " ").title())
@@ -309,7 +359,8 @@ def run(case_dir: Path, video_events: list[dict], sensor_events: list[dict], wit
             if target and target in tracks:
                 d = min(np.hypot(at(tr, s)["x"] - at(tracks[target], s)["x"], at(tr, s)["y"] - at(tracks[target], s)["y"]) for s in (-0.3, 0, 0.3))
                 lim = 4.5 if tracks[target]["class"] in VEHICLE_CLASSES and tr["class"] in VEHICLE_CLASSES else 3.0  # centre-to-centre when touching
-                verdict(e, "consistent" if d < lim else "contradicted", [], "state", f"{w} says {name} hit {e['value']}; they are {d:.1f} m apart at impact.",
+                touching = bool(sc.get("touch") and sc["touch"](tid, target))   # boxes meeting in the frame: far-off metres can't overrule it
+                verdict(e, "consistent" if d < lim or touching else "contradicted", [], "state", f"{w} says {name} hit {e['value']}; they are {d:.1f} m apart at impact.",
                         holds_unless=f"positions are off by more than {d - lim:.1f} m")
             elif "prim_rest" in M and tid == prim:
                 verdict(e, "consistent" if M["prim_rest"][1] else "contradicted", [M["prim_rest"][0]], "state",
@@ -461,7 +512,7 @@ def run(case_dir: Path, video_events: list[dict], sensor_events: list[dict], wit
             names[tid] += " (primary)"
 
     # involved = the vehicle it met (nearest, < 4 m) + people the witnesses name near the impact; else the nearest person
-    near_v = [n["id"] for n in sc["nearest"] if tracks[n["id"]]["class"] in VEHICLE_CLASSES and n["dist_m"] < 4.0][:1]
+    near_v = [sc["partner"]] if sc.get("partner") else [n["id"] for n in sc["nearest"] if tracks[n["id"]]["class"] in VEHICLE_CLASSES and n["dist_m"] < 4.0][:1]
     hz = json.loads((case_dir / "dashcam.json").read_text()).get("hazard") if (case_dir / "dashcam.json").exists() else None
     if hz and hz in tracks and hz != prim:
         near_v = [hz]

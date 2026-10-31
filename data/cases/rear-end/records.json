@@ -1,0 +1,81 @@
+{
+  "case": "rear-end",
+  "victim": "car_2",
+  "suspect": null,
+  "vehicles": [
+    {
+      "track": "car_1",
+      "role": "primary",
+      "class": "car",
+      "plate": "P555RJ1",
+      "plate_read": "P555RJ?",
+      "plate_basis": "resolved from the partial read",
+      "registration": {
+        "owner": "Rahul Reddy",
+        "vehicle": "Grey Tata Nexon",
+        "rto": "Hyderabad",
+        "registered": "2022",
+        "fuel": "Petrol",
+        "insurance": "Tata AIG \u00b7 valid till Nov 2027",
+        "insurance_ok": true,
+        "puc": "Valid",
+        "pending_challans": 3,
+        "emergency_contact": "+91 71\u2022\u2022\u2022 \u2022\u2022116",
+        "contact_relation": "sister",
+        "address_area": "Begumpet"
+      },
+      "driver": {
+        "name": "Rahul Reddy",
+        "age": 39,
+        "dl_no": "P555 2019 \u2022\u2022\u20227745",
+        "class": "LMV",
+        "valid_till": "2039-04-26",
+        "blood_group": "AB+",
+        "photo": "DL-02.svg",
+        "phone": "+91 80\u2022\u2022\u2022 \u2022\u2022228",
+        "owner_is_driver": true,
+        "face_match": 0.84
+      },
+      "name": "Black car",
+      "left_scene": false
+    },
+    {
+      "track": "car_2",
+      "role": "victim",
+      "class": "car",
+      "plate": "TS09EX7781",
+      "plate_read": null,
+      "plate_basis": "matched in the vehicle registry",
+      "registration": {
+        "owner": "Lakshmi Prasanna",
+        "vehicle": "Silver Hyundai Verna",
+        "rto": "Hyderabad (West)",
+        "registered": "2014",
+        "fuel": "Petrol",
+        "insurance": "Valid till Aug 2027",
+        "insurance_ok": true,
+        "puc": "Valid",
+        "pending_challans": 0,
+        "emergency_contact": "+91 90\u2022\u2022\u2022 \u2022\u2022356",
+        "contact_relation": "father",
+        "address_area": "Banjara Hills"
+      },
+      "driver": {
+        "name": "Lakshmi Prasanna",
+        "age": 38,
+        "dl_no": "TS09 2015 \u2022\u2022\u20220456",
+        "class": "LMV",
+        "valid_till": "2035-07-14",
+        "blood_group": "AB+",
+        "photo": "CAP-004.svg",
+        "phone": "+91 85\u2022\u2022\u2022 \u2022\u2022205",
+        "owner_is_driver": true,
+        "face_match": 0.68
+      },
+      "name": "Red car",
+      "left_scene": false
+    }
+  ],
+  "people": [],
+  "note": "Registry records for this case. People are fictional; numbers are shown masked."
+}

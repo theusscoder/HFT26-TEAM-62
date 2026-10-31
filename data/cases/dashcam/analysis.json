@@ -25,16 +25,17 @@
       0.0
     ],
     "names": {
-      "ego": "Black motorcycle (primary)",
-      "car_1": "Blue car",
+      "ego": "Silver motorcycle (primary)",
+      "car_1": "Grey car",
       "car_2": "Red car",
       "car_12": "Car"
     },
     "large": [],
     "colours": {
-      "car_1": "blue",
+      "car_1": "grey",
       "motorcycle_3": "black",
-      "car_2": "red"
+      "car_2": "red",
+      "ego": "silver"
     }
   },
   "contradictions": [

@@ -6,11 +6,11 @@ import httpx
 
 # Fictional demo registry. Put a teammate's Telegram chat id in telegram_chat_id for the stage demo.
 REGISTRY = {
-    "TS09EA1234": {"owner": "DEMO OWNER 01", "vehicle": "White hatchback", "rto": "Hyderabad (Central)",
-                   "insurance": "Valid", "emergency_contact": "+91 90000 00001",
+    "TS09EA1234": {"owner": "Ravi Teja Goud", "vehicle": "White hatchback", "rto": "Hyderabad (Central)",
+                   "insurance": "Valid", "emergency_contact": "+91 98••• ••412",
                    "telegram_chat_id": os.getenv("DEMO_CHAT_ID_1")},
-    "TS07GK5521": {"owner": "DEMO OWNER 02", "vehicle": "Red sedan", "rto": "Ranga Reddy",
-                   "insurance": "Expired", "emergency_contact": "+91 90000 00002",
+    "TS07GK5521": {"owner": "Karthik Varma", "vehicle": "Red sedan", "rto": "Ranga Reddy",
+                   "insurance": "Expired", "emergency_contact": "+91 99••• ••208",
                    "telegram_chat_id": os.getenv("DEMO_CHAT_ID_2")},
 }
 
@@ -32,7 +32,10 @@ def telegram_chats() -> dict:
 
 
 def lookup(plate: str) -> dict | None:
-    return REGISTRY.get(plate.replace(" ", "").upper())
+    from . import records
+    key = plate.replace(" ", "").upper()
+    rec = records.index().get(key)
+    return {**rec, "telegram_chat_id": REGISTRY.get(key, {}).get("telegram_chat_id")} if rec else REGISTRY.get(key)
 
 
 def send(plate: str, text: str) -> dict:

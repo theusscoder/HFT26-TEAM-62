@@ -1,287 +1,127 @@
 {
   "status": "departed",
-  "summary": "1 involved vehicle left the camera's view after impact. This doesn't establish why.",
+  "summary": "2 involved vehicles left the camera's view after impact. This doesn't establish why.",
   "vehicles": [
     {
-      "track": "car_61",
-      "name": "White van",
+      "track": "car_2",
+      "name": "White car",
       "role": "primary",
       "class": "car",
       "colour": "white",
-      "ref": "tracks_metric:car_61",
+      "ref": "tracks_metric:car_2",
       "path": [
         [
-          -0.43,
-          -15.68,
-          34.6
+          -1.5,
+          -1.01,
+          26.05
         ],
         [
-          -0.37,
-          -15.5,
-          35.8
+          -1.07,
+          -0.79,
+          25.27
         ],
         [
-          -0.3,
-          -15.48,
-          36.02
+          -0.8,
+          -0.55,
+          24.51
         ],
         [
-          -0.23,
-          -15.42,
-          36.25
+          -0.67,
+          -0.29,
+          23.78
         ],
         [
-          -0.17,
-          -15.32,
-          36.51
+          -0.6,
+          0.01,
+          23.04
         ],
         [
-          -0.1,
-          -15.21,
-          36.73
+          -0.53,
+          0.33,
+          22.29
         ],
         [
-          -0.03,
-          -15.15,
-          36.98
+          -0.47,
+          0.67,
+          21.57
         ],
         [
-          0.04,
-          -15.13,
-          37.27
+          -0.4,
+          1.03,
+          20.88
         ],
         [
-          0.1,
-          -15.07,
-          37.5
+          -0.33,
+          1.41,
+          20.14
         ],
         [
-          0.17,
-          -14.99,
-          37.66
+          -0.27,
+          1.81,
+          19.36
         ],
         [
-          0.24,
-          -14.72,
-          38.54
+          -0.2,
+          2.21,
+          18.59
         ],
         [
-          1.3,
-          -14.24,
-          40.06
+          -0.13,
+          2.61,
+          17.85
         ],
         [
-          1.44,
-          -13.73,
-          41.66
+          -0.07,
+          3.02,
+          17.09
         ],
         [
-          1.5,
-          -13.66,
-          41.98
+          0.0,
+          3.43,
+          16.35
         ],
         [
-          1.57,
-          -13.6,
-          42.2
-        ],
-        [
-          1.64,
-          -13.52,
-          42.3
-        ],
-        [
-          1.7,
-          -13.46,
-          42.47
-        ],
-        [
-          1.77,
-          -13.42,
-          42.73
-        ],
-        [
-          1.84,
-          -13.45,
-          43.15
-        ],
-        [
-          1.94,
-          -13.54,
-          43.84
-        ],
-        [
-          2.1,
-          -13.59,
-          44.61
-        ],
-        [
-          2.17,
-          -13.53,
-          45.06
-        ],
-        [
-          2.24,
-          -13.34,
-          44.98
-        ],
-        [
-          2.3,
-          -13.13,
-          44.87
-        ],
-        [
-          2.37,
-          -12.98,
-          44.87
-        ],
-        [
-          2.47,
-          -12.9,
-          45.03
-        ],
-        [
-          2.57,
-          -12.83,
-          45.2
-        ],
-        [
-          2.64,
-          -12.74,
-          45.3
-        ],
-        [
-          2.74,
-          -12.71,
-          45.56
-        ],
-        [
-          2.84,
-          -12.71,
-          45.96
-        ],
-        [
-          2.9,
-          -12.71,
-          46.3
-        ],
-        [
-          2.97,
-          -12.68,
-          46.53
-        ],
-        [
-          3.04,
-          -12.62,
-          46.79
-        ],
-        [
-          3.14,
-          -12.55,
-          46.98
-        ],
-        [
-          3.2,
-          -12.5,
-          47.1
-        ],
-        [
-          3.27,
-          -12.45,
-          47.13
-        ],
-        [
-          3.37,
-          -12.41,
-          47.19
-        ],
-        [
-          3.44,
-          -12.39,
-          47.4
-        ],
-        [
-          3.54,
-          -12.4,
-          47.8
-        ],
-        [
-          3.6,
-          -12.39,
-          48.28
-        ],
-        [
-          3.71,
-          -12.35,
-          48.69
-        ],
-        [
-          3.77,
-          -12.27,
-          48.93
-        ],
-        [
+          0.07,
           3.84,
-          -12.19,
-          48.98
+          15.62
         ],
         [
-          3.94,
-          -12.1,
-          48.97
+          0.14,
+          4.26,
+          14.79
         ],
         [
-          4.0,
-          -12.02,
-          49.03
+          0.2,
+          4.63,
+          13.99
         ],
         [
-          4.1,
-          -11.97,
-          49.27
+          0.27,
+          4.98,
+          13.17
         ],
         [
-          4.17,
-          -11.95,
-          49.65
+          0.33,
+          5.25,
+          12.45
         ],
         [
-          4.24,
-          -11.92,
-          49.96
-        ],
-        [
-          4.34,
-          -11.89,
-          50.18
-        ],
-        [
-          4.44,
-          -11.84,
-          50.37
-        ],
-        [
-          4.51,
-          -11.77,
-          50.52
-        ],
-        [
-          4.57,
-          -11.71,
-          50.59
+          0.4,
+          5.57,
+          12.18
         ]
       ],
-      "last_seen_t": 4.61,
-      "travelled_m": 15.0,
-      "exit_speed_kmh": 8.2,
-      "from_impact_m": 13.9,
-      "at_frame_edge": false,
+      "last_seen_t": 0.44,
+      "travelled_m": 4.8,
+      "exit_speed_kmh": 45.5,
+      "from_impact_m": 4.7,
+      "at_frame_edge": true,
       "direction": "right of the frame",
       "status": "left_view",
-      "label": "Still driving away when the clip ends, 14 m from the impact",
-      "thumb": "veh_car_61.jpg",
+      "label": "Left the camera's view at T+0.4 s, moving at about 46 km/h",
+      "thumb": "veh_car_2.jpg",
       "plate": {
-        "track": "car_61",
+        "track": "car_2",
         "plate": null,
         "confidence": 0.0,
         "reads": [],
@@ -290,20 +130,217 @@
         "well_formed": false,
         "errors": []
       }
+    },
+    {
+      "track": "car_75",
+      "name": "Grey car",
+      "role": "involved",
+      "class": "car",
+      "colour": "grey",
+      "ref": "tracks_metric:car_75",
+      "path": [
+        [
+          -0.4,
+          -4.44,
+          8.57
+        ],
+        [
+          -0.33,
+          -4.1,
+          8.54
+        ],
+        [
+          -0.27,
+          -3.65,
+          8.57
+        ],
+        [
+          -0.2,
+          -3.21,
+          8.59
+        ],
+        [
+          -0.13,
+          -2.74,
+          8.57
+        ],
+        [
+          -0.07,
+          -2.16,
+          8.6
+        ],
+        [
+          0.0,
+          -1.39,
+          8.75
+        ],
+        [
+          0.07,
+          -0.55,
+          8.92
+        ],
+        [
+          0.14,
+          0.37,
+          9.14
+        ],
+        [
+          0.2,
+          1.22,
+          9.35
+        ],
+        [
+          0.27,
+          2.05,
+          9.58
+        ],
+        [
+          0.33,
+          2.84,
+          9.79
+        ],
+        [
+          0.4,
+          3.53,
+          9.99
+        ],
+        [
+          0.47,
+          3.98,
+          10.15
+        ],
+        [
+          0.54,
+          4.22,
+          10.29
+        ],
+        [
+          0.6,
+          4.4,
+          10.38
+        ],
+        [
+          0.67,
+          4.58,
+          10.44
+        ],
+        [
+          0.74,
+          4.76,
+          10.49
+        ],
+        [
+          0.8,
+          4.95,
+          10.52
+        ],
+        [
+          0.87,
+          5.12,
+          10.52
+        ],
+        [
+          0.94,
+          5.27,
+          10.49
+        ]
+      ],
+      "last_seen_t": 0.97,
+      "travelled_m": 7.0,
+      "exit_speed_kmh": 19.6,
+      "from_impact_m": 6.2,
+      "at_frame_edge": true,
+      "direction": "right of the frame",
+      "status": "left_view",
+      "label": "Left the camera's view at T+1.0 s, moving at about 20 km/h",
+      "thumb": "veh_car_75.jpg",
+      "plate": {
+        "track": "car_75",
+        "plate": null,
+        "confidence": 0.0,
+        "reads": [],
+        "frames": [],
+        "asked": 3,
+        "well_formed": false,
+        "errors": []
+      }
     }
   ],
   "nearby_left": [],
-  "plates_method": "featherless:Qwen/Qwen3-VL-8B-Instruct on 4 crops",
+  "plates_method": "featherless:Qwen/Qwen3-VL-8B-Instruct on 7 crops",
   "clip_end": 4.61,
   "exit": {
-    "t": 4.61,
+    "t": 0.44,
     "heading": "right of the frame",
     "speed_kmh": [
-      15.0,
-      38
+      27,
+      110.0
     ],
-    "lat": null,
-    "lon": null
+    "lat": 17.4486,
+    "lon": 78.3622
   },
-  "needs": "coordinates"
+  "tolls": [
+    {
+      "name": "Demo Toll A",
+      "lat": 17.4585,
+      "lon": 78.3421,
+      "dist_km": 2.4,
+      "window_min": [
+        1.3,
+        5.3
+      ]
+    },
+    {
+      "name": "Demo Toll B",
+      "lat": 17.4619,
+      "lon": 78.4093,
+      "dist_km": 5.2,
+      "window_min": [
+        2.8,
+        11.6
+      ]
+    },
+    {
+      "name": "Demo Toll C",
+      "lat": 17.3801,
+      "lon": 78.4306,
+      "dist_km": 10.5,
+      "window_min": [
+        5.7,
+        23.3
+      ]
+    },
+    {
+      "name": "Demo Toll D",
+      "lat": 17.2945,
+      "lon": 78.4487,
+      "dist_km": 19.4,
+      "window_min": [
+        10.6,
+        43.1
+      ]
+    }
+  ],
+  "vehicle": {
+    "class": "car",
+    "colour": "white"
+  },
+  "partial_plate": null,
+  "fictional": true,
+  "funnel": [
+    {
+      "stage": "Toll passages in 30 min",
+      "count": 312
+    },
+    {
+      "stage": "Inside the reachable window",
+      "count": 134
+    },
+    {
+      "stage": "White car",
+      "count": 10
+    }
+  ],
+  "match": null,
+  "candidates": 10
 }

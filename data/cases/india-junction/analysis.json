@@ -5,53 +5,67 @@
       "offset_s": -4.47,
       "sigma": 0.05,
       "anchor": "EV-V-039"
+    },
+    "witness_1": {
+      "offset_s": null,
+      "note": "ordering only (before / at / after impact)"
+    },
+    "witness_3": {
+      "offset_s": null,
+      "note": "ordering only (before / at / after impact)"
+    },
+    "witness_2": {
+      "offset_s": null,
+      "note": "ordering only (before / at / after impact)"
     }
   },
   "entities": {
-    "primary": "car_61",
-    "involved": [],
+    "primary": "car_2",
+    "involved": [
+      "car_75"
+    ],
     "impact_xy": [
-      -15.14,
-      37.13
+      3.43,
+      16.35
     ],
     "names": {
       "person_28": "Person",
       "car_66": "White car",
       "car_8": "White car",
-      "car_2": "White car",
-      "car_61": "White van (primary)",
+      "car_2": "White car (primary)",
+      "car_61": "White car",
       "person_138": "Person",
-      "motorcycle_84": "Motorcycle",
-      "motorcycle_100": "Blue motorcycle",
-      "motorcycle_107": "Blue motorcycle",
-      "motorcycle_120": "Blue motorcycle",
-      "motorcycle_170": "Blue motorcycle",
+      "motorcycle_84": "Black motorcycle",
+      "motorcycle_100": "Black motorcycle",
+      "motorcycle_107": "Black motorcycle",
+      "motorcycle_120": "Black motorcycle",
+      "motorcycle_170": "Silver motorcycle",
       "person_178": "Person",
       "person_68": "Person",
-      "motorcycle_189": "Blue motorcycle",
+      "motorcycle_189": "Black motorcycle",
       "motorcycle_6": "White motorcycle",
       "person_110": "Person",
       "car_237": "White car",
       "person_111": "Person",
-      "motorcycle_248": "Blue motorcycle",
-      "motorcycle_7": "Silver motorcycle",
+      "motorcycle_248": "Black motorcycle",
+      "motorcycle_7": "Black motorcycle",
       "truck_44": "White truck",
-      "motorcycle_151": "Blue motorcycle",
-      "motorcycle_202": "Blue motorcycle",
+      "motorcycle_151": "Black motorcycle",
+      "motorcycle_202": "Black motorcycle",
       "person_160": "Person",
       "person_10": "Person",
       "person_199": "Person",
       "person_220": "Person",
       "person_72": "Person",
-      "car_75": "Blue car",
-      "motorcycle_270": "Blue motorcycle",
+      "car_75": "Grey car",
+      "motorcycle_270": "Black motorcycle",
       "truck_231": "White truck",
-      "motorcycle_267": "Blue motorcycle",
-      "motorcycle_103": "Blue motorcycle",
+      "motorcycle_267": "Black motorcycle",
+      "motorcycle_103": "Grey motorcycle",
       "person_268": "Person",
-      "car_34": "Blue car",
+      "car_34": "White car",
       "person_117": "Person",
-      "motorcycle_274": "Blue motorcycle",
+      "motorcycle_274": "Grey motorcycle",
       "bicycle_25": "White bicycle",
       "person_234": "Person",
       "person_23": "Person",
@@ -67,43 +81,43 @@
       "truck_44"
     ],
     "colours": {
-      "person_28": "blue",
+      "person_28": "white",
       "car_66": "white",
       "car_8": "white",
       "car_2": "white",
       "car_61": "white",
-      "person_138": null,
-      "motorcycle_84": null,
-      "motorcycle_100": "blue",
-      "motorcycle_107": "blue",
-      "motorcycle_120": "blue",
-      "motorcycle_170": "blue",
-      "person_178": null,
-      "person_68": "blue",
-      "motorcycle_189": "blue",
+      "person_138": "black",
+      "motorcycle_84": "black",
+      "motorcycle_100": "black",
+      "motorcycle_107": "black",
+      "motorcycle_120": "black",
+      "motorcycle_170": "silver",
+      "person_178": "silver",
+      "person_68": "black",
+      "motorcycle_189": "black",
       "motorcycle_6": "white",
-      "person_110": null,
+      "person_110": "black",
       "car_237": "white",
-      "person_111": null,
-      "motorcycle_248": "blue",
-      "motorcycle_7": "silver",
+      "person_111": "white",
+      "motorcycle_248": "black",
+      "motorcycle_7": "black",
       "truck_44": "white",
-      "motorcycle_151": "blue",
-      "motorcycle_202": "blue",
-      "person_160": null,
-      "person_10": null,
-      "person_199": null,
-      "person_220": null,
-      "person_72": null,
-      "car_75": "blue",
-      "motorcycle_270": "blue",
+      "motorcycle_151": "black",
+      "motorcycle_202": "black",
+      "person_160": "grey",
+      "person_10": "black",
+      "person_199": "black",
+      "person_220": "black",
+      "person_72": "black",
+      "car_75": "grey",
+      "motorcycle_270": "black",
       "truck_231": "white",
-      "motorcycle_267": "blue",
-      "motorcycle_103": "blue",
+      "motorcycle_267": "black",
+      "motorcycle_103": "grey",
       "person_268": null,
-      "car_34": "blue",
-      "person_117": null,
-      "motorcycle_274": "blue",
+      "car_34": "white",
+      "person_117": "white",
+      "motorcycle_274": "grey",
       "bicycle_25": "white",
       "person_234": null,
       "person_23": null,
@@ -114,30 +128,133 @@
       "motorcycle_171": "grey"
     }
   },
-  "contradictions": [],
-  "gaps": [
+  "contradictions": [
     {
-      "start": -4.47,
-      "end": -1.83,
-      "covered_by": [],
-      "note": "The primary vehicle is not yet in view; its approach is covered only by untimed witness accounts."
-    },
-    {
-      "start": -1.7,
-      "end": -0.43,
-      "covered_by": [],
-      "note": "Primary vehicle lost by the tracker (occlusion)."
-    },
-    {
-      "start": 0.27,
-      "end": 1.3,
-      "covered_by": [],
-      "note": "Primary vehicle lost by the tracker (occlusion)."
+      "id": "C1",
+      "type": "quantity",
+      "events": [
+        "EV-W-202",
+        "EV-I-006"
+      ],
+      "summary": "Motorcyclist at the stop line puts the grey car at ~60 km/h; the evidence measures 33 km/h.",
+      "explanation": "Suggestion: eyewitness speed estimates are often off by 30-50%, more so for large vehicles and under stress.",
+      "severity": "high",
+      "holds_unless": "the speed scale is off by more than 36% (calibration is \u00b130%)"
     }
   ],
-  "reliability": {},
-  "reliability_detail": {},
-  "checks": [],
+  "gaps": [],
+  "reliability": {
+    "witness_1": 1.0,
+    "witness_3": 1.0,
+    "witness_2": 0.67
+  },
+  "reliability_detail": {
+    "witness_1": {
+      "evidence_score": 1.0,
+      "weight": 0.65,
+      "reasons": [
+        "some distance from the impact, about 15 m",
+        "hedged wording"
+      ]
+    },
+    "witness_3": {
+      "evidence_score": 1.0,
+      "weight": 0.81,
+      "reasons": [
+        "some distance from the impact, about 20 m"
+      ]
+    },
+    "witness_2": {
+      "evidence_score": 0.67,
+      "weight": 0.65,
+      "reasons": [
+        "some distance from the impact, about 12 m",
+        "hedged wording"
+      ]
+    }
+  },
+  "checks": [
+    {
+      "claim": "EV-W-101",
+      "status": "consistent",
+      "evidence": [
+        "EV-I-001"
+      ]
+    },
+    {
+      "claim": "EV-W-102",
+      "status": "consistent",
+      "evidence": [
+        "EV-I-004"
+      ]
+    },
+    {
+      "claim": "EV-W-103",
+      "status": "unverifiable",
+      "evidence": []
+    },
+    {
+      "claim": "EV-W-104",
+      "status": "consistent",
+      "evidence": [
+        "EV-I-003"
+      ]
+    },
+    {
+      "claim": "EV-W-105",
+      "status": "unverifiable",
+      "evidence": []
+    },
+    {
+      "claim": "EV-W-201",
+      "status": "unverifiable",
+      "evidence": []
+    },
+    {
+      "claim": "EV-W-202",
+      "status": "contradicted",
+      "evidence": [
+        "EV-I-006"
+      ]
+    },
+    {
+      "claim": "EV-W-203",
+      "status": "unverifiable",
+      "evidence": []
+    },
+    {
+      "claim": "EV-W-204",
+      "status": "consistent",
+      "evidence": [
+        "EV-I-004"
+      ]
+    },
+    {
+      "claim": "EV-W-205",
+      "status": "consistent",
+      "evidence": []
+    },
+    {
+      "claim": "EV-W-301",
+      "status": "unverifiable",
+      "evidence": []
+    },
+    {
+      "claim": "EV-W-302",
+      "status": "unverifiable",
+      "evidence": []
+    },
+    {
+      "claim": "EV-W-303",
+      "status": "unverifiable",
+      "evidence": []
+    },
+    {
+      "claim": "EV-W-304",
+      "status": "consistent",
+      "evidence": []
+    }
+  ],
   "hypotheses": [
     {
       "id": "H1",
@@ -153,7 +270,9 @@
       "id": "H2",
       "text": "It did not slow down before the impact",
       "status": "contradicted",
-      "for": [],
+      "for": [
+        "EV-W-203"
+      ],
       "against": [
         "EV-I-002"
       ],
@@ -161,7 +280,7 @@
     },
     {
       "id": "H4",
-      "text": "It drifted right on its own into the point of impact",
+      "text": "It drifted left on its own into the point of impact",
       "status": "supported",
       "for": [
         "EV-I-004",
@@ -176,26 +295,46 @@
     }
   ],
   "counterfactual": {
-    "actor": "car_61",
-    "observed_speed_kmh": 6.3,
-    "hazard_at_m": 3.24,
+    "actor": "car_2",
+    "observed_speed_kmh": 17.1,
+    "hazard_at_m": 11.79,
     "brake_start_s": -1.6,
-    "note": "Distance the primary vehicle covered in the last 1.6 s before impact: 3.2 m. Would it have stopped short at a lower speed?"
+    "note": "Distance the primary vehicle covered in the last 1.6 s before impact: 11.8 m. Would it have stopped short at a lower speed?"
   },
   "stn": {
     "consistent": true,
     "windows": {
-      "EV-V-021": [
-        -1.93,
-        -1.73
+      "EV-V-003": [
+        -4.5,
+        0.54
       ],
-      "EV-V-022": [
-        -1.93,
-        4.67
+      "EV-V-004": [
+        -4.0,
+        -3.3
       ],
-      "EV-V-023": [
-        -1.87,
-        0.03
+      "EV-V-005": [
+        -3.3,
+        -2.37
+      ],
+      "EV-V-036": [
+        -0.5,
+        -0.3
+      ],
+      "EV-V-038": [
+        -0.5,
+        1.07
+      ],
+      "EV-V-039": [
+        -0.1,
+        0.57
+      ],
+      "EV-V-002": [
+        0.34,
+        0.54
+      ],
+      "EV-V-037": [
+        0.87,
+        1.07
       ],
       "EV-I-001": [
         -3.2,
@@ -212,10 +351,100 @@
       "EV-I-004": [
         -1.7,
         -1.3
+      ],
+      "EV-I-006": [
+        -3.2,
+        0.1
+      ],
+      "EV-W-101": [
+        -3.3,
+        0.0
+      ],
+      "EV-W-102": [
+        null,
+        0.0
+      ],
+      "EV-W-103": [
+        null,
+        0.0
+      ],
+      "EV-W-104": [
+        -0.5,
+        0.5
+      ],
+      "EV-W-105": [
+        -0.0,
+        null
+      ],
+      "EV-W-201": [
+        null,
+        0.0
+      ],
+      "EV-W-202": [
+        null,
+        0.0
+      ],
+      "EV-W-203": [
+        null,
+        0.0
+      ],
+      "EV-W-204": [
+        null,
+        0.0
+      ],
+      "EV-W-205": [
+        -0.0,
+        null
+      ],
+      "EV-W-301": [
+        null,
+        null
+      ],
+      "EV-W-302": [
+        null,
+        null
+      ],
+      "EV-W-303": [
+        null,
+        0.0
+      ],
+      "EV-W-304": [
+        -0.5,
+        0.5
       ]
     },
     "excluded": [],
-    "constraints": []
+    "constraints": [
+      {
+        "id": "ORDER-witness_1-1",
+        "from": "EV-W-101",
+        "to": "EV-W-104",
+        "min_s": 0.0,
+        "max_s": null,
+        "confidence": 0.45,
+        "ref": "witness_1.txt#c=176-190",
+        "quote": "After the bang"
+      },
+      {
+        "id": "ORDER-witness_3-1",
+        "from": "EV-W-303",
+        "to": "EV-W-304",
+        "min_s": 0.0,
+        "max_s": null,
+        "confidence": 0.7,
+        "ref": "witness_3.txt#c=102-147",
+        "quote": "The grey car slowed down before they touched."
+      },
+      {
+        "id": "MATCH-EV-W-101",
+        "from": "EV-W-101",
+        "to": "EV-I-001",
+        "min_s": -0.1,
+        "max_s": 0.1,
+        "confidence": 0.95,
+        "ref": "witness_1.txt#c=35-94"
+      }
+    ]
   },
   "sensitivity": []
 }

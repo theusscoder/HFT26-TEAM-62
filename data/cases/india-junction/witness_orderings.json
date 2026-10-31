@@ -1,1 +1,22 @@
-[]
+[
+  {
+    "id": "ORDER-witness_1-1",
+    "from": "EV-W-101",
+    "to": "EV-W-104",
+    "min_s": 0.0,
+    "max_s": null,
+    "confidence": 0.45,
+    "ref": "witness_1.txt#c=176-190",
+    "quote": "After the bang"
+  },
+  {
+    "id": "ORDER-witness_3-1",
+    "from": "EV-W-303",
+    "to": "EV-W-304",
+    "min_s": 0.0,
+    "max_s": null,
+    "confidence": 0.7,
+    "ref": "witness_3.txt#c=102-147",
+    "quote": "The grey car slowed down before they touched."
+  }
+]

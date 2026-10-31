@@ -3,7 +3,7 @@
     "id": "K5",
     "t": -3.57,
     "kind": "moment",
-    "title": "Hazard visible: Blue car",
+    "title": "Hazard visible: Grey car",
     "detail": "First seen 35 m ahead, 11.3 m left of the camera's line, with the camera vehicle at 41 km/h.",
     "actor": "car_1",
     "xy": [
@@ -52,7 +52,7 @@
     "t": -1.6,
     "kind": "counterfactual",
     "title": "Could it have stopped?",
-    "detail": "1.6 s before impact Black motorcycle was at 46 km/h with 26.0 m to go. A full stop (1 s reaction + braking) needs 24.7 m. A stop was possible; the highest speed that would have allowed a stop is about 72 km/h.",
+    "detail": "1.6 s before impact Silver motorcycle was at 46 km/h with 26.0 m to go. A full stop (1 s reaction + braking) needs 24.7 m. A stop was possible; the highest speed that would have allowed a stop is about 72 km/h.",
     "actor": "ego",
     "xy": [
       0.0,
@@ -112,8 +112,8 @@
     "id": "K4",
     "t": 0.0,
     "kind": "measure",
-    "title": "Closest approach: Blue car",
-    "detail": "Blue car came within 1.5 m of Black motorcycle's body (2.5 m centre to centre) at T+0.0 s.",
+    "title": "Closest approach: Grey car",
+    "detail": "Grey car came within 1.5 m of Silver motorcycle's body (2.5 m centre to centre) at T+0.0 s.",
     "actor": "car_1",
     "xy": [
       -0.31,

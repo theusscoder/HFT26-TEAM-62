@@ -35,11 +35,22 @@ def keyframes(case_dir: Path, case: dict, primary_ui: dict | None) -> list[dict]
     fps = cap.get(cv2.CAP_PROP_FPS) or 25
     t0, dur = case["t0_video_s"], case["video"]["duration"]
     picks = [("first", 0.0), ("before", max(0, t0 - 1.5)), ("impact", t0), ("after", min(dur - 0.05, t0 + 1.5))]
-    frames = []
-    for name, tv in picks:
-        cap.set(cv2.CAP_PROP_POS_FRAMES, int(tv * fps))
+    # Read frames in order and time them the way the tracker did; seeking by frame number lands a few frames late on
+    # many MP4s, and the red box would then sit on the wrong vehicle.
+    grabbed, f = {}, 0
+    while len(grabbed) < len(picks):
         ok, img = cap.read()
         if not ok:
+            break
+        tf = cap.get(cv2.CAP_PROP_POS_MSEC) / 1000 or f / fps
+        for name, tv in picks:
+            if name not in grabbed and tf >= tv - 0.5 / fps:
+                grabbed[name] = img.copy()
+        f += 1
+    frames = []
+    for name, tv in picks:
+        img = grabbed.get(name)
+        if img is None:
             continue
         if primary_ui and name != "first":
             rel = tv - t0

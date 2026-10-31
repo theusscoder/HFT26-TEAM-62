@@ -40,12 +40,52 @@ def colour_name(bgr_patch) -> str | None:
         return None
     hsv = cv2.cvtColor(bgr_patch, cv2.COLOR_BGR2HSV).reshape(-1, 3).astype(float)
     h, s, v = np.median(hsv[:, 0]), np.median(hsv[:, 1]), np.median(hsv[:, 2])
+    mean = bgr_patch.reshape(-1, 3).astype(float).mean(0)
+    chroma = mean.max() - mean.min()   # paint has to be clearly coloured; sky reflections tint grey and silver cars blue
     if v < 55: return "black"
-    if s < 40: return "white" if v > 170 else ("silver" if v > 120 else "grey")
+    if s < 40 or chroma < 48: return "white" if v > 170 else ("silver" if v > 120 else "grey")
     for lim, name in ((8, "red"), (22, "orange"), (34, "yellow"), (85, "green"), (130, "blue"), (148, "purple"), (180, "red")):
         if h <= lim:
             return name
     return None
+
+
+def recolour(case_dir: Path, samples: int = 24) -> int:
+    """Re-read each vehicle's colour with the frame's colour cast removed (grey-world white balance). Footage with a blue or
+    yellow tint otherwise names a grey car 'blue' and half the road 'white'. Updates tracks.json; returns tracks named."""
+    p = case_dir / "tracks.json"
+    tr = json.loads(p.read_text())
+    if tr["video"].get("colour_wb"):
+        return 0
+    want = defaultdict(list)   # frame index -> [(track, box)]
+    for name, t in tr["tracks"].items():
+        if t["class"] not in VEHICLES or not t["points"]:
+            continue
+        pts = [q for q in t["points"] if "f" in q]
+        for q in pts[:: max(1, len(pts) // samples)][:samples]:
+            want[q["f"]].append((name, q["box"]))
+    votes = defaultdict(list)
+    cap, f = cv2.VideoCapture(str(case_dir / "evidence" / "cctv.mp4")), 0
+    last = max(want, default=-1)
+    while f <= last:
+        ok, frame = cap.read()
+        if not ok:
+            break
+        if f in want:
+            means = frame.reshape(-1, 3).mean(0)
+            balanced = np.clip(frame * (means.mean() / np.maximum(means, 1)), 0, 255).astype(np.uint8)
+            for name, box in want[f]:
+                x1, y1, x2, y2 = map(int, box)
+                cw, ch = (x2 - x1) // 4, (y2 - y1) // 4
+                votes[name].append(colour_name(balanced[max(0, y1 + ch):y2 - ch, max(0, x1 + cw):x2 - cw]))
+        f += 1
+    cap.release()
+    from collections import Counter
+    for name, v in votes.items():
+        tr["tracks"][name]["colour"] = (Counter(x for x in v if x).most_common(1) or [(None, 0)])[0][0]
+    tr["video"]["colour_wb"] = True
+    p.write_text(json.dumps(tr))
+    return len(votes)
 
 
 def detect_and_track(video: Path, model_name: str, annotated: Path, progress=None):

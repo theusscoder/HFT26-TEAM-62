@@ -9,18 +9,18 @@
     {
       "signal": "dv_kmh",
       "points": 3,
-      "why": "speed change at impact 2.7 km/h",
-      "ref": "tracks_metric:car_61"
+      "why": "speed change at impact 8.9 km/h",
+      "ref": "tracks_metric:car_2"
     }
   ],
   "signals": {
-    "dv_kmh": 2.7,
+    "dv_kmh": 8.9,
     "vru_involved": false,
     "person_down_s": 1.57,
     "fire_smoke": false,
     "rollover": false,
     "refs": {
-      "dv_kmh": "tracks_metric:car_61",
+      "dv_kmh": "tracks_metric:car_2",
       "person_down_s": "cctv.mp4#f=121-167"
     }
   },

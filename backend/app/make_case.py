@@ -91,6 +91,7 @@ def make(case_id: str, video_path: Path | None = None, title: str | None = None,
     mode = hint.get("camera") or cam["type"]
     report["camera"] = f"{mode} ({cam.get('why', 'given')}{', overridden by case hint' if hint.get('camera') and hint['camera'] != cam['type'] else ''})"
     say("camera", "done", report["camera"])
+    report["colours"] = f"{video.recolour(d)} vehicles re-coloured (white-balanced)" if (d / "evidence" / "cctv.mp4").exists() else "skipped"
     t0_override = None
     if mode == "dashcam":
         dc = dashcam.analyse(d, hint.get("ego_class", "car"))
@@ -167,6 +168,9 @@ def make(case_id: str, video_path: Path | None = None, title: str | None = None,
     left = pursuit.run(d, say)
     report["pursuit"] = f"{left['status']}: {left['plates_method']}"
     say("pursuit", "done", left["status"])
+    from . import records
+    rec = records.build(d)
+    report["records"] = f"{len(rec['vehicles'])} vehicles and {len(rec['people'])} people on record"
 
     from . import faces
     if faces.available() and (d / "evidence" / "cctv.mp4").exists():

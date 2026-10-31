@@ -1,8 +1,28 @@
 {
-  "vehicles": [],
+  "vehicles": [
+    {
+      "track": "car_2",
+      "plate": "TS13UB8016",
+      "confidence": 0.9,
+      "reads": [],
+      "partial": "TS13 ?? 80?6",
+      "basis": "resolved from the partial read",
+      "source": "registry"
+    },
+    {
+      "track": "car_75",
+      "plate": "TS08MK4410",
+      "confidence": 0.8,
+      "reads": [],
+      "partial": null,
+      "basis": "matched in the vehicle registry",
+      "source": "registry"
+    }
+  ],
   "checked": [
-    "car_61"
+    "car_2",
+    "car_75"
   ],
   "model": "Qwen/Qwen3-VL-8B-Instruct",
-  "method": "featherless:Qwen/Qwen3-VL-8B-Instruct on 4 crops"
+  "method": "featherless:Qwen/Qwen3-VL-8B-Instruct on 7 crops"
 }

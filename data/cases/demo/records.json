@@ -1,0 +1,81 @@
+{
+  "case": "demo",
+  "victim": "car_A",
+  "suspect": "car_B",
+  "vehicles": [
+    {
+      "track": "car_B",
+      "role": "suspect",
+      "class": "car",
+      "plate": "TS07GK5521",
+      "plate_read": "TS07G?5521",
+      "plate_basis": "resolved from the partial read",
+      "registration": {
+        "owner": "Karthik Varma",
+        "vehicle": "Red sedan",
+        "rto": "Ranga Reddy",
+        "registered": "2023",
+        "fuel": "Diesel",
+        "insurance": "ICICI Lombard \u00b7 valid till Jan 2026",
+        "insurance_ok": true,
+        "puc": "Valid",
+        "pending_challans": 3,
+        "emergency_contact": "+91 80\u2022\u2022\u2022 \u2022\u2022784",
+        "contact_relation": "wife",
+        "address_area": "Miyapur"
+      },
+      "driver": {
+        "name": "Farhan Khan",
+        "age": 25,
+        "dl_no": "TS07 2015 \u2022\u2022\u20222910",
+        "class": "LMV",
+        "valid_till": "2035-06-14",
+        "blood_group": "O-",
+        "photo": "CAP-005.svg",
+        "phone": "+91 60\u2022\u2022\u2022 \u2022\u2022610",
+        "owner_is_driver": false,
+        "face_match": 0.88
+      },
+      "name": "Red sedan",
+      "left_scene": true
+    },
+    {
+      "track": "car_A",
+      "role": "victim",
+      "class": "car",
+      "plate": "TS09EA1234",
+      "plate_read": "TS09EA1234",
+      "plate_basis": "read from the footage",
+      "registration": {
+        "owner": "Ravi Teja Goud",
+        "vehicle": "White Maruti Swift",
+        "rto": "Hyderabad (Central)",
+        "registered": "2022",
+        "fuel": "CNG",
+        "insurance": "Valid till Mar 2027",
+        "insurance_ok": true,
+        "puc": "Valid",
+        "pending_challans": 1,
+        "emergency_contact": "+91 98\u2022\u2022\u2022 \u2022\u2022412",
+        "contact_relation": "sister",
+        "address_area": "Banjara Hills"
+      },
+      "driver": {
+        "name": "Ravi Teja Goud",
+        "age": 62,
+        "dl_no": "TS09 2019 \u2022\u2022\u20222345",
+        "class": "LMV",
+        "valid_till": "2034-05-11",
+        "blood_group": "B+",
+        "photo": "DL-01.svg",
+        "phone": "+91 95\u2022\u2022\u2022 \u2022\u2022464",
+        "owner_is_driver": true,
+        "face_match": 0.82
+      },
+      "name": "White hatchback",
+      "left_scene": false
+    }
+  ],
+  "people": [],
+  "note": "Registry records for this case. People are fictional; numbers are shown masked."
+}

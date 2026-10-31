@@ -26,3 +26,5 @@ data/cases/*/frames/
 # face crops of real people stay on the machine that made them
 data/cases/*/faces/
 data/cases/*/faces.json
+# live dashboard state (hospital acknowledgements)
+data/ops/

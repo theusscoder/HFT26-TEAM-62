@@ -202,6 +202,17 @@ def victim(d: Path) -> dict:
     purs = _load(d, "pursuit", {}) or {}
     left = {v["track"] for v in purs.get("vehicles", []) if v.get("status") == "left_view"} | ({"car_B"} if purs.get("status") == "departed" and not purs.get("vehicles") else set())
     plates = [v for v in (_load(d, "plates", {}) or {}).get("vehicles", []) if v.get("plate") and "?" not in v["plate"] and v.get("track") not in left]
+    from . import records
+    rec = records.load(d) or {}
+    vic = next((v for v in rec.get("vehicles", []) if v["track"] == rec.get("victim")), None)
+    per = next((p for p in rec.get("people", []) if p["track"] == rec.get("victim")), None)
+    why = f"Vision model: {judged.get('reason')} " if judged and judged.get("reason") else ""
+    if vic:
+        return {"judged": judged, "plate": vic["plate"], "track": vic["track"], "owner": vic["registration"]["owner"], "contact": vic["registration"]["emergency_contact"],
+                "driver": vic["driver"]["name"], "reason": why + f"The struck vehicle is the {vic['name'].lower()}, plate {vic['plate']}, registered to {vic['registration']['owner']}."}
+    if per:
+        return {"judged": judged, "plate": None, "track": per["track"], "owner": per["name"], "contact": per["emergency_contact"],
+                "reason": why + f"The struck person is {per['name']} ({per['description'].lower()}), identified by {per['identified_by']}."}
     struck = (judged or {}).get("struck")
     if struck in ("pedestrian", "two_wheeler_rider") and not plates:
         return {"judged": judged, "plate": None, "contact": None, "reason": "The struck road user has no number plate, so there's no registration to find an emergency contact from."}
@@ -254,6 +265,11 @@ def auto_trigger(d: Path) -> dict:
         res = alerts.send(v["plate"], msg)
         auto["notifications"] = [{"to": f"emergency contact of {v['owner']}", "via": "Telegram", "status": res["status"], "text": msg}]
         log(f"Emergency contact for {v['plate']} notified on Telegram ({res['status']}).", action="contact_notified")
+    elif v.get("contact"):
+        msg = (f"YATHARTH: {v['owner']} was involved in a road accident at {case.get('location', {}).get('name') or 'a reported location'}. "
+               f"Emergency services have been informed. Ref {ref}.")
+        auto["notifications"] = [{"to": f"emergency contact of {v['owner']} ({v['contact']})", "via": "Telegram", "status": "simulated", "text": msg}]
+        log(f"Emergency contact of {v['owner']} notified ({v['contact']}, simulated).", action="contact_notified")
     else:
         auto["notifications"] = []
         log(f"No emergency contact to notify: {v['reason']}", action="contact_skipped")

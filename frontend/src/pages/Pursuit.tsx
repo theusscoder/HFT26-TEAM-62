@@ -8,6 +8,7 @@ import { Loading, Panel, Ref } from "../components/ui";
 import TollCapture from "../components/TollCapture";
 import FaceCheck from "../components/FaceCheck";
 import LicencePanel from "../components/LicencePanel";
+import CaseRecords from "../components/CaseRecords";
 
 /* Hit-and-run, from what the case can show: who stayed and who left (track rules), the plate Qwen could read on
    the sharpest crops, and, with coordinates, the reach of the vehicle over time against a toll log that is
@@ -205,6 +206,7 @@ export default function Pursuit() {
       )}
 
       <TollCapture caseId={id!} />
+      <CaseRecords />
       <LicencePanel caseId={id!} />
       <FaceCheck caseId={id!} />
 

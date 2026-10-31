@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { useApi, type Analysis, type Event } from "../lib/api";
 import { Loading, Panel, Stat, Status } from "../components/ui";
 import ContextPanel from "../components/ContextPanel";
+import CaseRecords from "../components/CaseRecords";
 import KeyFindings, { type Finding } from "../components/Findings";
 
 /* What happened, in a sentence built from the evidence, then the moments, the findings and how far to trust them. */
@@ -64,6 +65,8 @@ export default function Overview() {
           ))}
         </div>
       )}
+
+      <CaseRecords />
 
       {ins.data && ins.data.length > 0 && (
         <Panel title="Key findings" right={<Link to="reconstruction" className="text-xs text-accent">see them on the reconstruction →</Link>}>

@@ -1,0 +1,81 @@
+{
+  "case": "dashcam",
+  "victim": "car_1",
+  "suspect": null,
+  "vehicles": [
+    {
+      "track": "ego",
+      "role": "primary",
+      "class": "motorcycle",
+      "plate": "TS13XR8606",
+      "plate_read": null,
+      "plate_basis": "matched in the vehicle registry",
+      "registration": {
+        "owner": "Naveen Reddy",
+        "vehicle": "Silver Honda Activa 6G",
+        "rto": "Hyderabad (East)",
+        "registered": "2018",
+        "fuel": "Petrol",
+        "insurance": "Bajaj Allianz \u00b7 valid till Jun 2026",
+        "insurance_ok": true,
+        "puc": "Valid",
+        "pending_challans": 1,
+        "emergency_contact": "+91 60\u2022\u2022\u2022 \u2022\u2022236",
+        "contact_relation": "brother",
+        "address_area": "LB Nagar"
+      },
+      "driver": {
+        "name": "Sai Kiran Naidu",
+        "age": 46,
+        "dl_no": "TS13 2007 \u2022\u2022\u20224977",
+        "class": "MCWG",
+        "valid_till": "2027-07-05",
+        "blood_group": "B+",
+        "photo": "CAP-003.svg",
+        "phone": "+91 71\u2022\u2022\u2022 \u2022\u2022689",
+        "owner_is_driver": false,
+        "face_match": 0.78
+      },
+      "name": "Silver motorcycle",
+      "left_scene": false
+    },
+    {
+      "track": "car_1",
+      "role": "victim",
+      "class": "car",
+      "plate": "TS10RB0921",
+      "plate_read": null,
+      "plate_basis": "matched in the vehicle registry",
+      "registration": {
+        "owner": "Anil Kumar Reddy",
+        "vehicle": "Black Honda Shine",
+        "rto": "Medchal",
+        "registered": "2020",
+        "fuel": "Petrol",
+        "insurance": "Expired Jan 2026",
+        "insurance_ok": false,
+        "puc": "Valid",
+        "pending_challans": 2,
+        "emergency_contact": "+91 99\u2022\u2022\u2022 \u2022\u2022174",
+        "contact_relation": "wife",
+        "address_area": "Banjara Hills"
+      },
+      "driver": {
+        "name": "Anil Kumar Reddy",
+        "age": 47,
+        "dl_no": "TS10 2018 \u2022\u2022\u20227340",
+        "class": "MCWG",
+        "valid_till": "2028-09-30",
+        "blood_group": "A+",
+        "photo": "CAP-003.svg",
+        "phone": "+91 85\u2022\u2022\u2022 \u2022\u2022266",
+        "owner_is_driver": true,
+        "face_match": 0.79
+      },
+      "name": "Grey car",
+      "left_scene": false
+    }
+  ],
+  "people": [],
+  "note": "Registry records for this case. People are fictional; numbers are shown masked."
+}

@@ -1,6 +1,6 @@
 {
   "status": "stayed",
-  "summary": "No involved vehicle is seen leaving, so this footage shows no hit-and-run. Grey motorcycle: last seen at rest, then hidden from the camera.",
+  "summary": "No involved vehicle is seen leaving, so this footage shows no hit-and-run. Black motorcycle: last seen at rest, then hidden from the camera.",
   "vehicles": [
     {
       "track": "car_38",
@@ -671,7 +671,7 @@
     },
     {
       "track": "motorcycle_3",
-      "name": "Grey motorcycle",
+      "name": "Black motorcycle",
       "role": "involved",
       "class": "motorcycle",
       "colour": "grey",
