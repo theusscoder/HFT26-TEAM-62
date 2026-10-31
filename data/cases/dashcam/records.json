@@ -31,10 +31,10 @@
         "class": "MCWG",
         "valid_till": "2027-07-05",
         "blood_group": "B+",
-        "photo": "CAP-003.svg",
-        "phone": "+91 71\u2022\u2022\u2022 \u2022\u2022689",
+        "photo": "M-12.jpg",
+        "phone": "+91 88\u2022\u2022\u2022 \u2022\u2022242",
         "owner_is_driver": false,
-        "face_match": 0.78
+        "face_match": 0.81
       },
       "name": "Silver motorcycle",
       "left_scene": false
@@ -67,8 +67,8 @@
         "class": "MCWG",
         "valid_till": "2028-09-30",
         "blood_group": "A+",
-        "photo": "CAP-003.svg",
-        "phone": "+91 85\u2022\u2022\u2022 \u2022\u2022266",
+        "photo": "M-03.jpg",
+        "phone": "+91 84\u2022\u2022\u2022 \u2022\u2022471",
         "owner_is_driver": true,
         "face_match": 0.79
       },

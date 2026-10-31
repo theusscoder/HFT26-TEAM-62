@@ -31,10 +31,10 @@
         "class": "LMV",
         "valid_till": "2036-02-20",
         "blood_group": "O-",
-        "photo": "CAP-002.svg",
-        "phone": "+91 65\u2022\u2022\u2022 \u2022\u2022691",
+        "photo": "F-09.jpg",
+        "phone": "+91 70\u2022\u2022\u2022 \u2022\u2022449",
         "owner_is_driver": true,
-        "face_match": 0.68
+        "face_match": 0.86
       },
       "name": "Blue bus",
       "left_scene": false
@@ -67,10 +67,10 @@
         "class": "MCWG",
         "valid_till": "2040-10-11",
         "blood_group": "B+",
-        "photo": "CAP-004.svg",
-        "phone": "+91 81\u2022\u2022\u2022 \u2022\u2022356",
+        "photo": "M-10.jpg",
+        "phone": "+91 84\u2022\u2022\u2022 \u2022\u2022207",
         "owner_is_driver": true,
-        "face_match": 0.77
+        "face_match": 0.72
       },
       "name": "Black motorcycle",
       "left_scene": false
@@ -88,13 +88,13 @@
       "emergency_contact": "+91 63\u2022\u2022\u2022 \u2022\u2022108",
       "contact_relation": "wife",
       "blood_group": "A+",
-      "photo": "DL-02.svg",
+      "photo": "M-11.jpg",
       "licence": {
         "dl_no": "TS07 2012 \u2022\u2022\u20224120",
         "holder": "P. Srinivas Rao",
         "class": "LMV, MCWG",
         "valid_till": "2032-01-19",
-        "photo": "DL-02.svg"
+        "photo": "M-11.jpg"
       }
     }
   ],

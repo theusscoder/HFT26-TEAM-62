@@ -695,3 +695,28 @@ export function deriveCityBoundary(
     calibrated,
   }
 }
+
+/**
+ * YATHARTH: the whole shipped data window as one solid rectangular slab. The density contour above follows the densest
+ * built-up mass, which leaves Gachibowli's campuses, lakes and rocky ground (where our cases are) as voids at the rim.
+ */
+export function windowBoundary(window: { south: number; north: number; west: number; east: number }, stepM = 120): BoundaryResult {
+  const nw = toWorld({ lat: window.north, lng: window.west })
+  const se = toWorld({ lat: window.south, lng: window.east })
+  const corners: Array<[number, number]> = [[nw.x, nw.z], [se.x, nw.z], [se.x, se.z], [nw.x, se.z]]
+  let ring: number[] = []
+  for (let k = 0; k < 4; k++) {
+    const [ax, az] = corners[k]
+    const [bx, bz] = corners[(k + 1) % 4]
+    const n = Math.max(1, Math.round(Math.hypot(bx - ax, bz - az) / stepM))
+    for (let i = 0; i < n; i++) ring.push(ax + ((bx - ax) * i) / n, az + ((bz - az) * i) / n)
+  }
+  if (ringArea(ring) > 0) ring = reverseRing(ring)
+  const flat = new Float32Array(ring)
+  return {
+    boundary: { ring: flat, minX: Math.min(nw.x, se.x), maxX: Math.max(nw.x, se.x), minZ: Math.min(nw.z, se.z), maxZ: Math.max(nw.z, se.z), source: 'density-derived' },
+    buildingContainment: 1,
+    contourPoints: flat.length / 2,
+    calibrated: true,
+  }
+}

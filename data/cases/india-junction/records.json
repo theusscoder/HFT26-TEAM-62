@@ -25,13 +25,13 @@
         "address_area": "Mehdipatnam"
       },
       "driver": {
-        "name": "Srinivas Goud",
+        "name": "Suresh Yadav",
         "age": 59,
         "dl_no": "TS08 2017 \u2022\u2022\u20227980",
         "class": "LMV",
         "valid_till": "2037-05-27",
         "blood_group": "O+",
-        "photo": "CAP-006.svg",
+        "photo": "M-09.jpg",
         "phone": "+91 96\u2022\u2022\u2022 \u2022\u2022574",
         "owner_is_driver": true,
         "face_match": 0.75
@@ -67,8 +67,8 @@
         "class": "LMV",
         "valid_till": "2040-03-02",
         "blood_group": "B+",
-        "photo": "CAP-002.svg",
-        "phone": "+91 77\u2022\u2022\u2022 \u2022\u2022270",
+        "photo": "M-06.jpg",
+        "phone": "+91 88\u2022\u2022\u2022 \u2022\u2022790",
         "owner_is_driver": true,
         "face_match": 0.71
       },

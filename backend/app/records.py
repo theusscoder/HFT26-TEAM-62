@@ -29,7 +29,14 @@ MODELS = {"car": ["Maruti Suzuki Swift", "Hyundai i20", "Honda City", "Maruti Su
           "bicycle": ["Hero Sprint bicycle"], "auto": ["Bajaj RE auto-rickshaw"]}
 INSURERS = ["New India Assurance", "ICICI Lombard", "Bajaj Allianz", "HDFC ERGO", "United India Insurance", "Tata AIG"]
 RELATION = ["wife", "husband", "brother", "father", "mother", "sister", "son"]
-PHOTOS = ["DL-01.svg", "DL-02.svg", "CAP-001.svg", "CAP-002.svg", "CAP-003.svg", "CAP-004.svg", "CAP-005.svg", "CAP-006.svg"]
+# AI-generated portraits (data/fictional/portraits/SOURCE.md), chosen by the gender of the fictional name
+PHOTOS_M = [f"M-{i:02d}.jpg" for i in range(1, 13)]
+PHOTOS_F = [f"F-{i:02d}.jpg" for i in range(1, 13)]
+FEMALE = {"Lakshmi", "Priya", "Kavitha", "Sravani", "Deepika", "Ayesha", "Madhavi", "Swathi"}
+
+
+def _photo(r, name: str) -> str:
+    return r.choice(PHOTOS_F if name.split()[0].rstrip(".") in FEMALE else PHOTOS_M)
 DL_CLASS = {"car": "LMV", "motorcycle": "MCWG", "bus": "TRANS (HPMV)", "truck": "TRANS (HGMV)", "auto": "LMV-3W", "bicycle": "—"}
 VEHICLES = {"car", "motorcycle", "bus", "truck", "bicycle", "auto"}
 
@@ -88,7 +95,7 @@ def _vehicle(cid, tid, cls, colour, role, read, used, year_now=2026):
                              "emergency_contact": _phone(r), "contact_relation": r.choice(RELATION), "address_area": r.choice(AREAS)},
             "driver": {"name": driver, "age": r.randint(21, 62), "dl_no": f"{plate[:4]} {dl_year} •••{r.randint(1000, 9999)}", "class": DL_CLASS.get(kind, "LMV"),
                        "valid_till": f"{dl_year + 20}-{r.randint(1, 12):02d}-{r.randint(1, 28):02d}", "blood_group": r.choice(["O+", "B+", "A+", "AB+", "O-"]),
-                       "photo": r.choice(PHOTOS), "phone": _phone(r), "owner_is_driver": driver == owner,
+                       "photo": _photo(r, driver), "phone": _phone(r), "owner_is_driver": driver == owner,
                        "face_match": round(r.uniform(0.66, 0.88), 2)}}
 
 
@@ -141,7 +148,7 @@ def build(case_dir: Path) -> dict:
             v["plate"], v["plate_read"] = s.get("resolved", v["plate"]), s.get("plate", v["plate_read"])
             v["plate_basis"] = "resolved from the partial read"
             v["registration"].update({"owner": s.get("owner", v["registration"]["owner"]), "vehicle": s.get("vehicle", v["registration"]["vehicle"])})
-            v["driver"].update({"photo": s.get("photo", v["driver"]["photo"])})
+            v["driver"].update({"photo": s.get("photo", v["driver"]["photo"]), "name": s.get("owner", v["driver"]["name"]), "owner_is_driver": True})
         vehicles.append(v)
     persons = []
     for tid in people:
@@ -152,7 +159,7 @@ def build(case_dir: Path) -> dict:
                         "description": pin.get("victim") if victim == tid else (names.get(tid) or "Pedestrian"),
                         "identified_by": "duty roster (on-duty constable)" if "constable" in str(pin.get("victim", "")).lower() and victim == tid else "documents at the scene",
                         "phone": _phone(r), "emergency_contact": _phone(r), "contact_relation": r.choice(RELATION), "blood_group": r.choice(["O+", "B+", "A+"]),
-                        "photo": (lic or {}).get("photo") or r.choice(PHOTOS), "licence": lic})
+                        "photo": (lic or {}).get("photo") or _photo(r, name), "licence": lic})
     out = {"case": cid, "victim": victim, "suspect": suspect, "vehicles": vehicles, "people": persons,
            "note": "Registry records for this case. People are fictional; numbers are shown masked."}
     (case_dir / "records.json").write_text(json.dumps(out, indent=2), encoding="utf-8")

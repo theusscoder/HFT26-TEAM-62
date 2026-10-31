@@ -15,7 +15,7 @@
       "holder": "Ravi Teja Goud",
       "class": "LMV",
       "valid_till": "2034-05-11",
-      "photo": "DL-01.svg"
+      "photo": "M-04.jpg"
     },
     "face_match": 0.82,
     "suspect": {
@@ -24,7 +24,7 @@
       "vehicle": "Red sedan",
       "owner": "Karthik Varma",
       "last_seen": "Leaving Gachibowli X-roads towards the flyover",
-      "photo": "CAP-005.svg"
+      "photo": "M-07.jpg"
     }
   },
   "hero": {
@@ -36,7 +36,7 @@
       "holder": "P. Srinivas Rao",
       "class": "LMV, MCWG",
       "valid_till": "2032-01-19",
-      "photo": "DL-02.svg"
+      "photo": "M-11.jpg"
     },
     "face_match": 0.77
   },
@@ -55,7 +55,7 @@
       "holder": "Mohammed Imran",
       "class": "LMV",
       "valid_till": "2040-03-02",
-      "photo": "CAP-002.svg"
+      "photo": "M-06.jpg"
     },
     "face_match": 0.71,
     "suspect": {
@@ -64,7 +64,7 @@
       "vehicle": "White Maruti Suzuki Dzire",
       "owner": "Suresh Yadav",
       "last_seen": "Leaving HITEC City junction",
-      "photo": "CAP-006.svg"
+      "photo": "M-09.jpg"
     }
   },
   "dashcam": {
@@ -82,7 +82,7 @@
       "holder": "Anil Kumar Reddy",
       "class": "MCWG",
       "valid_till": "2028-09-30",
-      "photo": "CAP-003.svg"
+      "photo": "M-03.jpg"
     },
     "face_match": 0.79
   },
@@ -101,7 +101,7 @@
       "holder": "Lakshmi Prasanna",
       "class": "LMV",
       "valid_till": "2035-07-14",
-      "photo": "CAP-004.svg"
+      "photo": "F-05.jpg"
     },
     "face_match": 0.68
   }

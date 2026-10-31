@@ -167,16 +167,16 @@ export function bodyKind(kind: string) {
 }
 
 /** A vehicle body shaped by its type, sized to the fitted dimensions, posed by the measured track. */
-export function ClayVehicle({ kind, L, W, H, colour, glow, braking, pitch }: { kind: string; L: number; W: number; H: number; colour: string; glow: boolean; braking: boolean; pitch: number }) {
+export function ClayVehicle({ kind, L, W, H, colour, glow, glowColour, braking, pitch }: { kind: string; L: number; W: number; H: number; colour: string; glow: boolean; glowColour?: string; braking: boolean; pitch: number }) {
   const P = PROFILES[bodyKind(kind)];
   const geo = useMemo(() => ({ body: extrudeProfile(P.body, L, H, W, Math.min(0.12, W * 0.07)), glass: extrudeProfile(P.glass, L, H, W + 0.03, 0) }), [P, L, H, W]);
   const r = Math.max(0.24, P.wheel * H * 1.15);
   const lampY = Math.max(r + 0.1, H * 0.42);
   return (
     <group rotation={[pitch, 0, 0]}>
-      {glow && <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.02, 0]}><planeGeometry args={[W + 1.2, L + 1.2]} /><meshBasicMaterial color={colour} transparent opacity={0.2} depthWrite={false} toneMapped={false} /></mesh>}
+      {glow && <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.02, 0]}><planeGeometry args={[W + 1.6, L + 1.6]} /><meshBasicMaterial color={glowColour ?? colour} transparent opacity={glowColour ? 0.45 : 0.2} depthWrite={false} toneMapped={false} /></mesh>}
       <mesh geometry={geo.body} castShadow receiveShadow>
-        <meshPhysicalMaterial color={colour} emissive={glow ? colour : "#000"} emissiveIntensity={glow ? 0.22 : 0} roughness={0.35} metalness={0.45} clearcoat={0.8} clearcoatRoughness={0.25} />
+        <meshPhysicalMaterial color={colour} emissive={glow ? (glowColour ?? colour) : "#000"} emissiveIntensity={glow ? (glowColour ? 0.08 : 0.22) : 0} roughness={0.35} metalness={0.45} clearcoat={0.8} clearcoatRoughness={0.25} />
       </mesh>
       <mesh geometry={geo.glass}><meshPhysicalMaterial color="#141a26" roughness={0.08} metalness={0.2} clearcoat={1} /></mesh>
       {P.wheels.flatMap((z) => [-1, 1].map((sd) => (

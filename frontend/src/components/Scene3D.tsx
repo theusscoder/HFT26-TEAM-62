@@ -1,4 +1,4 @@
-﻿import { Suspense, useEffect, useMemo, useRef } from "react";
+import { Suspense, useEffect, useMemo, useRef } from "react";
 import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
 import { Html, Line, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
@@ -58,7 +58,7 @@ export function dimsFor(tr: MetricTrack, large: Set<string>): [number, number, n
   return large.has(tr.id) && tr.class === "car" ? DIMS.bus : DIMS[tr.class] ?? DIMS.car;
 }
 
-/** Does the segment aâ†’b pass through the footprint of any other vehicle at time t? */
+/** Does the segment a→b pass through the footprint of any other vehicle at time t? */
 export function blocked(a: { x: number; y: number }, b: { x: number; y: number }, tracks: MetricTrack[], t: number, skip: Set<string>, large: Set<string>) {
   for (const tr of tracks) {
     if (skip.has(tr.id)) continue;
@@ -298,7 +298,8 @@ function RoadUser({ tr, t, caseId, main, label, showBox, look, primary, solid }:
         const tint = primary ? TWIN.primary : main ? TWIN.involved : person ? TWIN.person : TWIN.neutral;
         if (person) return <Pedestrian tr={tr} s={s} main={main} tint={tint} />;
         if (two) return <TwoWheeler tr={tr} s={s} main={main} tint={tint} />;
-        return <ClayVehicle kind={tr.kind} L={L} W={W} H={H} colour={tint} glow={main} braking={s.accelG < -BRAKE_G && s.v > 1} pitch={THREE.MathUtils.clamp(-s.accelG * 0.09, -0.035, 0.035)} />;
+        // real paint (white car white, grey car grey); the vehicles in question are marked by a ring, not repainted
+        return <ClayVehicle kind={tr.kind} L={L} W={W} H={H} colour={COLOUR[tr.colour_name ?? ""] ?? tint} glow={main} glowColour={main ? (primary ? TWIN.primary : "#1f6feb") : undefined} braking={s.accelG < -BRAKE_G && s.v > 1} pitch={THREE.MathUtils.clamp(-s.accelG * 0.09, -0.035, 0.035)} />;
       })() : person ? <Pedestrian tr={tr} s={s} main={main} /> : two ? <TwoWheeler tr={tr} s={s} main={main} />
         : <ClayVehicle kind={tr.kind} L={L} W={W} H={H} colour={COLOUR[tr.colour_name ?? ""] ?? "#8f96a0"} glow={false} braking={s.accelG < -BRAKE_G && s.v > 1} pitch={THREE.MathUtils.clamp(-s.accelG * 0.09, -0.035, 0.035)} />}
       {showBox && <lineSegments position={[0, H / 2, 0]}>
@@ -306,7 +307,7 @@ function RoadUser({ tr, t, caseId, main, label, showBox, look, primary, solid }:
         <lineBasicMaterial color={person ? "#ffe45c" : "#3cff8f"} />
       </lineSegments>}
       {label && <Html position={[0, H + 0.7, 0]} center distanceFactor={16} zIndexRange={[20, 0]}>
-        <div className="pointer-events-none whitespace-nowrap rounded bg-bg/85 px-2 py-0.5 text-[11px] font-semibold text-ink">{label}{person ? "" : ` Â· ${s.v.toFixed(0)} km/h`}</div>
+        <div className="pointer-events-none whitespace-nowrap rounded bg-bg/85 px-2 py-0.5 text-[11px] font-semibold text-ink">{label}{person ? "" : ` · ${s.v.toFixed(0)} km/h`}</div>
       </Html>}
     </group>
   );
@@ -394,7 +395,7 @@ function ImpactMark({ x, y, t, cctv }: { x: number; y: number; t: number; cctv: 
   return (
     <group position={W2T(x, y)}>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.04, 0]}><ringGeometry args={[0.9, 1.0, 48]} /><meshBasicMaterial color="#ff5d5d" transparent opacity={0.8} toneMapped={false} /></mesh>
-      <Html position={[0, 4.6, 0]} center distanceFactor={18} zIndexRange={[20, 0]}><div className="pointer-events-none rounded bg-bad px-2 py-0.5 text-[11px] font-bold text-bg">IMPACT Â· T0</div></Html>
+      <Html position={[0, 4.6, 0]} center distanceFactor={18} zIndexRange={[20, 0]}><div className="pointer-events-none rounded bg-bad px-2 py-0.5 text-[11px] font-bold text-bg">IMPACT · T0</div></Html>
     </group>
   );
 }
@@ -528,7 +529,7 @@ export default function Scene3D({ caseId, metric, scene, t, entities, witnesses,
 
       {!cctv && look === "photo" && scene && <group position={projectorOf(scene.camera).position}>
         <mesh><boxGeometry args={[0.5, 0.35, 0.7]} /><meshStandardMaterial color="#1a2a44" /></mesh>
-        <Html position={[0, 0.7, 0]} center distanceFactor={16} zIndexRange={[20, 0]}><div className="pointer-events-none rounded bg-observed/90 px-1.5 text-[10px] text-white">CCTV Â· {scene.camera.height_m.toFixed(1)} m up</div></Html>
+        <Html position={[0, 0.7, 0]} center distanceFactor={16} zIndexRange={[20, 0]}><div className="pointer-events-none rounded bg-observed/90 px-1.5 text-[10px] text-white">CCTV · {scene.camera.height_m.toFixed(1)} m up</div></Html>
       </group>}
 
       {!cctv && sight && Object.entries(pinned).map(([w, p]) => {

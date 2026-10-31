@@ -9,7 +9,7 @@ import type { CityDataset } from '../types/city'
 import type { Accident } from '../types/accident'
 import { HeightField } from '../geo/heightfield'
 import {
-  deriveCityBoundary,
+  windowBoundary,
   buildingsInsideBoundary,
   roadsInsideBoundary,
   polygonsInsideBoundary,
@@ -122,13 +122,8 @@ export function CityScene(props: CitySceneProps) {
   // silhouette — NOT an administrative boundary.
   const island = useMemo(() => {
     const coverage = dataset.manifest.coverage
-    const result = deriveCityBoundary(
-      dataset.buildings,
-      dataset.roads,
-      dataset.water,
-      dataset.parks,
-      coverage,
-    )
+    // YATHARTH: the whole data window, solid; the density silhouette (deriveCityBoundary) left voids around our cases
+    const result = windowBoundary(coverage)
     if (!result) {
       console.warn('[city] boundary derivation failed — check dataset coverage')
       return null
@@ -174,7 +169,7 @@ export function CityScene(props: CitySceneProps) {
       }}
     >
       <color attach="background" args={[palette.sceneBackground]} />
-      <fog attach="fog" args={[palette.fog, 4200, 18500]} />
+      <fog attach="fog" args={[palette.fog, 9000, 34000]} />
 
       {/* Lighting: cool slate key from SW-top (camera side, so visible faces are
           lit), warm counter-light from NE, teal hemisphere fill below. */}

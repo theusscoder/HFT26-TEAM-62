@@ -10,7 +10,7 @@
 // useFrame, so marker count does not add per-frame work.
 
 import { useMemo, useRef } from 'react'
-import { useFrame } from '@react-three/fiber'
+import { useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 import type { Accident, AccidentDisplayStatus } from '../../types/accident'
 import type { HeightField } from '../../geo/heightfield'
@@ -131,11 +131,21 @@ interface AccidentMarkerProps {
 
 function AccidentMarker({ accident, placement, selected, onSelect, skinFor }: AccidentMarkerProps) {
   const skin = skinFor(accident.displayStatus, selected, accident)
+  // YATHARTH: beacons keep a readable size from the whole-city view down to street level
+  const group = useRef<THREE.Group>(null)
+  const camera = useThree((s) => s.camera)
+  useFrame(() => {
+    if (!group.current) return
+    const d = camera.position.distanceTo(group.current.position)
+    const s = THREE.MathUtils.clamp(d / 1800, 1, accident.facility ? 5 : 9)
+    group.current.scale.setScalar(s)
+  })
   // case beams are tall enough to find from the city view; facilities are shorter
   const beamHeight = accident.facility ? 70 : BEAM_HEIGHT[accident.severity] * 7
 
   return (
     <group
+      ref={group}
       position={placement.position}
       onPointerDown={(e) => {
         e.stopPropagation()

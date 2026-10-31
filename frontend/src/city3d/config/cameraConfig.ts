@@ -1,7 +1,7 @@
 import { toWorld } from '../geo/projection'
 
 /** Default framing looks at the Phase 2 sample area centre from the south-west. */
-const DEFAULT_TARGET_WORLD = toWorld({ lat: 17.4395, lng: 78.356 })
+const DEFAULT_TARGET_WORLD = toWorld({ lat: 17.437, lng: 78.374 })
 
 export interface CameraPose {
   target: [number, number, number]
@@ -11,16 +11,16 @@ export interface CameraPose {
 export const cameraConfig = {
   fov: 36,
   near: 1,
-  far: 40_000,
+  far: 60_000,
 
   defaultPose: {
     // y is filled in at runtime from terrain height under the target.
     target: [DEFAULT_TARGET_WORLD.x, 0, DEFAULT_TARGET_WORLD.z] as [number, number, number],
-    offset: { x: -2650, y: 2450, z: 3200 },
+    offset: { x: -2600, y: 10200, z: 9800 },
   },
 
   minDistance: 260,
-  maxDistance: 13_000,
+  maxDistance: 24_000,
   minPolarAngle: 0.18,
   maxPolarAngle: 1.32,
   panSpeed: 0.85,

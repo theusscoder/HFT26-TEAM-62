@@ -758,7 +758,10 @@ def run(case_dir: Path) -> dict | None:
     cam = finish_camera(aligned["R"], aligned["t"], cam["K"], cam["focal_px"], calib, width, height, content, cam["method"], cam["people_used"])
 
     ui_by_id = {t["id"]: t for t in ui["tracks"]}
-    large, key = set(ent.get("large", [])), [ent.get("primary"), *ent.get("involved", [])]
+    # a car becomes a bus only on the vision model's word; a big box alone is just a car close to the camera
+    seen = json.loads((case_dir / "vision_actors.json").read_text()) if (case_dir / "vision_actors.json").exists() else {}
+    large = {t for t in ent.get("large", []) if str((seen.get(t) or {}).get("type", "")).lower() in ("bus", "truck", "van")}
+    key = [ent.get("primary"), *ent.get("involved", [])]
     if vision.get("primary_type") in ("bus", "truck") and ent.get("primary"):
         large.add(ent["primary"])
     fitted = []
