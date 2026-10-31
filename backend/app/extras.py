@@ -6,11 +6,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 import cv2
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import FileResponse, HTMLResponse
 from pydantic import BaseModel, Field
 
-from . import context, emergency, intercept, interview, make_case, redteam, reports
+from . import context, emergency, intercept, interview, make_case, public_site, redteam, reports
 from .custody import Ledger, sha256_file
 from .pipeline import pursuit as pursuit_rules
 
@@ -486,11 +486,13 @@ class InterceptApprove(BaseModel):
 
 
 @router.post("/api/cases/{cid}/intercept/approve")
-def approve_intercept(cid: str, body: InterceptApprove):
+def approve_intercept(cid: str, body: InterceptApprove, request: Request):
     if not body.officer.strip():
         raise HTTPException(422, "a named officer has to approve the plan")
     d = case_path(cid)
     res = get_intercept(cid)
+    if public_site.is_visitor(request):   # a public visitor can watch it run, without writing to the case or its ledger
+        return {**res, "approved_by": body.officer.strip()[:60]}
     res["approved_by"] = body.officer.strip()
     (d / "intercept.json").write_text(json.dumps(res), encoding="utf-8")
     Ledger(d / "custody.jsonl").append("intercept_plan_approved", officer=body.officer.strip(), simulated=True)
