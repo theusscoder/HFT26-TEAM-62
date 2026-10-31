@@ -1,6 +1,7 @@
 # P1 vision stack. Use a Python 3.11/3.12 venv (torch wheels lag behind 3.14).
 ultralytics>=8.3
 supervision>=0.22
+lap>=0.5.12          # ByteTrack
 opencv-python>=4.10
 numpy
 scipy

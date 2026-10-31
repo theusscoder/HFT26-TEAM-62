@@ -15,9 +15,10 @@ export default function TelegramSetup() {
   const [busy, setBusy] = useState(false);
   const [test, setTest] = useState<any>(null);
   const [replacing, setReplacing] = useState(false);
+  const [operatorOnly, setOperatorOnly] = useState(false);
   const load = () => {
     fetch("/api/telegram/status").then((r) => r.json()).then(setSt).catch(() => setSt(null));
-    fetch("/api/telegram/links").then((r) => r.json()).then(setLinks).catch(() => setLinks(null));
+    fetch("/api/telegram/links").then((r) => { setOperatorOnly(r.status === 404); return r.ok ? r.json() : null; }).then(setLinks).catch(() => setLinks(null));
   };
   useEffect(() => { load(); const h = setInterval(load, 3000); return () => clearInterval(h); }, []);
   const save = async () => {
@@ -37,6 +38,13 @@ export default function TelegramSetup() {
       <div className="mb-3 flex items-center gap-2 text-lg font-bold">{done ? <CheckCircle2 className="text-ok" size={20} /> : <Circle size={20} className="text-muted" />}{n}. {title}</div>
       {children}
     </section>
+  );
+  if (operatorOnly) return (   // the public demo keeps the bot's setup and its chats to the operator
+    <div className="mx-auto max-w-3xl space-y-4 p-6">
+      <h1 className="text-2xl font-bold">Telegram alerts</h1>
+      <p className="text-sm text-muted">Every incident the camera agents detect goes out on Telegram within seconds: the police control room gets the location, severity and any vehicle that fled; the hospital gets the incoming patient and the treat-first note; the family is told which hospital.</p>
+      <p className="border border-line bg-panel p-4 text-sm">{st?.ok ? <>Connected to <b>@{st.bot}</b>. </> : null}Setting up the bot and sending alerts is limited to the operator on this public demo.</p>
+    </div>
   );
   return (
     <div className="mx-auto max-w-3xl space-y-4 p-6">
