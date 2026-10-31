@@ -12,7 +12,8 @@ import type { CityDataset } from "../city3d/types/city";
 import type { Accident } from "../city3d/types/accident";
 import { DataStateOverlay } from "../city3d/components/DataStateOverlay";
 import { Attribution } from "../city3d/components/Attribution";
-import { useApi } from "../lib/api";
+import { usePoll } from "../lib/api";
+import LiveAnalysis from "../components/LiveAnalysis";
 import "../city3d/styles/scene.css";
 
 /* Home: the 3D city (OpenStreetMap buildings, roads, lakes and terrain for Gachibowli, HITEC City and Kondapur) with every
@@ -23,10 +24,6 @@ const KIND_LABEL: Record<string, string> = { hit_and_run: "Hit-and-run", pedestr
 const LEVEL: Record<string, string> = { L0: "#8a8a85", L1: "#22c55e", L2: "#f59e0b", L3: "#ff2a2a" };
 
 function CaseSide({ c, onClose }: { c: any; onClose: () => void }) {
-  const rec = c.records;
-  const vic = rec?.vehicles?.find((v: any) => v.track === rec.victim) ?? null;
-  const per = rec?.people?.find((p: any) => p.track === rec.victim) ?? null;
-  const sus = rec?.vehicles?.find((v: any) => v.track === rec.suspect) ?? null;
   return (
     <motion.aside key={c.id} initial={{ x: 40, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: 40, opacity: 0 }}
       className="absolute bottom-4 right-4 top-16 z-30 flex w-[420px] max-w-[calc(100vw-2rem)] flex-col overflow-hidden border border-white/15 bg-[#0b0f14]/95 text-white backdrop-blur">
@@ -51,30 +48,7 @@ function CaseSide({ c, onClose }: { c: any; onClose: () => void }) {
             : <div className="flex h-full items-center justify-center text-xs text-white/40">Reconstructed from the sensor log</div>}
           <span className="absolute left-2 top-2 flex items-center gap-1 bg-black/70 px-1.5 py-0.5 text-[10px] font-bold"><span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#ff2a2a]" />CAM · {c.place}</span>
         </div>
-        <div className="text-[12px] text-white/70">Involved: <span className="text-white">{c.involved.map((s: string) => s.replace(" (primary)", "")).join(", ") || "—"}</span></div>
-        {[vic && { title: "Victim", tone: "#93c5fd", v: vic }, sus && { title: "Left the scene", tone: "#ff6b6b", v: sus }].filter(Boolean).map((x: any) => (
-          <div key={x.title} className="flex gap-3 border border-white/15 bg-white/[0.03] p-3">
-            <img src={`/api/toll-images/${x.v.driver.photo}`} alt="" className="h-20 w-16 shrink-0 object-cover" />
-            <dl className="min-w-0 flex-1 space-y-0.5 text-[12px]">
-              <div className="text-[10px] font-bold uppercase tracking-[0.16em]" style={{ color: x.tone }}>{x.title} · {x.v.name}</div>
-              <div className="flex gap-2"><dt className="w-16 shrink-0 text-white/45">Plate</dt><dd className="font-mono font-bold">{x.v.plate}</dd></div>
-              <div className="flex gap-2"><dt className="w-16 shrink-0 text-white/45">Owner</dt><dd className="truncate">{x.v.registration.owner}</dd></div>
-              <div className="flex gap-2"><dt className="w-16 shrink-0 text-white/45">Vehicle</dt><dd className="truncate">{x.v.registration.vehicle}</dd></div>
-              <div className="flex gap-2"><dt className="w-16 shrink-0 text-white/45">Driver</dt><dd className="truncate">{x.v.driver.name} · {x.v.driver.dl_no}</dd></div>
-              <div className="flex gap-2"><dt className="w-16 shrink-0 text-white/45">Insurance</dt><dd className={`truncate ${x.v.registration.insurance_ok === false ? "text-[#ff6b6b]" : ""}`}>{x.v.registration.insurance}</dd></div>
-            </dl>
-          </div>
-        ))}
-        {per && (
-          <div className="flex gap-3 border border-white/15 bg-white/[0.03] p-3">
-            <img src={`/api/toll-images/${per.photo}`} alt="" className="h-20 w-16 shrink-0 object-cover" />
-            <dl className="min-w-0 flex-1 space-y-0.5 text-[12px]">
-              <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#93c5fd]">Victim · {per.description}</div>
-              <div>{per.name}, {per.age} · blood group {per.blood_group}</div>
-              <div className="text-white/60">Emergency contact {per.emergency_contact} ({per.contact_relation})</div>
-            </dl>
-          </div>
-        )}
+        <LiveAnalysis key={c.id} caseId={c.id} tone="dark" compact />
       </div>
       <div className="grid grid-cols-2 gap-2 border-t border-white/10 p-3 text-[13px]">
         <Link to={`/case/${c.id}`} className="flex items-center justify-center gap-1 bg-white py-2 font-semibold text-black">Open case <ChevronRight size={14} /></Link>
@@ -87,7 +61,7 @@ function CaseSide({ c, onClose }: { c: any; onClose: () => void }) {
 }
 
 export default function CityHome() {
-  const m = useApi<any>("/citymap");
+  const m = usePoll<any>("/citymap", 15000);   // cases the camera agent opens appear without a reload
   const [dataset, setDataset] = useState<CityDataset | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [readyAt, setReadyAt] = useState(0);

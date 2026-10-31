@@ -39,6 +39,21 @@ export async function post<T>(path: string, body: unknown): Promise<T> {
   return r.json();
 }
 
+/** Like useApi, refetched every `ms` so new data streams in (new cases on the map, agent progress). */
+export function usePoll<T>(path: string | null, ms: number) {
+  const [data, setData] = useState<T | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  useEffect(() => {
+    if (!path) return;
+    let live = true;
+    const load = () => get<T>(path).then((d) => live && setData(d)).catch((e) => live && setError(String(e)));
+    load();
+    const h = setInterval(load, ms);
+    return () => { live = false; clearInterval(h); };
+  }, [path, ms]);
+  return { data, error };
+}
+
 export function useApi<T>(path: string | null) {
   const [data, setData] = useState<T | null>(null);
   const [error, setError] = useState<string | null>(null);

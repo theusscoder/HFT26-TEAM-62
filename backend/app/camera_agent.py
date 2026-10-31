@@ -200,7 +200,10 @@ def _open_case(cam: dict, clip: Path, hit: dict) -> str:
             (d / "facilities.json").write_text(json.dumps(fac, indent=2))
     except Exception:
         pass
-    make_case.make(cid, dst, f"Collision at {cam['name']}", f"{cam['name']}, Hyderabad")
+    def progress(stage, status, detail=""):
+        st = load_state()
+        _set(st, cam["id"], status="analysing", detail=f"{stage}: {detail or status}", case_pending=cid)
+    make_case.make(cid, dst, f"Collision at {cam['name']}", f"{cam['name']}, Hyderabad", progress=progress)
     case = json.loads((d / "case.json").read_text())
     ent = json.loads((d / "entities.json").read_text()) if (d / "entities.json").exists() else {}
     names = ent.get("names", {})

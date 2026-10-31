@@ -16,7 +16,7 @@
         "rto": "Hyderabad",
         "registered": "2022",
         "fuel": "Petrol",
-        "insurance": "Tata AIG \u00b7 valid till Nov 2027",
+        "insurance": "Tata AIG \u00b7 valid till Nov 2028",
         "insurance_ok": true,
         "puc": "Valid",
         "pending_challans": 3,
@@ -58,17 +58,17 @@
         "pending_challans": 0,
         "emergency_contact": "+91 90\u2022\u2022\u2022 \u2022\u2022356",
         "contact_relation": "father",
-        "address_area": "Banjara Hills"
+        "address_area": "Madhapur"
       },
       "driver": {
         "name": "Lakshmi Prasanna",
-        "age": 38,
+        "age": 47,
         "dl_no": "TS09 2015 \u2022\u2022\u20220456",
         "class": "LMV",
         "valid_till": "2035-07-14",
-        "blood_group": "AB+",
+        "blood_group": "A+",
         "photo": "F-05.jpg",
-        "phone": "+91 85\u2022\u2022\u2022 \u2022\u2022205",
+        "phone": "+91 77\u2022\u2022\u2022 \u2022\u2022530",
         "owner_is_driver": true,
         "face_match": 0.68
       },

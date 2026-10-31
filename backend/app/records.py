@@ -90,7 +90,7 @@ def _vehicle(cid, tid, cls, colour, role, read, used, year_now=2026):
             "plate": plate, "plate_read": read, "plate_basis": "resolved from the partial read" if read and "?" in read else ("read from the footage" if read else "matched in the vehicle registry"),
             "registration": {"owner": owner if kind != "bus" else f"{r.choice(['Sri Sai', 'Lakshmi', 'Venkateswara'])} Travels", "vehicle": f"{(colour or '').title()} {model}".strip(),
                              "rto": RTO.get(plate[:4], "Hyderabad"), "registered": str(reg_year), "fuel": r.choice(["Petrol", "Diesel", "CNG"]) if kind != "motorcycle" else "Petrol",
-                             "insurance": f"{r.choice(INSURERS)} · valid till {r.choice(['Jan', 'Mar', 'Jun', 'Aug', 'Nov'])} {year_now + r.randint(0, 2)}" if ins_ok else f"Expired {r.choice(['Feb', 'May', 'Sep'])} {year_now - 1}",
+                             "insurance": f"{r.choice(INSURERS)} · valid till {r.choice(['Jan', 'Mar', 'Jun', 'Aug', 'Nov'])} {year_now + r.randint(1, 2)}" if ins_ok else f"Expired {r.choice(['Feb', 'May', 'Sep'])} {year_now - 1}",
                              "insurance_ok": ins_ok, "puc": "Valid" if r.random() > 0.15 else "Expired", "pending_challans": r.choice([0, 0, 0, 1, 2, 3]),
                              "emergency_contact": _phone(r), "contact_relation": r.choice(RELATION), "address_area": r.choice(AREAS)},
             "driver": {"name": driver, "age": r.randint(21, 62), "dl_no": f"{plate[:4]} {dl_year} •••{r.randint(1000, 9999)}", "class": DL_CLASS.get(kind, "LMV"),
