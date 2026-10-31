@@ -1,0 +1,1268 @@
+{
+  "generated_by": "plate_reader",
+  "engine": "YOLO plate detector + colour plate locator \u00b7 EasyOCR line reader (TrOCR fallback)",
+  "involved": [
+    "car_38",
+    "motorcycle_3",
+    "person_57"
+  ],
+  "vehicles": [
+    {
+      "track": "car_38",
+      "type": "bus",
+      "colour": "silver",
+      "plate": "0LL??",
+      "confidence": 0.43,
+      "reads": [
+        "FOLE3",
+        "AOELD",
+        "AOEE03",
+        "A0LHX",
+        "FOLE03",
+        "A0LA",
+        "C0L",
+        "AOLLD",
+        "4800L",
+        "MO11E02",
+        "E8U",
+        "AOLLU",
+        "L407",
+        "0LLD",
+        "MOLL",
+        "N01L",
+        "M0LKZ",
+        "0LL0",
+        "A0LMZ",
+        "H0LL",
+        "0LLIZ",
+        "H0LL",
+        "A0LLIZ",
+        "0LLEZ",
+        "A0LLIZ",
+        "0LL",
+        "0LLL0",
+        "0LLL0",
+        "0LLL0"
+      ],
+      "frames": [
+        190,
+        191,
+        192,
+        192,
+        194,
+        194,
+        244,
+        244,
+        246,
+        246,
+        258,
+        258,
+        318,
+        319,
+        320,
+        320,
+        327,
+        327,
+        332,
+        332,
+        333,
+        333,
+        335,
+        335,
+        336,
+        336,
+        -1,
+        -1,
+        -1
+      ],
+      "partial": true,
+      "known": 3,
+      "method": "YOLO plate detector + colour plate locator \u00b7 EasyOCR line reader (TrOCR fallback) \u00b7 29 read(s) voted \u00b7 partial: ? = uncertain character",
+      "involved": true,
+      "legible": true,
+      "crop": "plate_car_38.jpg",
+      "plate_box": [
+        203.1,
+        427.9,
+        240.6,
+        454.0
+      ],
+      "frame": 336,
+      "name": "Silver bus (primary)",
+      "registered": false,
+      "anpr": {
+        "vehicle_track_id": "car_38",
+        "vehicle_label": "V-01",
+        "registration_status": "partial_read",
+        "status_label": "Partial plate read",
+        "reason": "3 of 5 characters certain; '?' marks characters the frames disagree on or the model was unsure of.",
+        "confirmed_registration": null,
+        "best_reading": "0LL??",
+        "raw_ocr_text": "0LL??",
+        "raw_reads": [
+          "FOLE3",
+          "AOELD",
+          "AOEE03",
+          "A0LHX",
+          "FOLE03",
+          "A0LA",
+          "C0L",
+          "AOLLD",
+          "4800L",
+          "MO11E02",
+          "E8U",
+          "AOLLU"
+        ],
+        "candidate_registrations": [
+          "0LLL0",
+          "0LLLZ"
+        ],
+        "plate_info": [
+          {
+            "field": "Vehicle use",
+            "value": "commercial / transport vehicle (yellow plate)",
+            "basis": "yellow plate background",
+            "level": "PREDICTED"
+          },
+          {
+            "field": "Plate layout",
+            "value": "two-line plate (common on commercial vehicles and two-wheelers)",
+            "basis": "plate image",
+            "level": "OBSERVED"
+          }
+        ],
+        "vehicle_details": {
+          "category": "Bus",
+          "make_model": "Unknown (not visually confirmed)",
+          "colour": "silver",
+          "direction": "approaching the camera, left to right",
+          "distinctive_features": [
+            {
+              "text": "yellow number plate",
+              "level": "OBSERVED"
+            },
+            {
+              "text": "two-line number plate",
+              "level": "OBSERVED"
+            }
+          ]
+        },
+        "matching_status": "not_checked",
+        "database_matches": [],
+        "matching_note": "No authorised registration database is connected, so no registry match is claimed.",
+        "evidence": {
+          "video_timestamp": "00:00:15.52",
+          "first_seen": "00:00:01.57",
+          "last_seen": "00:00:17.65",
+          "vehicle_crop": "veh_car_38_clearest.jpg",
+          "representative_frames": [
+            {
+              "label": "first",
+              "file": "veh_car_38_first.jpg",
+              "frame": 31,
+              "timestamp": "00:00:01.57",
+              "size_px": [
+                71,
+                28
+              ]
+            },
+            {
+              "label": "clearest",
+              "file": "veh_car_38_clearest.jpg",
+              "frame": 310,
+              "timestamp": "00:00:15.52",
+              "size_px": [
+                349,
+                376
+              ]
+            },
+            {
+              "label": "last",
+              "file": "veh_car_38_last.jpg",
+              "frame": 354,
+              "timestamp": "00:00:17.65",
+              "size_px": [
+                338,
+                370
+              ]
+            }
+          ],
+          "plate_crop": "plate_car_38.jpg",
+          "plate_fused": "plate_car_38_fused.jpg",
+          "plate_fused_frames": 195
+        },
+        "quality": {
+          "plate_detection": "found",
+          "ocr_confidence": 0.43,
+          "ocr_agreement": 0.0,
+          "frames_with_reading": 29,
+          "classification_confidence": 0.81,
+          "note": "Scores are model / agreement indicators, not calibrated probabilities of correctness."
+        },
+        "requires_manual_review": true,
+        "verification_status": "Awaiting investigator verification"
+      }
+    },
+    {
+      "track": "motorcycle_3",
+      "type": "motorcycle",
+      "colour": "grey",
+      "plate": null,
+      "confidence": 0.0,
+      "reads": [],
+      "frames": [
+        52
+      ],
+      "partial": false,
+      "known": 0,
+      "method": "plate located (26x7 px in the footage) but too small / blurred to read any character",
+      "involved": true,
+      "legible": false,
+      "crop": "plate_motorcycle_3.jpg",
+      "plate_box": [
+        451.2,
+        346.8,
+        477.2,
+        353.8
+      ],
+      "frame": 52,
+      "name": "Grey motorcycle",
+      "registered": false,
+      "anpr": {
+        "vehicle_track_id": "motorcycle_3",
+        "vehicle_label": "V-02",
+        "registration_status": "plate_detected_ocr_failed",
+        "status_label": "Plate detected, OCR failed",
+        "reason": "A plate region was found but no character was consistent across frames (blur / resolution).",
+        "confirmed_registration": null,
+        "best_reading": null,
+        "raw_ocr_text": null,
+        "raw_reads": [],
+        "candidate_registrations": [],
+        "plate_info": [],
+        "vehicle_details": {
+          "category": "Motorcycle",
+          "make_model": "Unknown (not visually confirmed)",
+          "colour": "grey",
+          "direction": "approaching the camera, left to right",
+          "distinctive_features": []
+        },
+        "matching_status": "not_checked",
+        "database_matches": [],
+        "matching_note": "No authorised registration database is connected, so no registry match is claimed.",
+        "evidence": {
+          "video_timestamp": "00:00:09.44",
+          "first_seen": "00:00:00.00",
+          "last_seen": "00:00:09.44",
+          "vehicle_crop": "veh_motorcycle_3_clearest.jpg",
+          "representative_frames": [
+            {
+              "label": "first",
+              "file": "veh_motorcycle_3_first.jpg",
+              "frame": 0,
+              "timestamp": "00:00:00.00",
+              "size_px": [
+                45,
+                83
+              ]
+            },
+            {
+              "label": "clearest",
+              "file": "veh_motorcycle_3_clearest.jpg",
+              "frame": 189,
+              "timestamp": "00:00:09.44",
+              "size_px": [
+                87,
+                155
+              ]
+            },
+            {
+              "label": "last",
+              "file": "veh_motorcycle_3_last.jpg",
+              "frame": 189,
+              "timestamp": "00:00:09.44",
+              "size_px": [
+                87,
+                155
+              ]
+            }
+          ],
+          "plate_crop": "plate_motorcycle_3.jpg",
+          "plate_fused": "plate_motorcycle_3_fused.jpg",
+          "plate_fused_frames": 8
+        },
+        "quality": {
+          "plate_detection": "found",
+          "ocr_confidence": 0.0,
+          "ocr_agreement": null,
+          "frames_with_reading": 0,
+          "classification_confidence": 0.72,
+          "note": "Scores are model / agreement indicators, not calibrated probabilities of correctness."
+        },
+        "requires_manual_review": true,
+        "verification_status": "Awaiting investigator verification"
+      }
+    },
+    {
+      "track": "car_1",
+      "type": "car",
+      "colour": "white",
+      "plate": null,
+      "confidence": 0.0,
+      "reads": [],
+      "frames": [
+        299
+      ],
+      "partial": false,
+      "known": 0,
+      "method": "plate located (128x97 px in the footage) but too small / blurred to read any character",
+      "involved": false,
+      "legible": false,
+      "crop": "plate_car_1.jpg",
+      "plate_box": [
+        683.5,
+        362.0,
+        812.0,
+        459.2
+      ],
+      "frame": 299,
+      "name": "White car",
+      "registered": false,
+      "anpr": {
+        "vehicle_track_id": "car_1",
+        "vehicle_label": "V-03",
+        "registration_status": "plate_detected_ocr_failed",
+        "status_label": "Plate detected, OCR failed",
+        "reason": "A plate region was found but no character was consistent across frames (blur / resolution).",
+        "confirmed_registration": null,
+        "best_reading": null,
+        "raw_ocr_text": null,
+        "raw_reads": [],
+        "candidate_registrations": [],
+        "plate_info": [],
+        "vehicle_details": {
+          "category": "Car",
+          "make_model": "Unknown (not visually confirmed)",
+          "colour": "white",
+          "direction": "left to right",
+          "distinctive_features": []
+        },
+        "matching_status": "not_checked",
+        "database_matches": [],
+        "matching_note": "No authorised registration database is connected, so no registry match is claimed.",
+        "evidence": {
+          "video_timestamp": "00:00:15.15",
+          "first_seen": "00:00:00.00",
+          "last_seen": "00:00:17.65",
+          "vehicle_crop": "veh_car_1_clearest.jpg",
+          "representative_frames": [
+            {
+              "label": "first",
+              "file": "veh_car_1_first.jpg",
+              "frame": 0,
+              "timestamp": "00:00:00.00",
+              "size_px": [
+                204,
+                181
+              ]
+            },
+            {
+              "label": "clearest",
+              "file": "veh_car_1_clearest.jpg",
+              "frame": 303,
+              "timestamp": "00:00:15.15",
+              "size_px": [
+                227,
+                226
+              ]
+            },
+            {
+              "label": "last",
+              "file": "veh_car_1_last.jpg",
+              "frame": 354,
+              "timestamp": "00:00:17.65",
+              "size_px": [
+                201,
+                235
+              ]
+            }
+          ],
+          "plate_crop": "plate_car_1.jpg",
+          "plate_fused": "plate_car_1_fused.jpg",
+          "plate_fused_frames": 3
+        },
+        "quality": {
+          "plate_detection": "found",
+          "ocr_confidence": 0.0,
+          "ocr_agreement": null,
+          "frames_with_reading": 0,
+          "classification_confidence": 0.91,
+          "note": "Scores are model / agreement indicators, not calibrated probabilities of correctness."
+        },
+        "requires_manual_review": true,
+        "verification_status": "Awaiting investigator verification"
+      }
+    },
+    {
+      "track": "motorcycle_12",
+      "type": "motorcycle",
+      "colour": "grey",
+      "plate": null,
+      "confidence": 0.0,
+      "reads": [],
+      "frames": [],
+      "partial": false,
+      "known": 0,
+      "method": "no plate read: YOLO plate detector + colour plate locator \u00b7 EasyOCR line reader (TrOCR fallback) could not locate a readable plate on this vehicle at this resolution",
+      "involved": false,
+      "legible": false,
+      "crop": null,
+      "plate_box": null,
+      "frame": null,
+      "name": "Grey motorcycle",
+      "registered": false,
+      "anpr": {
+        "vehicle_track_id": "motorcycle_12",
+        "vehicle_label": "V-04",
+        "registration_status": "plate_not_detected",
+        "status_label": "Plate not detected",
+        "reason": "No plate region was found on this vehicle in any sampled frame (angle, occlusion or resolution).",
+        "confirmed_registration": null,
+        "best_reading": null,
+        "raw_ocr_text": null,
+        "raw_reads": [],
+        "candidate_registrations": [],
+        "plate_info": [],
+        "vehicle_details": {
+          "category": "Motorcycle",
+          "make_model": "Unknown (not visually confirmed)",
+          "colour": "grey",
+          "direction": "moving away from the camera, left to right",
+          "distinctive_features": []
+        },
+        "matching_status": "not_checked",
+        "database_matches": [],
+        "matching_note": "No authorised registration database is connected, so no registry match is claimed.",
+        "evidence": {
+          "video_timestamp": null,
+          "first_seen": null,
+          "last_seen": null,
+          "vehicle_crop": null,
+          "representative_frames": null,
+          "plate_crop": null,
+          "plate_fused": null,
+          "plate_fused_frames": null
+        },
+        "quality": {
+          "plate_detection": "not found",
+          "ocr_confidence": null,
+          "ocr_agreement": null,
+          "frames_with_reading": 0,
+          "classification_confidence": 0.55,
+          "note": "Scores are model / agreement indicators, not calibrated probabilities of correctness."
+        },
+        "requires_manual_review": true,
+        "verification_status": "Awaiting investigator verification"
+      }
+    },
+    {
+      "track": "motorcycle_13",
+      "type": "motorcycle",
+      "colour": "grey",
+      "plate": null,
+      "confidence": 0.0,
+      "reads": [],
+      "frames": [],
+      "partial": false,
+      "known": 0,
+      "method": "no plate read: YOLO plate detector + colour plate locator \u00b7 EasyOCR line reader (TrOCR fallback) could not locate a readable plate on this vehicle at this resolution",
+      "involved": false,
+      "legible": false,
+      "crop": null,
+      "plate_box": null,
+      "frame": null,
+      "name": "Grey motorcycle",
+      "registered": false,
+      "anpr": {
+        "vehicle_track_id": "motorcycle_13",
+        "vehicle_label": "V-05",
+        "registration_status": "plate_not_detected",
+        "status_label": "Plate not detected",
+        "reason": "No plate region was found on this vehicle in any sampled frame (angle, occlusion or resolution).",
+        "confirmed_registration": null,
+        "best_reading": null,
+        "raw_ocr_text": null,
+        "raw_reads": [],
+        "candidate_registrations": [],
+        "plate_info": [],
+        "vehicle_details": {
+          "category": "Motorcycle",
+          "make_model": "Unknown (not visually confirmed)",
+          "colour": "grey",
+          "direction": "nearly stationary in frame",
+          "distinctive_features": []
+        },
+        "matching_status": "not_checked",
+        "database_matches": [],
+        "matching_note": "No authorised registration database is connected, so no registry match is claimed.",
+        "evidence": {
+          "video_timestamp": null,
+          "first_seen": null,
+          "last_seen": null,
+          "vehicle_crop": null,
+          "representative_frames": null,
+          "plate_crop": null,
+          "plate_fused": null,
+          "plate_fused_frames": null
+        },
+        "quality": {
+          "plate_detection": "not found",
+          "ocr_confidence": null,
+          "ocr_agreement": null,
+          "frames_with_reading": 0,
+          "classification_confidence": 0.43,
+          "note": "Scores are model / agreement indicators, not calibrated probabilities of correctness."
+        },
+        "requires_manual_review": true,
+        "verification_status": "Awaiting investigator verification"
+      }
+    },
+    {
+      "track": "motorcycle_159",
+      "type": "motorcycle",
+      "colour": "grey",
+      "plate": null,
+      "confidence": 0.0,
+      "reads": [],
+      "frames": [],
+      "partial": false,
+      "known": 0,
+      "method": "no plate read: YOLO plate detector + colour plate locator \u00b7 EasyOCR line reader (TrOCR fallback) could not locate a readable plate on this vehicle at this resolution",
+      "involved": false,
+      "legible": false,
+      "crop": null,
+      "plate_box": null,
+      "frame": null,
+      "name": "Grey motorcycle",
+      "registered": false,
+      "anpr": {
+        "vehicle_track_id": "motorcycle_159",
+        "vehicle_label": "V-06",
+        "registration_status": "plate_not_detected",
+        "status_label": "Plate not detected",
+        "reason": "No plate region was found on this vehicle in any sampled frame (angle, occlusion or resolution).",
+        "confirmed_registration": null,
+        "best_reading": null,
+        "raw_ocr_text": null,
+        "raw_reads": [],
+        "candidate_registrations": [],
+        "plate_info": [],
+        "vehicle_details": {
+          "category": "Motorcycle",
+          "make_model": "Unknown (not visually confirmed)",
+          "colour": "grey",
+          "direction": "approaching the camera",
+          "distinctive_features": []
+        },
+        "matching_status": "not_checked",
+        "database_matches": [],
+        "matching_note": "No authorised registration database is connected, so no registry match is claimed.",
+        "evidence": {
+          "video_timestamp": null,
+          "first_seen": null,
+          "last_seen": null,
+          "vehicle_crop": null,
+          "representative_frames": null,
+          "plate_crop": null,
+          "plate_fused": null,
+          "plate_fused_frames": null
+        },
+        "quality": {
+          "plate_detection": "not found",
+          "ocr_confidence": null,
+          "ocr_agreement": null,
+          "frames_with_reading": 0,
+          "classification_confidence": 0.63,
+          "note": "Scores are model / agreement indicators, not calibrated probabilities of correctness."
+        },
+        "requires_manual_review": true,
+        "verification_status": "Awaiting investigator verification"
+      }
+    },
+    {
+      "track": "motorcycle_180",
+      "type": "motorcycle",
+      "colour": "grey",
+      "plate": null,
+      "confidence": 0.0,
+      "reads": [],
+      "frames": [],
+      "partial": false,
+      "known": 0,
+      "method": "no plate read: YOLO plate detector + colour plate locator \u00b7 EasyOCR line reader (TrOCR fallback) could not locate a readable plate on this vehicle at this resolution",
+      "involved": false,
+      "legible": false,
+      "crop": null,
+      "plate_box": null,
+      "frame": null,
+      "name": "Grey motorcycle",
+      "registered": false,
+      "anpr": {
+        "vehicle_track_id": "motorcycle_180",
+        "vehicle_label": "V-07",
+        "registration_status": "plate_not_detected",
+        "status_label": "Plate not detected",
+        "reason": "No plate region was found on this vehicle in any sampled frame (angle, occlusion or resolution).",
+        "confirmed_registration": null,
+        "best_reading": null,
+        "raw_ocr_text": null,
+        "raw_reads": [],
+        "candidate_registrations": [],
+        "plate_info": [],
+        "vehicle_details": {
+          "category": "Motorcycle",
+          "make_model": "Unknown (not visually confirmed)",
+          "colour": "grey",
+          "direction": "moving away from the camera, left to right",
+          "distinctive_features": []
+        },
+        "matching_status": "not_checked",
+        "database_matches": [],
+        "matching_note": "No authorised registration database is connected, so no registry match is claimed.",
+        "evidence": {
+          "video_timestamp": null,
+          "first_seen": null,
+          "last_seen": null,
+          "vehicle_crop": null,
+          "representative_frames": null,
+          "plate_crop": null,
+          "plate_fused": null,
+          "plate_fused_frames": null
+        },
+        "quality": {
+          "plate_detection": "not found",
+          "ocr_confidence": null,
+          "ocr_agreement": null,
+          "frames_with_reading": 0,
+          "classification_confidence": 0.5,
+          "note": "Scores are model / agreement indicators, not calibrated probabilities of correctness."
+        },
+        "requires_manual_review": true,
+        "verification_status": "Awaiting investigator verification"
+      }
+    },
+    {
+      "track": "motorcycle_215",
+      "type": "motorcycle",
+      "colour": "white",
+      "plate": null,
+      "confidence": 0.0,
+      "reads": [],
+      "frames": [],
+      "partial": false,
+      "known": 0,
+      "method": "no plate read: YOLO plate detector + colour plate locator \u00b7 EasyOCR line reader (TrOCR fallback) could not locate a readable plate on this vehicle at this resolution",
+      "involved": false,
+      "legible": false,
+      "crop": null,
+      "plate_box": null,
+      "frame": null,
+      "name": "motorcycle_215",
+      "registered": false,
+      "anpr": {
+        "vehicle_track_id": "motorcycle_215",
+        "vehicle_label": "V-08",
+        "registration_status": "plate_not_detected",
+        "status_label": "Plate not detected",
+        "reason": "No plate region was found on this vehicle in any sampled frame (angle, occlusion or resolution).",
+        "confirmed_registration": null,
+        "best_reading": null,
+        "raw_ocr_text": null,
+        "raw_reads": [],
+        "candidate_registrations": [],
+        "plate_info": [],
+        "vehicle_details": {
+          "category": "Motorcycle",
+          "make_model": "Unknown (not visually confirmed)",
+          "colour": "white",
+          "direction": "left to right",
+          "distinctive_features": []
+        },
+        "matching_status": "not_checked",
+        "database_matches": [],
+        "matching_note": "No authorised registration database is connected, so no registry match is claimed.",
+        "evidence": {
+          "video_timestamp": null,
+          "first_seen": null,
+          "last_seen": null,
+          "vehicle_crop": null,
+          "representative_frames": null,
+          "plate_crop": null,
+          "plate_fused": null,
+          "plate_fused_frames": null
+        },
+        "quality": {
+          "plate_detection": "not found",
+          "ocr_confidence": null,
+          "ocr_agreement": null,
+          "frames_with_reading": 0,
+          "classification_confidence": 0.51,
+          "note": "Scores are model / agreement indicators, not calibrated probabilities of correctness."
+        },
+        "requires_manual_review": true,
+        "verification_status": "Awaiting investigator verification"
+      }
+    },
+    {
+      "track": "motorcycle_234",
+      "type": "motorcycle",
+      "colour": "grey",
+      "plate": null,
+      "confidence": 0.0,
+      "reads": [],
+      "frames": [
+        295
+      ],
+      "partial": false,
+      "known": 0,
+      "method": "plate located (15x7 px in the footage) but too small / blurred to read any character",
+      "involved": false,
+      "legible": false,
+      "crop": "plate_motorcycle_234.jpg",
+      "plate_box": [
+        674.2,
+        230.0,
+        690.0,
+        237.0
+      ],
+      "frame": 295,
+      "name": "Grey motorcycle",
+      "registered": false,
+      "anpr": {
+        "vehicle_track_id": "motorcycle_234",
+        "vehicle_label": "V-09",
+        "registration_status": "insufficient_image_quality",
+        "status_label": "Insufficient image quality",
+        "reason": "Insufficient visual evidence: the vehicle is only 61x49 px in the footage.",
+        "confirmed_registration": null,
+        "best_reading": null,
+        "raw_ocr_text": null,
+        "raw_reads": [],
+        "candidate_registrations": [],
+        "plate_info": [],
+        "vehicle_details": {
+          "category": "Motorcycle",
+          "make_model": "Unknown (not visually confirmed)",
+          "colour": "grey",
+          "direction": "left to right",
+          "distinctive_features": []
+        },
+        "matching_status": "not_checked",
+        "database_matches": [],
+        "matching_note": "No authorised registration database is connected, so no registry match is claimed.",
+        "evidence": {
+          "video_timestamp": "00:00:14.75",
+          "first_seen": "00:00:13.45",
+          "last_seen": "00:00:15.35",
+          "vehicle_crop": "veh_motorcycle_234_clearest.jpg",
+          "representative_frames": [
+            {
+              "label": "first",
+              "file": "veh_motorcycle_234_first.jpg",
+              "frame": 269,
+              "timestamp": "00:00:13.45",
+              "size_px": [
+                62,
+                44
+              ]
+            },
+            {
+              "label": "clearest",
+              "file": "veh_motorcycle_234_clearest.jpg",
+              "frame": 295,
+              "timestamp": "00:00:14.75",
+              "size_px": [
+                61,
+                50
+              ]
+            },
+            {
+              "label": "last",
+              "file": "veh_motorcycle_234_last.jpg",
+              "frame": 307,
+              "timestamp": "00:00:15.35",
+              "size_px": [
+                54,
+                49
+              ]
+            }
+          ],
+          "plate_crop": "plate_motorcycle_234.jpg",
+          "plate_fused": null,
+          "plate_fused_frames": null
+        },
+        "quality": {
+          "plate_detection": "found",
+          "ocr_confidence": 0.0,
+          "ocr_agreement": null,
+          "frames_with_reading": 0,
+          "classification_confidence": 0.38,
+          "note": "Scores are model / agreement indicators, not calibrated probabilities of correctness."
+        },
+        "requires_manual_review": true,
+        "verification_status": "Awaiting investigator verification"
+      }
+    },
+    {
+      "track": "motorcycle_260",
+      "type": "motorcycle",
+      "colour": "grey",
+      "plate": null,
+      "confidence": 0.0,
+      "reads": [],
+      "frames": [],
+      "partial": false,
+      "known": 0,
+      "method": "no plate read: YOLO plate detector + colour plate locator \u00b7 EasyOCR line reader (TrOCR fallback) could not locate a readable plate on this vehicle at this resolution",
+      "involved": false,
+      "legible": false,
+      "crop": null,
+      "plate_box": null,
+      "frame": null,
+      "name": "Grey motorcycle",
+      "registered": false,
+      "anpr": {
+        "vehicle_track_id": "motorcycle_260",
+        "vehicle_label": "V-10",
+        "registration_status": "plate_not_detected",
+        "status_label": "Plate not detected",
+        "reason": "No plate region was found on this vehicle in any sampled frame (angle, occlusion or resolution).",
+        "confirmed_registration": null,
+        "best_reading": null,
+        "raw_ocr_text": null,
+        "raw_reads": [],
+        "candidate_registrations": [],
+        "plate_info": [],
+        "vehicle_details": {
+          "category": "Motorcycle",
+          "make_model": "Unknown (not visually confirmed)",
+          "colour": "grey",
+          "direction": "approaching the camera, right to left",
+          "distinctive_features": []
+        },
+        "matching_status": "not_checked",
+        "database_matches": [],
+        "matching_note": "No authorised registration database is connected, so no registry match is claimed.",
+        "evidence": {
+          "video_timestamp": null,
+          "first_seen": null,
+          "last_seen": null,
+          "vehicle_crop": null,
+          "representative_frames": null,
+          "plate_crop": null,
+          "plate_fused": null,
+          "plate_fused_frames": null
+        },
+        "quality": {
+          "plate_detection": "not found",
+          "ocr_confidence": null,
+          "ocr_agreement": null,
+          "frames_with_reading": 0,
+          "classification_confidence": 0.61,
+          "note": "Scores are model / agreement indicators, not calibrated probabilities of correctness."
+        },
+        "requires_manual_review": true,
+        "verification_status": "Awaiting investigator verification"
+      }
+    },
+    {
+      "track": "motorcycle_44",
+      "type": "motorcycle",
+      "colour": "grey",
+      "plate": null,
+      "confidence": 0.0,
+      "reads": [],
+      "frames": [
+        94
+      ],
+      "partial": false,
+      "known": 0,
+      "method": "plate located (17x8 px in the footage) but too small / blurred to read any character",
+      "involved": false,
+      "legible": false,
+      "crop": "plate_motorcycle_44.jpg",
+      "plate_box": [
+        523.0,
+        163.0,
+        540.0,
+        171.8
+      ],
+      "frame": 94,
+      "name": "Grey motorcycle",
+      "registered": false,
+      "anpr": {
+        "vehicle_track_id": "motorcycle_44",
+        "vehicle_label": "V-11",
+        "registration_status": "insufficient_image_quality",
+        "status_label": "Insufficient image quality",
+        "reason": "Insufficient visual evidence: the vehicle is only 48x75 px in the footage.",
+        "confirmed_registration": null,
+        "best_reading": null,
+        "raw_ocr_text": null,
+        "raw_reads": [],
+        "candidate_registrations": [],
+        "plate_info": [],
+        "vehicle_details": {
+          "category": "Motorcycle",
+          "make_model": "Unknown (not visually confirmed)",
+          "colour": "grey",
+          "direction": "approaching the camera, left to right",
+          "distinctive_features": []
+        },
+        "matching_status": "not_checked",
+        "database_matches": [],
+        "matching_note": "No authorised registration database is connected, so no registry match is claimed.",
+        "evidence": {
+          "video_timestamp": "00:00:04.61",
+          "first_seen": "00:00:02.20",
+          "last_seen": "00:00:05.04",
+          "vehicle_crop": "veh_motorcycle_44_clearest.jpg",
+          "representative_frames": [
+            {
+              "label": "first",
+              "file": "veh_motorcycle_44_first.jpg",
+              "frame": 44,
+              "timestamp": "00:00:02.20",
+              "size_px": [
+                33,
+                53
+              ]
+            },
+            {
+              "label": "clearest",
+              "file": "veh_motorcycle_44_clearest.jpg",
+              "frame": 92,
+              "timestamp": "00:00:04.61",
+              "size_px": [
+                48,
+                75
+              ]
+            },
+            {
+              "label": "last",
+              "file": "veh_motorcycle_44_last.jpg",
+              "frame": 101,
+              "timestamp": "00:00:05.04",
+              "size_px": [
+                43,
+                63
+              ]
+            }
+          ],
+          "plate_crop": "plate_motorcycle_44.jpg",
+          "plate_fused": null,
+          "plate_fused_frames": null
+        },
+        "quality": {
+          "plate_detection": "found",
+          "ocr_confidence": 0.0,
+          "ocr_agreement": null,
+          "frames_with_reading": 0,
+          "classification_confidence": 0.56,
+          "note": "Scores are model / agreement indicators, not calibrated probabilities of correctness."
+        },
+        "requires_manual_review": true,
+        "verification_status": "Awaiting investigator verification"
+      }
+    },
+    {
+      "track": "motorcycle_47",
+      "type": "motorcycle",
+      "colour": "blue",
+      "plate": null,
+      "confidence": 0.0,
+      "reads": [],
+      "frames": [],
+      "partial": false,
+      "known": 0,
+      "method": "no plate read: YOLO plate detector + colour plate locator \u00b7 EasyOCR line reader (TrOCR fallback) could not locate a readable plate on this vehicle at this resolution",
+      "involved": false,
+      "legible": false,
+      "crop": null,
+      "plate_box": null,
+      "frame": null,
+      "name": "Blue motorcycle",
+      "registered": false,
+      "anpr": {
+        "vehicle_track_id": "motorcycle_47",
+        "vehicle_label": "V-12",
+        "registration_status": "plate_not_detected",
+        "status_label": "Plate not detected",
+        "reason": "No plate region was found on this vehicle in any sampled frame (angle, occlusion or resolution).",
+        "confirmed_registration": null,
+        "best_reading": null,
+        "raw_ocr_text": null,
+        "raw_reads": [],
+        "candidate_registrations": [],
+        "plate_info": [],
+        "vehicle_details": {
+          "category": "Motorcycle",
+          "make_model": "Unknown (not visually confirmed)",
+          "colour": "blue",
+          "direction": "left to right",
+          "distinctive_features": []
+        },
+        "matching_status": "not_checked",
+        "database_matches": [],
+        "matching_note": "No authorised registration database is connected, so no registry match is claimed.",
+        "evidence": {
+          "video_timestamp": null,
+          "first_seen": null,
+          "last_seen": null,
+          "vehicle_crop": null,
+          "representative_frames": null,
+          "plate_crop": null,
+          "plate_fused": null,
+          "plate_fused_frames": null
+        },
+        "quality": {
+          "plate_detection": "not found",
+          "ocr_confidence": null,
+          "ocr_agreement": null,
+          "frames_with_reading": 0,
+          "classification_confidence": 0.5,
+          "note": "Scores are model / agreement indicators, not calibrated probabilities of correctness."
+        },
+        "requires_manual_review": true,
+        "verification_status": "Awaiting investigator verification"
+      }
+    },
+    {
+      "track": "motorcycle_5",
+      "type": "motorcycle",
+      "colour": "grey",
+      "plate": null,
+      "confidence": 0.0,
+      "reads": [],
+      "frames": [],
+      "partial": false,
+      "known": 0,
+      "method": "no plate read: YOLO plate detector + colour plate locator \u00b7 EasyOCR line reader (TrOCR fallback) could not locate a readable plate on this vehicle at this resolution",
+      "involved": false,
+      "legible": false,
+      "crop": null,
+      "plate_box": null,
+      "frame": null,
+      "name": "Grey motorcycle",
+      "registered": false,
+      "anpr": {
+        "vehicle_track_id": "motorcycle_5",
+        "vehicle_label": "V-13",
+        "registration_status": "plate_not_detected",
+        "status_label": "Plate not detected",
+        "reason": "No plate region was found on this vehicle in any sampled frame (angle, occlusion or resolution).",
+        "confirmed_registration": null,
+        "best_reading": null,
+        "raw_ocr_text": null,
+        "raw_reads": [],
+        "candidate_registrations": [],
+        "plate_info": [],
+        "vehicle_details": {
+          "category": "Motorcycle",
+          "make_model": "Unknown (not visually confirmed)",
+          "colour": "grey",
+          "direction": "left to right",
+          "distinctive_features": []
+        },
+        "matching_status": "not_checked",
+        "database_matches": [],
+        "matching_note": "No authorised registration database is connected, so no registry match is claimed.",
+        "evidence": {
+          "video_timestamp": null,
+          "first_seen": null,
+          "last_seen": null,
+          "vehicle_crop": null,
+          "representative_frames": null,
+          "plate_crop": null,
+          "plate_fused": null,
+          "plate_fused_frames": null
+        },
+        "quality": {
+          "plate_detection": "not found",
+          "ocr_confidence": null,
+          "ocr_agreement": null,
+          "frames_with_reading": 0,
+          "classification_confidence": 0.63,
+          "note": "Scores are model / agreement indicators, not calibrated probabilities of correctness."
+        },
+        "requires_manual_review": true,
+        "verification_status": "Awaiting investigator verification"
+      }
+    },
+    {
+      "track": "motorcycle_7",
+      "type": "motorcycle",
+      "colour": "grey",
+      "plate": null,
+      "confidence": 0.0,
+      "reads": [],
+      "frames": [
+        54
+      ],
+      "partial": false,
+      "known": 0,
+      "method": "plate located (24x11 px in the footage) but too small / blurred to read any character",
+      "involved": false,
+      "legible": false,
+      "crop": "plate_motorcycle_7.jpg",
+      "plate_box": [
+        483.5,
+        184.0,
+        508.0,
+        195.8
+      ],
+      "frame": 54,
+      "name": "Grey motorcycle",
+      "registered": false,
+      "anpr": {
+        "vehicle_track_id": "motorcycle_7",
+        "vehicle_label": "V-14",
+        "registration_status": "insufficient_image_quality",
+        "status_label": "Insufficient image quality",
+        "reason": "Insufficient visual evidence: the vehicle is only 52x74 px in the footage.",
+        "confirmed_registration": null,
+        "best_reading": null,
+        "raw_ocr_text": null,
+        "raw_reads": [],
+        "candidate_registrations": [],
+        "plate_info": [],
+        "vehicle_details": {
+          "category": "Motorcycle",
+          "make_model": "Unknown (not visually confirmed)",
+          "colour": "grey",
+          "direction": "approaching the camera, left to right",
+          "distinctive_features": []
+        },
+        "matching_status": "not_checked",
+        "database_matches": [],
+        "matching_note": "No authorised registration database is connected, so no registry match is claimed.",
+        "evidence": {
+          "video_timestamp": "00:00:02.84",
+          "first_seen": "00:00:00.00",
+          "last_seen": "00:00:03.04",
+          "vehicle_crop": "veh_motorcycle_7_clearest.jpg",
+          "representative_frames": [
+            {
+              "label": "first",
+              "file": "veh_motorcycle_7_first.jpg",
+              "frame": 0,
+              "timestamp": "00:00:00.00",
+              "size_px": [
+                26,
+                36
+              ]
+            },
+            {
+              "label": "clearest",
+              "file": "veh_motorcycle_7_clearest.jpg",
+              "frame": 57,
+              "timestamp": "00:00:02.84",
+              "size_px": [
+                52,
+                75
+              ]
+            },
+            {
+              "label": "last",
+              "file": "veh_motorcycle_7_last.jpg",
+              "frame": 61,
+              "timestamp": "00:00:03.04",
+              "size_px": [
+                46,
+                66
+              ]
+            }
+          ],
+          "plate_crop": "plate_motorcycle_7.jpg",
+          "plate_fused": null,
+          "plate_fused_frames": null
+        },
+        "quality": {
+          "plate_detection": "found",
+          "ocr_confidence": 0.0,
+          "ocr_agreement": null,
+          "frames_with_reading": 0,
+          "classification_confidence": 0.64,
+          "note": "Scores are model / agreement indicators, not calibrated probabilities of correctness."
+        },
+        "requires_manual_review": true,
+        "verification_status": "Awaiting investigator verification"
+      }
+    },
+    {
+      "track": "motorcycle_8",
+      "type": "motorcycle",
+      "colour": "grey",
+      "plate": null,
+      "confidence": 0.0,
+      "reads": [],
+      "frames": [],
+      "partial": false,
+      "known": 0,
+      "method": "no plate read: YOLO plate detector + colour plate locator \u00b7 EasyOCR line reader (TrOCR fallback) could not locate a readable plate on this vehicle at this resolution",
+      "involved": false,
+      "legible": false,
+      "crop": null,
+      "plate_box": null,
+      "frame": null,
+      "name": "motorcycle_8",
+      "registered": false,
+      "anpr": {
+        "vehicle_track_id": "motorcycle_8",
+        "vehicle_label": "V-15",
+        "registration_status": "plate_not_detected",
+        "status_label": "Plate not detected",
+        "reason": "No plate region was found on this vehicle in any sampled frame (angle, occlusion or resolution).",
+        "confirmed_registration": null,
+        "best_reading": null,
+        "raw_ocr_text": null,
+        "raw_reads": [],
+        "candidate_registrations": [],
+        "plate_info": [],
+        "vehicle_details": {
+          "category": "Motorcycle",
+          "make_model": "Unknown (not visually confirmed)",
+          "colour": "grey",
+          "direction": "nearly stationary in frame",
+          "distinctive_features": []
+        },
+        "matching_status": "not_checked",
+        "database_matches": [],
+        "matching_note": "No authorised registration database is connected, so no registry match is claimed.",
+        "evidence": {
+          "video_timestamp": null,
+          "first_seen": null,
+          "last_seen": null,
+          "vehicle_crop": null,
+          "representative_frames": null,
+          "plate_crop": null,
+          "plate_fused": null,
+          "plate_fused_frames": null
+        },
+        "quality": {
+          "plate_detection": "not found",
+          "ocr_confidence": null,
+          "ocr_agreement": null,
+          "frames_with_reading": 0,
+          "classification_confidence": 0.43,
+          "note": "Scores are model / agreement indicators, not calibrated probabilities of correctness."
+        },
+        "requires_manual_review": true,
+        "verification_status": "Awaiting investigator verification"
+      }
+    }
+  ],
+  "schema": 2,
+  "legible": 1,
+  "note": "Plates are shown only when the ANPR actually read them; the crop behind each number is saved as evidence."
+}

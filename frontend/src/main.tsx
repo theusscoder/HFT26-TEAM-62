@@ -17,6 +17,8 @@ import Report from "./pages/Report";
 import Calibrate from "./pages/Calibrate";
 import Reconstruction from "./pages/Reconstruction";
 import Ask from "./pages/Ask";
+import Response from "./pages/Response";
+import TSPoliceDB from "./pages/TSPoliceDB";
 import Intercept from "./pages/Intercept";
 import Live from "./pages/Live";
 import City from "./pages/City";
@@ -40,6 +42,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="/overview" element={<LiveCity />} />
         <Route path="/cases" element={<Home />} />
         <Route path="/new" element={<NewCase />} />
+        <Route path="/ts-police-db" element={<div className="h-full overflow-auto p-6"><TSPoliceDB /></div>} />
         <Route path="/live" element={<Live />} />
         <Route path="/cameras" element={<Live />} />
         <Route path="/city" element={<City />} />
@@ -56,6 +59,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route path="calibrate" element={<Calibrate />} />
           <Route path="reconstruction" element={<Reconstruction />} />
           <Route path="ask" element={<Ask />} />
+          <Route path="response" element={<Response />} />
+          <Route path="ts-police-db" element={<TSPoliceDB />} />
           <Route path="intercept" element={<Intercept />} />
           <Route path="dashcam" element={<DashcamPage />} />
         </Route>

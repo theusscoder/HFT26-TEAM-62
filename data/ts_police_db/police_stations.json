@@ -1,0 +1,92 @@
+[
+ {
+  "id": "PS01",
+  "name": "Gachibowli Police Station",
+  "lat": 17.4436,
+  "lon": 78.3519,
+  "commissionerate": "Cyberabad",
+  "phone": "+91 59000 57400",
+  "approx": true
+ },
+ {
+  "id": "PS02",
+  "name": "Raidurgam Police Station",
+  "lat": 17.43,
+  "lon": 78.38,
+  "commissionerate": "Cyberabad",
+  "phone": "+91 59001 36893",
+  "approx": true
+ },
+ {
+  "id": "PS03",
+  "name": "Madhapur Police Station",
+  "lat": 17.4483,
+  "lon": 78.3915,
+  "commissionerate": "Cyberabad",
+  "phone": "+91 59002 43212",
+  "approx": true
+ },
+ {
+  "id": "PS04",
+  "name": "Narsingi Police Station",
+  "lat": 17.388,
+  "lon": 78.364,
+  "commissionerate": "Cyberabad",
+  "phone": "+91 59003 69145",
+  "approx": true
+ },
+ {
+  "id": "PS05",
+  "name": "Kukatpally Police Station",
+  "lat": 17.4849,
+  "lon": 78.4138,
+  "commissionerate": "Cyberabad",
+  "phone": "+91 59004 63677",
+  "approx": true
+ },
+ {
+  "id": "PS06",
+  "name": "Jubilee Hills Police Station",
+  "lat": 17.43,
+  "lon": 78.41,
+  "commissionerate": "Hyderabad",
+  "phone": "+91 59005 10675",
+  "approx": true
+ },
+ {
+  "id": "PS07",
+  "name": "Banjara Hills Police Station",
+  "lat": 17.4156,
+  "lon": 78.4347,
+  "commissionerate": "Hyderabad",
+  "phone": "+91 59006 12535",
+  "approx": true
+ },
+ {
+  "id": "PS08",
+  "name": "Panjagutta Police Station",
+  "lat": 17.426,
+  "lon": 78.451,
+  "commissionerate": "Hyderabad",
+  "phone": "+91 59007 52255",
+  "approx": true
+ },
+ {
+  "id": "PS09",
+  "name": "Begumpet Police Station",
+  "lat": 17.444,
+  "lon": 78.467,
+  "commissionerate": "Hyderabad",
+  "phone": "+91 59008 58216",
+  "approx": true
+ },
+ {
+  "id": "PS10",
+  "name": "Gachibowli Traffic Police Station",
+  "lat": 17.441,
+  "lon": 78.356,
+  "commissionerate": "Cyberabad Traffic",
+  "phone": "+91 59009 68471",
+  "approx": true
+ }
+]

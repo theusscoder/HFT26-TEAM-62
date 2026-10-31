@@ -1,0 +1,51 @@
+engine: YOLO plate detector + colour plate locator · EasyOCR line reader (TrOCR fallback)
+vehicle tracks: 15 | involved: ['car_38', 'motorcycle_3', 'person_57']
+  motorcycle_7 f54 [white 24x11px, 2 line(s)]: raw '' conf 0.00 -> empty
+  motorcycle_44 f94 [white 17x8px, 2 line(s)]: raw '' conf 0.00 -> empty
+  car_38 f190 [yellow 37x23px, 2 line(s)]: raw 'FOLE3' conf 0.11 -> FOLE3
+  car_38 f190 [white 183x63px, 1 line(s)]: raw '' conf 0.00 -> empty
+  car_38 f191 [yellow 36x23px, 2 line(s)]: raw 'AOELD' conf 0.05 -> AOELD
+  car_38 f191 [white 183x63px, 1 line(s)]: raw '' conf 0.00 -> empty
+  car_38 f192 [yellow 37x23px, 2 line(s)]: raw 'AOEE03' conf 0.06 -> AOEE03
+  car_38 f192 [yolo 36x26px, 2 line(s)]: raw 'A0LHX' conf 0.06 -> A0LHX
+  car_38 f194 [yellow 37x23px, 2 line(s)]: raw 'FOLE03' conf 0.16 -> FOLE03
+  car_38 f194 [yolo 37x25px, 2 line(s)]: raw 'A0LA' conf 0.12 -> A0LA
+  car_38 f244 [yellow 36x23px, 1 line(s)]: raw 'C0L' conf 0.14 -> C0L
+  car_38 f244 [yolo 36x26px, 2 line(s)]: raw 'AOLLD' conf 0.12 -> AOLLD
+  car_38 f246 [yellow 36x23px, 2 line(s)]: raw '4800L' conf 0.24 -> 4800L
+  car_38 f246 [yolo 36x26px, 2 line(s)]: raw 'MOLLEDZ' conf 0.10 -> MO11E02
+  car_38 f258 [yellow 36x23px, 1 line(s)]: raw 'E8U' conf 0.11 -> E8U
+  car_38 f258 [yolo 36x25px, 2 line(s)]: raw 'AOLLU' conf 0.10 -> AOLLU
+  motorcycle_234 f295 [white 15x7px, 2 line(s)]: raw '' conf 0.00 -> empty
+  car_1 f298 [white 129x97px, 2 line(s)]: raw '' conf 0.00 -> empty
+  car_1 f299 [white 128x97px, 2 line(s)]: raw '' conf 0.00 -> empty
+  car_1 f303 [white 127x99px, 2 line(s)]: raw '' conf 0.00 -> empty
+  car_38 f308 [white 183x64px, 1 line(s)]: raw '' conf 0.00 -> empty
+  car_38 f310 [white 183x64px, 1 line(s)]: raw '' conf 0.00 -> empty
+  car_38 f311 [white 183x64px, 1 line(s)]: raw '' conf 0.00 -> empty
+  car_38 f312 [white 183x64px, 1 line(s)]: raw '' conf 0.00 -> empty
+  car_38 f313 [white 183x65px, 1 line(s)]: raw '' conf 0.00 -> empty
+  car_38 f318 [yellow 23x20px, 2 line(s)]: raw 'L407' conf 0.23 -> L407
+  car_38 f318 [white 183x64px, 1 line(s)]: raw '' conf 0.00 -> empty
+  car_38 f319 [yellow 26x20px, 2 line(s)]: raw '0LLD' conf 0.13 -> 0LLD
+  car_38 f319 [white 183x64px, 1 line(s)]: raw '' conf 0.00 -> empty
+  car_38 f320 [yellow 31x20px, 2 line(s)]: raw 'MOLL' conf 0.36 -> MOLL
+  car_38 f320 [yolo 36x27px, 1 line(s)]: raw 'N01L' conf 0.08 -> N01L
+  car_38 f327 [yellow 36x20px, 2 line(s)]: raw 'M0LKZ' conf 0.05 -> M0LKZ
+  car_38 f327 [yolo 37x26px, 2 line(s)]: raw '0LL0' conf 0.32 -> 0LL0
+  car_38 f332 [yellow 36x20px, 2 line(s)]: raw 'A0LMZ' conf 0.08 -> A0LMZ
+  car_38 f332 [yolo 37x26px, 2 line(s)]: raw 'H0LL' conf 0.29 -> H0LL
+  car_38 f333 [yellow 36x22px, 2 line(s)]: raw '0LLIZ' conf 0.21 -> 0LLIZ
+  car_38 f333 [yolo 37x26px, 2 line(s)]: raw 'H0LL' conf 0.28 -> H0LL
+  car_38 f335 [yellow 36x22px, 2 line(s)]: raw 'A0LLIZ' conf 0.05 -> A0LLIZ
+  car_38 f335 [yolo 37x26px, 2 line(s)]: raw '0LLEZ' conf 0.19 -> 0LLEZ
+  car_38 f336 [yellow 36x22px, 2 line(s)]: raw 'A0LLIZ' conf 0.05 -> A0LLIZ
+  car_38 f336 [yolo 37x26px, 2 line(s)]: raw '0LL' conf 0.47 -> 0LL
+  motorcycle_3 FUSED (8 frames, 2 line(s)): raw '' conf 0.00 -> empty
+  car_38 FUSED (195 frames, 2 line(s)): raw '0LLL0' conf 0.34 -> 0LLL0
+  car_1 FUSED (3 frames, 2 line(s)): raw '' conf 0.00 -> empty
+
+RESULT (133s)
+  car_38: 0LL?? (partial, 3 certain chars) conf 0.43 from 29 reads ['FOLE3', 'AOELD', 'AOEE03', 'A0LHX', 'FOLE03', 'A0LA', 'C0L', 'AOLLD'] crop plate_car_38.jpg
+  car_38: 0LL?? (partial, 3 certain chars) conf 0.43 from 29 reads ['FOLE3', 'AOELD', 'AOEE03', 'A0LHX', 'FOLE03', 'A0LA', 'C0L', 'AOLLD'] crop plate_car_38.jpg
+  legible: 1 of 15

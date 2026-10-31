@@ -1,0 +1,63 @@
+{
+  "generated_by": "plate_reader",
+  "engine": null,
+  "involved": [
+    "car_A",
+    "car_B"
+  ],
+  "vehicles": [
+    {
+      "track": "car_A",
+      "type": "car",
+      "colour": "white",
+      "plate": "TS09EA1234",
+      "confidence": 0.83,
+      "reads": [
+        "TS09EA1234",
+        "TS09EA1234",
+        "TS09FA1234",
+        "TS09EA1234",
+        "TS09EA12?4",
+        "TS09EA1234"
+      ],
+      "frames": [
+        140,
+        142,
+        144,
+        146,
+        148,
+        150
+      ],
+      "partial": false,
+      "method": "multi-frame plate reads (case file)",
+      "involved": true,
+      "name": "car_A",
+      "registered": true
+    },
+    {
+      "track": "car_B",
+      "type": "car",
+      "colour": "red",
+      "plate": "TS07G?5521",
+      "confidence": 0.5,
+      "reads": [
+        "TS07GK5521",
+        "TS07G?5521",
+        "TS07GX5521",
+        "TS07G?552?"
+      ],
+      "frames": [
+        186,
+        190,
+        194,
+        198
+      ],
+      "partial": true,
+      "method": "multi-frame plate reads (case file)",
+      "involved": true,
+      "name": "car_B",
+      "registered": true
+    }
+  ],
+  "note": "Plates marked demo-assigned were not legible in the footage; they come from the mock TS police DB."
+}

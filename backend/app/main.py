@@ -17,6 +17,7 @@ from pydantic import BaseModel, Field
 
 from . import alerts, ask as ask_mod, extras, faces, llm, make_case, physics, severity, toll_db
 from .pipeline.witness import AUDIO_SUFFIXES
+from .response_api import router as response_router  # A2 plates + A3 alerts
 from .custody import Ledger, sha256_file
 
 DATA = Path(__file__).resolve().parents[2] / "data" / "cases"
@@ -25,6 +26,13 @@ ARTIFACTS = ["case", "events", "tracks", "tracks_ui", "tracks_metric", "calibrat
 
 app = FastAPI(title="YATHARTH")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
+app.include_router(response_router)
+
+
+@app.on_event("startup")
+def _start_telegram_linker():  # lets case contacts link their phone to the bot while the demo runs
+    from . import telegram_bot
+    telegram_bot.start()
 
 
 def case_dir(cid: str) -> Path:

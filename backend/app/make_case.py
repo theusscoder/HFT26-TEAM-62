@@ -18,7 +18,7 @@ from .custody import Ledger, sha256_file
 from .pipeline import dashcam, fusion, pursuit, scene3d, sensor, sensor_sim, video, vision, witness
 
 DATA = Path(__file__).resolve().parents[2] / "data" / "cases"
-STAGES = ["video", "camera", "calibration", "vision", "sensor", "witnesses", "fusion", "severity", "insights", "pursuit", "scene3d"]
+STAGES = ["video", "camera", "calibration", "vision", "sensor", "witnesses", "fusion", "severity", "insights", "pursuit", "scene3d", "plates"]
 
 
 def severity_for(case_dir: Path, ent: dict, metric: dict, events: list[dict]) -> dict:
@@ -179,6 +179,17 @@ def make(case_id: str, video_path: Path | None = None, title: str | None = None,
     built = scene3d.run(d)
     report["scene3d"] = f"camera {built['camera']['height_m']:.1f} m up, fit IoU {built['fit']['iou_all']}, {built['actors']['asked']} road users checked by vision" if built else "skipped"
     say("scene3d", "done", report["scene3d"])
+
+    say("plates", "running", "reading number plates, TS police DB lookup")  # A2 / A3
+    try:
+        from . import response
+        from .pipeline import plate_reader
+        plate_reader.run(d, roles=response._j(d / "roles.json", {}))  # cached; 'Re-read plates' on the page forces it
+        r = response.build(case_id)
+        report["plates"] = f"{r['plates']['counts']['vehicles']} vehicles, {len(r['suspects'])} suspect, {len(r['victims'])} victim(s)"
+    except Exception as e:  # never break the rest of the case
+        report["plates"] = f"skipped ({type(e).__name__}: {e})"
+    say("plates", "done", report["plates"])
 
     case["evidence"] = [e for e in case["evidence"] if e["type"] in ("video", "derived")]
     if csv_p.exists():

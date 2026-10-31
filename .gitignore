@@ -28,3 +28,11 @@ data/cases/*/faces/
 data/cases/*/faces.json
 # live dashboard state (hospital acknowledgements)
 data/ops/
+# A2/A3 runtime state (alert log, live tracking, phone-to-Telegram links, cached response plans)
+data/telegram_links.json
+data/cases/*/notifications.json
+data/cases/*/tracking.json
+data/cases/*/response.json
+data/cases/*/plate_debug/
+data/cases/*/anpr_install_log.txt
+data/ts_police_db/case_links.json
