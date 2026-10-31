@@ -121,6 +121,8 @@ def _timed(channel: str, fn, *a) -> dict:
 def send(role: str, to_label: str, to_number: str | None, title: str, text: str, sms_text: str | None = None, real: bool = False,
          allow_sms: bool = True) -> dict:
     """real=True: a verified case contact -> SMS + Telegram to that number. real=False: facility copy -> control-room chat."""
+    if os.getenv("PYTEST_CURRENT_TEST"):   # tests never message real people, whatever token is in .env
+        return {"status": "simulated", "channel": "none", "attempts": [], "detail": "under test"}
     jobs = []
     if real and to_number:
         if sms_provider() and allow_sms:

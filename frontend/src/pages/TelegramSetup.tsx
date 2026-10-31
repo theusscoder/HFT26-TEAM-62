@@ -13,6 +13,7 @@ export default function TelegramSetup() {
   const [msg, setMsg] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [test, setTest] = useState<any>(null);
+  const [replacing, setReplacing] = useState(false);
   const load = () => {
     fetch("/api/telegram/status").then((r) => r.json()).then(setSt).catch(() => setSt(null));
     fetch("/api/telegram/links").then((r) => r.json()).then(setLinks).catch(() => setLinks(null));
@@ -23,7 +24,7 @@ export default function TelegramSetup() {
     const r = await fetch("/api/telegram/token", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ token: token.trim() }) });
     const j = await r.json().catch(() => ({}));
     setBusy(false);
-    if (r.ok) { setToken(""); setMsg(`Connected to @${j.bot}.`); load(); } else setMsg(typeof j.detail === "string" ? j.detail : "That doesn't look like a bot token (it looks like 123456789:ABC…).");
+    if (r.ok) { setToken(""); setReplacing(false); setMsg(`Connected to @${j.bot}.`); load(); } else setMsg(typeof j.detail === "string" ? j.detail : "That doesn't look like a bot token (it looks like 123456789:ABC…).");
   };
   const sendTest = async () => { setTest("sending"); setTest(await (await fetch("/api/telegram/test-all", { method: "POST" })).json()); };
   const ready = !!st?.ok;
@@ -42,7 +43,7 @@ export default function TelegramSetup() {
       <p className="text-sm text-muted">Every incident the camera agents detect goes out on Telegram within seconds: the police control room gets the location, severity and any vehicle that fled; the hospital gets the incoming patient and the treat-first note; the family is told which hospital.</p>
 
       <Step done={ready} n={1} title="Connect your bot">
-        {ready ? <p className="text-sm">Connected to <b>@{st.bot}</b>.</p> : <>
+        {ready && !replacing ? <p className="text-sm">Connected to <b>@{st.bot}</b>. <button onClick={() => setReplacing(true)} className="text-xs text-accent underline">Replace the token</button></p> : <>
           <ol className="mb-3 list-decimal space-y-1 pl-5 text-sm">
             <li>In Telegram, open <b>@BotFather</b> and send <code>/newbot</code>.</li>
             <li>Pick a name and a username ending in <code>bot</code>.</li>
@@ -68,7 +69,18 @@ export default function TelegramSetup() {
             </div>
           ))}
         </div>
-        {links?.error && <p className="mt-2 text-xs text-bad">Bot: {links.error}</p>}
+        {links?.conflict ? (
+          <div className="mt-3 border-2 border-warn bg-warn/10 p-3 text-sm">
+            <div className="font-bold">Another computer is running this bot too</div>
+            <p className="mt-1">Alerts still go out from here, but when someone taps a button in the bot, Telegram gives the tap to only one of the two computers. It can land on the other one and never register here.</p>
+            <p className="mt-1">To fix it, do one of these:</p>
+            <ul className="mt-1 list-disc pl-5">
+              <li>Stop the other copy: ask whoever else has this token to close their YATHARTH server, or set <code>TELEGRAM_LINKER=off</code> in their <code>backend/.env</code>. Theirs can still send alerts that way.</li>
+              <li>Or lock it out: in @BotFather send <code>/revoke</code>, pick this bot, then use "Replace the token" above with the new one. The old token stops working everywhere, including for your teammates.</li>
+            </ul>
+            <p className="mt-1">Then tap your buttons in the bot again.</p>
+          </div>
+        ) : links?.error && <p className="mt-2 text-xs text-bad">Bot: {links.error}</p>}
         <div className="mt-4 border-t border-line pt-3">
           <div className="text-sm font-semibold">Case phones (perpetrator / victim)</div>
           <p className="mb-2 text-xs text-muted">Phones registered on a case (contacts.json) get their own alert by SMS and Telegram the moment the case is dispatched. Each one links itself: open the bot, press Start, tap <b>📱 Share my phone number</b>.</p>

@@ -28,7 +28,8 @@ LINKS = DATA / "telegram_links.json"
 ROLE_NAME = {"suspect": "perpetrator", "victim": "victim"}
 
 _lock = threading.Lock()
-_state = {"running": False, "bot": None, "error": None, "last_poll": None}
+_state = {"running": False, "bot": None, "error": None, "last_poll": None, "gen": 0, "conflict_at": None}
+CONFLICT_WINDOW_S = 60   # a 409 this recent means another program is polling the same bot
 
 
 def _digits(p) -> str:
@@ -142,8 +143,10 @@ def _handle(token: str, m: dict):
                        "one_time_keyboard": True, "resize_keyboard": True})
 
 
-def _loop(token: str):
+def _loop(token: str, gen: int = 0):
     me = _api(token, "getMe")
+    if gen != _state["gen"]:
+        return
     if not me.get("ok"):
         _state.update(running=False, error=f"token rejected: {me.get('description')}")
         return
@@ -151,12 +154,16 @@ def _loop(token: str):
     os.environ.setdefault("TELEGRAM_BOT_USERNAME", _state["bot"])
     _api(token, "deleteWebhook")
     offset = None
-    while _state["running"]:
+    while _state["running"] and gen == _state["gen"]:   # a new token starts a new generation; this one then stops
         r = _api(token, "getUpdates", 35, timeout=25, allowed_updates=["message"], **({"offset": offset} if offset else {}))
+        if gen != _state["gen"]:
+            return
         _state["last_poll"] = time.time()
         if not r.get("ok"):
             _state["error"] = r.get("description")
-            time.sleep(3)  # e.g. another poller (link_telegram.bat) holds the bot: retry
+            if "conflict" in str(r.get("description")).lower():
+                _state["conflict_at"] = time.time()
+            time.sleep(3)  # e.g. another poller (link_telegram.bat, another computer) holds the bot: retry
             continue
         _state["error"] = None
         for u in r.get("result", []):
@@ -172,7 +179,13 @@ def start():
     if not token or _state["running"] or os.getenv("TELEGRAM_LINKER", "on") == "off":
         return
     _state.update(running=True, error=None)
-    threading.Thread(target=_loop, args=(token,), daemon=True, name="telegram-linker").start()
+    threading.Thread(target=_loop, args=(token, _state["gen"]), daemon=True, name="telegram-linker").start()
+
+
+def restart():
+    """Switch to the token now in the environment without restarting the server."""
+    _state.update(gen=_state["gen"] + 1, running=False, bot=None, error=None, conflict_at=None)
+    start()
 
 
 def status() -> dict:
@@ -194,4 +207,5 @@ def status() -> dict:
             pass
     bot = _state["bot"] or os.getenv("TELEGRAM_BOT_USERNAME")
     return {"token": bool(os.getenv("TELEGRAM_BOT_TOKEN")), "linker_running": _state["running"], "bot": bot,
-            "link": f"https://t.me/{bot}" if bot else None, "error": _state["error"], "contacts": list(contacts.values()), "roles": roles}
+            "link": f"https://t.me/{bot}" if bot else None, "error": _state["error"], "contacts": list(contacts.values()), "roles": roles,
+            "conflict": bool(_state["conflict_at"] and time.time() - _state["conflict_at"] < CONFLICT_WINDOW_S)}

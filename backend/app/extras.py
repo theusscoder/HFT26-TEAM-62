@@ -275,7 +275,7 @@ def telegram_token(body: TokenBody):
     lines += [f"TELEGRAM_BOT_TOKEN={body.token}", f"TELEGRAM_BOT_USERNAME={user}"]
     env.write_text("\n".join(lines) + "\n", encoding="utf-8")
     os.environ["TELEGRAM_BOT_TOKEN"], os.environ["TELEGRAM_BOT_USERNAME"] = body.token, user
-    telegram_bot.start()
+    telegram_bot.restart()
     return {"ok": True, "bot": user, "link": f"https://t.me/{user}"}
 
 
