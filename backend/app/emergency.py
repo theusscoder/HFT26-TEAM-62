@@ -212,7 +212,7 @@ def victim(d: Path) -> dict:
                 "driver": vic["driver"]["name"], "reason": why + f"The struck vehicle is the {vic['name'].lower()}, plate {vic['plate']}, registered to {vic['registration']['owner']}."}
     if per:
         return {"judged": judged, "plate": None, "track": per["track"], "owner": per["name"], "contact": per["emergency_contact"],
-                "reason": why + f"The struck person is {per['name']} ({per['description'].lower()}), identified by {per['identified_by']}."}
+                "reason": why + f"The struck person is {per['name']} ({(per.get('description') or 'pedestrian').lower()}), identified by {per['identified_by']}."}
     struck = (judged or {}).get("struck")
     if struck in ("pedestrian", "two_wheeler_rider") and not plates:
         return {"judged": judged, "plate": None, "contact": None, "reason": "The struck road user has no number plate, so there's no registration to find an emergency contact from."}
@@ -241,8 +241,15 @@ def auto_trigger(d: Path) -> dict:
     def log(text, **kw):
         state["log"].append({"time": _now(), "action": kw.pop("action", "auto"), "officer": "Dispatch agent", "text": text, **kw})
 
+    from . import records
+    rec = records.load(d) or {}
+    hurt_vru = any(x["track"] == rec.get("victim") for x in rec.get("people", [])) or \
+        any(v["track"] == rec.get("victim") and v["class"] in ("motorcycle", "bicycle") for v in rec.get("vehicles", []))
     for u in p["units"]:
-        go = u["priority"] == "now" or (u["id"] == "ambulance" and p["level"] in AUTO_LEVELS)
+        # a struck pedestrian or rider always gets an ambulance, whatever the severity score
+        go = u["priority"] == "now" or (u["id"] == "ambulance" and (p["level"] in AUTO_LEVELS or hurt_vru))
+        if u["id"] == "ambulance" and hurt_vru and not (u["priority"] == "now" or p["level"] in AUTO_LEVELS):
+            u = {**u, "why": [*u["why"], "the struck road user is a pedestrian or rider"]}
         where = help_.get("hospital" if u["id"] == "ambulance" else "police") if u["id"] in ("ambulance", "police") else None
         if go:
             eta = f", about {where['eta_s'] // 60} min {where['eta_s'] % 60} s away by road" if where and where.get("eta_s") is not None else ""
@@ -252,7 +259,7 @@ def auto_trigger(d: Path) -> dict:
         elif u["priority"] != "not_needed":
             auto["held"].append({"unit": u["id"], "name": u["name"], "why": u["why"]})
     ref = f"PI-{case.get('id', 'case')}-{datetime.now().strftime('%H%M%S')}"
-    plates = [v["plate"] for v in (_load(d, "plates", {}) or {}).get("vehicles", []) if v.get("plate")]
+    plates = [v["plate"] for v in rec.get("vehicles", [])] or [v["plate"] for v in (_load(d, "plates", {}) or {}).get("vehicles", []) if v.get("plate")]
     text = (f"ACCIDENT INTIMATION {ref}. {case.get('location', {}).get('name') or 'Location not set'}, {now[:19]} UTC. Severity {p['level']} {p.get('label') or ''}. "
             f"Vehicles: {', '.join(plates) or 'plates not read'}. Ambulance {'dispatched' if any(x['unit'] == 'ambulance' for x in auto['dispatched']) else 'recommended'}. Case {case.get('id')}.")
     auto["police_intimation"] = {"ref": ref, "time": _now(), "to": (help_.get("police") or {}).get("name") or "Police control room", "text": text, "status": p["channel"]}
@@ -282,6 +289,11 @@ def auto_trigger(d: Path) -> dict:
         auto["telegram"] = incident_alerts.send_incident(d, auto)
     except Exception as e:
         auto["telegram"] = [{"role": "all", "status": "failed", "detail": f"{type(e).__name__}: {e}"[:160]}]
+    from . import response_timeline   # every step from the crash to the treatment report, with times
+    try:
+        response_timeline.create(d, auto)
+    except Exception:
+        pass
     return auto
 
 

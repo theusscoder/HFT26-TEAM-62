@@ -117,6 +117,13 @@ def ack(case_id: str, hospital: str, by: str, bed: str, note: str = "") -> dict:
     a = acks()
     a[case_id] = {"hospital": hospital, "by": by, "bed": bed, "note": note, "time": time.time(), "cycle": cycle_no()}
     ACKS.write_text(json.dumps(a, indent=2), encoding="utf-8")
+    try:   # and the case's own response timeline records the acceptance
+        from . import response_timeline
+        d = ROOT / "data" / "cases" / case_id
+        if (d / "response_timeline.json").exists():
+            response_timeline.act(d, "accepted", f"{hospital} · {by}", f"{bed} ready")
+    except Exception:
+        pass
     from . import notify   # the police control room hears it on Telegram too
     inc = next((i for i in build()["incidents"] if i["id"] == case_id), {})
     a[case_id]["telegram"] = notify.send("police", "YATHARTH · hospital confirmation", None, f"🏥 {hospital}: bed ready",

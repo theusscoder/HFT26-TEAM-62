@@ -33,6 +33,8 @@ app.include_router(response_router)
 def _start_telegram_linker():  # lets case contacts link their phone to the bot while the demo runs
     from . import camera_agent, telegram_bot
     telegram_bot.start()
+    from . import response_timeline
+    response_timeline.start()   # sends each response milestone (FIR, hospital accepted, arrived...) on Telegram as it comes due
     camera_agent.start()   # watches the traffic cameras and opens cases by itself (CAMERA_AGENT=off to disable)
 
 

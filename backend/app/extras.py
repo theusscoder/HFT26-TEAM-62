@@ -320,6 +320,34 @@ def camera_agent_switch(state: str):
     return camera_agent.status()
 
 
+@router.get("/api/cases/{cid}/response-timeline")
+def response_timeline_get(cid: str):
+    from . import emergency, response_timeline
+    d = case_path(cid)
+    if not (d / "response_timeline.json").exists():
+        emergency.auto_trigger(d)   # the automatic response creates it
+        if not (d / "response_timeline.json").exists():
+            response_timeline.create(d, emergency._load(d, "emergency", {})["auto"])
+    return response_timeline.get(d)
+
+
+class StepBody(BaseModel):
+    by: str = Field(min_length=2, max_length=80)
+    detail: str = Field(min_length=2, max_length=600)
+
+
+@router.post("/api/cases/{cid}/response-timeline/{key}")
+def response_timeline_act(cid: str, key: str, body: StepBody):
+    """A person does a step now (hospital accepts, treatment report, FIR)."""
+    from . import response_timeline
+    if key not in ("accepted", "treatment_report", "fir", "treatment", "arrived", "at_scene"):
+        raise HTTPException(400, "that step isn't done by hand")
+    try:
+        return response_timeline.act(case_path(cid), key, body.by.strip(), body.detail.strip())
+    except ValueError as e:
+        raise HTTPException(404, str(e))
+
+
 @router.get("/api/ops")
 def ops_snapshot():
     from . import ops_center

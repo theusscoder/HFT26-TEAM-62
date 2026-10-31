@@ -22,6 +22,7 @@ import TSPoliceDB from "./pages/TSPoliceDB";
 import Intercept from "./pages/Intercept";
 import Live from "./pages/Live";
 import CameraWall from "./pages/CameraWall";
+import ResponseTimeline from "./pages/ResponseTimeline";
 import City from "./pages/City";
 import LiveCity from "./pages/LiveCity";
 import Operations from "./pages/Operations";
@@ -53,6 +54,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="/case/:id" element={<CaseLayout />}>
           <Route index element={<Overview />} />
           <Route path="golden-hour" element={<GoldenHour />} />
+          <Route path="response" element={<ResponseTimeline />} />
           <Route path="replay" element={<Replay />} />
           <Route path="timeline" element={<Timeline />} />
           <Route path="courtroom" element={<Courtroom />} />

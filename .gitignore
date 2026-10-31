@@ -41,3 +41,6 @@ data/ts_police_db/case_links.json
 data/camera_agent.json
 data/camera_clips/
 data/telegram_links.json
+# per-case live response state
+data/cases/*/response_timeline.json
+data/cases/*/emergency.json
