@@ -1,0 +1,60 @@
+{
+  "generatedAt": "2026-10-31T00:25:03.513Z",
+  "viewport": "1440x860",
+  "loadMs": {
+    "dataset": 841,
+    "geometry": 0
+  },
+  "scenarios": [
+    {
+      "scenario": "default-boxes",
+      "fps": 143.9712057588482,
+      "fps1pLowWorst": 103.09278355266605,
+      "frameMs": 6.945833333333334,
+      "drawCalls": 26,
+      "triangles": 297539,
+      "geometries": 20,
+      "heapMB": 62.86058521270752
+    },
+    {
+      "scenario": "default-footprints",
+      "fps": 143.39487363301228,
+      "fps1pLowWorst": 72.46376809246824,
+      "frameMs": 6.9737500000124175,
+      "drawCalls": 26,
+      "triangles": 275385,
+      "geometries": 21,
+      "heapMB": 63.78769302368164
+    },
+    {
+      "scenario": "default-auto",
+      "fps": 143.45487148834428,
+      "fps1pLowWorst": 72.46376813159122,
+      "frameMs": 6.970833333333333,
+      "drawCalls": 26,
+      "triangles": 297539,
+      "geometries": 21,
+      "heapMB": 66.2825870513916
+    },
+    {
+      "scenario": "near-boxes",
+      "fps": 143.99712005734136,
+      "fps1pLowWorst": 107.52688175488764,
+      "frameMs": 6.944583333345751,
+      "drawCalls": 15,
+      "triangles": 319047,
+      "geometries": 22,
+      "heapMB": 67.26263618469238
+    },
+    {
+      "scenario": "near-footprints",
+      "fps": 143.98848092178372,
+      "fps1pLowWorst": 98.03921565762944,
+      "frameMs": 6.944999999987583,
+      "drawCalls": 15,
+      "triangles": 296893,
+      "geometries": 22,
+      "heapMB": 61.09619426727295
+    }
+  ]
+}
