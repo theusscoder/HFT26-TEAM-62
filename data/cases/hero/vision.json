@@ -92,5 +92,24 @@
   "overlay_clock": "25-01-2015 17:31:38",
   "agree_with_detector": false,
   "primary_colour": "blue",
-  "method": "featherless:Qwen/Qwen3-VL-8B-Instruct on 4/4 keyframes"
+  "method": "featherless:Qwen/Qwen3-VL-8B-Instruct on 4/4 keyframes",
+  "sequence": {
+    "first_change": {
+      "who": "policeman",
+      "action": "stopped_in_lane"
+    },
+    "struck": "blue bus",
+    "striking": "policeman",
+    "most_likely_hurt": "policeman",
+    "vehicle_left_scene": false,
+    "sequence": "The policeman stopped in the lane, causing the blue bus to collide with him. The bus then continued moving forward after the impact.",
+    "confidence": "high",
+    "frames": [
+      "before",
+      "impact",
+      "after"
+    ],
+    "cached": true,
+    "check": "overruled"
+  }
 }

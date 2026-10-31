@@ -166,8 +166,42 @@ def build(case_dir: Path) -> list[dict]:
             vh = at(ego, f0["t"])["v_kmh"] if ego else None
             add(f0["t"], "moment", f"Hazard visible: {nm(hz)}", f"First seen {f0['Z']:.0f} m ahead, {abs(f0['X']):.1f} m {'left' if f0['X'] < 0 else 'right'} of the camera's line"
                 + (f", with the camera vehicle at {vh:.0f} km/h." if vh is not None else "."), hz, (at(tracks[hz], f0["t"])["x"], at(tracks[hz], f0["t"])["y"]) if hz in tracks else None, [f"dashcam.json#{hz}"], 3)
+            # What the vehicle ahead did: came across into the camera vehicle's lane, and how fast it was still going
+            from .pipeline.dashcam import lane_entry
+            pre = [r for r in rel if r["t"] <= 0.2]
+            le = lane_entry(rel)
+            far, inlane = ([le["from"]], le["entered"]) if le else ([], None)
+            if far and inlane:
+                add(inlane["t"], "moment", f"{nm(hz)} moved into the camera vehicle's lane",
+                    f"It came {abs(far[0]['X']):.1f} m across from the {'left' if far[0]['X'] < 0 else 'right'} (T{far[0]['t']:+.1f} s) to {abs(inlane['X']):.1f} m off the camera's line "
+                    f"by T{inlane['t']:+.1f} s, {inlane['Z']:.0f} m ahead.", hz, None, [f"dashcam.json#{hz}"], 3)
+            last = [r for r in pre if -1.5 <= r["t"] <= 0 and abs(r["closing_ms"]) < 40]
+            closing = None
+            if ego and len(last) >= 4:
+                closing = float(np.median([r["closing_ms"] for r in last])) * 3.6
+                v_ego = float(np.median([at(ego, r["t"])["v_kmh"] for r in last]))
+                v_lead = max(0.0, v_ego - closing)
+                add(-0.75, "measure", f"{nm(hz)} ahead at ≈ {v_lead:.0f} km/h" + (" (nearly stopped in the lane)" if v_lead < 12 else ""),
+                    f"In the last 1.5 s the camera vehicle ({v_ego:.0f} km/h) was closing on it at about {closing:.0f} km/h, so it was doing about {v_lead:.0f} km/h"
+                    + (": it had braked to almost a standstill in a running lane." if v_lead < 12 else "."), hz, None, [f"dashcam.json#{hz}"], 3 if v_lead < 12 else 2)
+            if far and inlane and closing is not None and closing > 0:
+                # The obstacle only existed from the moment it entered the lane: judge the stop from there, on the closing speed.
+                vc = closing / 3.6
+                need = vc * REACT + vc * vc / (2 * MU * G)
+                out[:] = [k for k in out if k["kind"] != "counterfactual"]
+                add(inlane["t"], "counterfactual", "Could the rider have avoided it?",
+                    f"When {nm(hz)} entered the lane {-inlane['t']:.1f} s before impact it was {inlane['Z']:.1f} m ahead and the gap was closing at about {closing:.0f} km/h. "
+                    f"Avoiding contact needed about {need:.1f} m (1 s reaction + braking): "
+                    + ("there wasn't room. The vehicle moving into the lane and slowing ahead is what made the crash unavoidable." if need > inlane["Z"] else
+                       "there was room to stop if the rider had reacted within about 1 s."), "ego", None, [f"dashcam.json#{hz}"], 3)
             from .pipeline.dashcam import ttc_crossing
-            ttc3, ttc15 = ttc_crossing(rel, 3.0), ttc_crossing(rel, 1.5)
+            # a vehicle off to the side isn't on a collision course yet; closing speeds over 140 km/h are tracking noise
+            in_lane = [r for r in rel if abs(r["closing_ms"]) < 40 and (r["t"] >= inlane["t"] - 0.3 if (far and inlane) else abs(r["X"]) < 1.5)]
+            ttc3, ttc15 = ttc_crossing(in_lane, 3.0), ttc_crossing(in_lane, 1.5)
+            if far and inlane:
+                for k in out:
+                    if k["kind"] == "moment" and k["title"].startswith("Braking began") and k["t"] < inlane["t"]:
+                        k["detail"] = k["detail"].split(" Braking alone")[0] + f" The rider was already braking {inlane['t'] - k['t']:.1f} s before {nm(hz)} came into the lane."
             for thr, x in ((3.0, ttc3), (1.5, ttc15)):
                 if x:
                     add(x["t"], "warning", f"Time-to-collision below {thr:.1f} s", f"{x['Z']:.1f} m apart and closing at {x['closing_ms'] * 3.6:.0f} km/h at T{x['t']:+.1f} s.",
@@ -186,4 +220,55 @@ def build(case_dir: Path) -> list[dict]:
                 add(0, "warning", "No braking before impact", "The camera vehicle shows no clear deceleration before the impact.", "ego", None, [], 3)
     out.sort(key=lambda k: k["t"])
     (case_dir / "insights.json").write_text(json.dumps(out, indent=2))
+    try:   # the vision model's reading of the sequence, grounded in these findings and checked against them
+        k = vision_reading(case_dir, an, out, dc)
+        if k:
+            out.append(k)
+            out.sort(key=lambda k: k["t"])
+            (case_dir / "insights.json").write_text(json.dumps(out, indent=2))
+    except Exception:
+        pass
     return out
+
+
+PERSON_WORDS = ("police", "constable", "officer", "pedestrian", "person", "man", "woman", "policeman")
+
+
+def vision_reading(case_dir: Path, an: dict, out: list[dict], dc: dict | None) -> dict | None:
+    """Ask the vision model what happened (before / impact / after, with the measured facts), then check its 'first change'
+    against what was measured to change first. Agreement is shown as support; disagreement is flagged and the measurements stand."""
+    from .pipeline import vision
+    vp = case_dir / "vision.json"
+    vis = json.loads(vp.read_text()) if vp.exists() else {}
+    case = json.loads((case_dir / "case.json").read_text())
+    if not vis.get("frames"):
+        return None
+    seq = vision.sequence(case_dir, vis["frames"], (case.get("camera") or {}).get("type") == "dashcam")
+    if not seq or seq.get("error"):
+        return None
+    names, ent = an["entities"].get("names", {}), an["entities"]
+    nm = lambda i: (names.get(i) or i or "").replace(" (primary)", "").lower()
+    who, act = str((seq.get("first_change") or {}).get("who", "")).lower(), str((seq.get("first_change") or {}).get("action", ""))
+    expected, why = None, None
+    lane = next((k for k in out if k["title"].endswith("moved into the camera vehicle's lane")), None)
+    if lane:
+        expected, why = (nm(lane["actor"]), {"cut_in", "changed_lane", "braked_suddenly", "stopped_in_lane"}), lane["title"]
+    elif any(h["id"] == "H4" and h["status"] == "supported" for h in an.get("hypotheses", [])):
+        expected, why = (nm(ent.get("primary")), {"lost_control", "changed_lane", "turned_across", "cut_in"}), next(h["text"] for h in an["hypotheses"] if h["id"] == "H4")
+    blames_person = any(w in who for w in PERSON_WORDS) and act not in ("none_visible",)
+    if expected:
+        generic = {"car", "vehicle", "the", "van", "sedan", "hatchback"}   # "car" names every car: match on colour / kind
+        words = [w for w in expected[0].split() if len(w) > 2 and w not in generic] or expected[0].split()
+        agrees = any(w in who for w in words) and act != "none_visible" and not blames_person
+        check = "agrees" if agrees else "overruled"
+        note = (" This agrees with the measurements." if agrees else
+                f" This doesn't match what was measured ({why}); the measurements stand.")
+    else:
+        check = "overruled" if blames_person else "unverified"
+        note = (" It puts the start on a person on foot, which nothing measured supports; set aside." if blames_person else
+                " Nothing measured confirms or rules out who changed the situation first.")
+    seq["check"] = check
+    vis["sequence"] = seq
+    vp.write_text(json.dumps(vis, indent=2))
+    return {"id": "K-vision", "t": -1.0, "kind": "vision", "title": "Vision model's reading" + {"agrees": "", "overruled": " (overruled)", "unverified": " (unverified)"}[check],
+            "detail": str(seq.get("sequence", "")).strip() + note, "actor": None, "xy": None, "evidence": ["vision.json#sequence"], "importance": 3 if check == "agrees" else 1}

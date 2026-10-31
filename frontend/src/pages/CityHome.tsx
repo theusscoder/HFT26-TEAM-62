@@ -151,6 +151,7 @@ export default function CityHome() {
           <Link to="/cases" className="flex items-center gap-1.5 border border-white/25 bg-black/40 px-2.5 py-1 hover:bg-white/10"><FileText size={13} />All cases</Link>
           <Link to="/dashcam" className="flex items-center gap-1.5 border border-white/25 bg-black/40 px-2.5 py-1 hover:bg-white/10"><Camera size={13} />Dashcam</Link>
           <Link to="/cameras" className="flex items-center gap-1.5 border border-white/25 bg-black/40 px-2.5 py-1 hover:bg-white/10"><Radio size={13} />Cameras</Link>
+          <Link to="/telegram" className="flex items-center gap-1.5 border border-white/25 bg-black/40 px-2.5 py-1 hover:bg-white/10">Telegram</Link>
           <Link to="/new" className="bg-[#ff2a2a] px-2.5 py-1 font-semibold">New case</Link>
         </nav>
       </header>

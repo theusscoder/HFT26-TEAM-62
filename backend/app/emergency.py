@@ -277,6 +277,11 @@ def auto_trigger(d: Path) -> dict:
     _save(d, state)
     Ledger(d / "custody.jsonl").append("auto_response", level=p["level"], dispatched=[x["unit"] for x in auto["dispatched"]], intimation=ref,
                                        contact=[n["status"] for n in auto["notifications"]])
+    from . import incident_alerts   # Telegram: police control room, hospital desk, family
+    try:
+        auto["telegram"] = incident_alerts.send_incident(d, auto)
+    except Exception as e:
+        auto["telegram"] = [{"role": "all", "status": "failed", "detail": f"{type(e).__name__}: {e}"[:160]}]
     return auto
 
 

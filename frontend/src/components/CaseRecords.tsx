@@ -9,6 +9,7 @@ import { Panel } from "./ui";
 const ROLE: Record<string, { label: string; cls: string }> = {
   victim: { label: "Victim", cls: "bg-[#0047ab] text-white" },
   suspect: { label: "Left the scene", cls: "bg-accent text-white" },
+  hazard: { label: "Vehicle ahead", cls: "bg-warn text-white" },
   primary: { label: "Primary", cls: "bg-ink text-white" },
   involved: { label: "Involved", cls: "border border-ink" },
 };
@@ -36,6 +37,7 @@ export default function CaseRecords({ only }: { only?: "victim" | "suspect" }) {
                 <div className="flex items-center gap-2 font-semibold"><Car size={15} />{v.name}</div>
                 <span className={`px-1.5 py-0.5 text-[10px] font-bold uppercase ${ROLE[v.role]?.cls ?? "border"}`}>{ROLE[v.role]?.label ?? v.role}</span>
               </div>
+              {v.note && <div className="border-b border-line bg-warn/10 px-3 py-1.5 text-[12px] font-semibold">{v.note}</div>}
               <div className="grid grid-cols-[120px_minmax(0,1fr)] gap-3 p-3">
                 <div className="space-y-2">
                   <img src={`/api/cases/${id}/keyframes/veh_${v.track}.jpg`} onError={(e) => ((e.target as HTMLImageElement).style.display = "none")} alt="" className="aspect-video w-full border border-line object-cover" />

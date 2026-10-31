@@ -31,8 +31,20 @@ def e164(p: str | None) -> str | None:
     return ("+" + d) if d else None
 
 
+ROLE_ALIAS = {"victim": "family", "suspect": "police", "checkpoint": "police"}
+
+
+def _chats(role: str) -> list[str]:
+    """Every chat for a role: subscribed in Telegram (/police, /hospital, /family), else the .env demo chat ids."""
+    from . import telegram_bot
+    subs = telegram_bot.role_chats(ROLE_ALIAS.get(role, role))
+    env = os.getenv(f"DEMO_CHAT_ID_{role.upper()}") or os.getenv("DEMO_CHAT_ID_1")
+    return list(dict.fromkeys(subs + ([env] if env else [])))
+
+
 def _chat(role: str) -> str | None:
-    return os.getenv(f"DEMO_CHAT_ID_{role.upper()}") or os.getenv("DEMO_CHAT_ID_1")
+    c = _chats(role)
+    return c[0] if c else None
 
 
 def _chat_for_number(number: str | None) -> str | None:
@@ -107,10 +119,10 @@ def send(role: str, to_label: str, to_number: str | None, title: str, text: str,
         if os.getenv("TELEGRAM_BOT_TOKEN") and chat:
             jobs.append(("telegram", _telegram, chat, f"{title}\n{text}"))
     else:
-        chat = _chat(role)
-        footer = f"\n\n— Copy for {to_label} (control-room demo channel; facility numbers are placeholders)."
-        if os.getenv("TELEGRAM_BOT_TOKEN") and chat:
-            jobs.append(("telegram", _telegram, chat, f"{title}\n{text}{footer}"))
+        footer = f"\n\n— {to_label}"
+        if os.getenv("TELEGRAM_BOT_TOKEN"):
+            for chat in _chats(role):
+                jobs.append(("telegram", _telegram, chat, f"{title}\n{text}{footer}"))
         if os.getenv("NTFY_TOPIC"):
             jobs.append(("ntfy", _ntfy, role, title, f"{text}{footer}"))
     if not jobs:

@@ -36,3 +36,8 @@ data/cases/*/response.json
 data/cases/*/plate_debug/
 data/cases/*/anpr_install_log.txt
 data/ts_police_db/case_links.json
+
+# camera agent state and stream clips; Telegram chat links (phone/chat ids)
+data/camera_agent.json
+data/camera_clips/
+data/telegram_links.json

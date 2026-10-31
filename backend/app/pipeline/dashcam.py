@@ -35,6 +35,18 @@ def hampel(a, k=7, tol=0.35):
     return keep
 
 
+def lane_entry(rel: list[dict]) -> dict | None:
+    """When a vehicle seen off to the side came into the camera vehicle's lane before impact, and how fast the gap was
+    closing then: {'from': reading off to the side, 'entered': first reading in the lane, 'closing_kmh': median closing}."""
+    pre = [r for r in rel if r["t"] <= 0.2]
+    far = [r for r in pre if abs(r["X"]) > 3.0]
+    inlane = next((r for r in pre if far and abs(r["X"]) < 1.0 and r["t"] > far[0]["t"]), None)
+    if not (far and inlane):
+        return None
+    after = [r["closing_ms"] for r in pre if r["t"] >= inlane["t"] - 0.3 and abs(r["closing_ms"]) < 40]
+    return {"from": far[0], "entered": inlane, "closing_kmh": round(float(np.median(after)) * 3.6, 1) if after else None}
+
+
 def ttc_crossing(rel: list[dict], thr: float):
     """First time TTC stays below thr for 3 consecutive readings with a physically plausible closing speed (< 120 km/h)."""
     ok = [x["ttc"] is not None and x["ttc"] < thr and 0 < x["closing_ms"] * 3.6 < 120 and x["t"] <= 0.1 for x in rel]

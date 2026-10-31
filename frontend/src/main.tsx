@@ -21,10 +21,12 @@ import Response from "./pages/Response";
 import TSPoliceDB from "./pages/TSPoliceDB";
 import Intercept from "./pages/Intercept";
 import Live from "./pages/Live";
+import CameraWall from "./pages/CameraWall";
 import City from "./pages/City";
 import LiveCity from "./pages/LiveCity";
 import Operations from "./pages/Operations";
 import CityHome from "./pages/CityHome";
+import TelegramSetup from "./pages/TelegramSetup";
 import Police from "./pages/Police";
 import Hospital from "./pages/Hospital";
 import DashcamPage, { DashcamIndex } from "./pages/Dashcam";
@@ -38,13 +40,14 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="/" element={<CityHome />} />
         <Route path="/operations" element={<Operations />} />
         <Route path="/police" element={<Police />} />
+        <Route path="/telegram" element={<TelegramSetup />} />
         <Route path="/hospital" element={<Hospital />} />
         <Route path="/overview" element={<LiveCity />} />
         <Route path="/cases" element={<Home />} />
         <Route path="/new" element={<NewCase />} />
         <Route path="/ts-police-db" element={<div className="h-full overflow-auto p-6"><TSPoliceDB /></div>} />
         <Route path="/live" element={<Live />} />
-        <Route path="/cameras" element={<Live />} />
+        <Route path="/cameras" element={<CameraWall />} />
         <Route path="/city" element={<City />} />
         <Route path="/dashcam" element={<DashcamIndex />} />
         <Route path="/case/:id" element={<CaseLayout />}>

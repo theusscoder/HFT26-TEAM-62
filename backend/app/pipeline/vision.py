@@ -27,6 +27,51 @@ Answer ONLY with one JSON object, no prose:
 Describe only what is visible. Do not guess intentions or fault."""
 
 
+SEQUENCE_Q = """These {n} frames come from one {cam} clip, in time order: {names}. {ego}
+Look at how the road users move between the frames, then answer ONLY with one JSON object:
+{{"first_change": {{"who": "<short description, e.g. 'grey SUV ahead', 'the camera vehicle', 'white car from the right'>",
+                   "action": "braked_suddenly|cut_in|changed_lane|turned_across|ran_signal|reversed|lost_control|stopped_in_lane|none_visible"}},
+ "struck": "<who was hit>", "striking": "<who hit them>", "most_likely_hurt": "<who>",
+ "vehicle_left_scene": true|false,
+ "sequence": "<two sentences: what happened, in order, only what is visible>",
+ "confidence": "high|medium|low"}}
+The road user that moved last or hit from behind is not automatically the cause: a vehicle that cuts in or brakes hard in a
+running lane changes the situation first. Describe; do not assign legal fault.{facts}"""
+FACTS_HEAD = """
+
+Measured from tracking every frame (positions, speeds, lanes). These are more reliable than three still frames; your answer
+must not contradict them:
+"""
+
+
+def measured_facts(case_dir: Path) -> list[str]:
+    """The case's own measurements, in words, to ground the vision model."""
+    import json as _json
+    ins = _json.loads((case_dir / "insights.json").read_text()) if (case_dir / "insights.json").exists() else []
+    ent = _json.loads((case_dir / "entities.json").read_text()) if (case_dir / "entities.json").exists() else {}
+    names = ent.get("names", {})
+    out = [f"{names.get(i, i).replace(' (primary)', '')} is one of the road users in the collision" for i in [ent.get("primary"), *ent.get("involved", [])] if i]
+    out += [f"{k['title']}: {k['detail']}" for k in sorted(ins, key=lambda k: -k.get("importance", 0))[:6]]
+    return out
+
+
+def sequence(case_dir: Path, frames: list[dict], dashcam: bool) -> dict | None:
+    """One look at before / impact / after together: who changed the situation first, who struck whom, who is hurt."""
+    use = [f for f in frames if f["name"] in ("before", "impact", "after")]
+    if len(use) < 2:
+        return None
+    q = SEQUENCE_Q.format(n=len(use), cam="dashcam (camera mounted on a moving vehicle)" if dashcam else "fixed CCTV",
+                          names=", ".join(f"{f['name']} (T{f['t']:+.1f} s)" for f in use),
+                          ego="The camera vehicle itself is not visible; refer to it as 'the camera vehicle'." if dashcam else "The vehicle of interest has a red box.",
+                          facts=(FACTS_HEAD + "\n".join(f"- {f}" for f in measured_facts(case_dir))) if measured_facts(case_dir) else "")
+    msgs = [{"role": "user", "content": [{"type": "text", "text": q}, *[llm.image_part(case_dir / f["file"]) for f in use]]}]
+    try:
+        r = llm.chat_json(msgs, model=llm.VISION_MODEL)
+        return {**r["data"], "frames": [f["name"] for f in use], "cached": r["cached"]}
+    except Exception as e:
+        return {"error": str(e)[:120]}
+
+
 def keyframes(case_dir: Path, case: dict, primary_ui: dict | None) -> list[dict]:
     video = case_dir / "evidence" / "cctv.mp4"
     out_dir = case_dir / "keyframes"

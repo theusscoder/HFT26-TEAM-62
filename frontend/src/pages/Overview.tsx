@@ -37,6 +37,11 @@ export default function Overview() {
   const a: any = an.data;
   const score = a.score;
   const story = storyOf(ev.data, a);
+  // what the other vehicle did comes first when it changed the situation (a vehicle cutting into the rider's lane)
+  const cut = (ins.data ?? []).find((k) => k.title.endsWith("moved into the camera vehicle's lane"));
+  const avoid = (ins.data ?? []).find((k) => k.kind === "counterfactual");
+  const tail = avoid ? avoid.detail.split(": ").slice(-1)[0] : "";
+  if (cut) story.unshift(`${cut.title} ${Math.abs(cut.t).toFixed(1)} s before impact. ${cut.detail}${tail ? " " + tail.charAt(0).toUpperCase() + tail.slice(1) : ""}`);
   const frames: any[] = vis.data?.frames ?? [];
   return (
     <div className="space-y-5">

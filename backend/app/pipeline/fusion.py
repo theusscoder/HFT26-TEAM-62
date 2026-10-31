@@ -493,6 +493,16 @@ def run(case_dir: Path, video_events: list[dict], sensor_events: list[dict], wit
             dist = sum(np.hypot(b["x"] - q["x"], b["y"] - q["y"]) for q, b in zip(pts, pts[1:]) if q["t"] >= a["t"])
             cf = {"actor": prim, "observed_speed_kmh": round(a["v_kmh"], 1), "hazard_at_m": round(float(dist), 2), "brake_start_s": -1.6,
                   "note": f"Distance the primary vehicle covered in the last 1.6 s before impact: {dist:.1f} m. Would it have stopped short at a lower speed?"}
+    # A vehicle that cut into the camera vehicle's lane was only an obstacle from that moment: judge from there, relative to it.
+    dc = json.loads((case_dir / "dashcam.json").read_text()) if (case_dir / "dashcam.json").exists() else {}
+    if dc.get("hazard") and prim == "ego":
+        from .dashcam import lane_entry
+        le = lane_entry(dc.get("relative", {}).get(dc["hazard"], []))
+        if le and le["closing_kmh"] and le["closing_kmh"] > 0:
+            hz = dc["hazard"]
+            cf = {"actor": prim, "observed_speed_kmh": le["closing_kmh"], "hazard_at_m": round(le["entered"]["Z"], 2), "brake_start_s": round(le["entered"]["t"], 2),
+                  "relative_to": hz, "note": f"The vehicle ahead came into the lane {-le['entered']['t']:.1f} s before impact, {le['entered']['Z']:.1f} m ahead, "
+                                             f"with the gap closing at {le['closing_kmh']:.0f} km/h. Speeds here are relative to it: could the rider have stopped short of it?"}
 
     # 8. names for the UI (vision type > witness noun > colour + class)
     names = {}

@@ -64,6 +64,19 @@
     "importance": 3
   },
   {
+    "id": "K-vision",
+    "t": -1.0,
+    "kind": "vision",
+    "title": "Vision model's reading",
+    "detail": "The black car was moving slowly and braked suddenly, coming to a stop just before the red car. The red car was parked and was struck by the black car as it moved forward. This agrees with the measurements.",
+    "actor": null,
+    "xy": null,
+    "evidence": [
+      "vision.json#sequence"
+    ],
+    "importance": 3
+  },
+  {
     "id": "K6",
     "t": -0.0,
     "kind": "moment",

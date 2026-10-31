@@ -99,6 +99,21 @@ def _vehicle(cid, tid, cls, colour, role, read, used, year_now=2026):
                        "face_match": round(r.uniform(0.66, 0.88), 2)}}
 
 
+COLOURS = ("white", "silver", "grey", "gray", "black", "red", "blue", "green", "yellow", "orange", "brown", "purple", "beige", "maroon", "gold")
+NAME_KIND = (("auto-rickshaw", "auto"), ("auto rickshaw", "auto"), ("rickshaw", "auto"), ("bus", "bus"), ("truck", "truck"), ("lorry", "truck"),
+             ("van", "car"), ("motorcycle", "motorcycle"), ("scooter", "motorcycle"), ("bike", "motorcycle"), ("bicycle", "bicycle"), ("car", "car"))
+
+
+def _recolour(desc: str, colour: str | None) -> str:
+    """A registry description must agree with the colour the case saw ("Black Honda Shine" for a silver bike is wrong)."""
+    if not colour or not desc:
+        return desc
+    words = desc.split()
+    if words and words[0].lower() in COLOURS:
+        words = words[1:]
+    return f"{colour.title()} {' '.join(words)}".strip()
+
+
 def build(case_dir: Path) -> dict:
     """Write records.json for one case and return it."""
     cid = case_dir.name
@@ -113,32 +128,48 @@ def build(case_dir: Path) -> dict:
     left = [v["track"] for v in purs.get("vehicles", []) if v.get("status") == "left_view"]
     prim = ent.get("primary")
     involved = [i for i in ent.get("involved", []) if i]
-    cls = lambda tid: _kind((ui.get(tid) or {}).get("class") or ("car" if str(tid).startswith("car") else str(tid).split("_")[0]))
+    def cls(tid):
+        nm = (names.get(tid) or "").lower()
+        # what the case calls it (the vision model's word) beats the detector's class: YOLO calls buses and autos "car"
+        named = next((k for w, k in NAME_KIND if w in nm), None)
+        if named:
+            return named
+        if tid == "ego":
+            return "car"
+        return _kind((ui.get(tid) or {}).get("class") or ("car" if str(tid).startswith("car") else str(tid).split("_")[0]))
     if not ent and cid == "demo":   # the synthetic case has no tracks: car A was hit, car B left
         prim, involved, left = "car_B", ["car_A"], ["car_B"]
         names = {"car_A": "White hatchback", "car_B": "Red sedan"}
     key = [t for t in dict.fromkeys([prim, *involved, *left]) if t and (cls(t) in VEHICLES or t == "ego")]
     people = [t for t in involved if cls(t) == "person"]
-    # who was hurt, who to chase
+    # who was hurt: a person on foot, then a rider (motorcycle, bicycle), then the vehicle that was struck. Being the
+    # "primary" (the faster of the pair) says nothing about fault: a rider who runs into a car that cut in is the victim.
     others = [t for t in key if t != prim]
-    victim = next((t for t in others if t not in left), None) or (others[0] if others else None)
-    if people and (not victim or pin.get("plate") is None and pin.get("licence")):
-        victim = people[0]
-    victim = victim or prim
+    riders = [t for t in key if cls(t) in ("motorcycle", "bicycle")]
+    victim = (people[0] if people else None) or (riders[0] if riders else None) \
+        or next((t for t in others if t not in left), None) or (others[0] if others else None) or prim
     suspect = next((t for t in left if t != victim), None)
+    dc = _j(case_dir / "dashcam.json", {}) or {}
+    hazard = dc.get("hazard") if dc.get("hazard") in key and dc.get("hazard") not in (victim, suspect) else None
+    ins = _j(case_dir / "insights.json", []) or []
+    hazard_note = next((k["title"] for k in ins if k.get("actor") == hazard and "lane" in k.get("title", "")), None) if hazard else None
     used: set = set()
     vehicles = []
     for tid in key:
-        colour = (ui.get(tid) or {}).get("colour_name") or (names.get(tid, "").split(" ")[0].lower() if names.get(tid) else None)
-        c = "motorcycle" if tid == "ego" and "motor" in json.dumps(_j(case_dir / "case_hint.json", {}) or {}) else ("car" if tid == "ego" else cls(tid))
-        role = "victim" if tid == victim else "suspect" if tid == suspect else "primary" if tid == prim else "involved"
+        first = (names.get(tid) or "").split(" ")[0].lower()
+        colour = first if first in COLOURS else (ui.get(tid) or {}).get("colour_name")   # the case's name first, so they agree
+        c = cls(tid)
+        role = "victim" if tid == victim else "suspect" if tid == suspect else "hazard" if tid == hazard else "primary" if tid == prim else "involved"
         v = _vehicle(cid, tid, c, colour, role, read.get(tid) or (purs.get("partial_plate") if tid == suspect else None), used)
         v["name"] = (names.get(tid) or tid).replace(" (primary)", "")
         v["left_scene"] = tid in left
+        if role == "hazard":
+            v["note"] = hazard_note or "The vehicle ahead"
         if role == "victim" and pin.get("plate"):
             reg, lic = pin.get("registration") or {}, pin.get("licence") or {}
             v["plate"], v["plate_basis"] = pin["plate"], v["plate_basis"]
             v["registration"].update({k: reg[k] for k in ("owner", "vehicle", "rto", "insurance", "emergency_contact") if reg.get(k)})
+            v["registration"]["vehicle"] = _recolour(v["registration"]["vehicle"], colour)
             v["driver"].update({"name": lic.get("holder", v["driver"]["name"]), "dl_no": lic.get("dl_no", v["driver"]["dl_no"]), "class": lic.get("class", v["driver"]["class"]),
                                 "valid_till": lic.get("valid_till", v["driver"]["valid_till"]), "photo": lic.get("photo", v["driver"]["photo"]), "face_match": pin.get("face_match", v["driver"]["face_match"])})
             v["driver"]["owner_is_driver"] = v["driver"]["name"] == v["registration"]["owner"]
@@ -147,7 +178,7 @@ def build(case_dir: Path) -> dict:
             s = pin["suspect"]
             v["plate"], v["plate_read"] = s.get("resolved", v["plate"]), s.get("plate", v["plate_read"])
             v["plate_basis"] = "resolved from the partial read"
-            v["registration"].update({"owner": s.get("owner", v["registration"]["owner"]), "vehicle": s.get("vehicle", v["registration"]["vehicle"])})
+            v["registration"].update({"owner": s.get("owner", v["registration"]["owner"]), "vehicle": _recolour(s.get("vehicle", v["registration"]["vehicle"]), colour)})
             v["driver"].update({"photo": s.get("photo", v["driver"]["photo"]), "name": s.get("owner", v["driver"]["name"]), "owner_is_driver": True})
         vehicles.append(v)
     persons = []
@@ -156,7 +187,7 @@ def build(case_dir: Path) -> dict:
         lic = pin.get("licence") if victim == tid else None
         name = (lic or {}).get("holder") or _person(r, used)
         persons.append({"track": tid, "role": "victim" if tid == victim else "involved", "name": name, "age": r.randint(24, 58),
-                        "description": pin.get("victim") if victim == tid else (names.get(tid) or "Pedestrian"),
+                        "description": (pin.get("victim") if victim == tid and pin.get("victim") else None) or (names.get(tid) or "Pedestrian"),
                         "identified_by": "duty roster (on-duty constable)" if "constable" in str(pin.get("victim", "")).lower() and victim == tid else "documents at the scene",
                         "phone": _phone(r), "emergency_contact": _phone(r), "contact_relation": r.choice(RELATION), "blood_group": r.choice(["O+", "B+", "A+"]),
                         "photo": (lic or {}).get("photo") or _photo(r, name), "licence": lic})

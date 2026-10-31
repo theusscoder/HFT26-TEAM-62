@@ -2,7 +2,7 @@
   "vehicles": [
     {
       "track": "ego",
-      "plate": "TS13XR8606",
+      "plate": "TS10RB0921",
       "confidence": 0.8,
       "reads": [],
       "partial": null,
@@ -11,7 +11,7 @@
     },
     {
       "track": "car_1",
-      "plate": "TS10RB0921",
+      "plate": "TS08XV8377",
       "confidence": 0.8,
       "reads": [],
       "partial": null,

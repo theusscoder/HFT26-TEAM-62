@@ -252,6 +252,74 @@ def telegram_chats():
     return alerts.telegram_chats()
 
 
+class TokenBody(BaseModel):
+    token: str = Field(min_length=20, max_length=120, pattern=r"^\d+:[A-Za-z0-9_-]+$")
+
+
+@router.post("/api/telegram/token")
+def telegram_token(body: TokenBody):
+    """Store the bot token from @BotFather in backend/.env (git-ignored), check it with Telegram, start the bot."""
+    import os
+    import httpx
+    from . import telegram_bot
+    try:
+        me = httpx.get(f"https://api.telegram.org/bot{body.token}/getMe", timeout=10).json()
+    except Exception as e:
+        raise HTTPException(502, f"cannot reach Telegram: {type(e).__name__}")
+    if not me.get("ok"):
+        raise HTTPException(400, "Telegram rejected this token")
+    env = Path(__file__).resolve().parents[1] / ".env"
+    lines = env.read_text(encoding="utf-8").splitlines() if env.exists() else []
+    lines = [l for l in lines if not l.startswith(("TELEGRAM_BOT_TOKEN=", "TELEGRAM_BOT_USERNAME="))]
+    user = me["result"]["username"]
+    lines += [f"TELEGRAM_BOT_TOKEN={body.token}", f"TELEGRAM_BOT_USERNAME={user}"]
+    env.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    os.environ["TELEGRAM_BOT_TOKEN"], os.environ["TELEGRAM_BOT_USERNAME"] = body.token, user
+    telegram_bot.start()
+    return {"ok": True, "bot": user, "link": f"https://t.me/{user}"}
+
+
+@router.post("/api/telegram/test-all")
+def telegram_test_all():
+    """One test message to every subscribed role chat."""
+    from . import notify
+    return {r: notify.send(r, f"YATHARTH · {r}", None, "✅ YATHARTH test alert", f"This chat is set up to receive {r} alerts.") for r in ("police", "hospital", "family")}
+
+
+@router.get("/api/cameras")
+def cameras_status():
+    from . import camera_agent
+    return camera_agent.status()
+
+
+@router.get("/api/cameras/{cam}/stream")
+def camera_stream(cam: str):
+    from fastapi.responses import StreamingResponse
+    from . import camera_agent
+    if not any(c["id"] == cam for c in camera_agent.cameras()):
+        raise HTTPException(404)
+    return StreamingResponse(camera_agent.frame_stream(cam), media_type="multipart/x-mixed-replace; boundary=frame")
+
+
+@router.post("/api/cameras/{cam}/scan")
+def camera_scan(cam: str):
+    """Screen one camera now (in the background); the result shows in /api/cameras."""
+    import threading
+    from . import camera_agent
+    c = next((c for c in camera_agent.cameras() if c["id"] == cam), None)
+    if not c:
+        raise HTTPException(404)
+    threading.Thread(target=camera_agent.scan, args=(c,), daemon=True).start()
+    return {"started": cam}
+
+
+@router.post("/api/cameras/agent/{state}")
+def camera_agent_switch(state: str):
+    from . import camera_agent
+    camera_agent.start() if state == "on" else camera_agent.stop()
+    return camera_agent.status()
+
+
 @router.get("/api/ops")
 def ops_snapshot():
     from . import ops_center

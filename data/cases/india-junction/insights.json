@@ -64,6 +64,19 @@
     "importance": 3
   },
   {
+    "id": "K-vision",
+    "t": -1.0,
+    "kind": "vision",
+    "title": "Vision model's reading (overruled)",
+    "detail": "The grey car cut in front of the white car, forcing it to brake suddenly. The grey car then moved out of the way, leaving the white car in the middle of the intersection. This doesn't match what was measured (It drifted left on its own into the point of impact); the measurements stand.",
+    "actor": null,
+    "xy": null,
+    "evidence": [
+      "vision.json#sequence"
+    ],
+    "importance": 1
+  },
+  {
     "id": "K5",
     "t": 0.4,
     "kind": "measure",

@@ -8,7 +8,7 @@
     0.0
   ],
   "names": {
-    "ego": "Silver motorcycle (primary)",
+    "ego": "White motorcycle (primary)",
     "car_1": "Grey car",
     "car_2": "Red car",
     "car_12": "Car"
@@ -18,6 +18,6 @@
     "car_1": "grey",
     "motorcycle_3": "black",
     "car_2": "red",
-    "ego": "silver"
+    "ego": "white"
   }
 }

@@ -6,11 +6,11 @@
       "sigma": 0.05,
       "anchor": "dashcam:vehicle fills the frame just before the jolt"
     },
-    "witness_1": {
+    "witness_2": {
       "offset_s": null,
       "note": "ordering only (before / at / after impact)"
     },
-    "witness_2": {
+    "witness_1": {
       "offset_s": null,
       "note": "ordering only (before / at / after impact)"
     }
@@ -25,7 +25,7 @@
       0.0
     ],
     "names": {
-      "ego": "Silver motorcycle (primary)",
+      "ego": "White motorcycle (primary)",
       "car_1": "Grey car",
       "car_2": "Red car",
       "car_12": "Car"
@@ -35,7 +35,7 @@
       "car_1": "grey",
       "motorcycle_3": "black",
       "car_2": "red",
-      "ego": "silver"
+      "ego": "white"
     }
   },
   "contradictions": [
@@ -66,21 +66,21 @@
   ],
   "gaps": [],
   "reliability": {
-    "witness_1": 0.0,
-    "witness_2": 0.5
+    "witness_2": 0.5,
+    "witness_1": 0.0
   },
   "reliability_detail": {
+    "witness_2": {
+      "evidence_score": 0.5,
+      "weight": 0.9,
+      "reasons": []
+    },
     "witness_1": {
       "evidence_score": 0.0,
       "weight": 0.72,
       "reasons": [
         "hedged wording"
       ]
-    },
-    "witness_2": {
-      "evidence_score": 0.5,
-      "weight": 0.9,
-      "reasons": []
     }
   },
   "checks": [
@@ -145,10 +145,11 @@
   ],
   "counterfactual": {
     "actor": "ego",
-    "observed_speed_kmh": 45.9,
-    "hazard_at_m": 25.97,
-    "brake_start_s": -1.6,
-    "note": "Distance the primary vehicle covered in the last 1.6 s before impact: 26.0 m. Would it have stopped short at a lower speed?"
+    "observed_speed_kmh": 20.2,
+    "hazard_at_m": 7.19,
+    "brake_start_s": -0.9,
+    "relative_to": "car_1",
+    "note": "The vehicle ahead came into the lane 0.9 s before impact, 7.2 m ahead, with the gap closing at 20 km/h. Speeds here are relative to it: could the rider have stopped short of it?"
   },
   "stn": {
     "consistent": true,

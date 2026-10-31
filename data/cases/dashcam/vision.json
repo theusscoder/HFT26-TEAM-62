@@ -90,6 +90,25 @@
   "signal_frame": null,
   "overlay_clock": null,
   "agree_with_detector": true,
-  "primary_colour": "silver",
-  "method": "featherless:Qwen/Qwen3-VL-8B-Instruct on 4/4 keyframes"
+  "primary_colour": "white",
+  "method": "featherless:Qwen/Qwen3-VL-8B-Instruct on 4/4 keyframes",
+  "sequence": {
+    "first_change": {
+      "who": "grey car",
+      "action": "cut_in"
+    },
+    "struck": "white motorcycle",
+    "striking": "grey car",
+    "most_likely_hurt": "white motorcycle rider",
+    "vehicle_left_scene": false,
+    "sequence": "The grey car cut into the camera vehicle's lane, forcing the motorcycle to collide with it. The motorcycle then slid off the road and came to rest on the shoulder.",
+    "confidence": "high",
+    "frames": [
+      "before",
+      "impact",
+      "after"
+    ],
+    "cached": false,
+    "check": "agrees"
+  }
 }

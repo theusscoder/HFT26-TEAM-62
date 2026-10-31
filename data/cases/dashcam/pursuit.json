@@ -4,7 +4,7 @@
   "vehicles": [
     {
       "track": "ego",
-      "name": "Silver motorcycle",
+      "name": "White motorcycle",
       "role": "primary",
       "class": "motorcycle",
       "colour": null,

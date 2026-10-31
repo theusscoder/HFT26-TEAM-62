@@ -31,8 +31,9 @@ app.include_router(response_router)
 
 @app.on_event("startup")
 def _start_telegram_linker():  # lets case contacts link their phone to the bot while the demo runs
-    from . import telegram_bot
+    from . import camera_agent, telegram_bot
     telegram_bot.start()
+    camera_agent.start()   # watches the traffic cameras and opens cases by itself (CAMERA_AGENT=off to disable)
 
 
 def case_dir(cid: str) -> Path:

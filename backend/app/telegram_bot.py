@@ -49,6 +49,23 @@ def _save_links(links: dict):
         os.replace(tmp, LINKS)
 
 
+ROLES = ("police", "hospital", "family")
+
+
+def role_chats(role: str) -> list[str]:
+    """Chats subscribed to a control-room role with /police, /hospital or /family (all three with /all)."""
+    return list(dict.fromkeys((load_links().get("_roles") or {}).get(role, [])))
+
+
+def _subscribe(chat: str, roles: list[str], name: str | None):
+    links = load_links()
+    subs = links.setdefault("_roles", {})
+    for r in ROLES:
+        subs[r] = [c for c in subs.get(r, []) if c != chat] + ([chat] if r in roles else [])
+    links.setdefault("_names", {})[chat] = name or ""
+    _save_links(links)
+
+
 def chat_for(number) -> str | None:
     d = _digits(number)
     return (load_links().get(d) or {}).get("chat_id") if d else None
@@ -99,18 +116,27 @@ def _handle(token: str, m: dict):
         _api(token, "sendMessage", chat_id=chat, reply_markup={"remove_keyboard": True},
              text=f"✅ Linked: +91 {_digits(c['phone_number'])} ({what}).\nAccident alerts for this number will arrive in this chat within seconds. Send /stop to unlink.")
         return
+    cmd = text.split("@")[0].lower()
+    if cmd in ("/police", "/hospital", "/family", "/all"):
+        roles = list(ROLES) if cmd == "/all" else [cmd[1:]]
+        _subscribe(chat, roles, (m.get("from") or {}).get("first_name"))
+        what = {"police": "police control room", "hospital": "hospital emergency desk", "family": "victim's family"}
+        _api(token, "sendMessage", chat_id=chat, reply_markup={"remove_keyboard": True},
+             text="✅ This chat now receives YATHARTH alerts as the " + ", ".join(what[r] for r in roles) + ".\nEvery new accident the camera agents detect arrives here within seconds. /stop to unsubscribe.")
+        return
     if text.startswith("/stop"):
-        links = {k: v for k, v in load_links().items() if v.get("chat_id") != chat}
+        _subscribe(chat, [], None)
+        links = {k: v for k, v in load_links().items() if k.startswith("_") or v.get("chat_id") != chat}
         _save_links(links)
         _api(token, "sendMessage", chat_id=chat, text="Unlinked. You will not receive YATHARTH alerts here.", reply_markup={"remove_keyboard": True})
         return
-    linked = [k for k, v in load_links().items() if v.get("chat_id") == chat]
+    linked = [k for k, v in load_links().items() if not k.startswith("_") and v.get("chat_id") == chat]
     if linked:
         _api(token, "sendMessage", chat_id=chat, text=f"This chat is linked to +91 {linked[0]}. Alerts will arrive here. /stop to unlink.")
         return
     _api(token, "sendMessage", chat_id=chat,
-         text="YATHARTH accident alerts (demo).\nTap the button below to confirm your phone number. Only numbers registered as contacts in a case are linked.",
-         reply_markup={"keyboard": [[{"text": "📱 Share my phone number", "request_contact": True}]],
+         text="YATHARTH accident alerts.\nChoose what this chat receives:\n/police  police control room\n/hospital  hospital emergency desk\n/family  the victim's family\n/all  everything\n\nOr tap the button to link your phone number as a case contact.",
+         reply_markup={"keyboard": [[{"text": "/police"}, {"text": "/hospital"}, {"text": "/family"}, {"text": "/all"}], [{"text": "📱 Share my phone number", "request_contact": True}]],
                        "one_time_keyboard": True, "resize_keyboard": True})
 
 
@@ -149,6 +175,8 @@ def start():
 
 def status() -> dict:
     links = load_links()
+    names = links.get("_names") or {}
+    roles = {r: [{"chat": c, "name": names.get(c, "")} for c in role_chats(r)] for r in ROLES}
     contacts = {}
     for f in sorted((DATA / "cases").glob("*/contacts.json")):
         try:
@@ -160,4 +188,4 @@ def status() -> dict:
             pass
     bot = _state["bot"] or os.getenv("TELEGRAM_BOT_USERNAME")
     return {"token": bool(os.getenv("TELEGRAM_BOT_TOKEN")), "linker_running": _state["running"], "bot": bot,
-            "link": f"https://t.me/{bot}" if bot else None, "error": _state["error"], "contacts": list(contacts.values())}
+            "link": f"https://t.me/{bot}" if bot else None, "error": _state["error"], "contacts": list(contacts.values()), "roles": roles}

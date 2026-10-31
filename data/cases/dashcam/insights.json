@@ -16,59 +16,11 @@
     "importance": 3
   },
   {
-    "id": "K6",
-    "t": -3.2,
-    "kind": "warning",
-    "title": "Time-to-collision below 3.0 s",
-    "detail": "10.0 m apart and closing at 12 km/h at T-3.2 s.",
-    "actor": "car_1",
-    "xy": [
-      -3.47,
-      -39.61
-    ],
-    "evidence": [
-      "dashcam.json#car_1"
-    ],
-    "importance": 2
-  },
-  {
-    "id": "K7",
-    "t": -2.7,
-    "kind": "warning",
-    "title": "Time-to-collision below 1.5 s",
-    "detail": "12.6 m apart and closing at 54 km/h at T-2.7 s.",
-    "actor": "car_1",
-    "xy": [
-      -2.4,
-      -30.0
-    ],
-    "evidence": [
-      "dashcam.json#car_1"
-    ],
-    "importance": 3
-  },
-  {
-    "id": "K3",
-    "t": -1.6,
-    "kind": "counterfactual",
-    "title": "Could it have stopped?",
-    "detail": "1.6 s before impact Silver motorcycle was at 46 km/h with 26.0 m to go. A full stop (1 s reaction + braking) needs 24.7 m. A stop was possible; the highest speed that would have allowed a stop is about 72 km/h.",
-    "actor": "ego",
-    "xy": [
-      0.0,
-      -26.96
-    ],
-    "evidence": [
-      "tracks_metric:ego"
-    ],
-    "importance": 3
-  },
-  {
     "id": "K2",
     "t": -1.5,
     "kind": "moment",
     "title": "Braking began 1.5 s before impact",
-    "detail": "At 46 km/h with 24.3 m left to the impact point. Braking alone needs about 12.0 m to stop from that speed, so a stop was possible.",
+    "detail": "At 46 km/h with 24.3 m left to the impact point. The rider was already braking 0.6 s before Grey car came into the lane.",
     "actor": "ego",
     "xy": [
       0.0,
@@ -80,17 +32,101 @@
     "importance": 3
   },
   {
-    "id": "K8",
+    "id": "K10",
     "t": -1.5,
     "kind": "measure",
-    "title": "Reaction time \u2248 1.7 s",
-    "detail": "Braking began 1.7 s after the hazard reached a 3 s time-to-collision (typical perception-reaction time is 1.0\u20131.5 s).",
+    "title": "Slowing began before the hazard became critical",
+    "detail": "The camera vehicle was already slowing 1.5 s before impact, before the time-to-collision fell below 3 s.",
     "actor": "ego",
     "xy": null,
     "evidence": [
       "EV-I-002"
     ],
+    "importance": 2
+  },
+  {
+    "id": "K8",
+    "t": -1.1,
+    "kind": "warning",
+    "title": "Time-to-collision below 3.0 s",
+    "detail": "9.6 m apart and closing at 14 km/h at T-1.1 s.",
+    "actor": "car_1",
+    "xy": [
+      -2.02,
+      -10.06
+    ],
+    "evidence": [
+      "dashcam.json#car_1"
+    ],
+    "importance": 2
+  },
+  {
+    "id": "K9",
+    "t": -1.04,
+    "kind": "warning",
+    "title": "Time-to-collision below 1.5 s",
+    "detail": "9.2 m apart and closing at 34 km/h at T-1.0 s.",
+    "actor": "car_1",
+    "xy": [
+      -1.71,
+      -9.38
+    ],
+    "evidence": [
+      "dashcam.json#car_1"
+    ],
     "importance": 3
+  },
+  {
+    "id": "K-vision",
+    "t": -1.0,
+    "kind": "vision",
+    "title": "Vision model's reading",
+    "detail": "The grey car cut into the camera vehicle's lane, forcing the motorcycle to collide with it. The motorcycle then slid off the road and came to rest on the shoulder. This agrees with the measurements.",
+    "actor": null,
+    "xy": null,
+    "evidence": [
+      "vision.json#sequence"
+    ],
+    "importance": 3
+  },
+  {
+    "id": "K6",
+    "t": -0.9,
+    "kind": "moment",
+    "title": "Grey car moved into the camera vehicle's lane",
+    "detail": "It came 11.3 m across from the left (T-3.6 s) to 1.0 m off the camera's line by T-0.9 s, 7 m ahead.",
+    "actor": "car_1",
+    "xy": null,
+    "evidence": [
+      "dashcam.json#car_1"
+    ],
+    "importance": 3
+  },
+  {
+    "id": "K7",
+    "t": -0.9,
+    "kind": "counterfactual",
+    "title": "Could the rider have avoided it?",
+    "detail": "When Grey car entered the lane 0.9 s before impact it was 7.2 m ahead and the gap was closing at about 20 km/h. Avoiding contact needed about 7.9 m (1 s reaction + braking): there wasn't room. The vehicle moving into the lane and slowing ahead is what made the crash unavoidable.",
+    "actor": "ego",
+    "xy": null,
+    "evidence": [
+      "dashcam.json#car_1"
+    ],
+    "importance": 3
+  },
+  {
+    "id": "K7",
+    "t": -0.75,
+    "kind": "measure",
+    "title": "Grey car ahead at \u2248 40 km/h",
+    "detail": "In the last 1.5 s the camera vehicle (61 km/h) was closing on it at about 20 km/h, so it was doing about 40 km/h.",
+    "actor": "car_1",
+    "xy": null,
+    "evidence": [
+      "dashcam.json#car_1"
+    ],
+    "importance": 2
   },
   {
     "id": "K1",
@@ -113,7 +149,7 @@
     "t": 0.0,
     "kind": "measure",
     "title": "Closest approach: Grey car",
-    "detail": "Grey car came within 1.5 m of Silver motorcycle's body (2.5 m centre to centre) at T+0.0 s.",
+    "detail": "Grey car came within 1.5 m of White motorcycle's body (2.5 m centre to centre) at T+0.0 s.",
     "actor": "car_1",
     "xy": [
       -0.31,

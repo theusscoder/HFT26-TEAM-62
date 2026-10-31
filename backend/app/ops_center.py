@@ -117,6 +117,10 @@ def ack(case_id: str, hospital: str, by: str, bed: str, note: str = "") -> dict:
     a = acks()
     a[case_id] = {"hospital": hospital, "by": by, "bed": bed, "note": note, "time": time.time(), "cycle": cycle_no()}
     ACKS.write_text(json.dumps(a, indent=2), encoding="utf-8")
+    from . import notify   # the police control room hears it on Telegram too
+    inc = next((i for i in build()["incidents"] if i["id"] == case_id), {})
+    a[case_id]["telegram"] = notify.send("police", "YATHARTH · hospital confirmation", None, f"🏥 {hospital}: bed ready",
+                                         f"{bed} ready for the patient from {inc.get('place', case_id)}. Confirmed by {by}.")["status"]
     return a[case_id]
 
 

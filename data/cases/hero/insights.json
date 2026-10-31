@@ -112,6 +112,19 @@
     "importance": 3
   },
   {
+    "id": "K-vision",
+    "t": -1.0,
+    "kind": "vision",
+    "title": "Vision model's reading (overruled)",
+    "detail": "The policeman stopped in the lane, causing the blue bus to collide with him. The bus then continued moving forward after the impact. This doesn't match what was measured (It drifted right on its own into the point of impact); the measurements stand.",
+    "actor": null,
+    "xy": null,
+    "evidence": [
+      "vision.json#sequence"
+    ],
+    "importance": 1
+  },
+  {
     "id": "K5",
     "t": 0.0,
     "kind": "measure",

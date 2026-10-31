@@ -1,0 +1,11 @@
+{
+  "_note": "Traffic cameras the camera agent watches. 'source' is a video file (relative to the repo) or a stream URL (rtsp://, http(s):// MJPEG or HLS). File sources loop like a live feed.",
+  "cameras": [
+    {"id": "CAM-HYD-0417", "name": "Gachibowli flyover, ORR ramp", "lat": 17.4448, "lon": 78.3478, "camera": "cctv", "source": "demo_kits/01-india-bus-divider/video.mp4"},
+    {"id": "CAM-HYD-0233", "name": "Old Mumbai Highway, Telecom Nagar", "lat": 17.4339, "lon": 78.3561, "camera": "cctv", "source": "demo_kits/02-atlanta-tbone/video.mp4"},
+    {"id": "CAM-HYD-0581", "name": "Kondapur, Botanical Garden Road", "lat": 17.4561, "lon": 78.3632, "camera": "cctv", "source": "demo_kits/03-minor-rear-end/video.mp4"},
+    {"id": "DASH-TS-1142", "name": "Patrol bike dashcam, Nanakramguda", "lat": 17.4223, "lon": 78.3449, "camera": "dashcam", "ego_class": "motorcycle", "source": "demo_kits/04-dashcam-rear-end/video.mp4"},
+    {"id": "CAM-HYD-0129", "name": "Cyber Towers junction, HITEC City", "lat": 17.4504, "lon": 78.3810, "camera": "cctv", "source": "demo_kits/05-india-junction-tbone/video.mp4"},
+    {"id": "CAM-HYD-0362", "name": "Madhapur, Image Hospital junction", "lat": 17.4411, "lon": 78.3912, "camera": "cctv", "source": "demo_kits/06-india-auto-rickshaw/video.mp4"}
+  ]
+}

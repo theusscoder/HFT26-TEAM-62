@@ -93,5 +93,24 @@
   "overlay_clock": null,
   "agree_with_detector": true,
   "primary_colour": "black",
-  "method": "featherless:Qwen/Qwen3-VL-8B-Instruct on 4/4 keyframes"
+  "method": "featherless:Qwen/Qwen3-VL-8B-Instruct on 4/4 keyframes",
+  "sequence": {
+    "first_change": {
+      "who": "black car",
+      "action": "braked_suddenly"
+    },
+    "struck": "red car",
+    "striking": "black car",
+    "most_likely_hurt": "none_visible",
+    "vehicle_left_scene": false,
+    "sequence": "The black car was moving slowly and braked suddenly, coming to a stop just before the red car. The red car was parked and was struck by the black car as it moved forward.",
+    "confidence": "high",
+    "frames": [
+      "before",
+      "impact",
+      "after"
+    ],
+    "cached": true,
+    "check": "agrees"
+  }
 }
