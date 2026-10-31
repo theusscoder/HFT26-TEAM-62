@@ -292,7 +292,7 @@ def run(case_dir: Path, video_events: list[dict], sensor_events: list[dict], wit
                 M["prim_turn"] = (infer(prim, "turn", f"drifts {side} before impact", -1.5, 0.3, [f"tracks_ui:{prim}"], "R_heading_vs_displacement", 0.65), side, lat)
     clk = case.get("clock_overlay")
     if clk:
-        t0c = datetime.strptime(clk["value"], "%H:%M:%S") + timedelta(seconds=case["t0_video_s"] - clk["at_video_s"])
+        t0c = datetime.strptime(str(clk["value"]).split()[-1][:8], "%H:%M:%S") + timedelta(seconds=case["t0_video_s"] - clk["at_video_s"])
         M["clock"] = (infer("cctv", "time_of_day", t0c.strftime("%H:%M:%S") + f" at impact ({clk.get('method', 'overlay')})", 0, 0, [f"cctv.mp4#overlay@{clk['at_video_s']}s"], "R_overlay_clock", 0.9), t0c)
     sig_state = (vision or {}).get("signal_state")
     if sig_state and sig_state != "not_visible":

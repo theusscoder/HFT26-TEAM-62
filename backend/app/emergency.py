@@ -97,7 +97,7 @@ def _clock_at_impact(case: dict) -> str | None:
         return None
     from datetime import timedelta
     try:
-        t = datetime.strptime(clk["value"], "%H:%M:%S") + timedelta(seconds=case["t0_video_s"] - clk["at_video_s"])
+        t = datetime.strptime(str(clk["value"]).split()[-1][:8], "%H:%M:%S") + timedelta(seconds=case["t0_video_s"] - clk["at_video_s"])
         return t.strftime("%H:%M:%S")
     except (KeyError, ValueError):
         return None

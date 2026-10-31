@@ -1,9 +1,9 @@
-import { useEffect, useMemo, useRef } from "react";
+﻿import { Suspense, useEffect, useMemo, useRef } from "react";
 import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
 import { Html, Line, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import type { Metric, MetricTrack } from "./TopView";
-import { ClayVehicle, TWIN, TwinCity, type RoadModel } from "./TwinCity";
+import { ClayVehicle, GroundPhotoLayer, TWIN, TwinCity, type GroundPhoto, type RoadModel } from "./TwinCity";
 
 /* The reconstruction in 3D, built from the footage and checked against it (backend/app/pipeline/scene3d.py).
    World: x across the road, y along it (metres). three.js: X = x, Z = -y, Y = up.
@@ -58,7 +58,7 @@ export function dimsFor(tr: MetricTrack, large: Set<string>): [number, number, n
   return large.has(tr.id) && tr.class === "car" ? DIMS.bus : DIMS[tr.class] ?? DIMS.car;
 }
 
-/** Does the segment a→b pass through the footprint of any other vehicle at time t? */
+/** Does the segment aâ†’b pass through the footprint of any other vehicle at time t? */
 export function blocked(a: { x: number; y: number }, b: { x: number; y: number }, tracks: MetricTrack[], t: number, skip: Set<string>, large: Set<string>) {
   for (const tr of tracks) {
     if (skip.has(tr.id)) continue;
@@ -85,7 +85,7 @@ export interface SceneTrack { id: string; class: string; kind: string; colour_na
 export interface SceneData {
   camera: { position: number[]; forward: number[]; up: number[]; fov_deg: number; focal_px: number; width: number; height: number; content: number[]; height_m: number; reproj_err_px: number; method: string; people_used: number };
   actors?: { model: string | null; asked: number; riders_on_tracked_bikes: number; riders_seen_by_vision: number };
-  plate: string; tracks: SceneTrack[]; impact?: number[] | null; witnesses: Record<string, number[]>; road?: RoadModel;
+  plate: string; ground?: GroundPhoto | null; tracks: SceneTrack[]; impact?: number[] | null; witnesses: Record<string, number[]>; road?: RoadModel;
   scale_check?: { map_vs_camera_across_road: number; map_vs_camera_along_road: number };
   fit: { iou_key: number | null; iou_all: number | null; frames_checked: number; median_person_height_m: number | null };
 }
@@ -306,7 +306,7 @@ function RoadUser({ tr, t, caseId, main, label, showBox, look, primary, solid }:
         <lineBasicMaterial color={person ? "#ffe45c" : "#3cff8f"} />
       </lineSegments>}
       {label && <Html position={[0, H + 0.7, 0]} center distanceFactor={16} zIndexRange={[20, 0]}>
-        <div className="pointer-events-none whitespace-nowrap rounded bg-bg/85 px-2 py-0.5 text-[11px] font-semibold text-ink">{label}{person ? "" : ` · ${s.v.toFixed(0)} km/h`}</div>
+        <div className="pointer-events-none whitespace-nowrap rounded bg-bg/85 px-2 py-0.5 text-[11px] font-semibold text-ink">{label}{person ? "" : ` Â· ${s.v.toFixed(0)} km/h`}</div>
       </Html>}
     </group>
   );
@@ -394,7 +394,7 @@ function ImpactMark({ x, y, t, cctv }: { x: number; y: number; t: number; cctv: 
   return (
     <group position={W2T(x, y)}>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.04, 0]}><ringGeometry args={[0.9, 1.0, 48]} /><meshBasicMaterial color="#ff5d5d" transparent opacity={0.8} toneMapped={false} /></mesh>
-      <Html position={[0, 4.6, 0]} center distanceFactor={18} zIndexRange={[20, 0]}><div className="pointer-events-none rounded bg-bad px-2 py-0.5 text-[11px] font-bold text-bg">IMPACT · T0</div></Html>
+      <Html position={[0, 4.6, 0]} center distanceFactor={18} zIndexRange={[20, 0]}><div className="pointer-events-none rounded bg-bad px-2 py-0.5 text-[11px] font-bold text-bg">IMPACT Â· T0</div></Html>
     </group>
   );
 }
@@ -509,7 +509,8 @@ export default function Scene3D({ caseId, metric, scene, t, entities, witnesses,
       <directionalLight key={look} position={sun} target-position={impact} intensity={look === "twin" ? 2.1 : 1.6} color="#fff" castShadow shadow-mapSize={[4096, 4096]} shadow-bias={-0.0004}
         shadow-camera-left={-120} shadow-camera-right={120} shadow-camera-top={120} shadow-camera-bottom={-120} shadow-camera-far={320} />
 
-      {!cctv && look === "twin" && <TwinCity seed={caseId} road={road} />}
+      {!cctv && look === "twin" && <TwinCity seed={caseId} road={road} photo={!!scene?.ground} />}
+      {!cctv && look === "twin" && scene?.ground && <Suspense fallback={null}><GroundPhotoLayer caseId={caseId} g={scene.ground} /></Suspense>}
       {!cctv && <>
         {look === "photo" && <mesh rotation={[-Math.PI / 2, 0, 0]} position={[impact.x, -0.02, impact.z]}><planeGeometry args={[500, 500]} /><meshBasicMaterial color="#6d7176" /></mesh>}
         {look === "photo" && scene && <ProjectedSet caseId={caseId} scene={scene} bounds={bounds} />}
@@ -527,7 +528,7 @@ export default function Scene3D({ caseId, metric, scene, t, entities, witnesses,
 
       {!cctv && look === "photo" && scene && <group position={projectorOf(scene.camera).position}>
         <mesh><boxGeometry args={[0.5, 0.35, 0.7]} /><meshStandardMaterial color="#1a2a44" /></mesh>
-        <Html position={[0, 0.7, 0]} center distanceFactor={16} zIndexRange={[20, 0]}><div className="pointer-events-none rounded bg-observed/90 px-1.5 text-[10px] text-white">CCTV · {scene.camera.height_m.toFixed(1)} m up</div></Html>
+        <Html position={[0, 0.7, 0]} center distanceFactor={16} zIndexRange={[20, 0]}><div className="pointer-events-none rounded bg-observed/90 px-1.5 text-[10px] text-white">CCTV Â· {scene.camera.height_m.toFixed(1)} m up</div></Html>
       </group>}
 
       {!cctv && sight && Object.entries(pinned).map(([w, p]) => {

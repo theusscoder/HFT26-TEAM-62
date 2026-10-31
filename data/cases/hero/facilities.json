@@ -1,0 +1,113 @@
+{
+  "source": "OpenStreetMap extract shipped with the app; drive times on its road network at emergency speed",
+  "police": [
+    {
+      "name": "Gachibowli traffic police station",
+      "lat": 17.4458549,
+      "lon": 78.3519936,
+      "dist_km": 0.3,
+      "eta_min": 0
+    },
+    {
+      "name": "Gachibowli Police station",
+      "lat": 17.4440218,
+      "lon": 78.3536376,
+      "dist_km": 0.5,
+      "eta_min": 1
+    },
+    {
+      "name": "Police",
+      "lat": 17.4434987,
+      "lon": 78.3534094,
+      "dist_km": 0.5,
+      "eta_min": 2
+    },
+    {
+      "name": "Women police station",
+      "lat": 17.4382434,
+      "lon": 78.3630264,
+      "dist_km": 1.7,
+      "eta_min": 3
+    },
+    {
+      "name": "Traffice Police Watch Tower",
+      "lat": 17.4255922,
+      "lon": 78.3406865,
+      "dist_km": 2.4,
+      "eta_min": 4
+    },
+    {
+      "name": "Police",
+      "lat": 17.4323839,
+      "lon": 78.3703268,
+      "dist_km": 2.7,
+      "eta_min": 5
+    }
+  ],
+  "hospitals": [
+    {
+      "name": "Himagiri Hospital",
+      "lat": 17.4422328,
+      "lon": 78.3587144,
+      "dist_km": 1.1,
+      "eta_min": 3,
+      "trauma": true
+    },
+    {
+      "name": "Praba's VCare Health Clinic (P) Ltd, Gachibowli",
+      "lat": 17.4507108,
+      "lon": 78.3631503,
+      "dist_km": 1.6,
+      "eta_min": 3,
+      "trauma": true
+    },
+    {
+      "name": "Pi Health Hospital",
+      "lat": 17.4482414,
+      "lon": 78.3605759,
+      "dist_km": 1.3,
+      "eta_min": 3,
+      "trauma": true
+    },
+    {
+      "name": "Ambicare Hospital",
+      "lat": 17.4535178,
+      "lon": 78.364084,
+      "dist_km": 1.8,
+      "eta_min": 4,
+      "trauma": true
+    },
+    {
+      "name": "Rajitha Hospital",
+      "lat": 17.4506967,
+      "lon": 78.3640308,
+      "dist_km": 1.7,
+      "eta_min": 4,
+      "trauma": true
+    },
+    {
+      "name": "Kakatiya Hospital",
+      "lat": 17.4497269,
+      "lon": 78.3672388,
+      "dist_km": 2.0,
+      "eta_min": 4,
+      "trauma": true
+    },
+    {
+      "name": "Dr Agarwals Eye Hospital",
+      "lat": 17.4310175,
+      "lon": 78.3716983,
+      "dist_km": 2.9,
+      "eta_min": 5,
+      "trauma": true
+    },
+    {
+      "name": "Omega Hospitals",
+      "lat": 17.4364246,
+      "lon": 78.3675806,
+      "dist_km": 2.2,
+      "eta_min": 5,
+      "trauma": true
+    }
+  ]
+}

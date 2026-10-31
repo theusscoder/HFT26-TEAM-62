@@ -683,6 +683,53 @@ def textures(cam: dict, fitted: dict, ui_track: dict, video: Path, t0: float, fp
     return {"faces": out, "from_t": p["t"]} if out else {}
 
 
+GROUND_RES_M = 0.12        # metres per pixel of the top-down ground photo
+GROUND_MAX_STRETCH = 0.6   # beyond this many metres per source pixel the photo is too smeared to show
+ROAD_HALF_M = 4.5          # half the carriageway a vehicle's path stands for
+
+
+def ground_photo(cam: dict, plate: np.ndarray, fitted: list[dict], impact, out: Path) -> dict | None:
+    """The clean plate re-projected straight down onto the solved ground plane: the real road surface (lane paint, zebra,
+    medians, kerbs) as a top-down texture for the digital twin. Only where the camera sees the ground sharply enough."""
+    pts = np.array([[p["x"], p["y"]] for f in fitted if f["kind"] != "person" for p in f["points"]] or [impact or [0.0, 0.0]])
+    lo, hi = np.percentile(pts, 2, axis=0) - 25, np.percentile(pts, 98, axis=0) + 25
+    x0, y0 = float(lo[0]), float(lo[1])
+    x1, y1 = float(min(hi[0], x0 + 220)), float(min(hi[1], y0 + 220))
+    W, H = int((x1 - x0) / GROUND_RES_M), int((y1 - y0) / GROUND_RES_M)
+    if W < 50 or H < 50:
+        return None
+    H_wi = np.linalg.inv(cam["H_iw"])
+    T = np.array([[GROUND_RES_M, 0, x0], [0, -GROUND_RES_M, y1], [0, 0, 1.0]])   # output pixel -> ground metres (row 0 = far north)
+    M = H_wi @ T                                                                   # output pixel -> plate pixel
+    img = cv2.warpPerspective(plate, M, (W, H), flags=cv2.INTER_LINEAR | cv2.WARP_INVERSE_MAP, borderMode=cv2.BORDER_CONSTANT)
+    # keep pixels in front of the camera, inside the picture content, and not smeared (a source pixel covering < GROUND_MAX_STRETCH m)
+    gx, gy = np.meshgrid(np.arange(W, dtype=np.float32), np.arange(H, dtype=np.float32))
+    hom = M @ np.stack([gx.ravel(), gy.ravel(), np.ones(W * H, np.float32)])
+    w = hom[2].reshape(H, W)
+    u, v = (hom[0] / np.where(hom[2] == 0, 1e-9, hom[2])).reshape(H, W), (hom[1] / np.where(hom[2] == 0, 1e-9, hom[2])).reshape(H, W)
+    cx0, cy0, cx1, cy1 = cam.get("content") or [0, 0, plate.shape[1], plate.shape[0]]
+    # source pixels per output pixel, in the worse of the two directions (far ground smears along the line of sight)
+    du = np.minimum(np.hypot(np.gradient(u, axis=1), np.gradient(v, axis=1)), np.hypot(np.gradient(u, axis=0), np.gradient(v, axis=0)))
+    stretch = GROUND_RES_M / np.maximum(du, 1e-6)
+    # the road is where vehicles drove: their ground paths, widened to a carriageway; walls and shopfronts projected
+    # onto the ground (the flat-ground assumption fails there) stay out
+    road = np.zeros((H, W), np.uint8)
+    for f in fitted:
+        if f["kind"] == "person" or len(f["points"]) < 2:
+            continue
+        line = np.array([[(p["x"] - x0) / GROUND_RES_M, (y1 - p["y"]) / GROUND_RES_M] for p in f["points"]], np.int32)
+        cv2.polylines(road, [line], False, 255, int(ROAD_HALF_M * 2 / GROUND_RES_M))
+    road = cv2.morphologyEx(road, cv2.MORPH_CLOSE, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (81, 81)))
+    ok = (w > 0) & (u >= cx0 + 2) & (u < cx1 - 2) & (v >= cy0 + 2) & (v < cy1 - 2) & (stretch < GROUND_MAX_STRETCH) & (road > 0)
+    alpha = cv2.GaussianBlur((ok * 255).astype(np.uint8), (0, 0), 6)
+    alpha[~ok] = 0
+    if ok.mean() < 0.05:
+        return None
+    cv2.imwrite(str(out / "ground.png"), np.dstack([img, alpha]), [cv2.IMWRITE_PNG_COMPRESSION, 7])
+    return {"file": "ground.png", "x0": round(x0, 2), "x1": round(x1, 2), "y0": round(y0, 2), "y1": round(y1, 2), "res_m": GROUND_RES_M,
+            "covered": round(float(ok.mean()), 3)}
+
+
 def run(case_dir: Path) -> dict | None:
     if not (case_dir / "tracks_metric.json").exists() or not (case_dir / "calibration.json").exists():
         return None
@@ -744,7 +791,9 @@ def run(case_dir: Path) -> dict | None:
             f["iou"], f["n_checked"] = None, 0
         if a:
             f["vlm"] = {"type": said, "colour": a.get("colour")}
-            if tr["class"] != "person" and isinstance(a.get("colour"), str) and a["colour"].lower() in ("white", "silver", "grey", "gray", "black", "red", "blue", "green", "yellow", "orange", "brown"):
+            # its colour only counts when it saw the same kind of thing (a car cropped behind riders comes back as a rider)
+            same_kind = not (tr["class"] in ("car", "bus", "truck") and "rider" in str(said))
+            if same_kind and tr["class"] != "person" and isinstance(a.get("colour"), str) and a["colour"].lower() in ("white", "silver", "grey", "gray", "black", "red", "blue", "green", "yellow", "orange", "brown"):
                 f["colour_name"] = a["colour"].lower().replace("gray", "grey")
         if tr["id"] == ent.get("primary") and vision.get("primary_colour"):
             f["colour_name"] = vision["primary_colour"]
@@ -761,7 +810,11 @@ def run(case_dir: Path) -> dict | None:
     camera["R"], camera["t"], camera["K"] = cam["R"].round(6).tolist(), cam["t"].round(4).tolist(), cam["K"].round(3).tolist()
     witnesses = json.loads((case_dir / "witnesses.json").read_text(encoding="utf-8")) if (case_dir / "witnesses.json").exists() else {}
     impact = from_map(calib, cam, ent["impact_xy"]) if ent.get("impact_xy") else None
-    res = {"camera": camera, "plate": "plate.jpg", "tracks": fitted, "scale_check": scale_check, "impact": impact,
+    try:
+        ground = ground_photo(cam, plate, fitted, impact, out_dir)
+    except Exception:   # the twin falls back to the drawn road
+        ground = None
+    res = {"camera": camera, "plate": "plate.jpg", "ground": ground, "tracks": fitted, "scale_check": scale_check, "impact": impact,
            "actors": {"model": llm.VISION_MODEL if actors else None, "asked": len(actors), "riders_on_tracked_bikes": len(riders), "riders_seen_by_vision": from_vision}, "road": road_model(calib, cam, fitted, impact, axis),
            "witnesses": {w: from_map(calib, cam, m["position_m"]) for w, m in witnesses.items() if m.get("position_m")},
            "fit": {"iou_key": weigh(keyed) if keyed else None, "iou_all": weigh(checked) if checked else None, "frames_checked": sum(f["n_checked"] for f in checked),

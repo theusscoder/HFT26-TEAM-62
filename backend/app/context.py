@@ -107,12 +107,32 @@ def _km(lat1, lon1, lat2, lon2) -> float:
     return 6371 * 2 * math.asin(math.sqrt(h))
 
 
+def facilities_local(lat: float, lon: float) -> dict | None:
+    """Nearest police and hospitals from the shipped OpenStreetMap extract, with drive times on its road network."""
+    from . import intercept
+    c = intercept.city()
+    s, w, n, e = c.raw["bbox"]
+    if not (s - 0.05 <= lat <= n + 0.05 and w - 0.05 <= lon <= e + 0.05):
+        return None
+    node = c.nearest(*c.xy(lat, lon))
+    police, hospitals = [], []
+    for p in c.raw["places"]:
+        d = round(_km(lat, lon, p["lat"], p["lon"]), 1)
+        dist, _ = c.dijkstra(c.nearest(*c.xy(p["lat"], p["lon"])), police=True, limit=1800)
+        eta = dist.get(node)
+        item = {"name": p["name"], "lat": p["lat"], "lon": p["lon"], "dist_km": d, "eta_min": round(eta / 60) if eta is not None else round(d / CITY_KMH * 60)}
+        (police if p["amenity"] == "police" else hospitals).append(item if p["amenity"] == "police" else {**item, "trauma": True})
+    police.sort(key=lambda x: x["eta_min"])
+    hospitals.sort(key=lambda x: x["eta_min"])
+    return {"source": "OpenStreetMap extract shipped with the app; drive times on its road network at emergency speed", "police": police[:6], "hospitals": hospitals[:8]}
+
+
 def facilities(lat: float, lon: float, fetch=None) -> dict | None:
     """Nearest police and hospitals. Distances are straight-line, and the ETA assumes city speed; neither is a route."""
     q = f'[out:json][timeout:20];(nwr(around:{SEARCH_M},{lat},{lon})["amenity"="police"];nwr(around:{SEARCH_M},{lat},{lon})["amenity"="hospital"];);out center tags 60;'
     r = _overpass(q, fetch)
     if r is None:
-        return None
+        return facilities_local(lat, lon) if fetch is None else None
     police, hospitals = [], []
     for el in r.get("elements", []):
         la, lo = el.get("lat") or el.get("center", {}).get("lat"), el.get("lon") or el.get("center", {}).get("lon")

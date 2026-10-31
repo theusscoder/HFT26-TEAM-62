@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import * as THREE from "three";
+import { useLoader } from "@react-three/fiber";
 
 /* The digital-twin look: a dark, matte city around the crash, with the vehicles in question lit up.
    The road's position, width, divider and crossing come from the case. The surrounding buildings are ILLUSTRATIVE
@@ -7,6 +8,20 @@ import * as THREE from "three";
    no filler cars, since on an evidence screen a car that wasn't there would be a false statement. */
 
 export interface RoadModel { axis: number; cx: number; cy: number; half: number; divider?: number[] | null; zebra?: number[] | null }
+/** The real road surface: the footage's clean plate projected straight down onto the solved ground (scene3d.ground_photo). */
+export interface GroundPhoto { file: string; x0: number; x1: number; y0: number; y1: number }
+
+export function GroundPhotoLayer({ caseId, g }: { caseId: string; g: GroundPhoto }) {
+  const tex = useLoader(THREE.TextureLoader, `/api/cases/${caseId}/scene/${g.file}`);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.anisotropy = 8;
+  return (
+    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[(g.x0 + g.x1) / 2, 0.012, -(g.y0 + g.y1) / 2]} receiveShadow renderOrder={1}>
+      <planeGeometry args={[g.x1 - g.x0, g.y1 - g.y0]} />
+      <meshStandardMaterial map={tex} transparent alphaTest={0.02} roughness={1} depthWrite={false} />
+    </mesh>
+  );
+}
 
 export const TWIN = { sky: "#f3f3f0", ground: "#e6e6e2", road: "#cfcfca", kerb: "#bdbdb8", line: "#ffffff", wall: "#fbfbf9", window: "#e2e2de", neutral: "#a3a39e", person: "#3c3c38",
   primary: "#e30613", involved: "#0a0a0a" };
@@ -95,7 +110,7 @@ function cityBlocks(seed: string, half: number, span: number) {
   return boxes;
 }
 
-export function TwinCity({ seed, road }: { seed: string; road: RoadModel }) {
+export function TwinCity({ seed, road, photo }: { seed: string; road: RoadModel; photo?: boolean }) {
   const span = 170;
   const geo = useMemo(() => buildingGeometry(cityBlocks(seed, road.half, span)), [seed, road.half]);
   const tex = useMemo(windowTexture, []);
@@ -114,9 +129,9 @@ export function TwinCity({ seed, road }: { seed: string; road: RoadModel }) {
       {[-1, 1].map((s) => (
         <mesh key={s} position={[s * (road.half + 1.6), 0.07, 0]} receiveShadow castShadow><boxGeometry args={[3.2, 0.14, span * 2]} /><meshStandardMaterial color={TWIN.kerb} roughness={1} /></mesh>
       ))}
-      {dashes.map((z) => <mesh key={z} rotation={flat} position={[0, 0.005, z]}><planeGeometry args={[0.13, 3]} /><meshBasicMaterial color={TWIN.line} toneMapped={false} /></mesh>)}
+      {!photo && dashes.map((z) => <mesh key={z} rotation={flat} position={[0, 0.005, z]}><planeGeometry args={[0.13, 3]} /><meshBasicMaterial color={TWIN.line} toneMapped={false} /></mesh>)}
       {road.divider && <mesh position={[(road.divider[0] + road.divider[1]) / 2, 0.14, 0]} castShadow receiveShadow><boxGeometry args={[Math.abs(road.divider[1] - road.divider[0]), 0.28, span * 2]} /><meshStandardMaterial color="#454d61" roughness={1} /></mesh>}
-      {road.zebra && stripes.map((x) => (
+      {!photo && road.zebra && stripes.map((x) => (
         <mesh key={x} rotation={flat} position={[x, 0.008, -(road.zebra![0] + road.zebra![1]) / 2]}><planeGeometry args={[0.5, Math.abs(road.zebra![1] - road.zebra![0])]} /><meshBasicMaterial color="#8791a8" toneMapped={false} /></mesh>
       ))}
       <mesh geometry={geo} castShadow receiveShadow><meshStandardMaterial map={tex} roughness={0.9} metalness={0} /></mesh>
