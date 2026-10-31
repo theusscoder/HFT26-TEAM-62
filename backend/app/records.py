@@ -33,6 +33,25 @@ RELATION = ["wife", "husband", "brother", "father", "mother", "sister", "son"]
 PHOTOS_M = [f"M-{i:02d}.jpg" for i in range(1, 13)]
 PHOTOS_F = [f"F-{i:02d}.jpg" for i in range(1, 13)]
 FEMALE = {"Lakshmi", "Priya", "Kavitha", "Sravani", "Deepika", "Ayesha", "Madhavi", "Swathi"}
+PHOTO_AGE = {"M-01.jpg": 24, "M-02.jpg": 30, "M-03.jpg": 32, "M-04.jpg": 38, "M-05.jpg": 25, "M-06.jpg": 38, "M-07.jpg": 28, "M-08.jpg": 27, "M-09.jpg": 36, "M-10.jpg": 36, "M-11.jpg": 42, "M-12.jpg": 56, "F-01.jpg": 26, "F-02.jpg": 30, "F-03.jpg": 25, "F-04.jpg": 28, "F-05.jpg": 43, "F-06.jpg": 27, "F-07.jpg": 33, "F-08.jpg": 29, "F-09.jpg": 26, "F-10.jpg": 52, "F-11.jpg": 41, "F-12.jpg": 31}   # how old each portrait looks, so a record's age fits its photo
+# A first name and surname have to belong together: no "Srinivas Siddiqui" or "Mohammed Kumar"
+MUSLIM_FIRST = {"Mohammed", "Farhan", "Imran", "Ayesha"}
+MUSLIM_SURNAMES = ["Khan", "Siddiqui", "Ali", "Ahmed", "Shaik"]
+SURNAME_FOR_OTHERS = {"Khan": "Reddy", "Siddiqui": "Rao", "Patel": "Goud"}
+FAMILY_FIRST = {(False, False): ["Ravi", "Srinivas", "Anil", "Venkatesh", "Suresh", "Naveen"], (False, True): ["Lakshmi", "Priya", "Kavitha", "Sravani", "Madhavi", "Swathi"],
+                (True, False): ["Mohammed", "Farhan", "Imran", "Salman"], (True, True): ["Ayesha", "Fatima", "Sana", "Nazia"]}   # (Muslim family, female)
+
+
+def full_name(first: str, last: str) -> str:
+    if first in MUSLIM_FIRST:
+        return f"{first} {MUSLIM_SURNAMES[LAST.index(last) % len(MUSLIM_SURNAMES)]}"
+    if first in FEMALE and last == "Kumar":
+        last = "Reddy"
+    return f"{first} {SURNAME_FOR_OTHERS.get(last, last)}"
+
+
+def random_name(r) -> str:
+    return full_name(r.choice(FIRST), r.choice(LAST))
 
 
 def _photo(r, name: str) -> str:
@@ -66,10 +85,32 @@ def _plate(r, read: str | None, state: str = "TS") -> str:
 
 def _person(r, used: set) -> str:
     while True:
-        n = f"{r.choice(FIRST)} {r.choice(LAST)}"
+        n = random_name(r)
         if n not in used:
             used.add(n)
             return n
+
+
+def _free_photo(photo: str, taken: set) -> str:
+    """This portrait, or the next of the same gender if someone in the case already has it."""
+    pool = PHOTOS_F if photo in PHOTOS_F else PHOTOS_M
+    i = pool.index(photo) if photo in pool else 0
+    return next((p for p in pool[i:] + pool[:i] if p not in taken), photo)
+
+
+def _age_of(photo: str, drawn: int) -> int:
+    """The age a portrait looks, give or take a couple of years so two people with one face differ."""
+    return PHOTO_AGE[photo] + drawn % 5 - 2 if photo in PHOTO_AGE else drawn
+
+
+def _fit_age(driver: dict, year_now: int):
+    """A licence can't predate its holder turning 18, so the issue year follows the age the photo gives."""
+    age = _age_of(driver["photo"], driver["age"])
+    m = re.match(r"(\S+ )(\d{4})( .*)", driver["dl_no"])
+    if m and int(m[2]) < year_now - age + 18:
+        year = year_now - age + 18
+        driver["dl_no"] = f"{m[1]}{year}{m[3]}"
+        driver["valid_till"] = f"{year + 20}{driver['valid_till'][4:]}"
 
 
 def _kind(cls: str) -> str:
@@ -181,16 +222,28 @@ def build(case_dir: Path) -> dict:
             v["registration"].update({"owner": s.get("owner", v["registration"]["owner"]), "vehicle": _recolour(s.get("vehicle", v["registration"]["vehicle"]), colour)})
             v["driver"].update({"photo": s.get("photo", v["driver"]["photo"]), "name": s.get("owner", v["driver"]["name"]), "owner_is_driver": True})
         vehicles.append(v)
+    # one face per person in a case, the pinned people keeping theirs
+    taken = {p for p in ((pin.get("licence") or {}).get("photo"), (pin.get("suspect") or {}).get("photo")) if p}
+    for v in vehicles:
+        pinned = (v["role"] == "victim" and pin.get("plate")) or (v["role"] == "suspect" and pin.get("suspect"))
+        if not pinned:
+            v["driver"]["photo"] = _free_photo(v["driver"]["photo"], taken)
+        taken.add(v["driver"]["photo"])
+        _fit_age(v["driver"], year_now=2026)
+        v["driver"]["age"] = _age_of(v["driver"]["photo"], v["driver"]["age"])
     persons = []
     for tid in people:
         r = _rng(cid, tid, "person")
         lic = pin.get("licence") if victim == tid else None
         name = (lic or {}).get("holder") or _person(r, used)
-        persons.append({"track": tid, "role": "victim" if tid == victim else "involved", "name": name, "age": r.randint(24, 58),
+        drawn_age = r.randint(24, 58)
+        photo = (lic or {}).get("photo") or _free_photo(_photo(r, name), taken)
+        taken.add(photo)
+        persons.append({"track": tid, "role": "victim" if tid == victim else "involved", "name": name, "age": _age_of(photo, drawn_age),
                         "description": (pin.get("victim") if victim == tid and pin.get("victim") else None) or (names.get(tid) or "Pedestrian"),
                         "identified_by": "duty roster (on-duty constable)" if "constable" in str(pin.get("victim", "")).lower() and victim == tid else "documents at the scene",
                         "phone": _phone(r), "emergency_contact": _phone(r), "contact_relation": r.choice(RELATION), "blood_group": r.choice(["O+", "B+", "A+"]),
-                        "photo": (lic or {}).get("photo") or _photo(r, name), "licence": lic})
+                        "photo": photo, "licence": lic})
     out = {"case": cid, "victim": victim, "suspect": suspect, "vehicles": vehicles, "people": persons,
            "note": "Registry records for this case. People are fictional; numbers are shown masked."}
     (case_dir / "records.json").write_text(json.dumps(out, indent=2), encoding="utf-8")
@@ -210,7 +263,7 @@ def police_record(v: dict, year_now: int = 2026) -> dict:
     ok = reg.get("insurance_ok", True)
     insurer, till = ins.split(" · ", 1) if ok and " · " in ins else (r.choice(INSURERS), ins)
     relation = reg.get("contact_relation") or "family"
-    first = r.choice([n for n in FIRST if (n in FEMALE) == (relation in ("wife", "mother", "sister"))])
+    first = r.choice(FAMILY_FIRST[(drv["name"].split()[0] in MUSLIM_FIRST, relation in ("wife", "mother", "sister"))])
     day = lambda: f"{r.randint(1, 12):02d}-{r.randint(1, 28):02d}"
     two_wheel = v["class"] in ("motorcycle", "bicycle")
     offences = [("No helmet (Sec 194D)", 1000) if two_wheel else ("No seat belt (Sec 194B)", 1000), ("Signal jump (Sec 184)", 1000),

@@ -67,8 +67,8 @@ def _officer(station: str | None) -> dict:
     except Exception:
         pass
     r = random.Random(station or "ps")
-    from .records import FIRST, LAST
-    return {"name": f"{r.choice(FIRST)} {r.choice(LAST)}", "rank": "Sub-Inspector", "rank_short": "SI", "call_sign": "PS 11", "station": station or "Police station"}
+    from .records import random_name
+    return {"name": random_name(r), "rank": "Sub-Inspector", "rank_short": "SI", "call_sign": "PS 11", "station": station or "Police station"}
 
 
 def create(d: Path, auto: dict) -> dict:

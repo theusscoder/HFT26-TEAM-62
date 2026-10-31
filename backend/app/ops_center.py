@@ -15,7 +15,7 @@ from functools import lru_cache
 from pathlib import Path
 
 from . import incident_ops, records
-from .records import _rng, FIRST, LAST
+from .records import _rng, random_name
 
 ROOT = Path(__file__).resolve().parents[2]
 STATE = ROOT / "data" / "ops"
@@ -32,7 +32,7 @@ def _officers(stations: list[dict]) -> list[dict]:
         short = "".join(w[0] for w in st["name"].split() if w[0].isalpha())[:3].upper() or "PS"
         for k in range(3):
             rank, ab = [RANKS[r.choice([0, 1])], RANKS[r.choice([2, 3])], RANKS[4]][k]
-            out.append({"id": f"{short}-{si + 1}{k + 1}", "name": f"{r.choice(FIRST)} {r.choice(LAST)}", "rank": rank, "rank_short": ab,
+            out.append({"id": f"{short}-{si + 1}{k + 1}", "name": random_name(r), "rank": rank, "rank_short": ab,
                         "station": st["name"], "lat": st["lat"], "lon": st["lon"], "call_sign": f"{short} {si + 1}{k + 1}",
                         "vehicle": f"TS09PA{r.randint(1000, 9999)}" if k < 2 else "Bike patrol", "phone": f"+91 94••• ••{r.randint(100, 999)}"})
     return out

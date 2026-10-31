@@ -25,8 +25,8 @@
         "address_area": "Kukatpally"
       },
       "driver": {
-        "name": "Mohammed Kumar",
-        "age": 37,
+        "name": "Mohammed Shaik",
+        "age": 36,
         "dl_no": "MP04 2021 \u2022\u2022\u20227133",
         "class": "TRANS (HPMV)",
         "valid_till": "2041-07-04",
@@ -47,7 +47,7 @@
       "plate_read": null,
       "plate_basis": "matched in the vehicle registry",
       "registration": {
-        "owner": "Raju Patel",
+        "owner": "Raju Goud",
         "vehicle": "Black Bajaj Pulsar 150",
         "rto": "Hyderabad (North)",
         "registered": "2016",
@@ -61,8 +61,8 @@
         "address_area": "Tolichowki"
       },
       "driver": {
-        "name": "Raju Patel",
-        "age": 53,
+        "name": "Raju Goud",
+        "age": 37,
         "dl_no": "TS11 2020 \u2022\u2022\u20226800",
         "class": "MCWG",
         "valid_till": "2040-10-11",
@@ -81,7 +81,7 @@
       "track": "person_2",
       "role": "victim",
       "name": "P. Srinivas Rao",
-      "age": 45,
+      "age": 40,
       "description": "Traffic constable on duty, beside the divider",
       "identified_by": "duty roster (on-duty constable)",
       "phone": "+91 77\u2022\u2022\u2022 \u2022\u2022517",

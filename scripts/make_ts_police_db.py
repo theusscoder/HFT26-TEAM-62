@@ -28,6 +28,9 @@ FIRST = ["Ravi", "Suresh", "Lakshmi", "Srinivas", "Anjali", "Venkatesh", "Priya"
          "Nikhil", "Deepika", "Rohith", "Spandana", "Gopal", "Yamini", "Charan"]
 LAST = ["Reddy", "Rao", "Goud", "Naidu", "Varma", "Sharma", "Chary", "Yadav", "Kumar", "Prasad", "Shaik", "Khan",
         "Mudiraj", "Patel", "Raju", "Babu", "Achari", "Nayak", "Gupta", "Mohammed"]
+MUSLIM_FIRST = {"Imran", "Ayesha", "Farhan"}
+MUSLIM_LAST = ["Shaik", "Khan", "Mohammed"]
+OTHER_LAST = ["Reddy", "Rao", "Goud", "Naidu"]
 AREAS = ["Gachibowli", "Kondapur", "Madhapur", "Kukatpally", "Miyapur", "Manikonda", "Narsingi", "Tolichowki",
          "Mehdipatnam", "Ameerpet", "Begumpet", "Secunderabad", "Uppal", "LB Nagar", "Dilsukhnagar", "Attapur",
          "Shamshabad", "Chandanagar", "Nizampet", "Banjara Hills", "Jubilee Hills", "Kompally", "Patancheru"]
@@ -95,7 +98,7 @@ SUSPECT_PROFILE = {
 
 # The synthetic demo case's two parties, as data/fictional/live_identities.json and the case records describe them.
 DEMO_PARTIES = {
-    "TS07GK5521": {"make_model": "Honda City", "fuel": "Diesel", "date": "2023-03-14", "area": "Miyapur", "owner": "Karthik Varma", "dl": "TS07 2015 •••2910", "dl_till": "2035-06-14",
+    "TS07GK5521": {"make_model": "Honda City", "fuel": "Diesel", "date": "2023-03-14", "area": "Miyapur", "owner": "Karthik Varma", "dl": "TS07 2018 •••2910", "dl_till": "2038-06-14",
                    "contact": {"name": "Swathi Varma", "relation": "Wife", "phone": "+91 80••• ••784"},
                    "insurance": {"insurer": "ICICI Lombard", "valid_till": "2027-01-31", "status": "Valid"}, "flags": ["3 unpaid challans"]},
     "TS09EA1234": {"make_model": "Maruti Swift", "fuel": "CNG", "date": "2022-08-09", "area": "Banjara Hills", "owner": "Ravi Teja Goud", "dl": "TS09 2019 •••2345", "dl_till": "2034-05-11",
@@ -139,8 +142,16 @@ def plate_for(cls: str) -> str:
     return f"{code}{series}{rng.randint(1, 9999):04d}"
 
 
+def fit_surname(first: str, last: str) -> str:
+    """A first name and surname have to belong together."""
+    if first in MUSLIM_FIRST:
+        return last if last in MUSLIM_LAST else MUSLIM_LAST[LAST.index(last) % len(MUSLIM_LAST)]
+    return OTHER_LAST[LAST.index(last) % len(OTHER_LAST)] if last in MUSLIM_LAST else last
+
+
 def make_vehicle(i: int, plate: str, cls: str, colour: str | None = None) -> dict:
     first, last = rng.choice(FIRST), rng.choice(LAST)
+    last = fit_surname(first, last)
     area = rng.choice(AREAS)
     reg = (ANCHOR - timedelta(days=rng.randint(200, 3600))).date()
     ins_ok = rng.random() > 0.15

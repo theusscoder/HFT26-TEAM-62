@@ -26,7 +26,7 @@
       },
       "driver": {
         "name": "Anil Kumar Reddy",
-        "age": 46,
+        "age": 31,
         "dl_no": "TS10 2018 \u2022\u2022\u20227340",
         "class": "MCWG",
         "valid_till": "2028-09-30",
@@ -47,7 +47,7 @@
       "plate_read": null,
       "plate_basis": "matched in the vehicle registry",
       "registration": {
-        "owner": "Priya Kumar",
+        "owner": "Priya Reddy",
         "vehicle": "Grey Kia Seltos",
         "rto": "Ranga Reddy (Medchal)",
         "registered": "2020",
@@ -62,10 +62,10 @@
       },
       "driver": {
         "name": "Srinivas Chary",
-        "age": 47,
-        "dl_no": "TS08 2007 \u2022\u2022\u20223792",
+        "age": 36,
+        "dl_no": "TS08 2008 \u2022\u2022\u20223792",
         "class": "LMV",
-        "valid_till": "2027-09-11",
+        "valid_till": "2028-09-11",
         "blood_group": "A+",
         "photo": "M-10.jpg",
         "phone": "+91 84\u2022\u2022\u2022 \u2022\u2022471",
