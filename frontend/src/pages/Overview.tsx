@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Box, Play, Siren } from "lucide-react";
+import { ArrowRight, Box, Crosshair, Play, Siren } from "lucide-react";
 import { useApi, type Analysis, type Event } from "../lib/api";
 import { Loading, Panel, Stat, Status } from "../components/ui";
 import ContextPanel from "../components/ContextPanel";
@@ -62,6 +62,7 @@ export default function Overview() {
           <Link to="replay" className="flex items-center gap-1.5 bg-accent px-3 py-1.5 text-white hover:opacity-85"><Play size={14} />Play the evidence</Link>
           <Link to={dashcam ? "dashcam" : "reconstruction"} className="flex items-center gap-1.5 border border-ink px-3 py-1.5 hover:bg-panel-2"><Box size={14} />{dashcam ? "Dashcam view" : "3D reconstruction"}</Link>
           <Link to="golden-hour" className="flex items-center gap-1.5 border border-ink px-3 py-1.5 hover:bg-panel-2"><Siren size={14} />Emergency response</Link>
+          <Link to="intercept" className="flex items-center gap-1.5 border border-ink px-3 py-1.5 hover:bg-panel-2"><Crosshair size={14} />Intercept plan</Link>
         </div>
       </Panel>
 

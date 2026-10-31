@@ -36,6 +36,8 @@ def _start_telegram_linker():  # lets case contacts link their phone to the bot 
     from . import response_timeline
     response_timeline.start()   # sends each response milestone (FIR, hospital accepted, arrived...) on Telegram as it comes due
     camera_agent.start()   # watches the traffic cameras and opens cases by itself (CAMERA_AGENT=off to disable)
+    from . import intercept
+    intercept.prepare_in_background(intercept.prepare_all, DATA)   # any case still without an intercept plan
 
 
 def case_dir(cid: str) -> Path:

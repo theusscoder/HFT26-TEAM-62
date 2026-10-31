@@ -56,6 +56,7 @@ Be ready for "is this real?". The honest answer is strong, and getting caught ou
 - Face-match percentages in records. These are generated, not computed. The Face check panel does run a real comparison, on photos supplied with consent.
 - Plates marked "matched in the vehicle registry" or "resolved from the partial read". Most CCTV plates here can't be read. The label on each plate says which it is.
 - FIR numbers and sections, certificates, hospital acceptance, ambulance progress and treatment reports, when filed by the system. Actions taken by staff on screen are recorded as such.
+- The intercept. Every case has a plan ready on the real road map, but the driver, signals, cameras and patrols are simulated. Where the footage doesn't show a vehicle leaving, it is labelled a what-if drill and names no one as a suspect. The road map covers Gachibowli only, so a site beyond it starts from the nearest mapped road and says how far away that is.
 - Dispatch, officer assignment, pursuits and signal control. The police and hospital boards replay five incidents on a loop; "New from the cameras" shows actual agent cases.
 - The step-by-step analysis on case pages is a timed replay of stored results, not processing speed. The camera wall's stages for a new case are live.
 - Detection in the camera agent is a rough trigger. In dense traffic it can open cases for near-misses, which the analysis then rates low.

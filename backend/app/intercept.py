@@ -16,7 +16,9 @@ and spots near a hospital are never chosen as the place to stop him."""
 import heapq
 import json
 import math
+import os
 import random
+import threading
 from collections import defaultdict
 from functools import lru_cache
 from pathlib import Path
@@ -39,6 +41,7 @@ TOP_CANDIDATES = 10
 TIMEOUT_S = 600.0
 HOLD_BEFORE_S, HOLD_AFTER_S = 20.0, 6.0
 PATROLS = 6
+START_MARGIN_DEG = 0.002   # about 200 m inside the map's edge
 
 
 def base_class(c: str) -> str:
@@ -526,13 +529,20 @@ def run_for_case(case_dir: Path, case: dict) -> dict:
     loc = case.get("location", {})
     lat, lon = loc.get("lat"), loc.get("lon")
     drill = lat is None or lon is None
-    if drill or not (c.raw["bbox"][0] <= lat <= c.raw["bbox"][2] and c.raw["bbox"][1] <= lon <= c.raw["bbox"][3]):
-        lat, lon, drill = 17.4401, 78.3489, True
-    xy = c.xy(lat, lon)
+    if drill:
+        lat, lon = 17.4401, 78.3489
+    # a place beyond the simulated map starts from the nearest mapped ground, and the result says how far that is
+    s, w, n, e = c.raw["bbox"]
+    start_lat, start_lon = min(max(lat, s + START_MARGIN_DEG), n - START_MARGIN_DEG), min(max(lon, w + START_MARGIN_DEG), e - START_MARGIN_DEG)
+    outside_km = math.hypot((start_lat - lat) * c.ky, (start_lon - lon) * c.kx) / 1000
+    xy = c.xy(start_lat, start_lon)
     p = case_dir / "pursuit.json"
     pursuit = json.loads(p.read_text(encoding="utf-8")) if p.exists() else {}
+    departed = pursuit.get("status") == "departed"
     compass = {"north": 0, "north-east": 45, "east": 90, "south-east": 135, "south": 180, "south-west": 225, "west": 270, "north-west": 315}
-    heading = math.radians(compass.get(str((pursuit.get("exit") or {}).get("heading", "north")).lower(), 0))
+    seen_heading = compass.get(str((pursuit.get("exit") or {}).get("heading", "")).lower())
+    # with no exit seen, a what-if drives into the mapped streets rather than straight off the edge
+    heading = math.radians(seen_heading) if seen_heading is not None else math.atan2(-xy[0], -xy[1])
     best = None
     for seed in range(1, 25):  # one illustrative run for the screen: the first that shows the plan working and at least one re-plan
         r = simulate(xy, heading, seed, defy=True)
@@ -543,13 +553,70 @@ def run_for_case(case_dir: Path, case: dict) -> dict:
     if best is None:
         best = simulate(xy, heading, 1)
     base = simulate(xy, heading, best["seed"], use_agent=False, use_signals=False)
-    plate = (pursuit.get("match") or {}).get("plate") or pursuit.get("partial_plate")
-    return {"drill": drill, "plate": plate, "simulated": True, "run": best, "graph": knowledge_graph(best, plate, case), "baseline": {"suspect": base["suspect"], "outcome": base["outcome"]}, "evaluation": evaluate(xy, heading),
+    # only a vehicle that left is a suspect: a what-if never names the people in the case
+    plate = _left_plate(case_dir, pursuit) if departed else None
+    if not departed:
+        for d in best["decisions"]:
+            d["text"] = d["text"].replace("Hit-and-run flagged. Reading plate at the scene, tracking on every camera.", "What-if: assume this vehicle left the scene. Tracking on every camera.")
+    return {"drill": drill, "start_outside_km": round(outside_km, 1) if outside_km >= 0.1 else 0, "plate": plate, "simulated": True, "run": best, "graph": knowledge_graph(best, plate, case, departed), "baseline": {"suspect": base["suspect"], "outcome": base["outcome"]}, "evaluation": evaluate(xy, heading),
             "assumptions": ["The driver doesn't wait at a red and takes an open exit, leaning to his heading and the bigger road.", "Every major junction is treated as having a controllable signal, though the map only records 17 real ones here.",
                             "Cameras sit at those junctions and always see him.", "Traffic speeds and patrol positions are invented."], "attribution": c.attribution}
 
 
-def knowledge_graph(run: dict, plate: str | None, case: dict) -> dict:
+def _left_plate(case_dir: Path, pursuit: dict) -> str | None:
+    p = (pursuit.get("match") or {}).get("plate") or pursuit.get("partial_plate")
+    if p:
+        return p
+    f = case_dir / "records.json"
+    rec = json.loads(f.read_text(encoding="utf-8")) if f.exists() else {}
+    return next((v["plate"] for v in rec.get("vehicles", []) if v["track"] == rec.get("suspect")), None)
+
+
+_ready_lock = threading.Lock()
+
+
+def ready(case_dir: Path, rerun: bool = False) -> dict:
+    """This case's intercept plan, built once and kept: every case has one waiting. Where no vehicle left the scene it is a
+    what-if, marked as training. An officer's approval survives a rebuild."""
+    path = case_dir / "intercept.json"
+
+    def cached():
+        return json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
+    old = cached()
+    if old and not rerun:
+        return old
+    with _ready_lock:
+        old = cached()
+        if old and not rerun:
+            return old
+        case = json.loads((case_dir / "case.json").read_text(encoding="utf-8"))
+        res = run_for_case(case_dir, case)
+        pf = case_dir / "pursuit.json"
+        status = (json.loads(pf.read_text(encoding="utf-8")) if pf.exists() else {}).get("status")
+        res["training"] = status != "departed"
+        res["approved_by"] = (old or {}).get("approved_by")
+        tmp = path.with_suffix(".tmp")
+        tmp.write_text(json.dumps(res), encoding="utf-8")
+        os.replace(tmp, path)
+        return res
+
+
+def prepare_all(cases: Path):
+    """Fill in any case without a plan, so the page never has to compute one while someone waits. Starts with the API."""
+    for d in sorted(cases.iterdir()):
+        if (d / "case.json").exists() and not (d / "intercept.json").exists():
+            try:
+                ready(d)
+            except Exception as e:   # one bad case must not stop the others; its page tries again
+                print(f"intercept plan for {d.name} not built: {type(e).__name__}: {e}")
+
+
+def prepare_in_background(target, *args):
+    if not os.getenv("PYTEST_CURRENT_TEST"):
+        threading.Thread(target=target, args=args, daemon=True).start()
+
+
+def knowledge_graph(run: dict, plate: str | None, case: dict, departed: bool = True) -> dict:
     """What the agents know and did, as linked facts. Each node and edge carries the time it became known."""
     from . import toll_db
     nodes, edges = {}, []
@@ -563,8 +630,8 @@ def knowledge_graph(run: dict, plate: str | None, case: dict) -> dict:
         edges.append({"source": a, "target": b, "label": label, "t": round(t, 1)})
 
     node("case", case.get("title", "Case"), "case")
-    node("suspect", f"Suspect vehicle{' · ' + plate if plate else ''}", "suspect")
-    edge("case", "suspect", "hit-and-run")
+    node("suspect", f"Suspect vehicle{' · ' + plate if plate else ''}" if departed else "Vehicle in this drill", "suspect")
+    edge("case", "suspect", "hit-and-run" if departed else "what if it had left")
     for m in toll_db.search([plate])["matches"][:2] if plate else []:
         node(m["id"], f"Toll record {m['plate']}", "record", 0, fictional=True)
         edge("suspect", m["id"], "plate match")

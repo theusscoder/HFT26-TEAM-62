@@ -216,6 +216,8 @@ def make(case_id: str, video_path: Path | None = None, title: str | None = None,
         if (e["file"], h) not in known:
             # A known file with a new hash is a change, and the ledger says so rather than registering it afresh.
             led.append("evidence_changed" if e["file"] in named else "evidence_registered", file=e["file"], sha256=h)
+    from . import intercept
+    intercept.prepare_in_background(intercept.ready, d)   # the intercept plan waits ready; a new case doesn't wait for it
     return report
 
 

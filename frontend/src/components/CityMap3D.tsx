@@ -215,7 +215,7 @@ export default function CityMap3D({ map, sim, t, follow, showReach, showBaseline
       ))}
       {run.units.map((u: any) => { const k = keyAt(u.keys, t); return k ? <Car key={u.id} k={k} colour="#2f6dff" flash={u.goal != null} label={u.goal != null ? `${u.id} · ${u.role}` : undefined} /> : null; })}
       {ghost && <Car k={ghost} colour="#8a93a0" label="without the system" />}
-      {suspect && <Car k={suspect} colour="#ff2b2b" glow label={sim.plate ? `Suspect · ${sim.plate}` : "Suspect"} />}
+      {suspect && <Car k={suspect} colour="#ff2b2b" glow label={sim.training ? "Vehicle (drill)" : sim.plate ? `Suspect · ${sim.plate}` : "Suspect"} />}
       <mesh position={W2T(start.x, start.y, 0.5)} rotation={[-Math.PI / 2, 0, 0]}><ringGeometry args={[14, 18, 32]} /><meshBasicMaterial color="#ff5d5d" toneMapped={false} /></mesh>
       <OrbitControls makeDefault target={W2T(start.x + 150, start.y + 150)} maxPolarAngle={Math.PI / 2.15} minDistance={150} maxDistance={6000} />
       <Rig follow={follow} focus={focus} />

@@ -475,22 +475,10 @@ def hyderabad_map():
 
 
 @router.get("/api/cases/{cid}/intercept")
-def get_intercept(cid: str, rerun: bool = False, drill: bool = False):
-    """A simulation on the real road map, for a case where a vehicle left the scene. Anything else only runs when asked
-    for as a training drill, and says so."""
-    d = case_path(cid)
-    purs = load(d, "pursuit", {}) or {}
-    p = d / "intercept.json"
-    cached = json.loads(p.read_text(encoding="utf-8")) if p.exists() and not rerun else None
-    if purs.get("status") != "departed" and not drill and not (cached and cached.get("training")):
-        return {"eligible": False, "status": purs.get("status"), "summary": purs.get("summary") or "Hit-and-run hasn't been assessed for this case."}
-    if cached:
-        return cached
-    res = intercept.run_for_case(d, load(d, "case"))
-    res["training"] = purs.get("status") != "departed"
-    res["approved_by"] = None
-    p.write_text(json.dumps(res), encoding="utf-8")
-    return res
+def get_intercept(cid: str, rerun: bool = False):
+    """Every case's intercept plan, a simulation on the real road map. Where no vehicle left the scene it is a what-if drill,
+    and says so."""
+    return intercept.ready(case_path(cid), rerun)
 
 
 class InterceptApprove(BaseModel):

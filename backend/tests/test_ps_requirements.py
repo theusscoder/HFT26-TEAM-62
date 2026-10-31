@@ -90,3 +90,19 @@ def test_home_page_numbers_match_the_cases():
     h = TestClient(app).get("/api/highlights").json()
     assert h["cameras"] >= 6 and h["planted"] == 8 and h["caught"] == 8 and h["false_flags"] == 0
     assert 0 < h["fit_pct"] <= 100
+
+
+@pytest.mark.parametrize("cid", ["hero", "demo", "dashcam", "india-junction", "rear-end"])
+def test_every_shipped_case_has_a_ready_intercept(cid):
+    import json
+    from pathlib import Path
+    d = Path(__file__).resolve().parents[2] / "data" / "cases" / cid
+    assert (d / "intercept.json").exists(), "the plan must be built ahead, not while someone waits"
+    sim = json.loads((d / "intercept.json").read_text(encoding="utf-8"))
+    departed = json.loads((d / "pursuit.json").read_text(encoding="utf-8")).get("status") == "departed"
+    assert sim["run"]["decisions"] and sim["training"] == (not departed)
+    assert sim["run"]["outcome"]["result"] in ("contained", "dead_end")
+    if not departed:   # a what-if never names anyone in the case as a suspect
+        assert sim["plate"] is None
+        assert not [n for n in sim["graph"]["nodes"] if "Suspect" in n["label"]]
+        assert not [e for e in sim["run"]["decisions"] if "Hit-and-run flagged" in e["text"]]

@@ -29,7 +29,7 @@ export default function Intercept() {
   const [reach, setReach] = useState(true);
   const [baseline, setBaseline] = useState(false);
   const raf = useRef(0);
-  const load = (drill = false) => fetch(`/api/cases/${id}/intercept${drill ? "?drill=true" : ""}`).then((r) => r.ok ? r.json() : Promise.reject(`${r.status}`)).then(setSim).catch((e) => setErr(String(e)));
+  const load = () => fetch(`/api/cases/${id}/intercept`).then((r) => r.ok ? r.json() : Promise.reject(`${r.status}`)).then(setSim).catch((e) => setErr(String(e)));
   useEffect(() => { load(); }, [id]);
   useEffect(() => {
     if (!playing || !sim) return;
@@ -43,17 +43,6 @@ export default function Intercept() {
     return () => cancelAnimationFrame(raf.current);
   }, [playing, speed, sim]);
 
-  if (sim && sim.eligible === false) return (
-    <div className="max-w-3xl space-y-4">
-      <Panel title="Intercept">
-        <h2 className="text-2xl font-bold">Nobody to intercept in this case</h2>
-        <p className="mt-2 text-sm text-muted">{sim.summary}</p>
-        <p className="mt-2 text-sm">The intercept runs when the hit-and-run check finds an involved vehicle leaving the scene. It didn't here{sim.status === "unclear" ? ", though it couldn't rule it out" : ""}.</p>
-        <button onClick={() => { setSim(null); load(true); }} className="mt-4 bg-ink px-4 py-2 text-sm font-semibold text-panel">Run a training drill from this case's location</button>
-        <p className="mt-2 text-[11px] text-muted">A drill pretends a vehicle fled from here, to practise the plan. It's labelled as a drill throughout.</p>
-      </Panel>
-    </div>
-  );
   if (!sim || !map.data) return <Loading error={err ?? map.error} />;
   const run = sim.run, approved = !!sim.approved_by, ev = sim.evaluation;
   const reachNow = [...run.reach].reverse().find((r: any) => r.t <= t);
@@ -65,16 +54,19 @@ export default function Intercept() {
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap items-center gap-3  border border-warn/50 bg-warn/10 px-4 py-2.5 text-sm text-warn">
-        <Siren size={16} /><b>Simulation.</b><span className="text-ink/80">The map is real Hyderabad (OpenStreetMap). The signal control, cameras, traffic, patrol units and the driver's behaviour are simulated{sim.training ? ". TRAINING DRILL: no vehicle left the scene in this case" : ""}{sim.drill ? ". This case has no location on the map, so it starts from Gachibowli" : ""}.</span>
+        <Siren size={16} /><b>Simulation.</b><span className="text-ink/80">The map is real Hyderabad (OpenStreetMap). The signal control, cameras, traffic, patrol units and the driver's behaviour are simulated{sim.training ? ". What-if drill: the footage doesn't show a vehicle leaving, so this shows the plan had one left" : ""}{sim.start_outside_km > 0 ? `. The site is ${sim.start_outside_km} km beyond the simulated road map, so the run starts from the nearest mapped road` : ""}{sim.drill ? ". This case has no location yet, so it starts from Gachibowli" : ""}.</span>
       </div>
 
       <div className="grid grid-cols-1 gap-4 2xl:grid-cols-[minmax(0,1fr)_400px]">
         <div className="relative overflow-hidden  border border-ink bg-white " style={{ height: "68vh", minHeight: 480 }}>
-          <Suspense fallback={<div className="p-6 text-sm text-muted">Loading Hyderabad…</div>}>
-            <CityMap3D map={map.data} sim={sim} t={t} follow={follow} showReach={reach} showBaseline={baseline} />
-          </Suspense>
+          {/* isolate: the map's floating labels stay under the panels drawn over it */}
+          <div className="isolate h-full">
+            <Suspense fallback={<div className="p-6 text-sm text-muted">Loading Hyderabad…</div>}>
+              <CityMap3D map={map.data} sim={sim} t={t} follow={follow} showReach={reach} showBaseline={baseline} />
+            </Suspense>
+          </div>
           <div className="pointer-events-none absolute left-3 top-3 space-y-1 rounded-lg bg-bg/85 px-3 py-2 text-[11px] text-muted">
-            <div><span className="font-semibold text-bad">red</span> suspect · <span className="font-semibold text-accent">blue</span> police · <span className="font-semibold text-ok">green</span> where he's being steered</div>
+            <div><span className="font-semibold text-bad">red</span> {sim.training ? "vehicle in the drill" : "suspect"} · <span className="font-semibold text-accent">blue</span> police · <span className="font-semibold text-ok">green</span> where he's being steered</div>
             <div><span className="font-semibold text-inferred">amber</span> road he could reach in 90 s · bars at junctions: the one green exit, the reds</div>
           </div>
           <div className="pointer-events-none absolute right-3 top-3 rounded-lg bg-bg/85 px-3 py-2 text-right">
