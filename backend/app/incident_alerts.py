@@ -59,11 +59,15 @@ def messages(d: Path, auto: dict) -> list[tuple[str, str, str]]:
     name = (vic or {}).get("driver", {}).get("name") or (per or {}).get("name")
     amb = any(x.get("unit") == "ambulance" for x in auto.get("dispatched", []))
     if name:
+        te_hosp = hosp.get("name", "సమీప ఆసుపత్రి")
+        te = (f"\n\n⚠️ {name} రోడ్డు ప్రమాదానికి గురయ్యారు.\nస్థలం: {where}\n"
+              + (f"అత్యవసర సిబ్బంది వారితో ఉన్నారు. అంబులెన్స్ వారిని {te_hosp}కు తీసుకెళ్తోంది.\n" if amb else f"పోలీసులు ఘటనా స్థలంలో ఉన్నారు. చికిత్స అవసరమైతే సమీప ఆసుపత్రి: {te_hosp}.\n")
+              + f"పోలీస్ రిఫరెన్స్ {ref}. ఈ సందేశాన్ని ఆసుపత్రిలో చూపించండి.")
         out.append(("family", f"⚠️ {name} was in a road accident", "\n".join(t for t in [
             f"Where: {where}", maps,
             f"Emergency services are with them. Ambulance taking them to {hosp.get('name', 'the nearest hospital')}." if amb else
             f"Police are at the scene. If they need treatment, the nearest hospital is {hosp.get('name', 'nearby')}.",
-            f"Police reference {ref}. Keep this message for the hospital."] if t)))
+            f"Police reference {ref}. Keep this message for the hospital."] if t) + te))
     return out
 
 

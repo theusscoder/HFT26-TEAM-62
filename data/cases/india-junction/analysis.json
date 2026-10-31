@@ -6,15 +6,15 @@
       "sigma": 0.05,
       "anchor": "EV-V-039"
     },
+    "witness_2": {
+      "offset_s": null,
+      "note": "ordering only (before / at / after impact)"
+    },
     "witness_1": {
       "offset_s": null,
       "note": "ordering only (before / at / after impact)"
     },
     "witness_3": {
-      "offset_s": null,
-      "note": "ordering only (before / at / after impact)"
-    },
-    "witness_2": {
       "offset_s": null,
       "note": "ordering only (before / at / after impact)"
     }
@@ -75,6 +75,7 @@
       "person_119": "Person",
       "motorcycle_171": "Grey motorcycle"
     },
+    "contact": true,
     "large": [
       "car_75",
       "truck_231",
@@ -144,11 +145,19 @@
   ],
   "gaps": [],
   "reliability": {
+    "witness_2": 0.67,
     "witness_1": 1.0,
-    "witness_3": 1.0,
-    "witness_2": 0.67
+    "witness_3": 1.0
   },
   "reliability_detail": {
+    "witness_2": {
+      "evidence_score": 0.67,
+      "weight": 0.65,
+      "reasons": [
+        "some distance from the impact, about 12 m",
+        "hedged wording"
+      ]
+    },
     "witness_1": {
       "evidence_score": 1.0,
       "weight": 0.65,
@@ -162,14 +171,6 @@
       "weight": 0.81,
       "reasons": [
         "some distance from the impact, about 20 m"
-      ]
-    },
-    "witness_2": {
-      "evidence_score": 0.67,
-      "weight": 0.65,
-      "reasons": [
-        "some distance from the impact, about 12 m",
-        "hedged wording"
       ]
     }
   },

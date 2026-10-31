@@ -101,7 +101,7 @@
     "striking": "grey car",
     "most_likely_hurt": "white motorcycle rider",
     "vehicle_left_scene": false,
-    "sequence": "The grey car cut into the camera vehicle's lane, forcing the motorcycle to collide with it. The motorcycle then slid off the road and came to rest on the shoulder.",
+    "sequence": "The grey car cut into the lane of the motorcycle, forcing the rider to brake hard. The motorcycle was struck from behind by the grey car, causing it to crash into the shoulder.",
     "confidence": "high",
     "frames": [
       "before",

@@ -348,6 +348,28 @@ def response_timeline_act(cid: str, key: str, body: StepBody):
         raise HTTPException(404, str(e))
 
 
+class TranslateBody(BaseModel):
+    texts: list[str] = Field(max_length=60)
+
+
+@router.get("/api/i18n/{lang}")
+def i18n_table(lang: str):
+    from . import i18n
+    return i18n.table(lang) if lang in i18n.LANGS else {}
+
+
+@router.post("/api/i18n/{lang}")
+def i18n_translate(lang: str, body: TranslateBody):
+    from . import i18n
+    return i18n.translate(lang, body.texts)
+
+
+@router.get("/api/ops/recent")
+def ops_recent():
+    from . import response_timeline
+    return response_timeline.recent()
+
+
 @router.get("/api/ops")
 def ops_snapshot():
     from . import ops_center

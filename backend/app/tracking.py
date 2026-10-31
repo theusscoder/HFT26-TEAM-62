@@ -160,7 +160,7 @@ def _alert(cid: str, st: dict, s: dict, n: int):
         s["police_alert"] = r["status"]
     contact = st.get("contact") or (rec["owner"]["phone"] if rec else None)
     if st.get("notify_suspect") and contact and s["reachable"]:
-        r = notify.send("suspect", f"Culprit · registered contact of {plate}", contact,
+        r = notify.send("suspect", f"Vehicle of interest · registered contact of {plate}", contact,
                         f"⚠️ [YATHARTH DEMO] Vehicle {plate} is being tracked",
                         f"Your vehicle {plate} was recorded at {s['plaza']} at {t}. It is linked to a road accident case ({cid}) and is under "
                         f"continuous tracking. Stop the vehicle safely and report to {station['name'] if station else 'the nearest police station'}"

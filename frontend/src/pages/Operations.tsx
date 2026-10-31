@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Box, Camera, Check, ChevronRight, Grid3x3, Pause, Play, Radio, RotateCcw, SkipForward } from "lucide-react";
 import { useApi } from "../lib/api";
 import { Loading } from "../components/ui";
+import LangToggle from "../components/LangToggle";
 
 /* The home page: one incident at a time, as it unfolds. The vehicles come in and collide; the vision agent names the victim;
    the records agent pulls plate, registration and licence; every nearby hospital lights up blue and every patrol heading in
@@ -124,6 +125,7 @@ export default function Operations() {
           <Link to="/cases" className="border border-white/20 px-2.5 py-1 hover:bg-white/10">All cases</Link>
           <Link to="/dashcam" className="flex items-center gap-1.5 border border-white/20 px-2.5 py-1 hover:bg-white/10"><Camera size={13} />Dashcam</Link>
           <Link to="/cameras" className="flex items-center gap-1.5 border border-white/20 px-2.5 py-1 hover:bg-white/10"><Radio size={13} />Cameras</Link>
+          <LangToggle dark />
         </nav>
       </header>
 

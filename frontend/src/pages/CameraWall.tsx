@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { Bot, Map as MapIcon, Radio, ScanSearch, Send } from "lucide-react";
+import LangToggle from "../components/LangToggle";
 
 /* The city's traffic cameras, live, with the camera agent watching them: each tile shows the feed, what the agent is
    doing on it (watching, screening, analysing an incident) and the case it opened. New cases appear on the map and go
@@ -27,6 +28,7 @@ export default function CameraWall() {
           <Link to="/" className="flex items-center gap-1.5 border border-white/20 px-2.5 py-1 hover:bg-white/10"><MapIcon size={13} />City map</Link>
           <Link to="/telegram" className="flex items-center gap-1.5 border border-white/20 px-2.5 py-1 hover:bg-white/10"><Send size={13} />Telegram</Link>
           <Link to="/new" className="border border-white/20 px-2.5 py-1 hover:bg-white/10">Add a case by hand</Link>
+          <LangToggle dark />
         </nav>
       </header>
       <div className="grid min-h-0 flex-1 grid-cols-1 xl:grid-cols-[minmax(0,1fr)_400px]">

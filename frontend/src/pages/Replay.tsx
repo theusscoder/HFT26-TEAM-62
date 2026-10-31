@@ -48,7 +48,7 @@ function PlateBoxes({ cards, W, H }: { cards: any[]; W: number; H: number }) {
               border: `2px ${locked ? "solid" : "dashed"} ${col}`, boxShadow: locked ? `0 0 12px ${col}` : undefined }}>
             <span className="mono absolute -top-6 left-0 whitespace-nowrap rounded px-1.5 py-0.5 text-[11px] font-bold"
               style={{ background: locked ? col : "rgba(0,0,0,.7)", color: locked ? "#0b0d10" : col }}>
-              {locked ? `${c.kind === "culprit" ? "PERPETRATOR" : "VICTIM"} · ${c.legible && c.plate ? c.plate : "no plate read"}` : "reading plate…"}
+              {locked ? `${c.kind === "culprit" ? "VEHICLE OF INTEREST" : "VICTIM"} · ${c.legible && c.plate ? c.plate : "no plate read"}` : "reading plate…"}
             </span>
           </div>
         );
@@ -134,7 +134,7 @@ function RoleCard({ c, kind, id, onConfirm, extra }: { c: any; kind: "culprit" |
       <div className="flex items-start justify-between gap-2">
         <div>
           <div className={`text-[11px] font-bold uppercase tracking-wider ${kind === "culprit" ? "text-bad" : "text-warn"}`}>
-            {kind === "culprit" ? "Perpetrator" : "Victim"} <span className="font-normal normal-case text-muted">· proposed</span>
+            {kind === "culprit" ? "Vehicle of interest" : "Victim"} <span className="font-normal normal-case text-muted">· proposed</span>
           </div>
           <div className="text-sm font-semibold">{a.vehicle_label ? `${a.vehicle_label} · ` : ""}{[vd.colour ?? c.colour, (vd.category ?? c.type ?? "").toLowerCase()].filter(Boolean).join(" ")}</div>
         </div>
@@ -340,14 +340,14 @@ export default function Replay() {
           <div className="mt-3 flex flex-wrap items-center gap-3">
             {cards.map((x: any) => (
               <div key={x.track} className={`flex items-center gap-2 rounded-lg border px-3 py-1.5 ${seen(x) ? (x.kind === "culprit" ? "border-bad/60 bg-bad/10" : "border-warn/60 bg-warn/10") : "border-line"}`}>
-                <span className={`text-[11px] font-semibold uppercase ${x.kind === "culprit" ? "text-bad" : "text-warn"}`}>{x.kind === "culprit" ? "perpetrator" : "victim"}</span>
+                <span className={`text-[11px] font-semibold uppercase ${x.kind === "culprit" ? "text-bad" : "text-warn"}`}>{x.kind === "culprit" ? "vehicle of interest" : "victim"}</span>
                 <span className="text-sm">Number detected:</span>
                 {seen(x) && x.legible && x.plate ? <><Plate plate={x.plate} />{x.partial && <span className="text-[10px] text-warn">partial</span>}</>
                   : seen(x) ? <span className="text-sm text-warn">no plate read</span>
                   : <span className="mono text-base tracking-widest text-muted">{x.detection && t >= x.detection.t - 1.5 ? "reading…" : "— — — —"}</span>}
               </div>
             ))}
-            {rs?.dispatched && <span className="text-xs font-semibold text-ok">✓ Alerts sent: perpetrator + police + checkpoints, victim + hospitals</span>}
+            {rs?.dispatched && <span className="text-xs font-semibold text-ok">✓ Alerts sent: vehicle of interest + police + checkpoints, victim + hospitals</span>}
             {rs && !rs.channels?.telegram && <span className="text-[11px] text-warn">Telegram not linked: alerts are simulated (run link_telegram.bat)</span>}
           </div>
         </Panel>
@@ -382,7 +382,7 @@ export default function Replay() {
               </div>
               {culprit.tracking && <div className="text-[11px]"><b className={culprit.tracking.active ? "text-bad" : ""}>{culprit.tracking.active ? "● Tracking" : "Tracking stopped"}</b>{culprit.tracking.last_seen ? ` · last seen ${culprit.tracking.last_seen.plaza} ${culprit.tracking.last_seen.time.slice(11, 16)}` : " · awaiting first sighting"}</div>}
             </>} />
-          ) : <Waiting label="Perpetrator" t={culprit.detection?.t} onJump={() => seek(Math.min(culprit.detection.t, 0))} />) : <div />}
+          ) : <Waiting label="Vehicle of interest" t={culprit.detection?.t} onJump={() => seek(Math.min(culprit.detection.t, 0))} />) : <div />}
           {victim ? (seen(victim) ? (
             <RoleCard c={victim} kind="victim" id={id!} onConfirm={confirmPlate} extra={<>
               <div className="flex flex-wrap items-center gap-1.5 text-[12px]"><span className="text-muted">Hospitals:</span>

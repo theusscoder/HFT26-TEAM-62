@@ -5,6 +5,8 @@ import { CircleMarker, MapContainer, Marker, Polyline, TileLayer, Tooltip } from
 import { AnimatePresence, motion } from "framer-motion";
 import { Ambulance, CheckCircle2, FileText, Map as MapIcon, Shield } from "lucide-react";
 import { Loading } from "../components/ui";
+import LangToggle from "../components/LangToggle";
+import AgentCases from "../components/AgentCases";
 import { at, clock, incidentState, mmss, officerState, useOps } from "../lib/ops";
 
 /* Police control room: every officer, what the dispatch and intercept agents have them on, who is chasing whom, and each
@@ -31,6 +33,7 @@ export function OpsHeader({ title, Icon, t, cycleStart }: { title: string; Icon:
         <Link to="/operations" className="border border-white/20 px-2.5 py-1 hover:bg-white/10">Live operation</Link>
         <Link to="/police" className="flex items-center gap-1.5 border border-white/20 px-2.5 py-1 hover:bg-white/10"><Shield size={13} />Police</Link>
         <Link to="/hospital" className="flex items-center gap-1.5 border border-white/20 px-2.5 py-1 hover:bg-white/10"><Ambulance size={13} />Hospital</Link>
+        <LangToggle dark />
       </nav>
     </header>
   );
@@ -88,6 +91,7 @@ export default function Police() {
         </div>
 
         <aside className="min-h-0 space-y-4 overflow-y-auto border-l border-white/10 p-4">
+          <AgentCases />
           <section>
             <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.16em] text-white/50">Incidents and paperwork</div>
             <div className="space-y-2">

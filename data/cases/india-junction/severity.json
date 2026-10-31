@@ -1,9 +1,9 @@
 {
-  "score": 3,
-  "level": "L0",
-  "label": "Near-miss",
+  "score": 18,
+  "level": "L1",
+  "label": "Minor",
   "notify": [
-    "log"
+    "owner"
   ],
   "breakdown": [
     {
@@ -11,17 +11,25 @@
       "points": 3,
       "why": "speed change at impact 8.9 km/h",
       "ref": "tracks_metric:car_2"
+    },
+    {
+      "signal": "contact",
+      "points": 15,
+      "why": "road users in contact on camera",
+      "ref": "boxes of White car and the other road user meet in the frame"
     }
   ],
   "signals": {
     "dv_kmh": 8.9,
     "vru_involved": false,
     "person_down_s": 1.57,
+    "contact": true,
     "fire_smoke": false,
     "rollover": false,
     "refs": {
       "dv_kmh": "tracks_metric:car_2",
-      "person_down_s": "cctv.mp4#f=121-167"
+      "person_down_s": "cctv.mp4#f=121-167",
+      "contact": "boxes of White car and the other road user meet in the frame"
     }
   },
   "minor_example": {

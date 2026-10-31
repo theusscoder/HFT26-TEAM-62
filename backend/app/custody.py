@@ -2,10 +2,12 @@
 Each line carries the SHA-256 of the previous line; editing any line breaks every later link."""
 import hashlib
 import json
+import threading
 from datetime import datetime, timezone
 from pathlib import Path
 
 GENESIS = "0" * 64
+_append_lock = threading.Lock()   # read-then-write must not interleave: the agent, the ticker and requests all append
 
 
 def sha256_file(path: Path) -> str:
@@ -30,17 +32,18 @@ class Ledger:
         return [json.loads(l) for l in self.path.read_text().splitlines() if l.strip()]
 
     def append(self, action: str, **details) -> dict:
-        prev = self.entries()
-        entry = {
-            "seq": len(prev),
-            "time": datetime.now(timezone.utc).isoformat(),
-            "action": action,
-            "details": details,
-            "prev": _digest(prev[-1]) if prev else GENESIS,
-        }
-        with open(self.path, "a") as f:
-            f.write(json.dumps(entry) + "\n")
-        return entry
+        with _append_lock:
+            prev = self.entries()
+            entry = {
+                "seq": len(prev),
+                "time": datetime.now(timezone.utc).isoformat(),
+                "action": action,
+                "details": details,
+                "prev": _digest(prev[-1]) if prev else GENESIS,
+            }
+            with open(self.path, "a") as f:
+                f.write(json.dumps(entry) + "\n")
+            return entry
 
     def verify(self) -> dict:
         prev_hash = GENESIS

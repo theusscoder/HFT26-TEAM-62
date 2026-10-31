@@ -54,6 +54,7 @@
     "person_119": "Person",
     "motorcycle_171": "Grey motorcycle"
   },
+  "contact": true,
   "large": [
     "car_75",
     "truck_231",

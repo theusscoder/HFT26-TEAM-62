@@ -1,5 +1,5 @@
 {
-  "score": 18,
+  "score": 33,
   "level": "L1",
   "label": "Minor",
   "notify": [
@@ -17,6 +17,12 @@
       "points": 3,
       "why": "speed change at impact 4.2 km/h",
       "ref": "tracks_metric:car_1"
+    },
+    {
+      "signal": "contact",
+      "points": 15,
+      "why": "road users in contact on camera",
+      "ref": "boxes of Black car and the other road user meet in the frame"
     }
   ],
   "signals": {
@@ -24,11 +30,13 @@
     "dv_kmh": 4.2,
     "vru_involved": false,
     "person_down_s": 0,
+    "contact": true,
     "fire_smoke": false,
     "rollover": false,
     "refs": {
       "peak_g": "sensor.csv#r=38",
-      "dv_kmh": "tracks_metric:car_1"
+      "dv_kmh": "tracks_metric:car_1",
+      "contact": "boxes of Black car and the other road user meet in the frame"
     }
   },
   "minor_example": {

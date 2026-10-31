@@ -354,7 +354,7 @@ export default function Response() {
         <Panel title={`Victims · ${d.victims.length}`}>
           <div className="space-y-4">{d.victims.length ? d.victims.map((p: any) => <PartyCard key={p.track} p={p} />) : <p className="text-sm text-muted">No victim identified.</p>}</div>
         </Panel>
-        <Panel title={`Suspect / alleged perpetrator · ${d.suspects.length}`}>
+        <Panel title={`Vehicles of interest · ${d.suspects.length}`}>
           <div className="space-y-4">{d.suspects.length ? d.suspects.map((p: any) => <PartyCard key={p.track} p={p} />) : <p className="text-sm text-muted">No suspect vehicle identified. Mark one in the plate table.</p>}</div>
         </Panel>
       </div>

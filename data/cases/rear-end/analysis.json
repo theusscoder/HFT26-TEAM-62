@@ -12,11 +12,11 @@
       "anchor": "EV-S-001",
       "note": "telematics clock aligned on its acceleration spike = video impact"
     },
-    "witness_1": {
+    "witness_2": {
       "offset_s": null,
       "note": "ordering only (before / at / after impact)"
     },
-    "witness_2": {
+    "witness_1": {
       "offset_s": null,
       "note": "ordering only (before / at / after impact)"
     }
@@ -37,6 +37,7 @@
       "truck_4": "White truck",
       "car_5": "Black car"
     },
+    "contact": true,
     "large": [
       "truck_4"
     ],
@@ -76,23 +77,23 @@
   ],
   "gaps": [],
   "reliability": {
-    "witness_1": 1.0,
-    "witness_2": 0.5
+    "witness_2": 0.5,
+    "witness_1": 1.0
   },
   "reliability_detail": {
-    "witness_1": {
-      "evidence_score": 1.0,
-      "weight": 0.65,
-      "reasons": [
-        "some distance from the impact, about 10 m",
-        "hedged wording"
-      ]
-    },
     "witness_2": {
       "evidence_score": 0.5,
       "weight": 0.65,
       "reasons": [
         "some distance from the impact, about 25 m",
+        "hedged wording"
+      ]
+    },
+    "witness_1": {
+      "evidence_score": 1.0,
+      "weight": 0.65,
+      "reasons": [
+        "some distance from the impact, about 10 m",
         "hedged wording"
       ]
     }

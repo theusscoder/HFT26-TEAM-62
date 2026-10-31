@@ -530,7 +530,7 @@ def run(case_dir: Path, video_events: list[dict], sensor_events: list[dict], wit
     named_p = [tid for tid in dict.fromkeys(e["actor"] for e in witness_events if isinstance(e["actor"], str) and tracks.get(e["actor"], {}).get("class") == "person")
                if any(n["id"] == tid and n["dist_m"] < 4.0 for n in sc["nearest"]) or tid in [n["id"] for n in sc["nearest"]]]
     near_p = named_p or [n["id"] for n in sc["nearest"] if tracks[n["id"]]["class"] == "person" and n["dist_m"] < 2.5][:1]
-    ent = {"primary": prim, "involved": override.get("involved") or near_v + near_p, "impact_xy": sc["impact_xy"], "names": names,
+    ent = {"primary": prim, "involved": override.get("involved") or near_v + near_p, "impact_xy": sc["impact_xy"], "names": names, "contact": bool(sc.get("partner")),
            "large": sc["large"], "colours": sc["colours"]}
     (case_dir / "entities.json").write_text(json.dumps(ent, indent=2))
 

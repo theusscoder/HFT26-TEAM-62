@@ -14,6 +14,7 @@ import { DataStateOverlay } from "../city3d/components/DataStateOverlay";
 import { Attribution } from "../city3d/components/Attribution";
 import { usePoll } from "../lib/api";
 import LiveAnalysis from "../components/LiveAnalysis";
+import LangToggle from "../components/LangToggle";
 import "../city3d/styles/scene.css";
 
 /* Home: the 3D city (OpenStreetMap buildings, roads, lakes and terrain for Gachibowli, HITEC City and Kondapur) with every
@@ -127,6 +128,7 @@ export default function CityHome() {
           <Link to="/cameras" className="flex items-center gap-1.5 border border-white/25 bg-black/40 px-2.5 py-1 hover:bg-white/10"><Radio size={13} />Cameras</Link>
           <Link to="/telegram" className="flex items-center gap-1.5 border border-white/25 bg-black/40 px-2.5 py-1 hover:bg-white/10">Telegram</Link>
           <Link to="/new" className="bg-[#ff2a2a] px-2.5 py-1 font-semibold">New case</Link>
+          <LangToggle dark />
         </nav>
       </header>
 

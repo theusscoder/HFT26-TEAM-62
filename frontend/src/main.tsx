@@ -27,12 +27,14 @@ import City from "./pages/City";
 import LiveCity from "./pages/LiveCity";
 import Operations from "./pages/Operations";
 import CityHome from "./pages/CityHome";
+import { initLang } from "./lib/i18n";
 import TelegramSetup from "./pages/TelegramSetup";
 import Police from "./pages/Police";
 import Hospital from "./pages/Hospital";
 import DashcamPage, { DashcamIndex } from "./pages/Dashcam";
 
 initTheme();
+initLang();
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

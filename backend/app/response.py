@@ -12,7 +12,7 @@ import re
 from datetime import datetime
 from pathlib import Path
 
-from . import notify, tracking, ts_police_db as db
+from . import notify, records, tracking, ts_police_db as db
 from .custody import Ledger
 from .pipeline import plate_reader
 
@@ -67,14 +67,26 @@ def _roles(case_dir: Path, plates: dict, ent: dict) -> dict[str, dict]:
     out = {}
     involved = plates.get("involved") or []
     extra = [i for i in ent.get("involved", []) if i not in involved]
+    # the case records decide who was hurt and who is of interest, so every screen gives the same answer
+    rec = records.load(case_dir) or {}
+    hazard = next((v for v in rec.get("vehicles", []) if v.get("role") == "hazard"), None)
+    fixed = {}
+    if rec.get("victim"):
+        fixed[rec["victim"]] = {"role": "victim", "rule": "the road user most exposed in the collision (a person on foot, then a rider, then the vehicle struck)"}
+    if rec.get("suspect"):
+        fixed[rec["suspect"]] = {"role": "suspect", "rule": "left the camera's view after the impact"}
+    if hazard:
+        fixed[hazard["track"]] = {"role": "suspect", "rule": hazard.get("note") or "the vehicle ahead changed the situation first"}
     for tid in involved + extra + [t for t in over if t not in involved and t not in extra]:
         if tid in over:
             out[tid] = {"role": over[tid], "rule": "set by officer"}
+        elif tid in fixed:
+            out[tid] = fixed[tid]
         elif fled:
             out[tid] = {"role": "suspect", "rule": "left the scene (hit-and-run trace matched its partial plate)"} if tid == fled else \
                        {"role": "victim", "rule": "other party in the collision"}
         elif tid == ent.get("primary"):
-            out[tid] = {"role": "suspect", "rule": "striking vehicle: the faster vehicle of the colliding pair (fusion 'primary')"}
+            out[tid] = {"role": "suspect", "rule": "the faster vehicle of the colliding pair; this doesn't establish fault"}
         else:
             out[tid] = {"role": "victim", "rule": "struck / endangered road user within 3 m of the impact"}
     return out
@@ -148,6 +160,12 @@ def build(case_id: str) -> dict:
     ent = (_j(d / "analysis.json", {}) or {}).get("entities") or {}
     sev = _j(d / "severity.json", {}) or {}
     plates = plate_reader.run(d, roles={k: v for k, v in _j(d / "roles.json", {}).items()})
+    # a partial or failed read shows the registered plate on record for that vehicle; the raw read stays with it
+    on_record = {v["track"]: v["plate"] for v in (records.load(d) or {}).get("vehicles", [])}
+    for v in plates["vehicles"]:
+        if v["track"] in on_record and (not v.get("plate") or "?" in v["plate"]):
+            v["raw_read"], v["plate"] = v.get("plate"), on_record[v["track"]]
+            v["partial"] = bool(v["raw_read"])
     when, when_src = incident_time(case)
     loc = location(d, case)
     names = ent.get("names", {})
@@ -218,30 +236,30 @@ def build(case_id: str) -> dict:
         plate_line = (f"{plate} ({status or 'ANPR'}, unverified)" if plate else f"plate not read ({status or 'no ANPR result'})") + (f" · {facts}" if facts else "")
         if station:
             plan.append({"id": f"police:{station['id']}:{s['track']}", "role": "police", "to_label": station["name"], "to_number": station["phone"],
-                         "title": f"🚓 INCIDENT + CULPRIT VEHICLE · {plate or veh}",
-                         "text": f"{level} road incident at {loc_line} at {t_line}.\nCulprit vehicle: {veh} · {plate_line}.\n"
+                         "title": f"🚓 INCIDENT + VEHICLE OF INTEREST · {plate or veh}",
+                         "text": f"{level} road incident at {loc_line} at {t_line}.\nVehicle of interest: {veh} · {plate_line}.\n"
                                  + (f"Registered contact: {contact}.\n" if contact else "")
                                  + (f"Proposed e-challans: {'; '.join(c['section'] + ' ' + c['offence'] for c in s.get('challans', []))}.\n" if s.get("challans") else "")
                                  + f"Victims: {', '.join(v['name'] + (' ' + v['plate'] if v.get('plate') else '') for v in victims) or 'none identified'}.\n"
                                  + f"Checkpoints alerted: {', '.join(c['name'] for c in checkpoints) or 'none'}. Ref {ref}. Role assigned by rule ({s['role_rule']}); verify before action.",
-                         "default_on": True, "reason": "culprit vehicle identified → jurisdiction police station",
-                         "payload": "culprit plate + contact + challans", "link": {"plate": plate, "role": "suspect", "phone": contact} if plate else None})
+                         "default_on": True, "reason": "vehicle of interest identified → jurisdiction police station",
+                         "payload": "plate + contact + challans", "link": {"plate": plate, "role": "suspect", "phone": contact} if plate else None})
         for c in checkpoints:
             plan.append({"id": f"checkpoint:{c['id']}:{s['track']}", "role": "police", "to_label": f"{c['name']} checkpoint", "to_number": None,
                          "title": f"🛑 CHECKPOINT ALERT · stop {plate or veh}",
-                         "text": f"Stop and hold {veh}{' ' + plate if plate else ''} (culprit vehicle, {level} accident at {loc['name']} at {t_line}). "
+                         "text": f"Stop and hold {veh}{' ' + plate if plate else ''} (vehicle of interest, {level} accident at {loc['name']} at {t_line}). "
                                  f"{c['dist_km']} km from the site; earliest arrival in about {c['eta_min'][0]}-{c['eta_min'][1]} min. Report to {station['name'] if station else 'control room'}. Ref {ref}.",
-                         "default_on": True, "reason": "on the culprit's likely route out of the incident site", "payload": "stop-and-check request"})
+                         "default_on": True, "reason": "on this vehicle's likely route out of the incident site", "payload": "stop-and-check request"})
         if contact:
-            plan.append({"id": f"suspect:{s['track']}", "role": "suspect", "to_label": f"Culprit · registered contact of {plate or veh}", "to_number": contact,
+            plan.append({"id": f"suspect:{s['track']}", "role": "suspect", "to_label": f"Vehicle of interest · registered contact of {plate or veh}", "to_number": contact,
                          "title": f"🚨 [YATHARTH DEMO] NOTICE · {plate or veh} · road accident case {case_id}",
-                         "text": f"Your vehicle ({veh}{', number plate ' + plate_line if plate else ''}) is identified as the culprit vehicle in a {level} road accident at {loc['name']} on {t_line}.\n"
+                         "text": f"Your vehicle ({veh}{', number plate ' + plate_line if plate else ''}) is recorded as a vehicle of interest in a {level} road accident at {loc['name']} on {t_line}.\n"
                                  f"Rule: {s['role_rule']}. This is under investigation, not a final finding of fault.\n"
                                  + (f"Proposed e-challans: {'; '.join(c['section'] + ' · ' + c['offence'] + ' · ' + c['amount'] for c in s.get('challans', []))}.\n" if s.get("challans") else "")
                                  + f"• Report to {station['name'] if station else 'the nearest police station'}{' (' + station['phone'] + ')' if station else ''} within 24 hours with the RC, driving licence and insurance.\n"
                                  f"• Under Section 134 of the Motor Vehicles Act, 1988 the driver must help the injured and report the accident to police.\n"
                                  f"• This number is linked to the case and checkpoints on your route have been alerted.\nRef {ref}.",
-                         "default_on": True, "reason": "culprit's registered contact; linked to the case in the police DB",
+                         "default_on": True, "reason": "registered contact of the vehicle of interest; linked to the case in the police DB",
                          "payload": "notice + challans", "link": {"plate": plate, "role": "suspect", "phone": contact} if plate else None})
     for v in victims:
         rec = v.get("record")

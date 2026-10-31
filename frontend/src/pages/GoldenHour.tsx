@@ -185,8 +185,10 @@ export default function GoldenHour() {
             <div className="mt-3 grid grid-cols-3 gap-1.5">
               {plate.reads.map((r: string, i: number) => <div key={i} className={`mono rounded border px-1.5 py-1 text-center text-[11px] ${r === plate.plate ? "border-ok/40 text-ok" : "border-line text-muted"}`}>f{plate.frames[i]} {r}</div>)}
             </div>
-            {reg.data && <dl className="mt-4 grid grid-cols-2 gap-y-1 text-sm">{Object.entries(reg.data).map(([k, v]) => <Fragment key={k}><dt className="text-muted">{k}</dt><dd>{String(v)}</dd></Fragment>)}</dl>}
-            <p className="mt-2 text-[11px] text-muted">Demo registry (fictional). Registered owner may not be the driver.</p>
+            {reg.data && <dl className="mt-4 grid grid-cols-2 gap-y-1 text-sm">{([["Registered owner", (reg.data as any).owner], ["Vehicle", (reg.data as any).vehicle], ["RTO", (reg.data as any).rto], ["Insurance", (reg.data as any).insurance],
+              ["Emergency contact", (reg.data as any).emergency_contact && `${(reg.data as any).emergency_contact}${(reg.data as any).contact_relation ? ` (${(reg.data as any).contact_relation})` : ""}`], ["Driver", (reg.data as any).driver?.name], ["Licence", (reg.data as any).driver?.dl_no]] as [string, any][])
+              .filter(([, v]) => v).map(([k, v]) => <Fragment key={k}><dt className="text-muted">{k}</dt><dd>{String(v)}</dd></Fragment>)}</dl>}
+            <p className="mt-2 text-[11px] text-muted">The registered owner may not be the driver.</p>
             {reg.data && <div className="mt-4">
               {sent ? <div className="text-sm text-ok">Alert {sent} → {reg.data?.owner}</div>
                 : count != null ? <button onClick={() => setCount(null)} className="w-full rounded-lg border border-bad py-2 text-sm">Sending in {count}s · Cancel</button>

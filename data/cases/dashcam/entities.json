@@ -13,6 +13,7 @@
     "car_2": "Red car",
     "car_12": "Car"
   },
+  "contact": false,
   "large": [],
   "colours": {
     "car_1": "grey",

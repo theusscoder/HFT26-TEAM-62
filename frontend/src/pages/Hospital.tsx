@@ -5,6 +5,7 @@ import { Ambulance, BedDouble, CheckCircle2, Droplet, FileText, Phone, Shield } 
 import { Loading } from "../components/ui";
 import { clock, incidentState, mmss, useOps } from "../lib/ops";
 import { OpsHeader } from "./Police";
+import AgentCases from "../components/AgentCases";
 
 /* Hospital emergency desk: who is coming in, how soon, who they are (name, age, blood group, vehicle, licence, family
    contact), what the police have already sent (the intimation and the treat-first certificate, which arrives before the
@@ -110,6 +111,7 @@ export default function Hospital() {
           {mine.map((inc: any) => <Patient key={inc.id} inc={inc} t={t} ts={ts(inc)} ack={data.acks[inc.id]} hospital={name} onAck={onAck} />)}
         </section>
         <aside className="space-y-3">
+          <AgentCases />
           <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-white/50">Standby: alerted, another hospital receiving</div>
           {standby.length === 0 && <div className="text-[12px] text-white/45">None.</div>}
           {standby.map((inc: any) => (

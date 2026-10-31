@@ -34,6 +34,8 @@ def score(signals: dict) -> dict:
 
     add("peak_g", _g_points(signals.get("peak_g", 0)), f"peak deceleration {signals.get('peak_g', 0)} g")
     add("dv_kmh", _dv_points(signals.get("dv_kmh", 0)), f"speed change at impact {signals.get('dv_kmh', 0)} km/h")
+    if signals.get("contact"):
+        add("contact", 15, "road users in contact on camera")
     if signals.get("vru_involved"):
         add("vru_involved", 15, "pedestrian / two-wheeler involved")
     if signals.get("person_down_s", 0) >= 5:

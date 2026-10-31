@@ -192,7 +192,7 @@ def build(case_dir: Path) -> list[dict]:
                 add(inlane["t"], "counterfactual", "Could the rider have avoided it?",
                     f"When {nm(hz)} entered the lane {-inlane['t']:.1f} s before impact it was {inlane['Z']:.1f} m ahead and the gap was closing at about {closing:.0f} km/h. "
                     f"Avoiding contact needed about {need:.1f} m (1 s reaction + braking): "
-                    + ("there wasn't room. The vehicle moving into the lane and slowing ahead is what made the crash unavoidable." if need > inlane["Z"] else
+                    + ("there wasn't room, which is consistent with the rider being unable to avoid it once the vehicle was in the lane. This doesn't establish fault." if need > inlane["Z"] else
                        "there was room to stop if the rider had reacted within about 1 s."), "ego", None, [f"dashcam.json#{hz}"], 3)
             from .pipeline.dashcam import ttc_crossing
             # a vehicle off to the side isn't on a collision course yet; closing speeds over 140 km/h are tracking noise

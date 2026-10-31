@@ -1,4 +1,5 @@
 import { useState } from "react";
+import LangToggle from "./LangToggle";
 
 /* Four looks for the same system, switchable live. Swiss: white, black, one red, on a grid. Command: dark, map-first, like a
    control room. Cockpit: dense dark slate with amber, like a dispatcher console. Paper: warm editorial, for reports. */
@@ -24,6 +25,7 @@ export default function ThemePicker({ compact }: { compact?: boolean }) {
         <button key={k} role="radio" aria-checked={theme === k} onClick={() => pick(k)}
           className={`border px-2 py-1 text-[11px] font-semibold ${theme === k ? "border-accent bg-accent text-white" : "border-line text-muted hover:text-ink"}`}>{l}</button>
       ))}
+      <LangToggle />
     </div>
   );
 }

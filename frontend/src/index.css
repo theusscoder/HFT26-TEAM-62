@@ -88,3 +88,7 @@ button:disabled { cursor: not-allowed; }
 .leaflet-tooltip.ops-label::before { display: none; }
 .leaflet-tooltip.ops-label-v { border-color: #e5e7eb; }
 .leaflet-tooltip.ops-label-s { border-color: #ff2a2a; color: #ffb4b4; }
+
+/* Telugu: a font with the script, and no letter-spacing (it breaks conjuncts) */
+html[lang="te"] body, html[lang="te"] button, html[lang="te"] select { font-family: "Noto Sans Telugu", "Nirmala UI", Gautami, var(--font-sans); }
+html[lang="te"] * { letter-spacing: 0 !important; }

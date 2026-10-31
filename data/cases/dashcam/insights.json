@@ -81,7 +81,7 @@
     "t": -1.0,
     "kind": "vision",
     "title": "Vision model's reading",
-    "detail": "The grey car cut into the camera vehicle's lane, forcing the motorcycle to collide with it. The motorcycle then slid off the road and came to rest on the shoulder. This agrees with the measurements.",
+    "detail": "The grey car cut into the lane of the motorcycle, forcing the rider to brake hard. The motorcycle was struck from behind by the grey car, causing it to crash into the shoulder. This agrees with the measurements.",
     "actor": null,
     "xy": null,
     "evidence": [
@@ -107,7 +107,7 @@
     "t": -0.9,
     "kind": "counterfactual",
     "title": "Could the rider have avoided it?",
-    "detail": "When Grey car entered the lane 0.9 s before impact it was 7.2 m ahead and the gap was closing at about 20 km/h. Avoiding contact needed about 7.9 m (1 s reaction + braking): there wasn't room. The vehicle moving into the lane and slowing ahead is what made the crash unavoidable.",
+    "detail": "When Grey car entered the lane 0.9 s before impact it was 7.2 m ahead and the gap was closing at about 20 km/h. Avoiding contact needed about 7.9 m (1 s reaction + braking): there wasn't room, which is consistent with the rider being unable to avoid it once the vehicle was in the lane. This doesn't establish fault.",
     "actor": "ego",
     "xy": null,
     "evidence": [

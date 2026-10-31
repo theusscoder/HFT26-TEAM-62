@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { CheckCircle2, Circle, Send } from "lucide-react";
+import LangToggle from "../components/LangToggle";
 
 /* Telegram in three steps: paste the bot token from @BotFather, have each phone open the bot and choose /police,
    /hospital or /family, send a test. From then on every incident the camera agents detect is pushed to those chats. */
@@ -39,7 +40,7 @@ export default function TelegramSetup() {
   );
   return (
     <div className="mx-auto max-w-3xl space-y-4 p-6">
-      <div className="flex items-center justify-between"><h1 className="text-2xl font-bold">Telegram alerts</h1><Link to="/" className="text-sm text-accent">← City map</Link></div>
+      <div className="flex items-center justify-between"><h1 className="text-2xl font-bold">Telegram alerts</h1><span className="flex items-center gap-3"><LangToggle /><Link to="/" className="text-sm text-accent">← City map</Link></span></div>
       <p className="text-sm text-muted">Every incident the camera agents detect goes out on Telegram within seconds: the police control room gets the location, severity and any vehicle that fled; the hospital gets the incoming patient and the treat-first note; the family is told which hospital.</p>
 
       <Step done={ready} n={1} title="Connect your bot">
@@ -82,7 +83,7 @@ export default function TelegramSetup() {
           </div>
         ) : links?.error && <p className="mt-2 text-xs text-bad">Bot: {links.error}</p>}
         <div className="mt-4 border-t border-line pt-3">
-          <div className="text-sm font-semibold">Case phones (perpetrator / victim)</div>
+          <div className="text-sm font-semibold">Case phones (vehicle of interest / victim)</div>
           <p className="mb-2 text-xs text-muted">Phones registered on a case (contacts.json) get their own alert by SMS and Telegram the moment the case is dispatched. Each one links itself: open the bot, press Start, tap <b>📱 Share my phone number</b>.</p>
           <ul className="space-y-1 text-sm">
             {(links?.contacts ?? []).map((c: any) => (

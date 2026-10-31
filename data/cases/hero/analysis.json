@@ -12,15 +12,15 @@
       "anchor": "EV-S-001",
       "note": "telematics clock aligned on its acceleration spike = video impact"
     },
+    "witness_2": {
+      "offset_s": null,
+      "note": "ordering only (before / at / after impact)"
+    },
     "witness_1": {
       "offset_s": null,
       "note": "ordering only (before / at / after impact)"
     },
     "witness_3": {
-      "offset_s": null,
-      "note": "ordering only (before / at / after impact)"
-    },
-    "witness_2": {
       "offset_s": null,
       "note": "ordering only (before / at / after impact)"
     }
@@ -81,6 +81,7 @@
       "person_71": "Person",
       "person_161": "Person"
     },
+    "contact": true,
     "large": [],
     "colours": {
       "car_1": "silver",
@@ -212,11 +213,19 @@
     }
   ],
   "reliability": {
+    "witness_2": 0.67,
     "witness_1": 0.33,
-    "witness_3": 0.5,
-    "witness_2": 0.67
+    "witness_3": 0.5
   },
   "reliability_detail": {
+    "witness_2": {
+      "evidence_score": 0.67,
+      "weight": 0.65,
+      "reasons": [
+        "some distance from the impact, about 5 m",
+        "hedged wording"
+      ]
+    },
     "witness_1": {
       "evidence_score": 0.33,
       "weight": 0.72,
@@ -230,14 +239,6 @@
       "weight": 0.65,
       "reasons": [
         "some distance from the impact, about 11 m",
-        "hedged wording"
-      ]
-    },
-    "witness_2": {
-      "evidence_score": 0.67,
-      "weight": 0.65,
-      "reasons": [
-        "some distance from the impact, about 5 m",
         "hedged wording"
       ]
     }

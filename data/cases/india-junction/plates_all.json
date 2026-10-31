@@ -1,0 +1,197 @@
+{
+  "generated_by": "plate_reader",
+  "engine": null,
+  "involved": [
+    "car_2",
+    "car_75"
+  ],
+  "vehicles": [
+    {
+      "track": "car_2",
+      "type": "car",
+      "colour": "white",
+      "plate": "TS13UB8016",
+      "confidence": 0.9,
+      "reads": [],
+      "frames": [],
+      "partial": false,
+      "method": "multi-frame plate reads (simulated case file)",
+      "involved": true,
+      "legible": true,
+      "crop": null,
+      "plate_box": null,
+      "frame": null,
+      "name": "White car (primary)",
+      "registered": false,
+      "anpr": {
+        "vehicle_track_id": "car_2",
+        "vehicle_label": "V-01",
+        "registration_status": "plate_not_detected",
+        "status_label": "Plate not detected",
+        "reason": "No ANPR engine installed on this machine (run read_plates.bat).",
+        "confirmed_registration": null,
+        "best_reading": null,
+        "raw_ocr_text": null,
+        "raw_reads": [],
+        "candidate_registrations": [],
+        "plate_info": [],
+        "vehicle_details": {
+          "category": "Car",
+          "make_model": "Unknown (not visually confirmed)",
+          "colour": "white",
+          "direction": "approaching the camera, left to right",
+          "distinctive_features": []
+        },
+        "matching_status": "not_checked",
+        "database_matches": [],
+        "matching_note": "No authorised registration database is connected, so no registry match is claimed.",
+        "evidence": {
+          "video_timestamp": "00:00:04.77",
+          "first_seen": "00:00:00.00",
+          "last_seen": "00:00:04.91",
+          "vehicle_crop": "veh_car_2_clearest.jpg",
+          "representative_frames": [
+            {
+              "label": "first",
+              "file": "veh_car_2_first.jpg",
+              "frame": 0,
+              "timestamp": "00:00:00.00",
+              "size_px": [
+                29,
+                22
+              ]
+            },
+            {
+              "label": "clearest",
+              "file": "veh_car_2_clearest.jpg",
+              "frame": 109,
+              "timestamp": "00:00:04.77",
+              "size_px": [
+                218,
+                149
+              ]
+            },
+            {
+              "label": "last",
+              "file": "veh_car_2_last.jpg",
+              "frame": 113,
+              "timestamp": "00:00:04.91",
+              "size_px": [
+                174,
+                126
+              ]
+            }
+          ],
+          "plate_crop": null,
+          "plate_fused": null,
+          "plate_fused_frames": null
+        },
+        "quality": {
+          "plate_detection": "not found",
+          "ocr_confidence": null,
+          "ocr_agreement": null,
+          "frames_with_reading": 0,
+          "classification_confidence": 0.72,
+          "note": "Scores are model / agreement indicators, not calibrated probabilities of correctness."
+        },
+        "requires_manual_review": true,
+        "verification_status": "Awaiting investigator verification"
+      }
+    },
+    {
+      "track": "car_75",
+      "type": "car",
+      "colour": "grey",
+      "plate": "TS08MK4410",
+      "confidence": 0.8,
+      "reads": [],
+      "frames": [],
+      "partial": false,
+      "method": "multi-frame plate reads (simulated case file)",
+      "involved": true,
+      "legible": true,
+      "crop": null,
+      "plate_box": null,
+      "frame": null,
+      "name": "Grey car",
+      "registered": false,
+      "anpr": {
+        "vehicle_track_id": "car_75",
+        "vehicle_label": "V-02",
+        "registration_status": "plate_not_detected",
+        "status_label": "Plate not detected",
+        "reason": "No ANPR engine installed on this machine (run read_plates.bat).",
+        "confirmed_registration": null,
+        "best_reading": null,
+        "raw_ocr_text": null,
+        "raw_reads": [],
+        "candidate_registrations": [],
+        "plate_info": [],
+        "vehicle_details": {
+          "category": "Car",
+          "make_model": "Unknown (not visually confirmed)",
+          "colour": "grey",
+          "direction": "approaching the camera, left to right",
+          "distinctive_features": []
+        },
+        "matching_status": "not_checked",
+        "database_matches": [],
+        "matching_note": "No authorised registration database is connected, so no registry match is claimed.",
+        "evidence": {
+          "video_timestamp": "00:00:04.64",
+          "first_seen": "00:00:04.07",
+          "last_seen": "00:00:05.44",
+          "vehicle_crop": "veh_car_75_clearest.jpg",
+          "representative_frames": [
+            {
+              "label": "first",
+              "file": "veh_car_75_first.jpg",
+              "frame": 88,
+              "timestamp": "00:00:04.07",
+              "size_px": [
+                53,
+                136
+              ]
+            },
+            {
+              "label": "clearest",
+              "file": "veh_car_75_clearest.jpg",
+              "frame": 105,
+              "timestamp": "00:00:04.64",
+              "size_px": [
+                315,
+                198
+              ]
+            },
+            {
+              "label": "last",
+              "file": "veh_car_75_last.jpg",
+              "frame": 129,
+              "timestamp": "00:00:05.44",
+              "size_px": [
+                111,
+                127
+              ]
+            }
+          ],
+          "plate_crop": null,
+          "plate_fused": null,
+          "plate_fused_frames": null
+        },
+        "quality": {
+          "plate_detection": "not found",
+          "ocr_confidence": null,
+          "ocr_agreement": null,
+          "frames_with_reading": 0,
+          "classification_confidence": 0.92,
+          "note": "Scores are model / agreement indicators, not calibrated probabilities of correctness."
+        },
+        "requires_manual_review": true,
+        "verification_status": "Awaiting investigator verification"
+      }
+    }
+  ],
+  "schema": 2,
+  "legible": 2,
+  "note": "Plates are shown only when the ANPR actually read them; the crop behind each number is saved as evidence."
+}

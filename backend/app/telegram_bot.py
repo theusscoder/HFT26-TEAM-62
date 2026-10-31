@@ -25,7 +25,7 @@ import httpx
 ROOT = Path(__file__).resolve().parents[2]
 DATA = ROOT / "data"
 LINKS = DATA / "telegram_links.json"
-ROLE_NAME = {"suspect": "perpetrator", "victim": "victim"}
+ROLE_NAME = {"suspect": "vehicle of interest", "victim": "victim"}
 
 _lock = threading.Lock()
 _state = {"running": False, "bot": None, "error": None, "last_poll": None, "gen": 0, "conflict_at": None}

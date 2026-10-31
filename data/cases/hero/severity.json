@@ -1,9 +1,11 @@
 {
-  "score": 33,
-  "level": "L1",
-  "label": "Minor",
+  "score": 48,
+  "level": "L2",
+  "label": "Moderate",
   "notify": [
-    "owner"
+    "family",
+    "police",
+    "hospital_standby"
   ],
   "breakdown": [
     {
@@ -19,6 +21,12 @@
       "ref": "tracks_metric:car_38"
     },
     {
+      "signal": "contact",
+      "points": 15,
+      "why": "road users in contact on camera",
+      "ref": "boxes of Blue bus and the other road user meet in the frame"
+    },
+    {
       "signal": "vru_involved",
       "points": 15,
       "why": "pedestrian / two-wheeler involved",
@@ -30,12 +38,14 @@
     "dv_kmh": 9.5,
     "vru_involved": true,
     "person_down_s": 0,
+    "contact": true,
     "fire_smoke": false,
     "rollover": false,
     "refs": {
       "peak_g": "sensor.csv#r=54",
       "dv_kmh": "tracks_metric:car_38",
-      "vru_involved": "Black motorcycle, Policeman within 3 m of the impact"
+      "vru_involved": "Black motorcycle, Policeman within 3 m of the impact",
+      "contact": "boxes of Blue bus and the other road user meet in the frame"
     }
   },
   "minor_example": {

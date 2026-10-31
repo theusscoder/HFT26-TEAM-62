@@ -277,10 +277,22 @@ def _loop():
         time.sleep(PAUSE_S)
 
 
+def _clean_partial():
+    """A restart mid-analysis leaves a half-built case. Only the agent's own, only with no analysis; its feed is rescanned."""
+    for d in CASES.glob("*"):
+        try:
+            src = (json.loads((d / "case.json").read_text(encoding="utf-8")).get("source") or {}) if (d / "case.json").exists() else {}
+        except ValueError:
+            continue
+        if src.get("kind") == "camera agent" and not (d / "records.json").exists():
+            shutil.rmtree(d, ignore_errors=True)
+
+
 def start():
     if os.getenv("CAMERA_AGENT", "on") == "off" or os.getenv("PYTEST_CURRENT_TEST") or "pytest" in os.getenv("_", "") \
             or (_run["thread"] and _run["thread"].is_alive()):
         return
+    _clean_partial()
     _run["stop"] = False
     _run["thread"] = threading.Thread(target=_loop, daemon=True, name="camera-agent")
     _run["thread"].start()

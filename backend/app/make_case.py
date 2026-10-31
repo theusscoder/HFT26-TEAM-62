@@ -45,6 +45,8 @@ def severity_for(case_dir: Path, ent: dict, metric: dict, events: list[dict]) ->
     sig["person_down_s"] = max((e["t"]["end"] - e["t"]["start"] for e in downs), default=0)
     if downs:
         refs["person_down_s"] = downs[0]["ref"]
+    if ent.get("contact"):
+        sig["contact"], refs["contact"] = True, f"boxes of {ent['names'].get(ent.get('primary'), 'the vehicles').replace(' (primary)', '')} and the other road user meet in the frame"
     sig["fire_smoke"], sig["rollover"] = seen["fire_smoke_seen"], seen["overturned_seen"]
     if seen["fire_smoke_seen"] or seen["overturned_seen"]:
         refs["fire_smoke"] = refs["rollover"] = "vision.json"

@@ -14,6 +14,7 @@
     "truck_4": "White truck",
     "car_5": "Black car"
   },
+  "contact": true,
   "large": [
     "truck_4"
   ],

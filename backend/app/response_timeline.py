@@ -25,6 +25,7 @@ FIR_AFTER_S = 45
 CERT_AFTER_S = 60
 NOTIFY = {"fir": ["police"], "certificate": ["hospital"], "accepted": ["police", "family"], "at_scene": ["family"],
           "arrived": ["police", "family"], "treatment_report": ["police", "family"]}
+TELUGU = {"accepted": "ఆసుపత్రి రోగిని అంగీకరించింది", "at_scene": "అంబులెన్స్ ఘటనా స్థలానికి చేరింది", "arrived": "ఆసుపత్రికి చేరారు", "treatment_report": "చికిత్స నివేదిక సిద్ధమైంది"}
 _lock = threading.Lock()
 _run = {"thread": None}
 
@@ -199,7 +200,7 @@ def tick_case(d: Path):
         res = {}
         for role in roles:
             res[role] = notify.send(role, f"YATHARTH · {case.get('title', d.name)}", None, f"⏱ {e['label']} · {_t(e['time']).astimezone().strftime('%H:%M:%S')}",
-                                    f"{e['detail']}\n{e['actor']}")["status"]
+                                    f"{e['detail']}\n{e['actor']}" + (f"\n\n{TELUGU[e['key']]}" if role == "family" and e["key"] in TELUGU else ""))["status"]
         if notify.alert_phones():
             head = f"⏱ {e['label']} · {_t(e['time']).astimezone().strftime('%H:%M:%S')}"
             res["alert phones"] = ",".join(r["status"] for r in notify.send_to_alert_phones(head, f"{case.get('title', d.name)}\n{e['detail']}\n{e['actor']}"))
@@ -210,6 +211,22 @@ def tick_case(d: Path):
             cur = _j(d / "response_timeline.json") or tl
             cur["notified"] = {**cur.get("notified", {}), **tl["notified"]}
             (d / "response_timeline.json").write_text(json.dumps(cur, indent=2), encoding="utf-8")
+
+
+def recent(limit: int = 6) -> list[dict]:
+    """The camera agent's newest cases with where each one's response stands, for the police and hospital boards."""
+    rows = []
+    for d in CASES.iterdir():
+        case = _j(d / "case.json", {}) or {}
+        if (case.get("source") or {}).get("kind") != "camera agent" or not (d / "response_timeline.json").exists():
+            continue
+        tl = get(d)
+        by = {e["key"]: e for e in tl["events"]}
+        step = lambda k: {"status": by[k]["status"], "time": by[k]["time"], "actor": by[k]["actor"], "detail": by[k]["detail"], "by_person": bool(by[k].get("by_person"))} if k in by else None
+        rows.append({"id": d.name, "title": case.get("title"), "place": (case.get("location") or {}).get("name"), "camera": case["source"].get("camera"), "occurred": tl["occurred"],
+                     "level": (_j(d / "severity.json", {}) or {}).get("level"), "police": step("police_informed"), "fir": step("fir"), "accepted": step("accepted"),
+                     "at_scene": step("at_scene"), "arrived": step("arrived"), "report": step("treatment_report")})
+    return sorted(rows, key=lambda r: r["occurred"], reverse=True)[:limit]
 
 
 def _loop():
