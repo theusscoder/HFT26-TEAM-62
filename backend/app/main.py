@@ -339,7 +339,7 @@ async def add_dashcam(cid: str, video: UploadFile, ego_class: str = Form("car"))
     digest = sha256_file(vpath)
     Ledger(sd / "custody.jsonl").append("evidence_received", file=video.filename, stored=vpath.name, sha256=digest, linked_to=cid)
     Ledger(d / "custody.jsonl").append("dashcam_linked", file=video.filename, sha256=digest, case=sub)
-    (sd / "case_hint.json").write_text(json.dumps({"camera": "dashcam", "ego_class": ego_class}))
+    (sd / "case_hint.json").write_text(json.dumps({"camera": "dashcam", "ego_class": ego_class, "location": read(cid, "case").get("location")}))
     case = read(cid, "case")
     case["dashcam_case"] = sub
     (d / "case.json").write_text(json.dumps(case, indent=2), encoding="utf-8")

@@ -13,7 +13,7 @@ from pathlib import Path
 
 import numpy as np
 
-from . import build_case, calibration, emergency, insights, severity
+from . import build_case, calibration, emergency, geotag, insights, severity
 from .custody import Ledger, sha256_file
 from .pipeline import dashcam, fusion, pursuit, scene3d, sensor, sensor_sim, video, vision, witness
 
@@ -98,12 +98,15 @@ def make(case_id: str, video_path: Path | None = None, title: str | None = None,
     if mode == "dashcam":
         dc = dashcam.analyse(d, hint.get("ego_class", "car"))
         t0_override = (dc["t0_video_s"], f"dashcam:{dc['t0_method']}")
-    case = build_case.build(case_id, src, title or prev.get("title", case_id), location or prev.get("location", {}).get("name", ""),
-                            prev.get("location", {}).get("lat"), prev.get("location", {}).get("lon"), t0_override)
+    loc, new_location = geotag.resolve(case_id, d, src, prev.get("location"), location, hint)
+    case = build_case.build(case_id, src, title or prev.get("title", case_id), loc["name"], loc["lat"], loc["lon"], t0_override)
+    case["location"] = loc
     case["camera"] = {**cam, "type": mode}
-    for k in ("clock_overlay", "weather", "incident_time_utc", "heading_deg", "dashcam_case"):
+    for k in ("clock_overlay", "weather", "incident_time_utc", "incident_time_source", "heading_deg", "dashcam_case"):
         if k in prev:
             case[k] = prev[k]
+    if new_location:
+        geotag.record(d, case, src)
     (d / "case.json").write_text(json.dumps(case, indent=2))
     video_events = json.loads((d / "events.json").read_text())
 
@@ -159,10 +162,6 @@ def make(case_id: str, video_path: Path | None = None, title: str | None = None,
     (d / "severity.json").write_text(json.dumps(sev, indent=2))
     report["severity"] = f"{sev['level']} {sev['label']} ({sev['score']})"
     say("severity", "done", report["severity"])
-    try:  # the moment a crash is analysed: police informed, urgent units out, the struck party's contact told
-        report["auto_response"] = f"{len(emergency.auto_trigger(d)['dispatched'])} unit(s) sent automatically"
-    except Exception as e:
-        report["auto_response"] = f"not run: {str(e)[:80]}"
     ins = insights.build(d)
     report["insights"] = f"{len(ins)} key findings"
     say("insights", "done", report["insights"])
@@ -173,6 +172,11 @@ def make(case_id: str, video_path: Path | None = None, title: str | None = None,
     from . import records
     rec = records.build(d)
     report["records"] = f"{len(rec['vehicles'])} vehicles and {len(rec['people'])} people on record"
+    # after the records: the alerts name the victim and plate, and a struck rider decides the ambulance
+    try:  # police informed, urgent units out, the struck party's contact told
+        report["auto_response"] = f"{len(emergency.auto_trigger(d)['dispatched'])} unit(s) sent automatically"
+    except Exception as e:
+        report["auto_response"] = f"not run: {str(e)[:80]}"
 
     from . import faces
     if faces.available() and (d / "evidence" / "cctv.mp4").exists():

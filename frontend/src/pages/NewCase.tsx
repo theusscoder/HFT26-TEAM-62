@@ -1,3 +1,4 @@
+import { MapPin } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate, useSearchParams, Link } from "react-router-dom";
 
@@ -18,7 +19,6 @@ export default function NewCase() {
   const [sensor, setSensor] = useState<File | null>(null);
   const [meta, setMeta] = useState<File[]>([]);
   const [title, setTitle] = useState("");
-  const [location, setLocation] = useState("");
   const [sim, setSim] = useState(false);
   const [job, setJob] = useState<any>(null);
   const [cid, setCid] = useState<string | null>(null);
@@ -43,7 +43,6 @@ export default function NewCase() {
     if (sensor) fd.append("sensor", sensor);
     meta.forEach((m) => fd.append("meta", m));
     fd.append("title", title || video.name.replace(/\.[^.]+$/, ""));
-    fd.append("location", location);
     fd.append("simulate_sensor", String(sim && !sensor));
     const r = await fetch("/api/cases", { method: "POST", body: fd });
     if (!r.ok) { setErr((await r.json()).detail ?? `upload failed (${r.status})`); return; }
@@ -106,7 +105,7 @@ export default function NewCase() {
 
           <div className="mt-5 grid grid-cols-1 gap-3 md:grid-cols-2">
             <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Case title (optional)" className="rounded-lg border border-line bg-panel px-3 py-2 text-sm" />
-            <input value={location} onChange={(e) => setLocation(e.target.value)} placeholder="Location (optional)" className="rounded-lg border border-line bg-panel px-3 py-2 text-sm" />
+            <p className="flex items-center gap-1.5 px-1 text-sm text-muted"><MapPin size={14} className="shrink-0" />The location is logged automatically from the camera and GPS data.</p>
           </div>
           {!sensor && <label className="mt-3 flex items-center gap-2 text-sm text-muted"><input type="checkbox" checked={sim} onChange={(e) => setSim(e.target.checked)} />No telematics? Simulate one from the video track (clearly labelled as simulated)</label>}
           {err && <p className="mt-3 text-sm text-bad">{err}</p>}

@@ -45,6 +45,7 @@ def dar(case: dict, events: list[dict], analysis: dict, severity: dict | None, c
         "1. Case": f"{case['id']}: {case['title']}\nData: {case.get('license') or ('simulated' if case.get('simulated') else 'as supplied')}",
         "2. Time and place": f"Location: {loc.get('name') or NOT_DETERMINED}\n"
                              f"Coordinates: {f'''{loc['lat']}, {loc['lon']}''' if loc.get('lat') is not None else NOT_DETERMINED}\n"
+                             f"Location basis: {loc.get('source') or NOT_DETERMINED}\n"
                              f"Clock at impact: {_clock_at_impact(events)}\n"
                              f"Weather: {(case.get('weather') or {}).get('road_state', NOT_DETERMINED)}",
         "3. Evidence and custody": "\n".join(f"- {f}: SHA-256 {h}" for f, h in hashes) or NOT_DETERMINED,

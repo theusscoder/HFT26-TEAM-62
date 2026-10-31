@@ -80,7 +80,7 @@ export default function TSPoliceDB() {
             <div className="space-y-4 text-sm">
               {rec.case_links.map((l: any) => (
                 <div key={l.case_id} className={`rounded border px-3 py-2 ${l.role === "suspect" ? "border-bad/50 bg-bad/10" : "border-warn/50 bg-warn/10"}`}>
-                  <b className="uppercase">{l.role}</b> in case <Link to={`/case/${l.case_id}/response`} className="mono text-accent">{l.case_id}</Link> · {l.status}
+                  <b className="uppercase">{l.role}</b> in case <Link to={`/case/${l.case_id}/dossiers`} className="mono text-accent">{l.case_id}</Link> · {l.status}
                   <div className="text-xs">Registered number {l.registered_phone} redirected to {l.assigned_station} · {l.summary}</div>
                 </div>
               ))}

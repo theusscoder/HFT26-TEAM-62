@@ -5,21 +5,25 @@
   "location": {
     "name": "Gachibowli X-roads, Hyderabad",
     "lat": 17.4401,
-    "lon": 78.3489
+    "lon": 78.3489,
+    "method": "camera_registry",
+    "camera": "CAM-HYD-0207",
+    "source": "registered position of camera CAM-HYD-0207",
+    "logged_at": "2026-10-31T03:17:30+00:00"
   },
   "evidence": [
     {
       "id": "cctv",
       "type": "video",
       "file": "cctv.mp4",
-      "label": "Junction CCTV (fixed)",
+      "label": "Junction CCTV (fixed) (synthetic: events only, no footage)",
       "fps": 30
     },
     {
       "id": "dashcam",
       "type": "video",
       "file": "dashcam.mp4",
-      "label": "Car A dashcam",
+      "label": "Car A dashcam (synthetic: events only, no footage)",
       "fps": 30
     },
     {

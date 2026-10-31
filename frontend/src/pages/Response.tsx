@@ -93,7 +93,7 @@ function PartyCard({ p }: { p: any }) {
           <div className="text-right">
             <div className="mono rounded border-2 border-ink/80 bg-ink px-2 py-0.5 text-lg font-bold tracking-widest text-bg">{p.resolved_plate ?? p.plate}</div>
             {p.resolved_plate && <div className="mono mt-1 text-[10px] text-ok">read {p.plate} → 1 DB match</div>}
-            <div className="mt-1 text-[10px] text-muted">{p.plate_confidence > 0 ? `${Math.round(p.plate_confidence * 100)}% plate vote` : "demo-assigned plate"}</div>
+            <div className="mt-1 text-[10px] text-muted">{p.raw_read ? `plate on record · camera read ${p.raw_read}` : p.plate_confidence > 0 ? `${Math.round(p.plate_confidence * 100)}% plate vote` : "plate on record"}</div>
           </div>
         )}
       </div>
@@ -265,15 +265,12 @@ export default function Response() {
   const [open, setOpen] = useState<string | null>(null);
   const [officer, setOfficer] = useState("Duty officer");
   const [result, setResult] = useState<any>(null);
-  const [loc, setLoc] = useState({ lat: "", lon: "", name: "" });
   const [tg, setTg] = useState<any>(null);
   const [tgTest, setTgTest] = useState<string | null>(null);
 
   const load = (fresh: any) => {
     setD(fresh);
     setSel(Object.fromEntries(fresh.notifications.plan.map((p: any) => [p.id, p.default_on])));
-    const l = fresh.incident.location;
-    setLoc({ lat: String(l.lat), lon: String(l.lon), name: l.name });
   };
   useEffect(() => { get<any>(`/response/${id}`).then(load).catch((e) => setError(String(e))); }, [id]);
   useEffect(() => { get<any>(`/telegram/status`).then(setTg).catch(() => setTg({ ok: false, detail: "status unavailable" })); }, []);
@@ -305,15 +302,8 @@ export default function Response() {
           <p className="mt-1 text-sm text-muted">
             <Status value={sev.level ?? "L?"} /> {sev.label} · {sev.score}/100 · {inc.time.replace("T", " ")} <span className="text-[11px]">({inc.time_source})</span> · {inc.people_at_risk} people at risk
           </p>
-          <p className={`mt-1 text-xs ${inc.location.assumed ? "text-warn" : "text-muted"}`}>📍 {inc.location.name} · {inc.location.source}</p>
+          <p className={`mt-1 text-xs ${inc.location.assumed ? "text-warn" : "text-muted"}`}>📍 {inc.location.name} · <span className="mono">{(+inc.location.lat).toFixed(4)}, {(+inc.location.lon).toFixed(4)}</span> · {inc.location.assumed ? "estimated" : "auto-logged"}: {inc.location.source}</p>
         </div>
-        <form className="flex items-end gap-2 text-xs" onSubmit={(e) => { e.preventDefault(); act("loc", () => post(`/response/${id}/location`, { lat: +loc.lat, lon: +loc.lon, name: loc.name })); }}>
-          <label className="flex flex-col gap-1 text-muted">Incident site
-            <input value={loc.name} onChange={(e) => setLoc({ ...loc, name: e.target.value })} className="w-48 rounded border border-line bg-panel-2 px-2 py-1 text-ink" /></label>
-          <input value={loc.lat} onChange={(e) => setLoc({ ...loc, lat: e.target.value })} className="mono w-24 rounded border border-line bg-panel-2 px-2 py-1" />
-          <input value={loc.lon} onChange={(e) => setLoc({ ...loc, lon: e.target.value })} className="mono w-24 rounded border border-line bg-panel-2 px-2 py-1" />
-          <button className="rounded border border-line px-3 py-1 hover:border-accent" disabled={!!busy}>{busy === "loc" ? "…" : "Set location"}</button>
-        </form>
       </div>
       {error && <div className="rounded border border-bad/40 bg-bad/10 px-3 py-2 text-sm text-bad">{error}</div>}
 

@@ -11,4 +11,4 @@ timeout /t 1 /nobreak >nul
 start "YATHARTH API :8000" cmd /k "cd /d "%~dp0backend" && .venv\Scripts\python -m uvicorn app.main:app --port 8000"
 start "YATHARTH web :5173" cmd /k "cd /d "%~dp0frontend" && npm run dev"
 timeout /t 8 /nobreak >nul
-start "" "http://localhost:5173/case/hero/replay"
+start "" "http://localhost:5173/"

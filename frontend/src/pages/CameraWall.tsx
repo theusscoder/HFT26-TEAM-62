@@ -11,6 +11,8 @@ const TONE: Record<string, string> = { watching: "#22c55e", screening: "#f59e0b"
 
 export default function CameraWall() {
   const [st, setSt] = useState<any>(null);
+  const [now, setNow] = useState(Date.now());
+  useEffect(() => { const h = setInterval(() => setNow(Date.now()), 1000); return () => clearInterval(h); }, []);
   const load = () => fetch("/api/cameras").then((r) => r.json()).then(setSt).catch(() => {});
   useEffect(() => { load(); const h = setInterval(load, 3000); return () => clearInterval(h); }, []);
   const scan = (id: string) => fetch(`/api/cameras/${id}/scan`, { method: "POST" }).then(load);
@@ -36,7 +38,9 @@ export default function CameraWall() {
           {(st?.cameras ?? []).map((c: any) => (
             <div key={c.id} className={`border bg-black ${st?.current === c.id ? "border-[#f59e0b]" : "border-white/15"}`}>
               <div className="relative aspect-video bg-black">
-                <img src={`/api/cameras/${c.id}/stream`} alt={c.name} className="h-full w-full object-cover" />
+                {c.live ? <img src={`/api/cameras/${c.id}/stream`} alt={c.name} className="h-full w-full object-cover" />
+                  : <video src={`/api/cameras/${c.id}/feed`} autoPlay muted loop playsInline className="h-full w-full object-cover" />}
+                <span data-notranslate className="mono absolute bottom-1.5 left-2 bg-black/60 px-1 text-[10px]">{c.id} {new Date(now).toLocaleString("en-GB", { hour12: false }).replace(",", "")}</span>
                 <span className="absolute left-2 top-2 flex items-center gap-1 bg-black/70 px-1.5 py-0.5 text-[10px] font-bold"><span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#ff2a2a]" />{c.id}</span>
                 <span className="absolute right-2 top-2 px-1.5 py-0.5 text-[10px] font-bold uppercase" style={{ background: TONE[c.status] ?? "#5b6470" }}>{c.status ?? "queued"}</span>
               </div>
@@ -45,7 +49,7 @@ export default function CameraWall() {
                 <div className="truncate text-white/55">{c.detail ?? "waiting for its turn"}</div>
                 <div className="flex items-center justify-between gap-2">
                   {c.case ? <Link to={`/case/${c.case}`} className="text-[#93c5fd] underline">Case {c.case}</Link> : <span className="text-white/35">no case</span>}
-                  <button onClick={() => scan(c.id)} className="flex items-center gap-1 border border-white/20 px-2 py-0.5 hover:bg-white/10"><ScanSearch size={12} />Scan now</button>
+                  <button disabled={c.busy || c.status === "analysing"} onClick={() => scan(c.id)} className="flex items-center gap-1 border border-white/20 px-2 py-0.5 hover:bg-white/10 disabled:opacity-40"><ScanSearch size={12} />{c.busy || c.status === "analysing" ? "Working…" : "Scan now"}</button>
                 </div>
               </div>
             </div>

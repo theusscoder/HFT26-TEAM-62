@@ -93,6 +93,33 @@ SUSPECT_PROFILE = {
 }
 
 
+# The synthetic demo case's two parties, as data/fictional/live_identities.json and the case records describe them.
+DEMO_PARTIES = {
+    "TS07GK5521": {"make_model": "Honda City", "fuel": "Diesel", "date": "2023-03-14", "area": "Miyapur", "owner": "Karthik Varma", "dl": "TS07 2015 •••2910", "dl_till": "2035-06-14",
+                   "contact": {"name": "Swathi Varma", "relation": "Wife", "phone": "+91 80••• ••784"},
+                   "insurance": {"insurer": "ICICI Lombard", "valid_till": "2027-01-31", "status": "Valid"}, "flags": ["3 unpaid challans"]},
+    "TS09EA1234": {"make_model": "Maruti Swift", "fuel": "CNG", "date": "2022-08-09", "area": "Banjara Hills", "owner": "Ravi Teja Goud", "dl": "TS09 2019 •••2345", "dl_till": "2034-05-11",
+                   "contact": {"name": "Kavitha Goud", "relation": "Sister", "phone": "+91 98••• ••412"},
+                   "insurance": {"insurer": "New India Assurance", "valid_till": "2027-03-31", "status": "Valid"}, "flags": ["1 unpaid challan"],
+                   "challans": [{"date": "2026-02-11", "offence": "Parking violation (Sec 177)", "amount_inr": 500, "status": "unpaid", "location": "Banjara Hills"}]},
+}
+
+
+def apply_demo_parties(vehicles: list[dict]):
+    for v in vehicles:
+        p = DEMO_PARTIES.get(v["plate"])
+        if not p and v["plate"] != "TS07GH8810":   # the suspect owner's second vehicle
+            continue
+        o = p or DEMO_PARTIES["TS07GK5521"]
+        v["owner"].update({"name": o["owner"], "address": f"{v['owner']['address'].split(',')[0]}, {o['area']}, Hyderabad", "dl_number": o["dl"], "dl_valid_till": o["dl_till"]})
+        if p:
+            v.update({"make_model": p["make_model"], "fuel": p["fuel"], "emergency_contact": p["contact"], "flags": p["flags"]})
+            v["registration"]["date"] = p["date"]
+            v["insurance"].update(p["insurance"])
+            if "challans" in p:
+                v["challans"] = p["challans"]
+
+
 def km(a_lat, a_lon, b_lat, b_lon) -> float:
     r = 6371.0
     p1, p2 = math.radians(a_lat), math.radians(b_lat)
@@ -179,6 +206,7 @@ def main():
         used.add(p)
         vehicles.append(make_vehicle(i, p, cls))
         i += 1
+    apply_demo_parties(vehicles)
     (OUT / "vehicles.json").write_text(json.dumps({"meta": {"name": "TS State Police · Vehicle & Owner Registry (MOCK)",
         "note": "Fictional records for the YATHARTH demo. Phone numbers use the invalid +91 5xxxx range.",
         "generated": ANCHOR.isoformat(), "count": len(vehicles)}, "vehicles": vehicles}, indent=1, ensure_ascii=False))

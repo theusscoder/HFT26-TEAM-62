@@ -76,29 +76,6 @@ function VehicleCard({ v, caseId, i }: { v: any; caseId: string; i: number }) {
   );
 }
 
-function LocationForm({ caseId, onDone }: { caseId: string; onDone: () => void }) {
-  const [lat, setLat] = useState(""), [lon, setLon] = useState("");
-  const [busy, setBusy] = useState(false), [err, setErr] = useState<string | null>(null);
-  async function save() {
-    setBusy(true); setErr(null);
-    const r = await fetch(`/api/cases/${caseId}/location`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ lat: +lat, lon: +lon }) });
-    setBusy(false);
-    if (!r.ok) { setErr(`Couldn't save (${r.status})`); return; }
-    onDone();
-  }
-  return (
-    <Panel title="Where to next?">
-      <p className="text-sm text-muted">The footage doesn't say where this happened. Enter the crash's coordinates to work out where the vehicle could have reached.</p>
-      <div className="mt-3 flex flex-wrap gap-2">
-        <input aria-label="Latitude" placeholder="Latitude" value={lat} onChange={(e) => setLat(e.target.value)} className="w-36 rounded-lg border border-line bg-panel-2 px-3 py-2 text-sm" />
-        <input aria-label="Longitude" placeholder="Longitude" value={lon} onChange={(e) => setLon(e.target.value)} className="w-36 rounded-lg border border-line bg-panel-2 px-3 py-2 text-sm" />
-        <button disabled={busy || !lat || !lon} onClick={save} className="rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-white disabled:opacity-40">{busy ? "Working…" : "Trace"}</button>
-      </div>
-      {err && <p className="mt-2 text-xs text-bad">{err}</p>}
-    </Panel>
-  );
-}
-
 // The chase, on a timeline of minutes: the reach grows, plazas light up as their window opens, the funnel narrows.
 function Trail({ d }: { d: any }) {
   const horizon = useMemo(() => Math.max(5, ...d.tolls.map((t: any) => t.window_min[1])), [d]);
@@ -215,7 +192,7 @@ export default function Pursuit() {
         <span className="text-sm font-semibold text-claimed">Open →</span>
       </a>
 
-      {d.needs === "coordinates" && <LocationForm caseId={id!} onDone={() => setNonce((n) => n + 1)} />}
+      {d.needs === "coordinates" && <Panel title="Where to next?"><p className="text-sm text-muted">The trace starts as soon as this incident's location is logged.</p></Panel>}
       {d.tolls && d.funnel && d.exit?.lat != null && <Trail d={d} />}
       {d.partial_plate && !vehicles.length && <Panel title="Partial plate"><div className="mono text-2xl tracking-widest">{d.partial_plate}</div></Panel>}
       {d.plates_method && <p className="flex items-center gap-1.5 text-[11px] text-muted"><MapPin size={12} />Plates: {d.plates_method}. Stayed or left comes from the tracks, not from the model.</p>}

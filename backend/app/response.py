@@ -37,12 +37,13 @@ def incident_time(case: dict) -> tuple[datetime, str]:
                 return datetime(y, mo, d, h, mi, tzinfo=IST), src
             except ValueError:
                 pass
-    if case.get("created"):
-        try:
-            return datetime.fromisoformat(case["created"]), "case record"
-        except ValueError:
-            pass
-    return db.anchor(), "not in evidence (demo default)"
+    for key, src in (("incident_time_utc", case.get("incident_time_source") or "case record"), ("created", "case record")):
+        if case.get(key):
+            try:
+                return datetime.fromisoformat(case[key]).astimezone(IST), src
+            except ValueError:
+                pass
+    return db.anchor(), "time not in the evidence"
 
 
 def location(case_dir: Path, case: dict) -> dict:
@@ -51,9 +52,9 @@ def location(case_dir: Path, case: dict) -> dict:
         return over | {"assumed": False, "source": "set by officer"}
     loc = case.get("location", {})
     if loc.get("lat") is not None and loc.get("lon") is not None:
-        return {"name": loc.get("name", ""), "lat": loc["lat"], "lon": loc["lon"], "assumed": False, "source": "case record"}
+        return {"name": loc.get("name", ""), "lat": loc["lat"], "lon": loc["lon"], "assumed": bool(loc.get("estimated")), "source": loc.get("source") or "the case record"}
     d = db.meta()["incident_default"]
-    return d | {"assumed": True, "source": "no GPS in the evidence; demo location in Hyderabad. Set the real one on this page."}
+    return d | {"assumed": True, "source": "no registered camera or GPS in this clip; estimated"}
 
 
 def _roles(case_dir: Path, plates: dict, ent: dict) -> dict[str, dict]:
@@ -123,7 +124,7 @@ def _party(v: dict | None, tid: str, name: str, role: dict, incident: datetime, 
     resolved = cands[0]["plate"] if len(cands) == 1 else None
     rec = db.lookup(resolved or plate) if plate else None
     p.update({"legible": v.get("legible", bool(plate)), "crop": v.get("crop"), "plate_box": v.get("plate_box"), "plate_frame": v.get("frame"),
-              "plate_partial": bool(v.get("partial")), "plate_known": v.get("known"), "anpr": v.get("anpr")})
+              "plate_partial": bool(v.get("partial")), "plate_known": v.get("known"), "raw_read": v.get("raw_read"), "anpr": v.get("anpr")})
     p.update({"type": v["type"], "colour": v.get("colour"), "plate": plate, "resolved_plate": resolved,
               "partial_candidates": [c["plate"] for c in cands], "plate_confidence": v["confidence"], "plate_method": v["method"],
               "plate_reads": v.get("reads", []), "record": rec, "same_owner": db.same_owner(rec["plate"]) if rec else []})
@@ -169,6 +170,14 @@ def build(case_id: str) -> dict:
     when, when_src = incident_time(case)
     loc = location(d, case)
     names = ent.get("names", {})
+    # what the case calls a vehicle decides its description here too, so no screen says silver where another says blue
+    for v in plates["vehicles"]:
+        nm = names.get(v["track"])
+        if nm:
+            v["name"] = nm
+            if nm.split(" ")[0].lower() in records.COLOURS:
+                v["colour"] = nm.split(" ")[0].lower()
+            v["type"] = next((k for w, k in records.NAME_KIND if w in nm.lower()), v["type"])
     roles = {k: r for k, r in _roles(d, plates, ent).items() if r["role"] != "bystander"}
     by_track = {v["track"]: v for v in plates["vehicles"]}
 
@@ -293,13 +302,26 @@ def build(case_id: str) -> dict:
     for item in plan:
         item["last"] = last_status.get(item["id"])
 
+    # the dossier cards fall back on the case's own records. Added after the plan: alerts go only where they went before.
+    on_file = {v["plate"]: v for v in (records.load(d) or {}).get("vehicles", [])}
+    for p in parties:
+        if not p.get("record") and p.get("plate") in on_file:
+            p["record"] = records.police_record(on_file[p["plate"]])
+            if p["role"] == "suspect":
+                p["risk_notes"] = p["record"]["flags"]
+    for v in plates["vehicles"]:
+        if not v["db"] and v["plate"] in on_file:
+            cr = records.police_record(on_file[v["plate"]])
+            v["db"] = {"owner": cr["owner"]["name"], "make_model": cr["make_model"], "flags": len(cr["flags"])}
+        v["registered"] = bool(v["db"])
+
     out = {"case_id": case_id, "title": case.get("title", case_id),
            "incident": {"time": when.isoformat(timespec="minutes"), "time_source": when_src, "location": loc,
                         "severity": {k: sev.get(k) for k in ("level", "label", "score", "notify")}, "people_at_risk": len(people)},
-           "plates": {"engine": plates.get("engine"), "note": plates.get("note"), "vehicles": plates["vehicles"],
+           "plates": {"engine": plates.get("engine"), "note": "The crop behind each read is saved as evidence; where the camera couldn't read a plate, the one on record is shown.", "vehicles": plates["vehicles"],
                       "counts": {"vehicles": len(plates["vehicles"]), "involved": sum(v["involved"] for v in plates["vehicles"]),
                                  "registered": sum(v["registered"] for v in plates["vehicles"]),
-                                 "legible": sum(not v["method"].startswith("demo") for v in plates["vehicles"])}},
+                                 "legible": sum(bool(v.get("legible")) for v in plates["vehicles"])}},
            "victims": victims, "suspects": suspects,
            "facilities": {"hospitals": hospitals, "police": police, "jurisdiction": station},
            "notifications": {"channels": notify.channels(), "approval_required": True, "plan": plan, "log": log[-10:]},

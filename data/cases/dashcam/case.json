@@ -4,7 +4,11 @@
   "location": {
     "name": "ORR service road, Nanakramguda, Hyderabad",
     "lat": 17.4305,
-    "lon": 78.3432
+    "lon": 78.3432,
+    "method": "camera_registry",
+    "camera": "DASH-TS-1098",
+    "source": "registered position of camera DASH-TS-1098",
+    "logged_at": "2026-10-29T15:44:05+00:00"
   },
   "t0_video_s": 3.57,
   "t0_anchor": "dashcam:vehicle fills the frame just before the jolt",

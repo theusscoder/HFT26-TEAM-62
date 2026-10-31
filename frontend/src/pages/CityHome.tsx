@@ -35,6 +35,7 @@ function CaseSide({ c, onClose }: { c: any; onClose: () => void }) {
             <span className="text-white/40">· {c.place}</span>
           </div>
           <div className="mt-1 text-[17px] font-bold leading-snug">{c.title}</div>
+          <div className="mt-1 truncate text-[11px] text-white/60">📍 {c.place} · <span className="mono">{c.lat.toFixed(4)}, {c.lon.toFixed(4)}</span>{c.location_source ? ` · ${c.location_estimated ? "estimated" : "auto-logged"}: ${c.location_source}` : ""}</div>
           <div className="mt-1 text-[11px] text-white/50">{c.time ? new Date(c.time).toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" }) : ""} · {c.camera.toUpperCase()} · {c.contradictions} contradictions</div>
         </div>
         <div className="flex shrink-0 items-center gap-2">

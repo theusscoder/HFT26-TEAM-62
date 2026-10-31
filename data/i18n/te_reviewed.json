@@ -114,5 +114,13 @@
   "In pursuit": "వెంబడిస్తున్నారు",
   "Active incidents": "జరుగుతున్న ఘటనలు",
   "Certificates sent": "పంపిన ధృవపత్రాలు",
-  "Telegram alerts": "టెలిగ్రామ్ అలర్ట్‌లు"
+  "Telegram alerts": "టెలిగ్రామ్ అలర్ట్‌లు",
+  "Auto-logged": "స్వయంచాలకంగా నమోదు",
+  "Estimated": "అంచనా",
+  "Logging the location…": "స్థానాన్ని నమోదు చేస్తోంది…",
+  "· Auto-logged": "· స్వయంచాలకంగా నమోదు",
+  "· Estimated": "· అంచనా",
+  "· registered position of camera ⟦0⟧": "· కెమెరా ⟦0⟧ నమోదైన స్థానం",
+  "registered position of camera ⟦0⟧": "కెమెరా ⟦0⟧ నమోదైన స్థానం",
+  "The location is logged automatically from the camera and GPS data.": "కెమెరా, GPS సమాచారం నుంచి స్థానం స్వయంచాలకంగా నమోదవుతుంది."
 }

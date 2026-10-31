@@ -198,7 +198,7 @@ function IncidentMap({ m }: { m: any }) {
     ...m.checkpoints.filter((c: any) => c.lat != null).map((c: any) => ({ ...c, kind: "checkpoint" }))];
   const col: Record<string, string> = { hospital: "#3ecf8e", police: "#4f8cff", checkpoint: "#f5b84f" };
   return (
-    <Panel title="Incident map · responders alerted" right={<span className="text-[11px] text-muted">{m.incident.name}{m.incident.assumed ? " (assumed location)" : ""}</span>}>
+    <Panel title="Incident map · responders alerted" right={<span className="text-[11px] text-muted">{m.incident.name}{m.incident.assumed ? " (estimated location)" : ""}</span>}>
       <div className="h-[300px] overflow-hidden rounded-lg">
         <MapContainer center={inc} zoom={12} className="h-full w-full" scrollWheelZoom={false}>
           <TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" className="dark-tiles" attribution="© OpenStreetMap" />

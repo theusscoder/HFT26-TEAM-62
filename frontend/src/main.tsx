@@ -66,7 +66,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route path="calibrate" element={<Calibrate />} />
           <Route path="reconstruction" element={<Reconstruction />} />
           <Route path="ask" element={<Ask />} />
-          <Route path="response" element={<Response />} />
+          <Route path="dossiers" element={<Response />} />
           <Route path="ts-police-db" element={<TSPoliceDB />} />
           <Route path="intercept" element={<Intercept />} />
           <Route path="dashcam" element={<DashcamPage />} />

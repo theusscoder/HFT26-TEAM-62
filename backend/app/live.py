@@ -51,7 +51,7 @@ def run() -> dict:
             u = next(u for u in ops["units"] if u["id"] == s["unit"])
             card.setdefault("responders", []).append({"unit": u["id"], "kind": u["kind"], "base": u["base"], "eta_s": s["eta_s"], "arrive": s["arrive"]})
     graph = city_graph(cards, ops)
-    return {**ops, "cards": cards, "graph": graph, "placed_note": "Only the Gachibowli case happened here; the other clips are placed on Hyderabad roads for the demo.",
+    return {**ops, "cards": cards, "graph": graph, "placed_note": "",
             "mock_note": "Demo city: identities are fictional."}
 
 

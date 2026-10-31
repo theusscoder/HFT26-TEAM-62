@@ -33,7 +33,23 @@ YATHARTH takes the evidence from one road accident (CCTV video, a vehicle's tele
 
 Every conclusion links to a frame, a quote or a sensor row, and is labelled OBSERVED, CLAIMED or INFERRED. Rules decide; the LLM only extracts and explains.
 
-Plan and team split: [TEAM_PLAN.md](TEAM_PLAN.md) · first-pass plan: [PLAN.md](PLAN.md)
+Plan and team split: [TEAM_PLAN.md](TEAM_PLAN.md) · first-pass plan: [PLAN.md](PLAN.md) · requirement-by-requirement status, what is real and what is simulated: [docs/EVALUATION.md](docs/EVALUATION.md)
+
+## The whole app
+| Page | What it does |
+|---|---|
+| `/` | 3D Hyderabad with a beacon per case; click one for its side panel and export |
+| `/cameras` | The camera agent watches each feed and opens a case when it detects a crash. **Scan now** runs one feed on demand |
+| `/police`, `/hospital` | Officer assignment and tracking; incoming cases, with the FIR and report arriving before the patient |
+| `/operations` | One incident at a time, from detection to response |
+| `/telegram` | Connect the bot, see who is subscribed, send a test |
+| `/case/<id>` | Everything in "What each screen is for" below, plus the response timeline |
+
+**Location:** logged automatically, never asked for: linked case → registered camera (`data/cameras.json`, by camera id or feed file) → GPS in the video metadata → GPS in the telematics log → an estimate on the road network, labelled "Estimated". See `backend/app/geotag.py`.
+
+**Telugu:** the EN / తెలుగు switch translates every dashboard. Translations are stored in `data/i18n/te.json`, and hand-checked ones in `te_reviewed.json` take priority. Numbers, plates and IDs are never translated. Text not yet stored is translated on first view when `FEATHERLESS_API_KEY` is set.
+
+**Telegram:** in the bot, `/police`, `/hospital`, `/family` or `/all` subscribes a chat. `ALERT_PHONES` in `backend/.env` adds phones that have shared their number with the bot. See `backend/.env.example`. Only one computer can poll a bot at a time, so set `TELEGRAM_LINKER=off` on the others.
 
 ## Hero case (real footage)
 `data/cases/hero/` is a real CCTV clip from the ACCIDENT benchmark: a bus veers into a road divider where a traffic constable is on duty.
@@ -76,7 +92,7 @@ Then open **Road calibration** in the website, click 4 road points, enter their 
 Optional: `backend/.env` with `FEATHERLESS_API_KEY=...` makes witness extraction use the Featherless LLM. Without it, the hand-annotated seed extraction (same schema) is used, and the UI says which one ran.
 
 ## Analyse any video (website)
-Open **New case**, drop a road CCTV or dashcam clip (.mp4 / .mov / .avi / .mkv), and optionally add witness statements (`.txt`), a telematics log (`.csv`) and kit metadata. The pipeline runs in the background with live stage progress, and the case opens when it's done. Without measured road points, the road is **auto-calibrated from object sizes** (±30%), and you can refine it on *Road calibration*.
+Open **New case** and drop a road CCTV or dashcam clip (.mp4 / .mov / .avi / .mkv), and optionally add witness statements (`.txt`), a telematics log (`.csv`) and kit metadata. The pipeline runs in the background with live stage progress, and the case opens when it's done. Without measured road points, the road is **auto-calibrated from object sizes** (±30%), and you can refine it on *Road calibration*.
 
 ### Demo kits (`demo_kits/`)
 Drop all of a folder's files onto New case at once:
@@ -110,7 +126,7 @@ Results with the offline extractor (no API key): **5/5, 2/2 and 1/1 planted cont
 Bots can't message a phone number directly; the phone opens the bot once, then every alert (hospital, police, victim, suspect, Golden hour) goes to that chat. Each one names the mock number it is addressed to. `scripts/preflight.py --send-test` checks everything and sends a test.
 
 ### Response & alerts (A2 plates + A3 alerts)
-Shown on **Evidence replay**: while the footage plays, the victim's and culprit's plates lock at their clearest frame ("Number detected"), each opens a profile card from the TS police DB, and once the culprit's plate is read a 5 s countdown sends the alerts. The culprit card lists the notice to the culprit's number and the police stations notified, plus live tracking; the victim card lists the victim/family notices and the hospitals notified / in action. (Full dossiers: `/case/<id>/response`, mock DB: `/ts-police-db`.)
+Shown on **Evidence replay**: while the footage plays, the plates of the victim and the vehicle of interest lock at their clearest frame ("Number detected"), each opens a profile card from the TS police DB, and once the plate of the vehicle of interest is read a 5 s countdown sends the alerts. Its card lists the notice to the registered number and the police stations notified, plus live tracking; the victim card lists the victim/family notices and the hospitals notified / in action. (Full dossiers: `/case/<id>/dossiers`, mock DB: `/ts-police-db`.)
 - **Every vehicle gets a plate.** OCR runs when `fast-plate-ocr` or `easyocr` is installed (optional `PLATE_MODEL` = YOLO plate-detector weights), with a multi-frame vote. CCTV rarely resolves plates, so an unreadable plate is **demo-assigned** from the mock DB, labelled as such, with confidence 0. Involved vehicles are highlighted.
 - **Roles by rule, officer can override:** striking vehicle (fusion primary) or vehicle that fled (hit-and-run partial plate) = *suspect*; other involved road users = *victims*. A suspect is a lead, not a finding.
 - **Dossiers from the mock TS police DB:** owner, registered phone, address, DL, insurance, PUC, FASTag, challans, accident records, other vehicles of the same owner. Partial plates (`TS07G?5521`) are resolved against the DB.

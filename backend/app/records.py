@@ -199,6 +199,37 @@ def build(case_dir: Path) -> dict:
     return out
 
 
+def police_record(v: dict, year_now: int = 2026) -> dict:
+    """One record vehicle in the police DB's shape, for the dossier screen. What the case already says is kept, so the
+    screens agree; the fields only this screen shows (chassis, policy, FASTag, challan rows) are generated from the plate."""
+    r = _rng(v["plate"], "dossier")
+    reg, drv = v["registration"], v["driver"]
+    words = reg["vehicle"].split()
+    coloured = bool(words) and words[0].lower() in COLOURS
+    ins = reg["insurance"]
+    ok = reg.get("insurance_ok", True)
+    insurer, till = ins.split(" · ", 1) if ok and " · " in ins else (r.choice(INSURERS), ins)
+    relation = reg.get("contact_relation") or "family"
+    first = r.choice([n for n in FIRST if (n in FEMALE) == (relation in ("wife", "mother", "sister"))])
+    day = lambda: f"{r.randint(1, 12):02d}-{r.randint(1, 28):02d}"
+    two_wheel = v["class"] in ("motorcycle", "bicycle")
+    offences = [("No helmet (Sec 194D)", 1000) if two_wheel else ("No seat belt (Sec 194B)", 1000), ("Signal jump (Sec 184)", 1000),
+                ("Overspeeding (Sec 183)", 2000), ("Wrong-side driving (Sec 184)", 1000), ("Parking violation (Sec 177)", 500)]
+    challans = [{"date": f"{year_now}-{r.randint(1, 9):02d}-{r.randint(1, 28):02d}", "offence": o, "amount_inr": a, "status": "unpaid", "location": reg.get("address_area") or "Hyderabad"}
+                for o, a in r.sample(offences, min(reg.get("pending_challans") or 0, len(offences)))]
+    flags = ([] if ok else ["Insurance expired"]) + ([f"{len(challans)} unpaid challan{'s' if len(challans) > 1 else ''}"] if challans else [])
+    return {"plate": v["plate"], "class": v["class"], "make_model": " ".join(words[1:]) if coloured else reg["vehicle"], "colour": words[0].lower() if coloured else None,
+            "fuel": reg.get("fuel"), "case_record": True,
+            "registration": {"date": f"{reg.get('registered', year_now - 5)}-{day()}", "rto": reg.get("rto"), "chassis": f"MA3{r.choice('ABEFGJ')}…{r.randint(1000, 9999)}", "status": "Active"},
+            "owner": {"id": f"OWN-{v['plate']}", "type": "company" if "Travels" in reg["owner"] else "individual", "name": reg["owner"], "driver_on_record": drv["name"],
+                      "phone": drv["phone"], "address": f"{reg.get('address_area') or 'Hyderabad'}, Hyderabad", "dl_number": drv["dl_no"], "dl_valid_till": drv["valid_till"]},
+            "emergency_contact": {"name": f"{first} {drv['name'].split()[-1]}", "relation": relation, "phone": reg.get("emergency_contact")},
+            "insurance": {"insurer": insurer, "policy": f"POL-{r.randint(10000000, 99999999)}", "valid_till": re.sub(r"(?i)valid till |expired ", "", till), "status": "Valid" if ok else "Expired"},
+            "puc_valid_till": f"{year_now + 1 if reg.get('puc') == 'Valid' else year_now - 1}-{day()}",
+            "fastag_id": None if two_wheel else "".join(r.choice("0123456789") for _ in range(20)),
+            "challans": challans, "accident_history": [], "flags": flags}
+
+
 def _merge_plates(case_dir: Path, vehicles: list[dict]):
     """plates.json lists every recorded vehicle: footage reads stay as they are; the rest are marked as registry matches."""
     p = case_dir / "plates.json"

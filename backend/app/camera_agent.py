@@ -37,6 +37,9 @@ STREAM_WINDOW_S = 60        # a live stream is screened in windows of this lengt
 PAUSE_S = float(os.getenv("CAMERA_AGENT_PAUSE_S", "20"))
 
 _lock = threading.Lock()
+_detect_lock = threading.Lock()
+BUSY_WAIT_S = 30
+_busy: set[str] = set()
 _run = {"thread": None, "stop": False, "current": None}
 _model = None
 
@@ -52,29 +55,43 @@ def load_state() -> dict:
         return {"seen": {}, "log": [], "cameras": {}}
 
 
-def _save(st: dict):
+def _merge(st: dict, cam: str, change) -> None:
+    """Apply a change to the state on disk, not to this thread's old copy: the loop and Scan now run side by side, and
+    a stale copy would wipe out the other's log lines, errors and status."""
     with _lock:
-        st["log"] = st["log"][-200:]
+        fresh = load_state()
+        fresh.setdefault("seen", {}).update({k: v for k, v in st.get("seen", {}).items() if k.startswith(f"{cam}:")})
+        change(fresh)
+        fresh["log"] = fresh.get("log", [])[-200:]
         tmp = STATE.with_suffix(".tmp")
-        tmp.write_text(json.dumps(st, indent=2), encoding="utf-8")
-        os.replace(tmp, STATE)
+        tmp.write_text(json.dumps(fresh, indent=2), encoding="utf-8")
+        for attempt in range(5):
+            try:
+                os.replace(tmp, STATE)
+                break
+            except PermissionError:   # Windows: a status read has the file open for a moment
+                if attempt == 4:
+                    raise
+                time.sleep(0.05)
+    st.clear()
+    st.update(fresh)
 
 
 def _log(st: dict, cam: str, text: str, **kw):
-    st["log"].append({"time": datetime.now().astimezone().isoformat(timespec="seconds"), "camera": cam, "text": text, **kw})
-    _save(st)
+    entry = {"time": datetime.now().astimezone().isoformat(timespec="seconds"), "camera": cam, "text": text, **kw}
+    _merge(st, cam, lambda s: s.setdefault("log", []).append(entry))
 
 
 def _set(st: dict, cam: str, **kw):
-    st.setdefault("cameras", {}).setdefault(cam, {}).update(kw)
-    _save(st)
+    _merge(st, cam, lambda s: s.setdefault("cameras", {}).setdefault(cam, {}).update(kw))
 
 
 def _detector():
     global _model
     if _model is None:
         from ultralytics import YOLO
-        _model = YOLO(os.getenv("CAMERA_AGENT_MODEL", "yolo11n.pt"))
+        # by full path: a bare name is looked up in whatever folder the server was started from
+        _model = YOLO(os.getenv("CAMERA_AGENT_MODEL") or str(ROOT / "backend" / "yolo11n.pt"))
     return _model
 
 
@@ -179,7 +196,7 @@ def _record_stream(url: str, seconds: float, out_path: Path) -> list[tuple[float
 
 def _open_case(cam: dict, clip: Path, hit: dict) -> str:
     """A new case at the camera's place and time, run end to end, then the automatic response."""
-    from . import emergency, make_case, records
+    from . import emergency, geotag, make_case, records
     from .custody import Ledger, sha256_file
     stamp = datetime.now().strftime("%H%M%S")
     cid = f"{cam['id'].lower()}-{stamp}"
@@ -189,8 +206,10 @@ def _open_case(cam: dict, clip: Path, hit: dict) -> str:
     shutil.copy(clip, dst)
     Ledger(d / "custody.jsonl").append("evidence_received", file=f"{cam['id']} feed", stored=dst.name, sha256=sha256_file(dst), source="camera agent", detection=hit)
     now = datetime.now(timezone.utc)
-    (d / "case.json").write_text(json.dumps({"id": cid, "title": f"Collision at {cam['name']}", "location": {"name": f"{cam['name']}, Hyderabad", "lat": cam["lat"], "lon": cam["lon"]},
-                                             "incident_time_utc": now.isoformat(), "source": {"kind": "camera agent", "camera": cam["id"], "detection": hit}}, indent=2))
+    opened = {"id": cid, "title": f"Collision at {cam['name']}", "location": geotag.from_camera(cam),
+              "incident_time_utc": now.isoformat(), "source": {"kind": "camera agent", "camera": cam["id"], "detection": hit}}
+    geotag.record(d, opened, dst)
+    (d / "case.json").write_text(json.dumps(opened, indent=2))
     if cam.get("camera") == "dashcam":
         (d / "case_hint.json").write_text(json.dumps({"camera": "dashcam", "ego_class": cam.get("ego_class", "car")}))
     try:
@@ -216,8 +235,25 @@ def _open_case(cam: dict, clip: Path, hit: dict) -> str:
     return cid
 
 
-def scan(cam: dict) -> str | None:
-    """Watch one camera once. Returns the new case id, if it opened one."""
+def scan(cam: dict, force: bool = False) -> str | None:
+    """Watch one camera once. Returns the new case id, if it opened one. force: treat this as a fresh event on the feed
+    (the Scan now button), so an officer can run the whole flow again from a feed already seen."""
+    for _ in range(BUSY_WAIT_S if force else 1):   # the button outranks a routine pass already on this camera: wait for it to end
+        with _lock:
+            if cam["id"] not in _busy:   # already being watched: the button and the loop must not open two cases for one event
+                _busy.add(cam["id"])
+                break
+        if force:
+            time.sleep(1)
+    else:
+        return None
+    try:
+        return _scan(cam, force)
+    finally:
+        _busy.discard(cam["id"])
+
+
+def _scan(cam: dict, force: bool) -> str | None:
     st = load_state()
     src = cam["source"]
     is_url = "://" in src
@@ -235,12 +271,13 @@ def scan(cam: dict) -> str | None:
                 _set(st, cam["id"], status="offline", detail="feed unavailable")
                 return None
             key = f"{cam['id']}:{hashlib.sha256(clip.read_bytes()).hexdigest()[:16]}"
-            if key in st["seen"]:
+            if key in st["seen"] and not force:
                 _set(st, cam["id"], status="watching", detail="no new incident", last_scan=time.time(), case=st["seen"][key].get("case"))
                 return None
             frames, _ = _frames_from_file(clip)
         _set(st, cam["id"], status="screening", detail=f"{len(frames)} frames through the detector")
-        hit = screen(frames, cam.get("camera") == "dashcam")
+        with _detect_lock:   # one YOLO model shared by the loop and Scan now
+            hit = screen(frames, cam.get("camera") == "dashcam")
         if not hit:
             st["seen"][key] = {"case": None, "time": time.time()}
             _set(st, cam["id"], status="watching", detail="no incident", last_scan=time.time())
@@ -307,7 +344,7 @@ def status() -> dict:
     cams = []
     for c in cameras():
         s = (st.get("cameras") or {}).get(c["id"], {})
-        cams.append({**{k: c[k] for k in ("id", "name", "lat", "lon", "camera")}, "live": "://" in c["source"], **s})
+        cams.append({**{k: c[k] for k in ("id", "name", "lat", "lon", "camera")}, "live": "://" in c["source"], "busy": c["id"] in _busy, **s})
     return {"running": bool(_run["thread"] and _run["thread"].is_alive()), "current": _run["current"], "cameras": cams,
             "log": list(reversed(st.get("log", [])))[:60]}
 

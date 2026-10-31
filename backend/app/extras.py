@@ -98,14 +98,14 @@ def get_context(cid: str):
     if lat is not None and when is not None:
         sun = context.sun_check(when, lat, lon, case.get("heading_deg"))
     else:
-        notes.append("Set the location and time of the crash to get weather and sun position.")
+        notes.append("Weather and sun position appear once the location and time are logged.")
     limit = None
     if lat is not None:
         measured = (load(d, "analysis", {}).get("counterfactual") or {}).get("observed_speed_kmh")
         limit = context.speed_limit(lat, lon, measured)
         if limit is None:
             notes.append("OpenStreetMap couldn't be reached, so no speed limit is shown.")
-    return {"weather": case.get("weather"), "sun": sun, "speed_limit": limit, "location": loc, "incident_time_utc": case.get("incident_time_utc"), "notes": notes}
+    return {"weather": case.get("weather"), "sun": sun, "speed_limit": limit, "location": loc, "incident_time_utc": case.get("incident_time_utc"), "incident_time_source": case.get("incident_time_source"), "notes": notes}
 
 
 def _custody(d: Path) -> list[dict]:
@@ -301,6 +301,19 @@ def camera_stream(cam: str):
     return StreamingResponse(camera_agent.frame_stream(cam), media_type="multipart/x-mixed-replace; boundary=frame")
 
 
+@router.get("/api/cameras/{cam}/feed")
+def camera_feed(cam: str):
+    """A file feed as plain video: unlike a held-open MJPEG stream it doesn't use up the browser's six connections."""
+    from . import camera_agent
+    c = next((c for c in camera_agent.cameras() if c["id"] == cam), None)
+    if not c or "://" in c["source"]:
+        raise HTTPException(404)
+    p = camera_agent.ROOT / c["source"]
+    if not p.exists():
+        raise HTTPException(404)
+    return FileResponse(p, media_type="video/mp4")
+
+
 @router.post("/api/cameras/{cam}/scan")
 def camera_scan(cam: str):
     """Screen one camera now (in the background); the result shows in /api/cameras."""
@@ -309,7 +322,7 @@ def camera_scan(cam: str):
     c = next((c for c in camera_agent.cameras() if c["id"] == cam), None)
     if not c:
         raise HTTPException(404)
-    threading.Thread(target=camera_agent.scan, args=(c,), daemon=True).start()
+    threading.Thread(target=camera_agent.scan, args=(c, True), daemon=True).start()
     return {"started": cam}
 
 

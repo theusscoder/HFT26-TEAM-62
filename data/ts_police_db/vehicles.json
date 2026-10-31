@@ -9,11 +9,11 @@
   {
    "plate": "TS07GK5521",
    "class": "car",
-   "make_model": "Hyundai i20",
+   "make_model": "Honda City",
    "colour": "red",
    "fuel": "Diesel",
    "registration": {
-    "date": "2017-02-22",
+    "date": "2023-03-14",
     "rto": "Ranga Reddy (Attapur)",
     "chassis": "MA3X…1127",
     "engine": "K43…3812",
@@ -22,23 +22,23 @@
    "owner": {
     "id": "OWN0001",
     "type": "individual",
-    "name": "Spandana Sharma",
+    "name": "Karthik Varma",
     "driver_on_record": null,
     "phone": "+91 50001 26090",
-    "address": "H.No 1-242, Madhapur, Hyderabad",
-    "dl_number": "TS0720178903559",
-    "dl_valid_till": "2032-06-24"
+    "address": "H.No 1-242, Miyapur, Hyderabad",
+    "dl_number": "TS07 2015 •••2910",
+    "dl_valid_till": "2035-06-14"
    },
    "emergency_contact": {
-    "name": "Suresh Sharma",
-    "relation": "Mother",
-    "phone": "+91 55001 87345"
+    "name": "Swathi Varma",
+    "relation": "Wife",
+    "phone": "+91 80••• ••784"
    },
    "insurance": {
-    "insurer": "Tata AIG",
+    "insurer": "ICICI Lombard",
     "policy": "POL-31519230",
-    "valid_till": "2026-09-19",
-    "status": "Expired"
+    "valid_till": "2027-01-31",
+    "status": "Valid"
    },
    "puc_valid_till": "2027-03-22",
    "fastag_id": "34161FA8456820643440",
@@ -80,7 +80,6 @@
     }
    ],
    "flags": [
-    "Insurance expired",
     "3 unpaid challans"
    ]
   },
@@ -377,11 +376,11 @@
   {
    "plate": "TS09EA1234",
    "class": "car",
-   "make_model": "Kia Seltos",
+   "make_model": "Maruti Swift",
    "colour": "white",
-   "fuel": "Electric",
+   "fuel": "CNG",
    "registration": {
-    "date": "2018-01-29",
+    "date": "2022-08-09",
     "rto": "Hyderabad Central (Khairatabad)",
     "chassis": "MA7X…1714",
     "engine": "K32…6723",
@@ -390,51 +389,39 @@
    "owner": {
     "id": "OWN0006",
     "type": "individual",
-    "name": "Suresh Varma",
+    "name": "Ravi Teja Goud",
     "driver_on_record": null,
     "phone": "+91 50006 79496",
-    "address": "H.No 2-292, Shamshabad, Hyderabad",
-    "dl_number": "TS0920186165951",
-    "dl_valid_till": "2033-02-15"
+    "address": "H.No 2-292, Banjara Hills, Hyderabad",
+    "dl_number": "TS09 2019 •••2345",
+    "dl_valid_till": "2034-05-11"
    },
    "emergency_contact": {
-    "name": "Keerthi Varma",
-    "relation": "Mother",
-    "phone": "+91 55006 63226"
+    "name": "Kavitha Goud",
+    "relation": "Sister",
+    "phone": "+91 98••• ••412"
    },
    "insurance": {
     "insurer": "New India Assurance",
     "policy": "POL-55149674",
-    "valid_till": "2027-02-21",
+    "valid_till": "2027-03-31",
     "status": "Valid"
    },
    "puc_valid_till": "2026-12-15",
    "fastag_id": "34161FA8693894945307",
    "challans": [
     {
-     "date": "2025-02-09",
-     "offence": "No seat belt (Sec 194B)",
-     "amount_inr": 100,
-     "status": "paid",
-     "location": "Manikonda"
-    },
-    {
-     "date": "2025-05-08",
-     "offence": "Over-speeding (Sec 183 MV Act)",
-     "amount_inr": 1000,
-     "status": "paid",
-     "location": "Tolichowki"
-    },
-    {
-     "date": "2026-07-14",
+     "date": "2026-02-11",
      "offence": "Parking violation (Sec 177)",
-     "amount_inr": 135,
-     "status": "paid",
-     "location": "Patancheru"
+     "amount_inr": 500,
+     "status": "unpaid",
+     "location": "Banjara Hills"
     }
    ],
    "accident_history": [],
-   "flags": []
+   "flags": [
+    "1 unpaid challan"
+   ]
   },
   {
    "plate": "TS29Z0417",
@@ -642,12 +629,12 @@
    "owner": {
     "id": "OWN0001",
     "type": "individual",
-    "name": "Spandana Sharma",
+    "name": "Karthik Varma",
     "driver_on_record": null,
     "phone": "+91 50001 26090",
-    "address": "H.No 1-242, Madhapur, Hyderabad",
-    "dl_number": "TS0720178903559",
-    "dl_valid_till": "2032-06-24"
+    "address": "H.No 1-242, Miyapur, Hyderabad",
+    "dl_number": "TS07 2015 •••2910",
+    "dl_valid_till": "2035-06-14"
    },
    "emergency_contact": {
     "name": "Swathi Patel",

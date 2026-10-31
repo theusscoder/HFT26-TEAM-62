@@ -46,7 +46,7 @@ def messages(d: Path, auto: dict) -> list[tuple[str, str, str]]:
     eta = f"{hosp['eta_s'] // 60} min" if hosp.get("eta_s") is not None else "minutes"
     amb = any(x.get("unit") == "ambulance" for x in auto.get("dispatched", []))
     out = []
-    police_text = [f"📍 {where}", maps, f"Severity: {level}", f"Victim: {who}"]
+    police_text = [f"📍 {where}", maps, f"Location logged from: {loc['source']}" if loc.get("source") else "", f"Severity: {level}", f"Victim: {who}"]
     if sus:
         police_text.append(f"🚨 Vehicle LEFT the scene: {sus['plate']} ({sus['registration']['vehicle']}), registered to {sus['registration']['owner']}")
     police_text += [f"Ambulance: {hosp.get('name', 'nearest hospital')}, about {eta}" if amb else f"Ambulance: on standby at {hosp.get('name', 'the nearest hospital')}",

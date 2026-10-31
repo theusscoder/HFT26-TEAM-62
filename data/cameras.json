@@ -7,5 +7,13 @@
     {"id": "DASH-TS-1142", "name": "Patrol bike dashcam, Nanakramguda", "lat": 17.4223, "lon": 78.3449, "camera": "dashcam", "ego_class": "motorcycle", "source": "demo_kits/04-dashcam-rear-end/video.mp4"},
     {"id": "CAM-HYD-0129", "name": "Cyber Towers junction, HITEC City", "lat": 17.4504, "lon": 78.3810, "camera": "cctv", "source": "demo_kits/05-india-junction-tbone/video.mp4"},
     {"id": "CAM-HYD-0362", "name": "Madhapur, Image Hospital junction", "lat": 17.4411, "lon": 78.3912, "camera": "cctv", "source": "demo_kits/06-india-auto-rickshaw/video.mp4"}
+  ],
+  "_sites_note": "Cameras not watched by the agent: their position locates the incidents they recorded.",
+  "sites": [
+    {"id": "CAM-HYD-0102", "name": "IIIT junction, Gachibowli", "lat": 17.4455, "lon": 78.3489, "camera": "cctv", "case": "hero"},
+    {"id": "CAM-HYD-0207", "name": "Gachibowli X-roads", "lat": 17.4401, "lon": 78.3489, "camera": "cctv", "case": "demo"},
+    {"id": "DASH-TS-1098", "name": "ORR service road, Nanakramguda", "lat": 17.4305, "lon": 78.3432, "camera": "dashcam", "case": "dashcam"},
+    {"id": "CAM-HYD-0155", "name": "HITEC City junction", "lat": 17.4486, "lon": 78.3622, "camera": "cctv", "case": "india-junction"},
+    {"id": "CAM-HYD-0588", "name": "Kondapur residential lane", "lat": 17.4382, "lon": 78.3652, "camera": "cctv", "case": "rear-end"}
   ]
 }

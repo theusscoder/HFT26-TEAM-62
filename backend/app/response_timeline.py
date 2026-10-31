@@ -54,7 +54,7 @@ def _sections(level: str, fled: bool) -> list[str]:
     if level in ("L2", "L3"):
         s.append("BNS s.125(b) (endangering life, grievous hurt)" if level == "L3" else "BNS s.125(a) (endangering life, hurt)")
     if fled:
-        s += ["BNS s.106(2) / MV Act s.134 (failing to stop and report)", "MV Act s.187"]
+        s += ["MV Act s.134 (duty to stop and report)", "MV Act s.187"]
     return s
 
 
@@ -106,7 +106,8 @@ def create(d: Path, auto: dict) -> dict:
     def add(key, label, when, actor, detail="", **kw):
         ev.append({"key": key, "label": label, "time": _iso(when), "actor": actor, "detail": detail, "planned": True, **kw})
 
-    add("occurred", "Crash", occ, "Camera", f"{case.get('location', {}).get('name', '')}", planned=False)
+    loc = case.get("location") or {}
+    add("occurred", "Crash", occ, "Camera", f"{loc.get('name', '')}" + (f". Location logged from: {loc['source']}" if loc.get("source") else ""), planned=False)
     add("detected", "Detected and reported", t_case, "Camera agent" if src.get("kind") == "camera agent" else "Officer upload",
         (f"{src.get('camera')}: {(src.get('detection') or {}).get('why', '')}" if src.get("kind") == "camera agent" else "Footage uploaded to YATHARTH"), planned=False)
     add("analysed", "Analysis complete", t_auto - timedelta(seconds=2), "YATHARTH", f"Severity {level} {sev.get('label', '')}".strip(), planned=False)
@@ -121,7 +122,7 @@ def create(d: Path, auto: dict) -> dict:
         add(f"telegram_{m['role']}", f"Telegram · {m['role']}", t_auto + timedelta(seconds=2), "Telegram", f"{m['title'] if 'title' in m else ''} ({m.get('status')})", planned=False)
     fir_no = f"{r.randint(400, 1900)}/{datetime.now().year}"
     add("fir", "FIR registered", t_auto + timedelta(seconds=FIR_AFTER_S), f"{officer['rank_short']} {officer['name']}",
-        f"FIR {fir_no}, {officer['station']}: " + "; ".join(_sections(level, fled)), ref=fir_no, auto_by="police records system")
+        f"FIR {fir_no}, {officer['station']}. Sections proposed for the officer's review: " + "; ".join(_sections(level, fled)), ref=fir_no, auto_by="police records system")
     add("certificate", "Treat-first certificate sent to hospital", t_auto + timedelta(seconds=CERT_AFTER_S), f"{officer['rank_short']} {officer['name']}",
         f"To {hosp.get('name', 'the receiving hospital')}: treat now, FIR {fir_no} follows (Parmanand Katara v. Union of India)", ref=f"AC-{fir_no}")
     add("accepted", "Hospital accepted the patient", t_auto + timedelta(seconds=AUTO_ACCEPT_S), hosp.get("name", "Hospital"),
@@ -141,7 +142,7 @@ def create(d: Path, auto: dict) -> dict:
                                      "L1": "Abrasions and contusions; dressed; under observation, likely discharge today."}.get(level, "Assessed; under observation.")
             + f" BP {r.randint(100, 135)}/{r.randint(65, 88)}, pulse {r.randint(78, 112)}, SpO₂ {r.randint(94, 99)}%.", auto_by="ER system (provisional)")
     else:
-        add("no_transport", "No ambulance needed", t_auto + timedelta(seconds=5), "Dispatch agent", "Severity and the vision check show no one hurt; ambulance on standby", planned=False)
+        add("no_transport", "No ambulance needed", t_auto + timedelta(seconds=5), "Dispatch agent", "Low severity and no pedestrian or rider struck; ambulance on standby", planned=False)
     ev.sort(key=lambda e: e["time"])
     out = {"case": cid, "created": _iso(datetime.now(timezone.utc)), "occurred": _iso(occ), "events": ev, "notified": {}}
     with _lock:

@@ -41,8 +41,8 @@ def markers() -> dict:
         loc = case.get("location") or {}
         if d.name in live.PLACES:
             lat, lon, _, place, real = live.PLACES[d.name]
-        elif (case.get("source") or {}).get("kind") == "camera agent" and loc.get("lat"):   # where its camera is
-            lat, lon, place, real = loc["lat"], loc["lon"], loc.get("name", "").replace(", Hyderabad", ""), True
+        elif loc.get("lat") and 17.36 <= loc["lat"] <= 17.50 and 78.33 <= loc["lon"] <= 78.51:   # where it was logged, if that's on this map
+            lat, lon, place, real = loc["lat"], loc["lon"], loc.get("name", "").replace(", Hyderabad", ""), not loc.get("estimated")
         else:   # a deterministic spot on the road network, spread around the map
             h = int.from_bytes(d.name.encode()[:8].ljust(8, b"x"), "little")
             n = majors[h % len(majors)]
@@ -64,7 +64,7 @@ def markers() -> dict:
                     "vehicles": len([n for n in (ent.get("names") or {}) if not n.startswith("person")]) or len(rec.get("vehicles", [])),
                     "involved": [(ent.get("names") or {}).get(i, i) for i in [ent.get("primary"), *ent.get("involved", [])] if i],
                     "thumb": thumb, "video": "annotated.mp4" if (d / "evidence" / "annotated.mp4").exists() else None,
-                    "time": case.get("incident_time_utc"), "records": rec or None,
+                    "time": case.get("incident_time_utc"), "records": rec or None, "location_source": loc.get("source"), "location_estimated": bool(loc.get("estimated")),
                     "auto": (case.get("source") or {}).get("kind") == "camera agent", "camera_id": (case.get("source") or {}).get("camera")})
     places = [{"name": p["name"], "lat": p["lat"], "lon": p["lon"], "kind": p["amenity"]} for p in c.raw["places"]]
     return {"cases": out, "places": places, "kinds": KIND_COLOUR,

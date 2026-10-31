@@ -145,14 +145,14 @@ export default function LiveCity() {
               ))}
               <Units units={D.units} t={t} />
             </MapContainer>
-            <div className="pointer-events-none absolute bottom-3 left-3 z-[500] bg-panel/90 px-3 py-1.5 text-[11px] text-muted">rings: incidents by severity · green: hospitals and ambulances · blue: police · {D.placed_note}</div>
+            <div className="pointer-events-none absolute bottom-3 left-3 z-[500] bg-panel/90 px-3 py-1.5 text-[11px] text-muted">rings: incidents by severity · green: hospitals and ambulances · blue: police</div>
           </div>
 
           <AnimatePresence mode="wait">
             {card ? (
               <motion.div key={sel} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -10 }} className="space-y-3 border border-ink bg-panel p-4">
                 <div className="flex items-start justify-between gap-2">
-                  <div><div className="text-[11px] font-bold uppercase tracking-[0.14em] text-muted">{card.place}{card.really_here ? "" : " · placed for the demo"}</div><div className="text-lg font-bold leading-snug">{card.title}</div></div>
+                  <div><div className="text-[11px] font-bold uppercase tracking-[0.14em] text-muted">{card.place}</div><div className="text-lg font-bold leading-snug">{card.title}</div></div>
                   <span className="shrink-0 px-2 py-0.5 text-xs font-bold text-white" style={{ background: LEVEL[card.level] ?? "#8a8a85" }}>{card.level} · {card.label}</span>
                 </div>
                 {card.video ? <video key={card.case} src={`/api/cases/${card.case}/file/${card.video}`} autoPlay muted loop playsInline className="aspect-video w-full bg-black object-contain" />
