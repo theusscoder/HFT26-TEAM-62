@@ -32,17 +32,19 @@ def telegram_chats() -> dict:
 
 
 def lookup(plate: str) -> dict | None:
-    from . import records
+    from . import records, ts_police_db  # records (main), then the mock TS police DB (A2) as fallback
     key = plate.replace(" ", "").upper()
     rec = records.index().get(key)
-    return {**rec, "telegram_chat_id": REGISTRY.get(key, {}).get("telegram_chat_id")} if rec else REGISTRY.get(key)
+    if rec:
+        return {**rec, "telegram_chat_id": REGISTRY.get(key, {}).get("telegram_chat_id")}
+    return REGISTRY.get(key) or ts_police_db.registry_card(plate)
 
 
 def send(plate: str, text: str) -> dict:
     rec = lookup(plate)
     if not rec:
         return {"status": "not_found", "plate": plate}
-    token, chat = os.getenv("TELEGRAM_BOT_TOKEN"), rec.get("telegram_chat_id")
+    token, chat = os.getenv("TELEGRAM_BOT_TOKEN"), rec.get("telegram_chat_id") or os.getenv("DEMO_CHAT_ID_1")
     if not (token and chat):
         return {"status": "simulated", "to": rec["owner"], "text": text}
     r = httpx.post(f"https://api.telegram.org/bot{token}/sendMessage",

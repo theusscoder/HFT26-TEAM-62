@@ -1,0 +1,25 @@
+{
+ "anchor": "2026-10-30T17:31:00+05:30",
+ "incident_default": {
+  "name": "Gachibowli X-roads, Hyderabad (assumed)",
+  "lat": 17.4401,
+  "lon": 78.3489
+ },
+ "pools": {
+  "suspect": {
+   "car": "TS07GK5521",
+   "bus": "TS09UB4471",
+   "truck": "TS08UC7316",
+   "motorcycle": "TS13EK2290",
+   "auto": "TS11UA0928"
+  },
+  "victim": {
+   "car": "TS09EA1234",
+   "bus": "TS29Z0417",
+   "truck": "TS15UD3382",
+   "motorcycle": "TS10EQ6614",
+   "auto": "TS12UB5150"
+  }
+ },
+ "note": "Toll times are relative to 'anchor'; the API re-bases them to each case's incident time."
+}

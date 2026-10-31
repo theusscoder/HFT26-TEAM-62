@@ -1,0 +1,6875 @@
+{
+ "meta": {
+  "name": "TS State Police · Vehicle & Owner Registry (MOCK)",
+  "note": "Fictional records for the YATHARTH demo. Phone numbers use the invalid +91 5xxxx range.",
+  "generated": "2026-10-30T17:31:00+05:30",
+  "count": 141
+ },
+ "vehicles": [
+  {
+   "plate": "TS07GK5521",
+   "class": "car",
+   "make_model": "Hyundai i20",
+   "colour": "red",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2017-02-22",
+    "rto": "Ranga Reddy (Attapur)",
+    "chassis": "MA3X…1127",
+    "engine": "K43…3812",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0001",
+    "type": "individual",
+    "name": "Spandana Sharma",
+    "driver_on_record": null,
+    "phone": "+91 50001 26090",
+    "address": "H.No 1-242, Madhapur, Hyderabad",
+    "dl_number": "TS0720178903559",
+    "dl_valid_till": "2032-06-24"
+   },
+   "emergency_contact": {
+    "name": "Suresh Sharma",
+    "relation": "Mother",
+    "phone": "+91 55001 87345"
+   },
+   "insurance": {
+    "insurer": "Tata AIG",
+    "policy": "POL-31519230",
+    "valid_till": "2026-09-19",
+    "status": "Expired"
+   },
+   "puc_valid_till": "2027-03-22",
+   "fastag_id": "34161FA8456820643440",
+   "challans": [
+    {
+     "date": "2024-12-08",
+     "offence": "No helmet (Sec 194D)",
+     "amount_inr": 100,
+     "status": "paid",
+     "location": "Manikonda"
+    },
+    {
+     "date": "2026-01-10",
+     "offence": "Drunk driving (Sec 185)",
+     "amount_inr": 10000,
+     "status": "unpaid",
+     "location": "Gachibowli"
+    },
+    {
+     "date": "2026-05-22",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "unpaid",
+     "location": "Begumpet"
+    },
+    {
+     "date": "2026-03-02",
+     "offence": "No seat belt (Sec 194B)",
+     "amount_inr": 100,
+     "status": "unpaid",
+     "location": "Gachibowli"
+    }
+   ],
+   "accident_history": [
+    {
+     "date": "2025-08-14",
+     "fir": "FIR 412/2025, Narsingi PS",
+     "summary": "Rear-end collision, minor injuries; settled"
+    }
+   ],
+   "flags": [
+    "Insurance expired",
+    "3 unpaid challans"
+   ]
+  },
+  {
+   "plate": "TS09UB4471",
+   "class": "bus",
+   "make_model": "Eicher Skyline (staff bus)",
+   "colour": "silver",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2021-07-01",
+    "rto": "Hyderabad Central (Khairatabad)",
+    "chassis": "MA4X…1224",
+    "engine": "K28…5083",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0002",
+    "type": "individual",
+    "name": "Sai Teja Prasad",
+    "driver_on_record": null,
+    "phone": "+91 50002 28150",
+    "address": "H.No 4-188, Banjara Hills, Hyderabad",
+    "dl_number": "TS0920218544734",
+    "dl_valid_till": "2032-02-23"
+   },
+   "emergency_contact": {
+    "name": "Sai Teja Prasad",
+    "relation": "Father",
+    "phone": "+91 55002 58441"
+   },
+   "insurance": {
+    "insurer": "United India Insurance",
+    "policy": "POL-31447017",
+    "valid_till": "2027-05-23",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-10-26",
+   "fastag_id": "34161FA8698714444942",
+   "challans": [
+    {
+     "date": "2026-04-09",
+     "offence": "No helmet (Sec 194D)",
+     "amount_inr": 100,
+     "status": "paid",
+     "location": "Banjara Hills"
+    },
+    {
+     "date": "2026-05-03",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "unpaid",
+     "location": "Uppal"
+    },
+    {
+     "date": "2026-10-25",
+     "offence": "Drunk driving (Sec 185)",
+     "amount_inr": 10000,
+     "status": "unpaid",
+     "location": "Secunderabad"
+    },
+    {
+     "date": "2026-09-05",
+     "offence": "Red-light jumping (Sec 184)",
+     "amount_inr": 1000,
+     "status": "unpaid",
+     "location": "Gachibowli"
+    }
+   ],
+   "accident_history": [
+    {
+     "date": "2026-03-02",
+     "fir": "FIR 98/2026, Raidurgam PS",
+     "summary": "Bus brushed a two-wheeler; rider injured"
+    }
+   ],
+   "flags": [
+    "Fitness certificate expired",
+    "Permit: stage carriage, route deviation noted twice"
+   ]
+  },
+  {
+   "plate": "TS08UC7316",
+   "class": "truck",
+   "make_model": "Eicher Pro 2049",
+   "colour": "white",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2023-10-16",
+    "rto": "Medchal (Uppal)",
+    "chassis": "MA5X…5253",
+    "engine": "K25…7548",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0003",
+    "type": "company",
+    "name": "Golconda Logistics",
+    "driver_on_record": "Keerthi Naidu",
+    "phone": "+91 50003 56891",
+    "address": "H.No 16-293, Kompally, Hyderabad",
+    "dl_number": "TS0820236461175",
+    "dl_valid_till": "2027-04-17"
+   },
+   "emergency_contact": {
+    "name": "Manasa Naidu",
+    "relation": "Spouse",
+    "phone": "+91 55003 71066"
+   },
+   "insurance": {
+    "insurer": "Tata AIG",
+    "policy": "POL-44616462",
+    "valid_till": "2027-06-23",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-12-25",
+   "fastag_id": "34161FA8360670755905",
+   "challans": [
+    {
+     "date": "2026-07-31",
+     "offence": "No helmet (Sec 194D)",
+     "amount_inr": 100,
+     "status": "unpaid",
+     "location": "Chandanagar"
+    },
+    {
+     "date": "2026-04-02",
+     "offence": "Over-speeding (Sec 183 MV Act)",
+     "amount_inr": 1000,
+     "status": "unpaid",
+     "location": "Begumpet"
+    },
+    {
+     "date": "2026-02-19",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "unpaid",
+     "location": "Secunderabad"
+    }
+   ],
+   "accident_history": [],
+   "flags": [
+    "Overloading challan x2"
+   ]
+  },
+  {
+   "plate": "TS13EK2290",
+   "class": "motorcycle",
+   "make_model": "Suzuki Access 125",
+   "colour": "red",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2024-05-07",
+    "rto": "Hyderabad West (Tolichowki)",
+    "chassis": "MA4X…6061",
+    "engine": "K14…3818",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0004",
+    "type": "individual",
+    "name": "Kavya Rao",
+    "driver_on_record": null,
+    "phone": "+91 50004 98117",
+    "address": "H.No 20-160, Gachibowli, Hyderabad",
+    "dl_number": "TS1320242680351",
+    "dl_valid_till": "2033-11-19"
+   },
+   "emergency_contact": {
+    "name": "Ayesha Rao",
+    "relation": "Sister",
+    "phone": "+91 55004 43373"
+   },
+   "insurance": {
+    "insurer": "Tata AIG",
+    "policy": "POL-63699316",
+    "valid_till": "2027-05-25",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-12-07",
+   "fastag_id": null,
+   "challans": [
+    {
+     "date": "2026-08-03",
+     "offence": "Using mobile while driving (Sec 184)",
+     "amount_inr": 1500,
+     "status": "unpaid",
+     "location": "Shamshabad"
+    },
+    {
+     "date": "2026-01-27",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "unpaid",
+     "location": "Mehdipatnam"
+    },
+    {
+     "date": "2026-08-10",
+     "offence": "Drunk driving (Sec 185)",
+     "amount_inr": 10000,
+     "status": "unpaid",
+     "location": "Begumpet"
+    }
+   ],
+   "accident_history": [
+    {
+     "date": "2026-05-19",
+     "fir": "FIR 233/2026, Gachibowli PS",
+     "summary": "Hit-and-run on a pedestrian (vehicle traced later)"
+    }
+   ],
+   "flags": [
+    "Licence suspended until 2026-12-01 (drunk driving)"
+   ]
+  },
+  {
+   "plate": "TS11UA0928",
+   "class": "auto",
+   "make_model": "Piaggio Ape City",
+   "colour": "green",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2026-01-23",
+    "rto": "Hyderabad East (Malakpet)",
+    "chassis": "MA2X…9387",
+    "engine": "K98…6972",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0005",
+    "type": "individual",
+    "name": "Anil Raju",
+    "driver_on_record": null,
+    "phone": "+91 50005 40259",
+    "address": "H.No 9-30, Shamshabad, Hyderabad",
+    "dl_number": "TS1120265365620",
+    "dl_valid_till": "2028-07-24"
+   },
+   "emergency_contact": {
+    "name": "Nikhil Raju",
+    "relation": "Spouse",
+    "phone": "+91 55005 65466"
+   },
+   "insurance": {
+    "insurer": "Bajaj Allianz",
+    "policy": "POL-40781234",
+    "valid_till": "2027-10-25",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-03-23",
+   "fastag_id": "34161FA8109457867005",
+   "challans": [
+    {
+     "date": "2026-09-27",
+     "offence": "No helmet (Sec 194D)",
+     "amount_inr": 100,
+     "status": "paid",
+     "location": "Miyapur"
+    },
+    {
+     "date": "2025-11-05",
+     "offence": "Wrong-side driving (Sec 184)",
+     "amount_inr": 1000,
+     "status": "unpaid",
+     "location": "Miyapur"
+    },
+    {
+     "date": "2025-10-02",
+     "offence": "Wrong-side driving (Sec 184)",
+     "amount_inr": 1000,
+     "status": "paid",
+     "location": "Manikonda"
+    },
+    {
+     "date": "2026-05-15",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "unpaid",
+     "location": "LB Nagar"
+    },
+    {
+     "date": "2026-05-17",
+     "offence": "Over-speeding (Sec 183 MV Act)",
+     "amount_inr": 1000,
+     "status": "unpaid",
+     "location": "Begumpet"
+    }
+   ],
+   "accident_history": [],
+   "flags": [
+    "Permit area violation"
+   ]
+  },
+  {
+   "plate": "TS09EA1234",
+   "class": "car",
+   "make_model": "Kia Seltos",
+   "colour": "white",
+   "fuel": "Electric",
+   "registration": {
+    "date": "2018-01-29",
+    "rto": "Hyderabad Central (Khairatabad)",
+    "chassis": "MA7X…1714",
+    "engine": "K32…6723",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0006",
+    "type": "individual",
+    "name": "Suresh Varma",
+    "driver_on_record": null,
+    "phone": "+91 50006 79496",
+    "address": "H.No 2-292, Shamshabad, Hyderabad",
+    "dl_number": "TS0920186165951",
+    "dl_valid_till": "2033-02-15"
+   },
+   "emergency_contact": {
+    "name": "Keerthi Varma",
+    "relation": "Mother",
+    "phone": "+91 55006 63226"
+   },
+   "insurance": {
+    "insurer": "New India Assurance",
+    "policy": "POL-55149674",
+    "valid_till": "2027-02-21",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-12-15",
+   "fastag_id": "34161FA8693894945307",
+   "challans": [
+    {
+     "date": "2025-02-09",
+     "offence": "No seat belt (Sec 194B)",
+     "amount_inr": 100,
+     "status": "paid",
+     "location": "Manikonda"
+    },
+    {
+     "date": "2025-05-08",
+     "offence": "Over-speeding (Sec 183 MV Act)",
+     "amount_inr": 1000,
+     "status": "paid",
+     "location": "Tolichowki"
+    },
+    {
+     "date": "2026-07-14",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "paid",
+     "location": "Patancheru"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS29Z0417",
+   "class": "bus",
+   "make_model": "Ashok Leyland Viking (private stage carrier)",
+   "colour": "silver",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2023-07-09",
+    "rto": "TSRTC",
+    "chassis": "MA4X…2430",
+    "engine": "K73…4289",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0007",
+    "type": "company",
+    "name": "Deccan Travels",
+    "driver_on_record": "Charan Achari",
+    "phone": "+91 50007 17012",
+    "address": "H.No 5-103, Begumpet, Hyderabad",
+    "dl_number": "TS2920232034588",
+    "dl_valid_till": "2033-05-01"
+   },
+   "emergency_contact": {
+    "name": "Prakash Achari",
+    "relation": "Mother",
+    "phone": "+91 55007 76654"
+   },
+   "insurance": {
+    "insurer": "ICICI Lombard",
+    "policy": "POL-59193644",
+    "valid_till": "2027-09-09",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-01-24",
+   "fastag_id": "34161FA8665708174607",
+   "challans": [
+    {
+     "date": "2025-07-26",
+     "offence": "No helmet (Sec 194D)",
+     "amount_inr": 100,
+     "status": "paid",
+     "location": "Nizampet"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS15UD3382",
+   "class": "truck",
+   "make_model": "Tata Ace (mini truck)",
+   "colour": "blue",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2020-01-14",
+    "rto": "Sangareddy",
+    "chassis": "MA4X…1820",
+    "engine": "K20…8812",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0008",
+    "type": "company",
+    "name": "Telangana Logistics",
+    "driver_on_record": "Suresh Babu",
+    "phone": "+91 50008 89221",
+    "address": "H.No 11-200, Nizampet, Hyderabad",
+    "dl_number": "TS1520204185442",
+    "dl_valid_till": "2026-11-18"
+   },
+   "emergency_contact": {
+    "name": "Anil Babu",
+    "relation": "Mother",
+    "phone": "+91 55008 57755"
+   },
+   "insurance": {
+    "insurer": "ICICI Lombard",
+    "policy": "POL-35972242",
+    "valid_till": "2027-03-17",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-03-23",
+   "fastag_id": "34161FA8640306160743",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS10EQ6614",
+   "class": "motorcycle",
+   "make_model": "Bajaj Pulsar 150",
+   "colour": "grey",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2026-03-01",
+    "rto": "Hyderabad North (Secunderabad)",
+    "chassis": "MA7X…6259",
+    "engine": "K22…4107",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0009",
+    "type": "individual",
+    "name": "Rajesh Reddy",
+    "driver_on_record": null,
+    "phone": "+91 50009 44422",
+    "address": "H.No 7-109, Patancheru, Hyderabad",
+    "dl_number": "TS1020265744375",
+    "dl_valid_till": "2032-01-17"
+   },
+   "emergency_contact": {
+    "name": "Harika Reddy",
+    "relation": "Mother",
+    "phone": "+91 55009 77838"
+   },
+   "insurance": {
+    "insurer": "New India Assurance",
+    "policy": "POL-19819265",
+    "valid_till": "2027-01-24",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-01-07",
+   "fastag_id": null,
+   "challans": [
+    {
+     "date": "2026-08-24",
+     "offence": "Wrong-side driving (Sec 184)",
+     "amount_inr": 1000,
+     "status": "paid",
+     "location": "Ameerpet"
+    },
+    {
+     "date": "2026-01-01",
+     "offence": "No helmet (Sec 194D)",
+     "amount_inr": 100,
+     "status": "paid",
+     "location": "Ameerpet"
+    },
+    {
+     "date": "2025-05-14",
+     "offence": "Over-speeding (Sec 183 MV Act)",
+     "amount_inr": 1000,
+     "status": "paid",
+     "location": "Narsingi"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS12UB5150",
+   "class": "auto",
+   "make_model": "Bajaj RE Compact (autorickshaw)",
+   "colour": "green",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2026-02-27",
+    "rto": "Hyderabad South (Bahadurpura)",
+    "chassis": "MA2X…6398",
+    "engine": "K34…6665",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0010",
+    "type": "individual",
+    "name": "Ayesha Mohammed",
+    "driver_on_record": null,
+    "phone": "+91 50010 63721",
+    "address": "H.No 17-273, LB Nagar, Hyderabad",
+    "dl_number": "TS1220267344251",
+    "dl_valid_till": "2028-01-24"
+   },
+   "emergency_contact": {
+    "name": "Rajesh Mohammed",
+    "relation": "Brother",
+    "phone": "+91 55010 20836"
+   },
+   "insurance": {
+    "insurer": "United India Insurance",
+    "policy": "POL-49819953",
+    "valid_till": "2027-09-15",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-02-18",
+   "fastag_id": "34161FA8988478896565",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS07GH8810",
+   "class": "motorcycle",
+   "make_model": "Honda Activa 6G",
+   "colour": "white",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2024-07-01",
+    "rto": "Ranga Reddy (Attapur)",
+    "chassis": "MA9X…3165",
+    "engine": "K93…6821",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0001",
+    "type": "individual",
+    "name": "Spandana Sharma",
+    "driver_on_record": null,
+    "phone": "+91 50001 26090",
+    "address": "H.No 1-242, Madhapur, Hyderabad",
+    "dl_number": "TS0720178903559",
+    "dl_valid_till": "2032-06-24"
+   },
+   "emergency_contact": {
+    "name": "Swathi Patel",
+    "relation": "Mother",
+    "phone": "+91 55011 72030"
+   },
+   "insurance": {
+    "insurer": "Tata AIG",
+    "policy": "POL-61997886",
+    "valid_till": "2027-01-14",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-12-12",
+   "fastag_id": null,
+   "challans": [
+    {
+     "date": "2024-12-26",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "paid",
+     "location": "Dilsukhnagar"
+    },
+    {
+     "date": "2026-06-23",
+     "offence": "No helmet (Sec 194D)",
+     "amount_inr": 100,
+     "status": "paid",
+     "location": "Gachibowli"
+    },
+    {
+     "date": "2026-07-31",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "unpaid",
+     "location": "Begumpet"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS11KM8618",
+   "class": "car",
+   "make_model": "Mahindra XUV700",
+   "colour": "blue",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2024-12-13",
+    "rto": "Hyderabad East (Malakpet)",
+    "chassis": "MA8X…7358",
+    "engine": "K15…6781",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0012",
+    "type": "individual",
+    "name": "Vamshi Nayak",
+    "driver_on_record": null,
+    "phone": "+91 50012 13445",
+    "address": "H.No 18-116, Ameerpet, Hyderabad",
+    "dl_number": "TS1120248214014",
+    "dl_valid_till": "2031-10-30"
+   },
+   "emergency_contact": {
+    "name": "Deepika Nayak",
+    "relation": "Father",
+    "phone": "+91 55012 61573"
+   },
+   "insurance": {
+    "insurer": "Bajaj Allianz",
+    "policy": "POL-30808676",
+    "valid_till": "2027-04-14",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-02-19",
+   "fastag_id": "34161FA8647085555274",
+   "challans": [
+    {
+     "date": "2025-07-26",
+     "offence": "Over-speeding (Sec 183 MV Act)",
+     "amount_inr": 1000,
+     "status": "paid",
+     "location": "Chandanagar"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS12FT4607",
+   "class": "car",
+   "make_model": "Maruti Suzuki Dzire",
+   "colour": "white",
+   "fuel": "Electric",
+   "registration": {
+    "date": "2020-12-20",
+    "rto": "Hyderabad South (Bahadurpura)",
+    "chassis": "MA4X…9153",
+    "engine": "K80…2038",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0013",
+    "type": "individual",
+    "name": "Sneha Naidu",
+    "driver_on_record": null,
+    "phone": "+91 50013 46983",
+    "address": "H.No 3-126, Shamshabad, Hyderabad",
+    "dl_number": "TS1220207011891",
+    "dl_valid_till": "2027-06-13"
+   },
+   "emergency_contact": {
+    "name": "Sravani Naidu",
+    "relation": "Father",
+    "phone": "+91 55013 23599"
+   },
+   "insurance": {
+    "insurer": "ICICI Lombard",
+    "policy": "POL-24049692",
+    "valid_till": "2027-05-30",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-03-13",
+   "fastag_id": "34161FA8266233711501",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS09JJ4277",
+   "class": "car",
+   "make_model": "Honda City",
+   "colour": "grey",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2023-05-09",
+    "rto": "Hyderabad Central (Khairatabad)",
+    "chassis": "MA9X…3509",
+    "engine": "K52…5036",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0014",
+    "type": "individual",
+    "name": "Imran Kumar",
+    "driver_on_record": null,
+    "phone": "+91 50014 79653",
+    "address": "H.No 17-218, Shamshabad, Hyderabad",
+    "dl_number": "TS0920231501254",
+    "dl_valid_till": "2029-12-08"
+   },
+   "emergency_contact": {
+    "name": "Anjali Kumar",
+    "relation": "Spouse",
+    "phone": "+91 55014 10501"
+   },
+   "insurance": {
+    "insurer": "Bajaj Allianz",
+    "policy": "POL-63496080",
+    "valid_till": "2027-01-28",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-11-17",
+   "fastag_id": "34161FA8410862407887",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS10HC0572",
+   "class": "car",
+   "make_model": "Hyundai i20",
+   "colour": "grey",
+   "fuel": "CNG",
+   "registration": {
+    "date": "2017-01-15",
+    "rto": "Hyderabad North (Secunderabad)",
+    "chassis": "MA6X…1046",
+    "engine": "K87…2797",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0015",
+    "type": "individual",
+    "name": "Sowmya Reddy",
+    "driver_on_record": null,
+    "phone": "+91 50015 15162",
+    "address": "H.No 10-203, LB Nagar, Hyderabad",
+    "dl_number": "TS1020174419334",
+    "dl_valid_till": "2031-11-03"
+   },
+   "emergency_contact": {
+    "name": "Venkatesh Reddy",
+    "relation": "Brother",
+    "phone": "+91 55015 47141"
+   },
+   "insurance": {
+    "insurer": "Bajaj Allianz",
+    "policy": "POL-45214775",
+    "valid_till": "2026-12-02",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-04-18",
+   "fastag_id": "34161FA8970930215812",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS09GS4843",
+   "class": "car",
+   "make_model": "Maruti Suzuki Swift",
+   "colour": "black",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2026-03-27",
+    "rto": "Hyderabad Central (Khairatabad)",
+    "chassis": "MA4X…8004",
+    "engine": "K24…3154",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0016",
+    "type": "individual",
+    "name": "Anil Raju",
+    "driver_on_record": null,
+    "phone": "+91 50016 37733",
+    "address": "H.No 8-213, Miyapur, Hyderabad",
+    "dl_number": "TS0920267724100",
+    "dl_valid_till": "2029-06-05"
+   },
+   "emergency_contact": {
+    "name": "Kiran Raju",
+    "relation": "Spouse",
+    "phone": "+91 55016 43886"
+   },
+   "insurance": {
+    "insurer": "Bajaj Allianz",
+    "policy": "POL-33762682",
+    "valid_till": "2027-03-19",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-11-02",
+   "fastag_id": "34161FA8620063665781",
+   "challans": [
+    {
+     "date": "2025-05-08",
+     "offence": "Over-speeding (Sec 183 MV Act)",
+     "amount_inr": 1000,
+     "status": "paid",
+     "location": "Ameerpet"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS11GK5892",
+   "class": "car",
+   "make_model": "Hyundai i20",
+   "colour": "black",
+   "fuel": "Electric",
+   "registration": {
+    "date": "2018-07-28",
+    "rto": "Hyderabad East (Malakpet)",
+    "chassis": "MA4X…9467",
+    "engine": "K97…5135",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0017",
+    "type": "individual",
+    "name": "Rajesh Yadav",
+    "driver_on_record": null,
+    "phone": "+91 50017 80600",
+    "address": "H.No 20-175, Gachibowli, Hyderabad",
+    "dl_number": "TS1120182551131",
+    "dl_valid_till": "2028-07-12"
+   },
+   "emergency_contact": {
+    "name": "Sravani Yadav",
+    "relation": "Father",
+    "phone": "+91 55017 87503"
+   },
+   "insurance": {
+    "insurer": "HDFC ERGO",
+    "policy": "POL-71068282",
+    "valid_till": "2027-09-08",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-10-12",
+   "fastag_id": "34161FA8670241618754",
+   "challans": [
+    {
+     "date": "2026-10-12",
+     "offence": "Red-light jumping (Sec 184)",
+     "amount_inr": 1000,
+     "status": "paid",
+     "location": "Gachibowli"
+    },
+    {
+     "date": "2025-04-16",
+     "offence": "Over-speeding (Sec 183 MV Act)",
+     "amount_inr": 1000,
+     "status": "paid",
+     "location": "Madhapur"
+    },
+    {
+     "date": "2026-05-11",
+     "offence": "Over-speeding (Sec 183 MV Act)",
+     "amount_inr": 1000,
+     "status": "paid",
+     "location": "Secunderabad"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS07GW3100",
+   "class": "car",
+   "make_model": "Maruti Suzuki Swift",
+   "colour": "black",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2019-11-22",
+    "rto": "Ranga Reddy (Attapur)",
+    "chassis": "MA9X…1494",
+    "engine": "K20…9244",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0018",
+    "type": "individual",
+    "name": "Ramesh Chary",
+    "driver_on_record": null,
+    "phone": "+91 50018 63140",
+    "address": "H.No 6-284, Ameerpet, Hyderabad",
+    "dl_number": "TS0720196695180",
+    "dl_valid_till": "2028-11-22"
+   },
+   "emergency_contact": {
+    "name": "Farhan Chary",
+    "relation": "Father",
+    "phone": "+91 55018 26648"
+   },
+   "insurance": {
+    "insurer": "HDFC ERGO",
+    "policy": "POL-28456364",
+    "valid_till": "2027-10-19",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-12-22",
+   "fastag_id": "34161FA8728805844435",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS12EV0948",
+   "class": "car",
+   "make_model": "Mahindra XUV700",
+   "colour": "grey",
+   "fuel": "Electric",
+   "registration": {
+    "date": "2020-07-07",
+    "rto": "Hyderabad South (Bahadurpura)",
+    "chassis": "MA4X…4284",
+    "engine": "K94…6516",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0019",
+    "type": "individual",
+    "name": "Pooja Chary",
+    "driver_on_record": null,
+    "phone": "+91 50019 65474",
+    "address": "H.No 3-121, Tolichowki, Hyderabad",
+    "dl_number": "TS1220204951965",
+    "dl_valid_till": "2033-09-24"
+   },
+   "emergency_contact": {
+    "name": "Rohith Chary",
+    "relation": "Mother",
+    "phone": "+91 55019 85568"
+   },
+   "insurance": {
+    "insurer": "Tata AIG",
+    "policy": "POL-12657249",
+    "valid_till": "2027-08-05",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-09-24",
+   "fastag_id": "34161FA8924627623514",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS07GY1950",
+   "class": "car",
+   "make_model": "Hyundai i20",
+   "colour": "black",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2018-12-31",
+    "rto": "Ranga Reddy (Attapur)",
+    "chassis": "MA6X…4992",
+    "engine": "K35…3108",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0020",
+    "type": "individual",
+    "name": "Prakash Raju",
+    "driver_on_record": null,
+    "phone": "+91 50020 96399",
+    "address": "H.No 11-276, Kompally, Hyderabad",
+    "dl_number": "TS0720185806706",
+    "dl_valid_till": "2032-08-31"
+   },
+   "emergency_contact": {
+    "name": "Pooja Raju",
+    "relation": "Father",
+    "phone": "+91 55020 37571"
+   },
+   "insurance": {
+    "insurer": "ICICI Lombard",
+    "policy": "POL-78433560",
+    "valid_till": "2027-03-31",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-12-08",
+   "fastag_id": "34161FA8198676526019",
+   "challans": [
+    {
+     "date": "2025-12-10",
+     "offence": "Wrong-side driving (Sec 184)",
+     "amount_inr": 1000,
+     "status": "unpaid",
+     "location": "Shamshabad"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS08KE4481",
+   "class": "car",
+   "make_model": "Toyota Innova Crysta",
+   "colour": "white",
+   "fuel": "CNG",
+   "registration": {
+    "date": "2024-09-23",
+    "rto": "Medchal (Uppal)",
+    "chassis": "MA4X…8630",
+    "engine": "K95…6458",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0021",
+    "type": "individual",
+    "name": "Srinivas Rao",
+    "driver_on_record": null,
+    "phone": "+91 50021 60750",
+    "address": "H.No 18-167, Chandanagar, Hyderabad",
+    "dl_number": "TS0820244783261",
+    "dl_valid_till": "2029-06-02"
+   },
+   "emergency_contact": {
+    "name": "Swathi Rao",
+    "relation": "Mother",
+    "phone": "+91 55021 53568"
+   },
+   "insurance": {
+    "insurer": "United India Insurance",
+    "policy": "POL-19348115",
+    "valid_till": "2027-05-25",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-10-14",
+   "fastag_id": "34161FA8980921225875",
+   "challans": [
+    {
+     "date": "2025-10-16",
+     "offence": "Using mobile while driving (Sec 184)",
+     "amount_inr": 1500,
+     "status": "unpaid",
+     "location": "Chandanagar"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS10JD5926",
+   "class": "car",
+   "make_model": "Tata Nexon",
+   "colour": "black",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2023-09-13",
+    "rto": "Hyderabad North (Secunderabad)",
+    "chassis": "MA5X…8602",
+    "engine": "K39…2556",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0022",
+    "type": "individual",
+    "name": "Charan Sharma",
+    "driver_on_record": null,
+    "phone": "+91 50022 38938",
+    "address": "H.No 4-194, Ameerpet, Hyderabad",
+    "dl_number": "TS1020238980349",
+    "dl_valid_till": "2027-03-14"
+   },
+   "emergency_contact": {
+    "name": "Priya Sharma",
+    "relation": "Mother",
+    "phone": "+91 55022 69587"
+   },
+   "insurance": {
+    "insurer": "HDFC ERGO",
+    "policy": "POL-43083909",
+    "valid_till": "2027-06-01",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-11-16",
+   "fastag_id": "34161FA8300759721100",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS09JG3360",
+   "class": "car",
+   "make_model": "Maruti Suzuki Swift",
+   "colour": "black",
+   "fuel": "CNG",
+   "registration": {
+    "date": "2021-06-19",
+    "rto": "Hyderabad Central (Khairatabad)",
+    "chassis": "MA8X…4014",
+    "engine": "K70…9430",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0023",
+    "type": "individual",
+    "name": "Lakshmi Yadav",
+    "driver_on_record": null,
+    "phone": "+91 50023 22798",
+    "address": "H.No 20-265, Nizampet, Hyderabad",
+    "dl_number": "TS0920219492259",
+    "dl_valid_till": "2031-05-15"
+   },
+   "emergency_contact": {
+    "name": "Spandana Yadav",
+    "relation": "Sister",
+    "phone": "+91 55023 48046"
+   },
+   "insurance": {
+    "insurer": "United India Insurance",
+    "policy": "POL-51575907",
+    "valid_till": "2027-09-13",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-02-27",
+   "fastag_id": "34161FA8683294714066",
+   "challans": [
+    {
+     "date": "2025-01-27",
+     "offence": "Wrong-side driving (Sec 184)",
+     "amount_inr": 1000,
+     "status": "paid",
+     "location": "Jubilee Hills"
+    },
+    {
+     "date": "2025-07-29",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "paid",
+     "location": "Miyapur"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS13KJ6066",
+   "class": "car",
+   "make_model": "Honda City",
+   "colour": "grey",
+   "fuel": "Electric",
+   "registration": {
+    "date": "2025-12-09",
+    "rto": "Hyderabad West (Tolichowki)",
+    "chassis": "MA2X…8156",
+    "engine": "K29…8317",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0024",
+    "type": "individual",
+    "name": "Priya Kumar",
+    "driver_on_record": null,
+    "phone": "+91 50024 45315",
+    "address": "H.No 14-94, Shamshabad, Hyderabad",
+    "dl_number": "TS1320254024935",
+    "dl_valid_till": "2030-09-01"
+   },
+   "emergency_contact": {
+    "name": "Sravani Kumar",
+    "relation": "Brother",
+    "phone": "+91 55024 67653"
+   },
+   "insurance": {
+    "insurer": "HDFC ERGO",
+    "policy": "POL-93878430",
+    "valid_till": "2026-05-13",
+    "status": "Expired"
+   },
+   "puc_valid_till": "2026-11-30",
+   "fastag_id": "34161FA8781029891646",
+   "challans": [
+    {
+     "date": "2025-05-14",
+     "offence": "No seat belt (Sec 194B)",
+     "amount_inr": 100,
+     "status": "unpaid",
+     "location": "Banjara Hills"
+    },
+    {
+     "date": "2025-01-12",
+     "offence": "Over-speeding (Sec 183 MV Act)",
+     "amount_inr": 1000,
+     "status": "unpaid",
+     "location": "Jubilee Hills"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS15FK7032",
+   "class": "car",
+   "make_model": "Hyundai i20",
+   "colour": "grey",
+   "fuel": "CNG",
+   "registration": {
+    "date": "2018-06-27",
+    "rto": "Sangareddy",
+    "chassis": "MA3X…2570",
+    "engine": "K68…1099",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0025",
+    "type": "individual",
+    "name": "Ramesh Chary",
+    "driver_on_record": null,
+    "phone": "+91 50025 47866",
+    "address": "H.No 10-100, Jubilee Hills, Hyderabad",
+    "dl_number": "TS1520187884140",
+    "dl_valid_till": "2029-11-15"
+   },
+   "emergency_contact": {
+    "name": "Sravani Chary",
+    "relation": "Mother",
+    "phone": "+91 55025 30911"
+   },
+   "insurance": {
+    "insurer": "Tata AIG",
+    "policy": "POL-53105716",
+    "valid_till": "2026-08-03",
+    "status": "Expired"
+   },
+   "puc_valid_till": "2026-10-07",
+   "fastag_id": "34161FA8212850283651",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS09JN8106",
+   "class": "car",
+   "make_model": "Mahindra XUV700",
+   "colour": "silver",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2025-08-07",
+    "rto": "Hyderabad Central (Khairatabad)",
+    "chassis": "MA3X…4964",
+    "engine": "K94…9919",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0026",
+    "type": "individual",
+    "name": "Arjun Khan",
+    "driver_on_record": null,
+    "phone": "+91 50026 72268",
+    "address": "H.No 10-265, Kondapur, Hyderabad",
+    "dl_number": "TS0920258880402",
+    "dl_valid_till": "2027-04-03"
+   },
+   "emergency_contact": {
+    "name": "Mahesh Khan",
+    "relation": "Sister",
+    "phone": "+91 55026 15598"
+   },
+   "insurance": {
+    "insurer": "ICICI Lombard",
+    "policy": "POL-13087114",
+    "valid_till": "2027-08-26",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-11-17",
+   "fastag_id": "34161FA8252259507060",
+   "challans": [
+    {
+     "date": "2026-03-10",
+     "offence": "No helmet (Sec 194D)",
+     "amount_inr": 100,
+     "status": "paid",
+     "location": "Dilsukhnagar"
+    },
+    {
+     "date": "2025-11-27",
+     "offence": "Wrong-side driving (Sec 184)",
+     "amount_inr": 1000,
+     "status": "paid",
+     "location": "Manikonda"
+    },
+    {
+     "date": "2025-11-30",
+     "offence": "Using mobile while driving (Sec 184)",
+     "amount_inr": 1500,
+     "status": "unpaid",
+     "location": "Tolichowki"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS10JQ4703",
+   "class": "car",
+   "make_model": "Maruti Suzuki Dzire",
+   "colour": "black",
+   "fuel": "CNG",
+   "registration": {
+    "date": "2026-03-06",
+    "rto": "Hyderabad North (Secunderabad)",
+    "chassis": "MA2X…8670",
+    "engine": "K18…7528",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0027",
+    "type": "individual",
+    "name": "Mahesh Naidu",
+    "driver_on_record": null,
+    "phone": "+91 50027 16740",
+    "address": "H.No 15-155, Dilsukhnagar, Hyderabad",
+    "dl_number": "TS1020269299369",
+    "dl_valid_till": "2033-08-31"
+   },
+   "emergency_contact": {
+    "name": "Rohith Naidu",
+    "relation": "Father",
+    "phone": "+91 55027 48483"
+   },
+   "insurance": {
+    "insurer": "New India Assurance",
+    "policy": "POL-71322525",
+    "valid_till": "2027-01-25",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-01-03",
+   "fastag_id": "34161FA8785873549732",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS13FM4481",
+   "class": "car",
+   "make_model": "Maruti Suzuki Dzire",
+   "colour": "black",
+   "fuel": "Electric",
+   "registration": {
+    "date": "2017-07-24",
+    "rto": "Hyderabad West (Tolichowki)",
+    "chassis": "MA8X…2984",
+    "engine": "K65…4032",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0028",
+    "type": "individual",
+    "name": "Manasa Rao",
+    "driver_on_record": null,
+    "phone": "+91 50028 45705",
+    "address": "H.No 2-132, Narsingi, Hyderabad",
+    "dl_number": "TS1320175842713",
+    "dl_valid_till": "2033-06-09"
+   },
+   "emergency_contact": {
+    "name": "Anil Rao",
+    "relation": "Mother",
+    "phone": "+91 55028 43996"
+   },
+   "insurance": {
+    "insurer": "HDFC ERGO",
+    "policy": "POL-51881508",
+    "valid_till": "2027-02-17",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-12-12",
+   "fastag_id": "34161FA8264644071345",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS10HE8915",
+   "class": "car",
+   "make_model": "Honda City",
+   "colour": "white",
+   "fuel": "CNG",
+   "registration": {
+    "date": "2020-12-31",
+    "rto": "Hyderabad North (Secunderabad)",
+    "chassis": "MA4X…4223",
+    "engine": "K92…3149",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0029",
+    "type": "individual",
+    "name": "Karthik Reddy",
+    "driver_on_record": null,
+    "phone": "+91 50029 12923",
+    "address": "H.No 10-123, LB Nagar, Hyderabad",
+    "dl_number": "TS1020206699293",
+    "dl_valid_till": "2028-10-12"
+   },
+   "emergency_contact": {
+    "name": "Harika Reddy",
+    "relation": "Father",
+    "phone": "+91 55029 48000"
+   },
+   "insurance": {
+    "insurer": "United India Insurance",
+    "policy": "POL-27235585",
+    "valid_till": "2026-09-17",
+    "status": "Expired"
+   },
+   "puc_valid_till": "2027-03-26",
+   "fastag_id": "34161FA8117509242004",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS11HG3722",
+   "class": "car",
+   "make_model": "Hyundai Creta",
+   "colour": "black",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2019-11-10",
+    "rto": "Hyderabad East (Malakpet)",
+    "chassis": "MA4X…5775",
+    "engine": "K13…7390",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0030",
+    "type": "individual",
+    "name": "Gopal Reddy",
+    "driver_on_record": null,
+    "phone": "+91 50030 97265",
+    "address": "H.No 20-185, Kondapur, Hyderabad",
+    "dl_number": "TS1120194848110",
+    "dl_valid_till": "2030-10-25"
+   },
+   "emergency_contact": {
+    "name": "Rohith Reddy",
+    "relation": "Spouse",
+    "phone": "+91 55030 59331"
+   },
+   "insurance": {
+    "insurer": "ICICI Lombard",
+    "policy": "POL-40033429",
+    "valid_till": "2027-10-09",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-04-01",
+   "fastag_id": "34161FA8876969718387",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS09KV8794",
+   "class": "car",
+   "make_model": "Honda City",
+   "colour": "silver",
+   "fuel": "Electric",
+   "registration": {
+    "date": "2022-02-17",
+    "rto": "Hyderabad Central (Khairatabad)",
+    "chassis": "MA4X…7234",
+    "engine": "K70…2016",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0031",
+    "type": "individual",
+    "name": "Priya Nayak",
+    "driver_on_record": null,
+    "phone": "+91 50031 19784",
+    "address": "H.No 14-172, Nizampet, Hyderabad",
+    "dl_number": "TS0920227529421",
+    "dl_valid_till": "2032-08-23"
+   },
+   "emergency_contact": {
+    "name": "Sneha Nayak",
+    "relation": "Brother",
+    "phone": "+91 55031 65763"
+   },
+   "insurance": {
+    "insurer": "New India Assurance",
+    "policy": "POL-29040177",
+    "valid_till": "2027-10-17",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-11-10",
+   "fastag_id": "34161FA8523145985843",
+   "challans": [
+    {
+     "date": "2026-10-15",
+     "offence": "No helmet (Sec 194D)",
+     "amount_inr": 100,
+     "status": "paid",
+     "location": "Jubilee Hills"
+    },
+    {
+     "date": "2025-04-24",
+     "offence": "Over-speeding (Sec 183 MV Act)",
+     "amount_inr": 1000,
+     "status": "unpaid",
+     "location": "Begumpet"
+    },
+    {
+     "date": "2026-03-10",
+     "offence": "No helmet (Sec 194D)",
+     "amount_inr": 100,
+     "status": "paid",
+     "location": "Madhapur"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS13EX9758",
+   "class": "car",
+   "make_model": "Hyundai Creta",
+   "colour": "black",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2018-12-29",
+    "rto": "Hyderabad West (Tolichowki)",
+    "chassis": "MA6X…5374",
+    "engine": "K67…1747",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0032",
+    "type": "individual",
+    "name": "Lakshmi Khan",
+    "driver_on_record": null,
+    "phone": "+91 50032 98239",
+    "address": "H.No 17-69, Banjara Hills, Hyderabad",
+    "dl_number": "TS1320185187161",
+    "dl_valid_till": "2028-06-07"
+   },
+   "emergency_contact": {
+    "name": "Venkatesh Khan",
+    "relation": "Father",
+    "phone": "+91 55032 12827"
+   },
+   "insurance": {
+    "insurer": "United India Insurance",
+    "policy": "POL-40786353",
+    "valid_till": "2026-04-13",
+    "status": "Expired"
+   },
+   "puc_valid_till": "2027-04-15",
+   "fastag_id": "34161FA8814744036946",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS13JF9099",
+   "class": "car",
+   "make_model": "Hyundai i20",
+   "colour": "white",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2017-01-05",
+    "rto": "Hyderabad West (Tolichowki)",
+    "chassis": "MA6X…7779",
+    "engine": "K47…3667",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0033",
+    "type": "individual",
+    "name": "Karthik Raju",
+    "driver_on_record": null,
+    "phone": "+91 50033 16574",
+    "address": "H.No 8-244, Uppal, Hyderabad",
+    "dl_number": "TS1320179658491",
+    "dl_valid_till": "2031-10-05"
+   },
+   "emergency_contact": {
+    "name": "Bhavana Raju",
+    "relation": "Brother",
+    "phone": "+91 55033 59045"
+   },
+   "insurance": {
+    "insurer": "United India Insurance",
+    "policy": "POL-50103712",
+    "valid_till": "2027-10-17",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-01-29",
+   "fastag_id": "34161FA8180783588926",
+   "challans": [
+    {
+     "date": "2024-12-04",
+     "offence": "Using mobile while driving (Sec 184)",
+     "amount_inr": 1500,
+     "status": "unpaid",
+     "location": "Tolichowki"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS07FV2551",
+   "class": "car",
+   "make_model": "Maruti Suzuki Baleno",
+   "colour": "red",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2020-05-05",
+    "rto": "Ranga Reddy (Attapur)",
+    "chassis": "MA3X…8384",
+    "engine": "K34…8178",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0034",
+    "type": "individual",
+    "name": "Spandana Raju",
+    "driver_on_record": null,
+    "phone": "+91 50034 87384",
+    "address": "H.No 10-136, Kompally, Hyderabad",
+    "dl_number": "TS0720206634766",
+    "dl_valid_till": "2034-02-01"
+   },
+   "emergency_contact": {
+    "name": "Gopal Raju",
+    "relation": "Brother",
+    "phone": "+91 55034 59909"
+   },
+   "insurance": {
+    "insurer": "United India Insurance",
+    "policy": "POL-13165162",
+    "valid_till": "2027-01-31",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-02-02",
+   "fastag_id": "34161FA8372657096506",
+   "challans": [
+    {
+     "date": "2026-09-17",
+     "offence": "No helmet (Sec 194D)",
+     "amount_inr": 100,
+     "status": "paid",
+     "location": "Shamshabad"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS09GE8442",
+   "class": "car",
+   "make_model": "Hyundai Creta",
+   "colour": "grey",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2024-11-07",
+    "rto": "Hyderabad Central (Khairatabad)",
+    "chassis": "MA6X…5108",
+    "engine": "K52…1381",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0035",
+    "type": "individual",
+    "name": "Charan Gupta",
+    "driver_on_record": null,
+    "phone": "+91 50035 47239",
+    "address": "H.No 14-22, Uppal, Hyderabad",
+    "dl_number": "TS0920244820525",
+    "dl_valid_till": "2032-07-09"
+   },
+   "emergency_contact": {
+    "name": "Imran Gupta",
+    "relation": "Father",
+    "phone": "+91 55035 95179"
+   },
+   "insurance": {
+    "insurer": "ICICI Lombard",
+    "policy": "POL-57086232",
+    "valid_till": "2027-09-15",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-04-06",
+   "fastag_id": "34161FA8293135156987",
+   "challans": [
+    {
+     "date": "2025-02-27",
+     "offence": "No seat belt (Sec 194B)",
+     "amount_inr": 100,
+     "status": "unpaid",
+     "location": "Kukatpally"
+    },
+    {
+     "date": "2026-09-20",
+     "offence": "Using mobile while driving (Sec 184)",
+     "amount_inr": 1500,
+     "status": "unpaid",
+     "location": "Kompally"
+    },
+    {
+     "date": "2026-07-22",
+     "offence": "Using mobile while driving (Sec 184)",
+     "amount_inr": 1500,
+     "status": "unpaid",
+     "location": "Kukatpally"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS12GK6239",
+   "class": "car",
+   "make_model": "Hyundai i20",
+   "colour": "blue",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2022-12-04",
+    "rto": "Hyderabad South (Bahadurpura)",
+    "chassis": "MA6X…8672",
+    "engine": "K66…7771",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0036",
+    "type": "individual",
+    "name": "Yamini Varma",
+    "driver_on_record": null,
+    "phone": "+91 50036 36463",
+    "address": "H.No 2-66, Kondapur, Hyderabad",
+    "dl_number": "TS1220222551282",
+    "dl_valid_till": "2027-07-09"
+   },
+   "emergency_contact": {
+    "name": "Naveen Varma",
+    "relation": "Sister",
+    "phone": "+91 55036 35507"
+   },
+   "insurance": {
+    "insurer": "HDFC ERGO",
+    "policy": "POL-10549340",
+    "valid_till": "2027-06-24",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-10-15",
+   "fastag_id": "34161FA8929659809593",
+   "challans": [
+    {
+     "date": "2025-12-24",
+     "offence": "No helmet (Sec 194D)",
+     "amount_inr": 100,
+     "status": "paid",
+     "location": "Kompally"
+    },
+    {
+     "date": "2025-03-15",
+     "offence": "No helmet (Sec 194D)",
+     "amount_inr": 100,
+     "status": "paid",
+     "location": "Begumpet"
+    },
+    {
+     "date": "2026-08-29",
+     "offence": "Over-speeding (Sec 183 MV Act)",
+     "amount_inr": 1000,
+     "status": "paid",
+     "location": "Shamshabad"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS09JB1957",
+   "class": "car",
+   "make_model": "Maruti Suzuki Swift",
+   "colour": "red",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2022-01-22",
+    "rto": "Hyderabad Central (Khairatabad)",
+    "chassis": "MA4X…8001",
+    "engine": "K45…3075",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0037",
+    "type": "individual",
+    "name": "Arjun Shaik",
+    "driver_on_record": null,
+    "phone": "+91 50037 35358",
+    "address": "H.No 18-135, Miyapur, Hyderabad",
+    "dl_number": "TS0920226738177",
+    "dl_valid_till": "2029-09-19"
+   },
+   "emergency_contact": {
+    "name": "Kavya Shaik",
+    "relation": "Mother",
+    "phone": "+91 55037 71007"
+   },
+   "insurance": {
+    "insurer": "HDFC ERGO",
+    "policy": "POL-86210408",
+    "valid_till": "2026-12-08",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-01-22",
+   "fastag_id": "34161FA8647427042250",
+   "challans": [
+    {
+     "date": "2026-04-13",
+     "offence": "Wrong-side driving (Sec 184)",
+     "amount_inr": 1000,
+     "status": "unpaid",
+     "location": "Miyapur"
+    },
+    {
+     "date": "2026-10-14",
+     "offence": "No seat belt (Sec 194B)",
+     "amount_inr": 100,
+     "status": "unpaid",
+     "location": "Manikonda"
+    },
+    {
+     "date": "2025-08-03",
+     "offence": "No helmet (Sec 194D)",
+     "amount_inr": 100,
+     "status": "unpaid",
+     "location": "Attapur"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS12EH0464",
+   "class": "car",
+   "make_model": "Honda City",
+   "colour": "black",
+   "fuel": "Electric",
+   "registration": {
+    "date": "2022-11-01",
+    "rto": "Hyderabad South (Bahadurpura)",
+    "chassis": "MA2X…2152",
+    "engine": "K40…1738",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0038",
+    "type": "individual",
+    "name": "Mahesh Chary",
+    "driver_on_record": null,
+    "phone": "+91 50038 87191",
+    "address": "H.No 6-15, Kondapur, Hyderabad",
+    "dl_number": "TS1220228881180",
+    "dl_valid_till": "2032-10-30"
+   },
+   "emergency_contact": {
+    "name": "Suresh Chary",
+    "relation": "Spouse",
+    "phone": "+91 55038 59871"
+   },
+   "insurance": {
+    "insurer": "Bajaj Allianz",
+    "policy": "POL-89175528",
+    "valid_till": "2027-02-13",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-12-21",
+   "fastag_id": "34161FA8869450340871",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS12GV9854",
+   "class": "car",
+   "make_model": "Maruti Suzuki Swift",
+   "colour": "blue",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2019-08-24",
+    "rto": "Hyderabad South (Bahadurpura)",
+    "chassis": "MA2X…5122",
+    "engine": "K38…7060",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0039",
+    "type": "individual",
+    "name": "Rohith Mohammed",
+    "driver_on_record": null,
+    "phone": "+91 50039 28270",
+    "address": "H.No 11-30, Kompally, Hyderabad",
+    "dl_number": "TS1220192534077",
+    "dl_valid_till": "2031-08-24"
+   },
+   "emergency_contact": {
+    "name": "Manasa Mohammed",
+    "relation": "Brother",
+    "phone": "+91 55039 65905"
+   },
+   "insurance": {
+    "insurer": "Tata AIG",
+    "policy": "POL-28932281",
+    "valid_till": "2027-07-11",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-01-27",
+   "fastag_id": "34161FA8662782110856",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS10JA4915",
+   "class": "car",
+   "make_model": "Hyundai Creta",
+   "colour": "black",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2022-02-16",
+    "rto": "Hyderabad North (Secunderabad)",
+    "chassis": "MA5X…9556",
+    "engine": "K91…6314",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0040",
+    "type": "individual",
+    "name": "Tarun Prasad",
+    "driver_on_record": null,
+    "phone": "+91 50040 14616",
+    "address": "H.No 17-17, Nizampet, Hyderabad",
+    "dl_number": "TS1020222102619",
+    "dl_valid_till": "2034-05-05"
+   },
+   "emergency_contact": {
+    "name": "Nikhil Prasad",
+    "relation": "Mother",
+    "phone": "+91 55040 58331"
+   },
+   "insurance": {
+    "insurer": "Bajaj Allianz",
+    "policy": "POL-70707807",
+    "valid_till": "2027-01-25",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-04-03",
+   "fastag_id": "34161FA8721378258421",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS12ET8520",
+   "class": "car",
+   "make_model": "Tata Nexon",
+   "colour": "red",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2017-03-20",
+    "rto": "Hyderabad South (Bahadurpura)",
+    "chassis": "MA2X…8114",
+    "engine": "K81…5960",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0041",
+    "type": "individual",
+    "name": "Swathi Mohammed",
+    "driver_on_record": null,
+    "phone": "+91 50041 55015",
+    "address": "H.No 2-53, Miyapur, Hyderabad",
+    "dl_number": "TS1220173154217",
+    "dl_valid_till": "2027-05-20"
+   },
+   "emergency_contact": {
+    "name": "Sneha Mohammed",
+    "relation": "Father",
+    "phone": "+91 55041 61682"
+   },
+   "insurance": {
+    "insurer": "HDFC ERGO",
+    "policy": "POL-84173596",
+    "valid_till": "2027-05-18",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-12-25",
+   "fastag_id": "34161FA8600596716088",
+   "challans": [
+    {
+     "date": "2026-03-18",
+     "offence": "Wrong-side driving (Sec 184)",
+     "amount_inr": 1000,
+     "status": "paid",
+     "location": "Chandanagar"
+    },
+    {
+     "date": "2026-07-13",
+     "offence": "No seat belt (Sec 194B)",
+     "amount_inr": 100,
+     "status": "paid",
+     "location": "Gachibowli"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS07HJ6497",
+   "class": "car",
+   "make_model": "Tata Nexon",
+   "colour": "black",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2024-11-26",
+    "rto": "Ranga Reddy (Attapur)",
+    "chassis": "MA5X…8571",
+    "engine": "K37…4985",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0042",
+    "type": "individual",
+    "name": "Bhavana Gupta",
+    "driver_on_record": null,
+    "phone": "+91 50042 94777",
+    "address": "H.No 5-159, Shamshabad, Hyderabad",
+    "dl_number": "TS0720247041924",
+    "dl_valid_till": "2029-04-08"
+   },
+   "emergency_contact": {
+    "name": "Ramesh Gupta",
+    "relation": "Mother",
+    "phone": "+91 55042 22410"
+   },
+   "insurance": {
+    "insurer": "HDFC ERGO",
+    "policy": "POL-77461091",
+    "valid_till": "2026-02-06",
+    "status": "Expired"
+   },
+   "puc_valid_till": "2027-03-25",
+   "fastag_id": "34161FA8526958852391",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS12GQ3952",
+   "class": "car",
+   "make_model": "Tata Nexon",
+   "colour": "silver",
+   "fuel": "CNG",
+   "registration": {
+    "date": "2018-05-12",
+    "rto": "Hyderabad South (Bahadurpura)",
+    "chassis": "MA9X…6025",
+    "engine": "K54…6476",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0043",
+    "type": "individual",
+    "name": "Suresh Goud",
+    "driver_on_record": null,
+    "phone": "+91 50043 48972",
+    "address": "H.No 14-220, Kompally, Hyderabad",
+    "dl_number": "TS1220185944652",
+    "dl_valid_till": "2032-09-24"
+   },
+   "emergency_contact": {
+    "name": "Manasa Goud",
+    "relation": "Brother",
+    "phone": "+91 55043 62634"
+   },
+   "insurance": {
+    "insurer": "New India Assurance",
+    "policy": "POL-33747806",
+    "valid_till": "2027-07-10",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-01-30",
+   "fastag_id": "34161FA8360761039845",
+   "challans": [
+    {
+     "date": "2026-05-30",
+     "offence": "No seat belt (Sec 194B)",
+     "amount_inr": 100,
+     "status": "paid",
+     "location": "Narsingi"
+    },
+    {
+     "date": "2025-05-18",
+     "offence": "No helmet (Sec 194D)",
+     "amount_inr": 100,
+     "status": "unpaid",
+     "location": "Kukatpally"
+    },
+    {
+     "date": "2025-11-10",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "unpaid",
+     "location": "Kukatpally"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS13EY6463",
+   "class": "car",
+   "make_model": "Toyota Innova Crysta",
+   "colour": "blue",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2022-02-11",
+    "rto": "Hyderabad West (Tolichowki)",
+    "chassis": "MA5X…9340",
+    "engine": "K68…4382",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0044",
+    "type": "individual",
+    "name": "Tarun Achari",
+    "driver_on_record": null,
+    "phone": "+91 50044 30145",
+    "address": "H.No 14-74, Patancheru, Hyderabad",
+    "dl_number": "TS1320224266220",
+    "dl_valid_till": "2031-04-25"
+   },
+   "emergency_contact": {
+    "name": "Keerthi Achari",
+    "relation": "Brother",
+    "phone": "+91 55044 40546"
+   },
+   "insurance": {
+    "insurer": "HDFC ERGO",
+    "policy": "POL-89087208",
+    "valid_till": "2026-03-13",
+    "status": "Expired"
+   },
+   "puc_valid_till": "2026-12-25",
+   "fastag_id": "34161FA8647549300748",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS15HM9182",
+   "class": "car",
+   "make_model": "Maruti Suzuki Dzire",
+   "colour": "white",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2020-08-10",
+    "rto": "Sangareddy",
+    "chassis": "MA7X…5815",
+    "engine": "K40…9256",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0045",
+    "type": "individual",
+    "name": "Keerthi Babu",
+    "driver_on_record": null,
+    "phone": "+91 50045 61721",
+    "address": "H.No 9-90, Ameerpet, Hyderabad",
+    "dl_number": "TS1520203480031",
+    "dl_valid_till": "2032-04-27"
+   },
+   "emergency_contact": {
+    "name": "Pooja Babu",
+    "relation": "Sister",
+    "phone": "+91 55045 45865"
+   },
+   "insurance": {
+    "insurer": "ICICI Lombard",
+    "policy": "POL-59551628",
+    "valid_till": "2027-04-12",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-01-03",
+   "fastag_id": "34161FA8969989239586",
+   "challans": [
+    {
+     "date": "2026-07-14",
+     "offence": "Over-speeding (Sec 183 MV Act)",
+     "amount_inr": 1000,
+     "status": "paid",
+     "location": "Patancheru"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS09EA7373",
+   "class": "car",
+   "make_model": "Honda City",
+   "colour": "black",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2017-10-21",
+    "rto": "Hyderabad Central (Khairatabad)",
+    "chassis": "MA8X…2372",
+    "engine": "K20…1513",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0046",
+    "type": "individual",
+    "name": "Karthik Nayak",
+    "driver_on_record": null,
+    "phone": "+91 50046 23262",
+    "address": "H.No 1-58, Nizampet, Hyderabad",
+    "dl_number": "TS0920174662665",
+    "dl_valid_till": "2028-08-09"
+   },
+   "emergency_contact": {
+    "name": "Rohith Nayak",
+    "relation": "Sister",
+    "phone": "+91 55046 88857"
+   },
+   "insurance": {
+    "insurer": "New India Assurance",
+    "policy": "POL-98322222",
+    "valid_till": "2027-02-05",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-10-07",
+   "fastag_id": "34161FA8699110594421",
+   "challans": [
+    {
+     "date": "2026-04-19",
+     "offence": "No helmet (Sec 194D)",
+     "amount_inr": 100,
+     "status": "unpaid",
+     "location": "Patancheru"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS12KR0087",
+   "class": "car",
+   "make_model": "Tata Nexon",
+   "colour": "blue",
+   "fuel": "Electric",
+   "registration": {
+    "date": "2021-02-25",
+    "rto": "Hyderabad South (Bahadurpura)",
+    "chassis": "MA3X…5327",
+    "engine": "K75…9014",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0047",
+    "type": "individual",
+    "name": "Mahesh Reddy",
+    "driver_on_record": null,
+    "phone": "+91 50047 50105",
+    "address": "H.No 6-14, Mehdipatnam, Hyderabad",
+    "dl_number": "TS1220217238561",
+    "dl_valid_till": "2029-05-17"
+   },
+   "emergency_contact": {
+    "name": "Ravi Reddy",
+    "relation": "Sister",
+    "phone": "+91 55047 82879"
+   },
+   "insurance": {
+    "insurer": "New India Assurance",
+    "policy": "POL-78275008",
+    "valid_till": "2027-09-29",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-11-18",
+   "fastag_id": "34161FA8743523902418",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS13FH0467",
+   "class": "car",
+   "make_model": "Mahindra XUV700",
+   "colour": "grey",
+   "fuel": "CNG",
+   "registration": {
+    "date": "2018-06-20",
+    "rto": "Hyderabad West (Tolichowki)",
+    "chassis": "MA2X…6673",
+    "engine": "K97…6007",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0048",
+    "type": "individual",
+    "name": "Suresh Kumar",
+    "driver_on_record": null,
+    "phone": "+91 50048 39384",
+    "address": "H.No 6-48, Miyapur, Hyderabad",
+    "dl_number": "TS1320189523075",
+    "dl_valid_till": "2026-09-23"
+   },
+   "emergency_contact": {
+    "name": "Imran Kumar",
+    "relation": "Father",
+    "phone": "+91 55048 22388"
+   },
+   "insurance": {
+    "insurer": "ICICI Lombard",
+    "policy": "POL-58910820",
+    "valid_till": "2027-09-18",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-11-02",
+   "fastag_id": "34161FA8891623623123",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS08JA1928",
+   "class": "car",
+   "make_model": "Honda City",
+   "colour": "blue",
+   "fuel": "CNG",
+   "registration": {
+    "date": "2024-09-12",
+    "rto": "Medchal (Uppal)",
+    "chassis": "MA7X…5371",
+    "engine": "K43…1624",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0049",
+    "type": "individual",
+    "name": "Sravani Babu",
+    "driver_on_record": null,
+    "phone": "+91 50049 85293",
+    "address": "H.No 7-127, LB Nagar, Hyderabad",
+    "dl_number": "TS0820246066684",
+    "dl_valid_till": "2034-08-24"
+   },
+   "emergency_contact": {
+    "name": "Rajesh Babu",
+    "relation": "Mother",
+    "phone": "+91 55049 41053"
+   },
+   "insurance": {
+    "insurer": "Tata AIG",
+    "policy": "POL-70535619",
+    "valid_till": "2027-04-09",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-04-28",
+   "fastag_id": "34161FA8855515765920",
+   "challans": [
+    {
+     "date": "2025-07-20",
+     "offence": "Using mobile while driving (Sec 184)",
+     "amount_inr": 1500,
+     "status": "unpaid",
+     "location": "Narsingi"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS13JG9713",
+   "class": "car",
+   "make_model": "Hyundai Creta",
+   "colour": "white",
+   "fuel": "CNG",
+   "registration": {
+    "date": "2021-09-28",
+    "rto": "Hyderabad West (Tolichowki)",
+    "chassis": "MA3X…6865",
+    "engine": "K17…6632",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0050",
+    "type": "individual",
+    "name": "Ravi Varma",
+    "driver_on_record": null,
+    "phone": "+91 50050 64001",
+    "address": "H.No 10-180, Narsingi, Hyderabad",
+    "dl_number": "TS1320215730031",
+    "dl_valid_till": "2029-01-04"
+   },
+   "emergency_contact": {
+    "name": "Karthik Varma",
+    "relation": "Father",
+    "phone": "+91 55050 18986"
+   },
+   "insurance": {
+    "insurer": "United India Insurance",
+    "policy": "POL-93752523",
+    "valid_till": "2026-06-09",
+    "status": "Expired"
+   },
+   "puc_valid_till": "2026-11-17",
+   "fastag_id": "34161FA8386766190497",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS11HZ4698",
+   "class": "car",
+   "make_model": "Hyundai i20",
+   "colour": "silver",
+   "fuel": "CNG",
+   "registration": {
+    "date": "2019-02-07",
+    "rto": "Hyderabad East (Malakpet)",
+    "chassis": "MA5X…3688",
+    "engine": "K91…8757",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0051",
+    "type": "individual",
+    "name": "Tarun Sharma",
+    "driver_on_record": null,
+    "phone": "+91 50051 42953",
+    "address": "H.No 8-144, Nizampet, Hyderabad",
+    "dl_number": "TS1120192424547",
+    "dl_valid_till": "2030-09-11"
+   },
+   "emergency_contact": {
+    "name": "Mahesh Sharma",
+    "relation": "Mother",
+    "phone": "+91 55051 50833"
+   },
+   "insurance": {
+    "insurer": "ICICI Lombard",
+    "policy": "POL-43017842",
+    "valid_till": "2027-03-06",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-11-11",
+   "fastag_id": "34161FA8132670780187",
+   "challans": [
+    {
+     "date": "2025-02-14",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "unpaid",
+     "location": "Narsingi"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS09JA9910",
+   "class": "car",
+   "make_model": "Maruti Suzuki Dzire",
+   "colour": "black",
+   "fuel": "CNG",
+   "registration": {
+    "date": "2022-01-04",
+    "rto": "Hyderabad Central (Khairatabad)",
+    "chassis": "MA4X…7971",
+    "engine": "K16…4660",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0052",
+    "type": "individual",
+    "name": "Yamini Patel",
+    "driver_on_record": null,
+    "phone": "+91 50052 97062",
+    "address": "H.No 20-87, Narsingi, Hyderabad",
+    "dl_number": "TS0920226731368",
+    "dl_valid_till": "2029-12-15"
+   },
+   "emergency_contact": {
+    "name": "Rajesh Patel",
+    "relation": "Father",
+    "phone": "+91 55052 87203"
+   },
+   "insurance": {
+    "insurer": "Bajaj Allianz",
+    "policy": "POL-61018308",
+    "valid_till": "2027-02-19",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-03-02",
+   "fastag_id": "34161FA8955612869641",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS07FK9136",
+   "class": "car",
+   "make_model": "Toyota Innova Crysta",
+   "colour": "blue",
+   "fuel": "CNG",
+   "registration": {
+    "date": "2018-12-30",
+    "rto": "Ranga Reddy (Attapur)",
+    "chassis": "MA3X…5387",
+    "engine": "K57…1591",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0053",
+    "type": "individual",
+    "name": "Sneha Mohammed",
+    "driver_on_record": null,
+    "phone": "+91 50053 96127",
+    "address": "H.No 12-3, Attapur, Hyderabad",
+    "dl_number": "TS0720184114413",
+    "dl_valid_till": "2032-09-16"
+   },
+   "emergency_contact": {
+    "name": "Anjali Mohammed",
+    "relation": "Mother",
+    "phone": "+91 55053 81601"
+   },
+   "insurance": {
+    "insurer": "Bajaj Allianz",
+    "policy": "POL-48257464",
+    "valid_till": "2026-02-09",
+    "status": "Expired"
+   },
+   "puc_valid_till": "2026-12-08",
+   "fastag_id": "34161FA8841046318274",
+   "challans": [
+    {
+     "date": "2025-09-07",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "unpaid",
+     "location": "Secunderabad"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS12JT0442",
+   "class": "car",
+   "make_model": "Hyundai i20",
+   "colour": "black",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2021-07-03",
+    "rto": "Hyderabad South (Bahadurpura)",
+    "chassis": "MA3X…7524",
+    "engine": "K73…4451",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0054",
+    "type": "individual",
+    "name": "Ravi Raju",
+    "driver_on_record": null,
+    "phone": "+91 50054 80147",
+    "address": "H.No 2-181, Begumpet, Hyderabad",
+    "dl_number": "TS1220214417868",
+    "dl_valid_till": "2027-05-12"
+   },
+   "emergency_contact": {
+    "name": "Deepika Raju",
+    "relation": "Spouse",
+    "phone": "+91 55054 64797"
+   },
+   "insurance": {
+    "insurer": "Bajaj Allianz",
+    "policy": "POL-90030051",
+    "valid_till": "2027-08-17",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-03-03",
+   "fastag_id": "34161FA8111541604966",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS10EP4228",
+   "class": "car",
+   "make_model": "Hyundai i20",
+   "colour": "red",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2023-02-22",
+    "rto": "Hyderabad North (Secunderabad)",
+    "chassis": "MA8X…1240",
+    "engine": "K22…2713",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0055",
+    "type": "individual",
+    "name": "Karthik Reddy",
+    "driver_on_record": null,
+    "phone": "+91 50055 62625",
+    "address": "H.No 18-65, Mehdipatnam, Hyderabad",
+    "dl_number": "TS1020235188591",
+    "dl_valid_till": "2031-01-08"
+   },
+   "emergency_contact": {
+    "name": "Keerthi Reddy",
+    "relation": "Father",
+    "phone": "+91 55055 68242"
+   },
+   "insurance": {
+    "insurer": "HDFC ERGO",
+    "policy": "POL-14896375",
+    "valid_till": "2027-10-06",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-09-27",
+   "fastag_id": "34161FA8439716358662",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS07KS3766",
+   "class": "car",
+   "make_model": "Tata Nexon",
+   "colour": "silver",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2019-03-23",
+    "rto": "Ranga Reddy (Attapur)",
+    "chassis": "MA9X…4050",
+    "engine": "K76…1638",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0056",
+    "type": "individual",
+    "name": "Priya Varma",
+    "driver_on_record": null,
+    "phone": "+91 50056 19228",
+    "address": "H.No 1-20, Attapur, Hyderabad",
+    "dl_number": "TS0720197935861",
+    "dl_valid_till": "2029-03-05"
+   },
+   "emergency_contact": {
+    "name": "Suresh Varma",
+    "relation": "Brother",
+    "phone": "+91 55056 92666"
+   },
+   "insurance": {
+    "insurer": "New India Assurance",
+    "policy": "POL-89574583",
+    "valid_till": "2026-09-28",
+    "status": "Expired"
+   },
+   "puc_valid_till": "2027-04-12",
+   "fastag_id": "34161FA8646182156200",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS11HZ4733",
+   "class": "car",
+   "make_model": "Hyundai Creta",
+   "colour": "blue",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2021-09-08",
+    "rto": "Hyderabad East (Malakpet)",
+    "chassis": "MA5X…1611",
+    "engine": "K72…8795",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0057",
+    "type": "individual",
+    "name": "Yamini Mohammed",
+    "driver_on_record": null,
+    "phone": "+91 50057 94236",
+    "address": "H.No 20-29, Ameerpet, Hyderabad",
+    "dl_number": "TS1120211973856",
+    "dl_valid_till": "2030-08-09"
+   },
+   "emergency_contact": {
+    "name": "Suresh Mohammed",
+    "relation": "Father",
+    "phone": "+91 55057 11182"
+   },
+   "insurance": {
+    "insurer": "Bajaj Allianz",
+    "policy": "POL-71053001",
+    "valid_till": "2027-02-20",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-09-29",
+   "fastag_id": "34161FA8340147759229",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS08GF8200",
+   "class": "car",
+   "make_model": "Tata Nexon",
+   "colour": "white",
+   "fuel": "Electric",
+   "registration": {
+    "date": "2020-05-09",
+    "rto": "Medchal (Uppal)",
+    "chassis": "MA7X…9696",
+    "engine": "K27…8235",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0058",
+    "type": "individual",
+    "name": "Sravani Babu",
+    "driver_on_record": null,
+    "phone": "+91 50058 90361",
+    "address": "H.No 9-13, Ameerpet, Hyderabad",
+    "dl_number": "TS0820207985613",
+    "dl_valid_till": "2033-07-05"
+   },
+   "emergency_contact": {
+    "name": "Rohith Babu",
+    "relation": "Sister",
+    "phone": "+91 55058 71453"
+   },
+   "insurance": {
+    "insurer": "HDFC ERGO",
+    "policy": "POL-60978420",
+    "valid_till": "2027-06-12",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-03-07",
+   "fastag_id": "34161FA8363705851998",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS08JM6605",
+   "class": "car",
+   "make_model": "Kia Seltos",
+   "colour": "black",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2019-12-17",
+    "rto": "Medchal (Uppal)",
+    "chassis": "MA1X…6737",
+    "engine": "K85…6888",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0059",
+    "type": "individual",
+    "name": "Swathi Gupta",
+    "driver_on_record": null,
+    "phone": "+91 50059 63969",
+    "address": "H.No 15-181, Ameerpet, Hyderabad",
+    "dl_number": "TS0820192340355",
+    "dl_valid_till": "2033-08-01"
+   },
+   "emergency_contact": {
+    "name": "Lakshmi Gupta",
+    "relation": "Mother",
+    "phone": "+91 55059 34731"
+   },
+   "insurance": {
+    "insurer": "HDFC ERGO",
+    "policy": "POL-79854821",
+    "valid_till": "2027-10-22",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-12-05",
+   "fastag_id": "34161FA8466290882793",
+   "challans": [
+    {
+     "date": "2026-06-25",
+     "offence": "Wrong-side driving (Sec 184)",
+     "amount_inr": 1000,
+     "status": "paid",
+     "location": "Mehdipatnam"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS09HG7626",
+   "class": "car",
+   "make_model": "Mahindra XUV700",
+   "colour": "red",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2018-05-28",
+    "rto": "Hyderabad Central (Khairatabad)",
+    "chassis": "MA2X…8136",
+    "engine": "K61…1964",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0060",
+    "type": "individual",
+    "name": "Lakshmi Prasad",
+    "driver_on_record": null,
+    "phone": "+91 50060 14434",
+    "address": "H.No 8-206, Shamshabad, Hyderabad",
+    "dl_number": "TS0920186485342",
+    "dl_valid_till": "2027-07-14"
+   },
+   "emergency_contact": {
+    "name": "Bhavana Prasad",
+    "relation": "Spouse",
+    "phone": "+91 55060 47023"
+   },
+   "insurance": {
+    "insurer": "ICICI Lombard",
+    "policy": "POL-79231085",
+    "valid_till": "2027-06-20",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-03-08",
+   "fastag_id": "34161FA8711008527057",
+   "challans": [
+    {
+     "date": "2025-08-04",
+     "offence": "Red-light jumping (Sec 184)",
+     "amount_inr": 1000,
+     "status": "paid",
+     "location": "Begumpet"
+    },
+    {
+     "date": "2025-03-26",
+     "offence": "No seat belt (Sec 194B)",
+     "amount_inr": 100,
+     "status": "unpaid",
+     "location": "Chandanagar"
+    },
+    {
+     "date": "2026-06-30",
+     "offence": "No seat belt (Sec 194B)",
+     "amount_inr": 100,
+     "status": "unpaid",
+     "location": "Mehdipatnam"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS12JJ0656",
+   "class": "car",
+   "make_model": "Maruti Suzuki Baleno",
+   "colour": "black",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2020-09-27",
+    "rto": "Hyderabad South (Bahadurpura)",
+    "chassis": "MA6X…4212",
+    "engine": "K96…8247",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0061",
+    "type": "individual",
+    "name": "Divya Yadav",
+    "driver_on_record": null,
+    "phone": "+91 50061 74713",
+    "address": "H.No 9-138, Narsingi, Hyderabad",
+    "dl_number": "TS1220206261531",
+    "dl_valid_till": "2028-06-10"
+   },
+   "emergency_contact": {
+    "name": "Farhan Yadav",
+    "relation": "Mother",
+    "phone": "+91 55061 25908"
+   },
+   "insurance": {
+    "insurer": "Tata AIG",
+    "policy": "POL-85012808",
+    "valid_till": "2027-02-12",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-10-14",
+   "fastag_id": "34161FA8208211694913",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS08JJ0227",
+   "class": "car",
+   "make_model": "Hyundai Creta",
+   "colour": "red",
+   "fuel": "Electric",
+   "registration": {
+    "date": "2017-03-19",
+    "rto": "Medchal (Uppal)",
+    "chassis": "MA5X…8623",
+    "engine": "K63…1265",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0062",
+    "type": "individual",
+    "name": "Deepika Kumar",
+    "driver_on_record": null,
+    "phone": "+91 50062 46297",
+    "address": "H.No 6-23, Jubilee Hills, Hyderabad",
+    "dl_number": "TS0820173323858",
+    "dl_valid_till": "2028-08-24"
+   },
+   "emergency_contact": {
+    "name": "Srinivas Kumar",
+    "relation": "Father",
+    "phone": "+91 55062 37500"
+   },
+   "insurance": {
+    "insurer": "HDFC ERGO",
+    "policy": "POL-45772177",
+    "valid_till": "2027-05-21",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-04-11",
+   "fastag_id": "34161FA8948047386372",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS11GC6326",
+   "class": "car",
+   "make_model": "Kia Seltos",
+   "colour": "white",
+   "fuel": "CNG",
+   "registration": {
+    "date": "2023-08-17",
+    "rto": "Hyderabad East (Malakpet)",
+    "chassis": "MA5X…7961",
+    "engine": "K10…3752",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0063",
+    "type": "individual",
+    "name": "Srinivas Raju",
+    "driver_on_record": null,
+    "phone": "+91 50063 13214",
+    "address": "H.No 11-16, Mehdipatnam, Hyderabad",
+    "dl_number": "TS1120239975772",
+    "dl_valid_till": "2028-08-23"
+   },
+   "emergency_contact": {
+    "name": "Farhan Raju",
+    "relation": "Father",
+    "phone": "+91 55063 11311"
+   },
+   "insurance": {
+    "insurer": "ICICI Lombard",
+    "policy": "POL-36234331",
+    "valid_till": "2027-02-10",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-10-02",
+   "fastag_id": "34161FA8694960694051",
+   "challans": [
+    {
+     "date": "2024-12-25",
+     "offence": "No helmet (Sec 194D)",
+     "amount_inr": 100,
+     "status": "paid",
+     "location": "Secunderabad"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS07GB1555",
+   "class": "car",
+   "make_model": "Honda City",
+   "colour": "red",
+   "fuel": "Electric",
+   "registration": {
+    "date": "2019-01-06",
+    "rto": "Ranga Reddy (Attapur)",
+    "chassis": "MA2X…1258",
+    "engine": "K59…1118",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0064",
+    "type": "individual",
+    "name": "Kavya Varma",
+    "driver_on_record": null,
+    "phone": "+91 50064 20928",
+    "address": "H.No 7-253, Dilsukhnagar, Hyderabad",
+    "dl_number": "TS0720193074260",
+    "dl_valid_till": "2029-10-03"
+   },
+   "emergency_contact": {
+    "name": "Sowmya Varma",
+    "relation": "Sister",
+    "phone": "+91 55064 14222"
+   },
+   "insurance": {
+    "insurer": "United India Insurance",
+    "policy": "POL-15143529",
+    "valid_till": "2027-07-27",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-03-04",
+   "fastag_id": "34161FA8113013325835",
+   "challans": [
+    {
+     "date": "2026-06-20",
+     "offence": "Using mobile while driving (Sec 184)",
+     "amount_inr": 1500,
+     "status": "unpaid",
+     "location": "Patancheru"
+    },
+    {
+     "date": "2026-01-11",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "unpaid",
+     "location": "Manikonda"
+    },
+    {
+     "date": "2025-02-04",
+     "offence": "Using mobile while driving (Sec 184)",
+     "amount_inr": 1500,
+     "status": "unpaid",
+     "location": "Madhapur"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS10GD2756",
+   "class": "car",
+   "make_model": "Honda City",
+   "colour": "silver",
+   "fuel": "Electric",
+   "registration": {
+    "date": "2018-07-23",
+    "rto": "Hyderabad North (Secunderabad)",
+    "chassis": "MA8X…9538",
+    "engine": "K65…6175",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0065",
+    "type": "individual",
+    "name": "Rajesh Sharma",
+    "driver_on_record": null,
+    "phone": "+91 50065 79856",
+    "address": "H.No 19-140, Secunderabad, Hyderabad",
+    "dl_number": "TS1020189400213",
+    "dl_valid_till": "2034-07-23"
+   },
+   "emergency_contact": {
+    "name": "Sowmya Sharma",
+    "relation": "Father",
+    "phone": "+91 55065 10780"
+   },
+   "insurance": {
+    "insurer": "Tata AIG",
+    "policy": "POL-79517039",
+    "valid_till": "2026-06-13",
+    "status": "Expired"
+   },
+   "puc_valid_till": "2026-11-26",
+   "fastag_id": "34161FA8519062667086",
+   "challans": [
+    {
+     "date": "2026-03-29",
+     "offence": "Using mobile while driving (Sec 184)",
+     "amount_inr": 1500,
+     "status": "paid",
+     "location": "Jubilee Hills"
+    },
+    {
+     "date": "2025-06-29",
+     "offence": "Using mobile while driving (Sec 184)",
+     "amount_inr": 1500,
+     "status": "paid",
+     "location": "Uppal"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS07HJ0527",
+   "class": "car",
+   "make_model": "Kia Seltos",
+   "colour": "black",
+   "fuel": "CNG",
+   "registration": {
+    "date": "2018-06-11",
+    "rto": "Ranga Reddy (Attapur)",
+    "chassis": "MA8X…6504",
+    "engine": "K53…3874",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0066",
+    "type": "individual",
+    "name": "Harika Varma",
+    "driver_on_record": null,
+    "phone": "+91 50066 16204",
+    "address": "H.No 5-140, Patancheru, Hyderabad",
+    "dl_number": "TS0720186606850",
+    "dl_valid_till": "2033-01-31"
+   },
+   "emergency_contact": {
+    "name": "Ravi Varma",
+    "relation": "Father",
+    "phone": "+91 55066 56374"
+   },
+   "insurance": {
+    "insurer": "Bajaj Allianz",
+    "policy": "POL-10605558",
+    "valid_till": "2027-09-12",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-10-11",
+   "fastag_id": "34161FA8303565524798",
+   "challans": [
+    {
+     "date": "2025-06-24",
+     "offence": "No seat belt (Sec 194B)",
+     "amount_inr": 100,
+     "status": "paid",
+     "location": "Nizampet"
+    },
+    {
+     "date": "2026-05-10",
+     "offence": "No seat belt (Sec 194B)",
+     "amount_inr": 100,
+     "status": "unpaid",
+     "location": "Kondapur"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS07KZ8139",
+   "class": "motorcycle",
+   "make_model": "Hero Splendor Plus",
+   "colour": "black",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2017-05-23",
+    "rto": "Ranga Reddy (Attapur)",
+    "chassis": "MA2X…9363",
+    "engine": "K19…7965",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0067",
+    "type": "individual",
+    "name": "Nikhil Raju",
+    "driver_on_record": null,
+    "phone": "+91 50067 67407",
+    "address": "H.No 8-133, Narsingi, Hyderabad",
+    "dl_number": "TS0720172127637",
+    "dl_valid_till": "2029-07-07"
+   },
+   "emergency_contact": {
+    "name": "Kiran Raju",
+    "relation": "Father",
+    "phone": "+91 55067 38045"
+   },
+   "insurance": {
+    "insurer": "United India Insurance",
+    "policy": "POL-60892494",
+    "valid_till": "2027-08-27",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-11-06",
+   "fastag_id": null,
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS08HA3418",
+   "class": "motorcycle",
+   "make_model": "TVS Apache RTR 160",
+   "colour": "white",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2017-11-25",
+    "rto": "Medchal (Uppal)",
+    "chassis": "MA2X…2979",
+    "engine": "K83…2827",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0068",
+    "type": "individual",
+    "name": "Anjali Goud",
+    "driver_on_record": null,
+    "phone": "+91 50068 93781",
+    "address": "H.No 7-60, Dilsukhnagar, Hyderabad",
+    "dl_number": "TS0820179998784",
+    "dl_valid_till": "2032-04-14"
+   },
+   "emergency_contact": {
+    "name": "Keerthi Goud",
+    "relation": "Sister",
+    "phone": "+91 55068 98578"
+   },
+   "insurance": {
+    "insurer": "Bajaj Allianz",
+    "policy": "POL-69719747",
+    "valid_till": "2027-05-19",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-03-12",
+   "fastag_id": null,
+   "challans": [
+    {
+     "date": "2026-02-07",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "paid",
+     "location": "Narsingi"
+    },
+    {
+     "date": "2025-09-04",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "paid",
+     "location": "Ameerpet"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS12FX0099",
+   "class": "motorcycle",
+   "make_model": "TVS Apache RTR 160",
+   "colour": "red",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2025-01-22",
+    "rto": "Hyderabad South (Bahadurpura)",
+    "chassis": "MA7X…2417",
+    "engine": "K37…5520",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0069",
+    "type": "individual",
+    "name": "Venkatesh Kumar",
+    "driver_on_record": null,
+    "phone": "+91 50069 59631",
+    "address": "H.No 16-145, Nizampet, Hyderabad",
+    "dl_number": "TS1220253770021",
+    "dl_valid_till": "2032-11-29"
+   },
+   "emergency_contact": {
+    "name": "Srinivas Kumar",
+    "relation": "Brother",
+    "phone": "+91 55069 63907"
+   },
+   "insurance": {
+    "insurer": "ICICI Lombard",
+    "policy": "POL-73539786",
+    "valid_till": "2027-05-26",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-03-24",
+   "fastag_id": null,
+   "challans": [
+    {
+     "date": "2026-08-24",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "paid",
+     "location": "Begumpet"
+    },
+    {
+     "date": "2025-01-05",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "unpaid",
+     "location": "Manikonda"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS08FC9326",
+   "class": "motorcycle",
+   "make_model": "Bajaj Pulsar 150",
+   "colour": "red",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2018-04-16",
+    "rto": "Medchal (Uppal)",
+    "chassis": "MA3X…5977",
+    "engine": "K14…3061",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0070",
+    "type": "individual",
+    "name": "Swathi Sharma",
+    "driver_on_record": null,
+    "phone": "+91 50070 77085",
+    "address": "H.No 18-215, Begumpet, Hyderabad",
+    "dl_number": "TS0820181673505",
+    "dl_valid_till": "2034-11-08"
+   },
+   "emergency_contact": {
+    "name": "Tarun Sharma",
+    "relation": "Sister",
+    "phone": "+91 55070 30211"
+   },
+   "insurance": {
+    "insurer": "HDFC ERGO",
+    "policy": "POL-17214052",
+    "valid_till": "2027-06-22",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-09-20",
+   "fastag_id": null,
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS13EG6782",
+   "class": "motorcycle",
+   "make_model": "Bajaj Pulsar 150",
+   "colour": "blue",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2024-09-19",
+    "rto": "Hyderabad West (Tolichowki)",
+    "chassis": "MA6X…8211",
+    "engine": "K98…4721",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0071",
+    "type": "individual",
+    "name": "Ayesha Shaik",
+    "driver_on_record": null,
+    "phone": "+91 50071 31681",
+    "address": "H.No 12-107, Tolichowki, Hyderabad",
+    "dl_number": "TS1320249321003",
+    "dl_valid_till": "2027-08-02"
+   },
+   "emergency_contact": {
+    "name": "Bhavana Shaik",
+    "relation": "Sister",
+    "phone": "+91 55071 37939"
+   },
+   "insurance": {
+    "insurer": "New India Assurance",
+    "policy": "POL-46119911",
+    "valid_till": "2026-07-15",
+    "status": "Expired"
+   },
+   "puc_valid_till": "2026-10-24",
+   "fastag_id": null,
+   "challans": [
+    {
+     "date": "2024-12-21",
+     "offence": "Red-light jumping (Sec 184)",
+     "amount_inr": 1000,
+     "status": "paid",
+     "location": "LB Nagar"
+    },
+    {
+     "date": "2025-12-09",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "paid",
+     "location": "Kondapur"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS07HP2371",
+   "class": "motorcycle",
+   "make_model": "Yamaha FZ-S",
+   "colour": "grey",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2022-07-17",
+    "rto": "Ranga Reddy (Attapur)",
+    "chassis": "MA7X…9726",
+    "engine": "K66…1856",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0072",
+    "type": "individual",
+    "name": "Naveen Rao",
+    "driver_on_record": null,
+    "phone": "+91 50072 27048",
+    "address": "H.No 7-175, Secunderabad, Hyderabad",
+    "dl_number": "TS0720223422164",
+    "dl_valid_till": "2029-03-09"
+   },
+   "emergency_contact": {
+    "name": "Sai Teja Rao",
+    "relation": "Father",
+    "phone": "+91 55072 84347"
+   },
+   "insurance": {
+    "insurer": "HDFC ERGO",
+    "policy": "POL-48548531",
+    "valid_till": "2026-04-20",
+    "status": "Expired"
+   },
+   "puc_valid_till": "2026-10-26",
+   "fastag_id": null,
+   "challans": [
+    {
+     "date": "2025-11-09",
+     "offence": "Wrong-side driving (Sec 184)",
+     "amount_inr": 1000,
+     "status": "paid",
+     "location": "Ameerpet"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS08KM7636",
+   "class": "motorcycle",
+   "make_model": "Bajaj Pulsar 150",
+   "colour": "blue",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2025-10-24",
+    "rto": "Medchal (Uppal)",
+    "chassis": "MA1X…6796",
+    "engine": "K36…2864",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0073",
+    "type": "individual",
+    "name": "Charan Kumar",
+    "driver_on_record": null,
+    "phone": "+91 50073 45328",
+    "address": "H.No 1-254, Begumpet, Hyderabad",
+    "dl_number": "TS0820255108630",
+    "dl_valid_till": "2030-12-02"
+   },
+   "emergency_contact": {
+    "name": "Bhavana Kumar",
+    "relation": "Mother",
+    "phone": "+91 55073 99026"
+   },
+   "insurance": {
+    "insurer": "Tata AIG",
+    "policy": "POL-27047014",
+    "valid_till": "2027-07-29",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-11-26",
+   "fastag_id": null,
+   "challans": [
+    {
+     "date": "2026-02-07",
+     "offence": "No seat belt (Sec 194B)",
+     "amount_inr": 100,
+     "status": "paid",
+     "location": "Gachibowli"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS13FQ6366",
+   "class": "motorcycle",
+   "make_model": "Bajaj Pulsar 150",
+   "colour": "grey",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2018-06-23",
+    "rto": "Hyderabad West (Tolichowki)",
+    "chassis": "MA5X…6802",
+    "engine": "K57…5459",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0074",
+    "type": "individual",
+    "name": "Rohith Yadav",
+    "driver_on_record": null,
+    "phone": "+91 50074 49237",
+    "address": "H.No 9-291, Shamshabad, Hyderabad",
+    "dl_number": "TS1320186458124",
+    "dl_valid_till": "2028-02-08"
+   },
+   "emergency_contact": {
+    "name": "Yamini Yadav",
+    "relation": "Sister",
+    "phone": "+91 55074 89980"
+   },
+   "insurance": {
+    "insurer": "Tata AIG",
+    "policy": "POL-49752294",
+    "valid_till": "2027-09-14",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-02-16",
+   "fastag_id": null,
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS13KR9008",
+   "class": "motorcycle",
+   "make_model": "Hero Splendor Plus",
+   "colour": "grey",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2019-03-19",
+    "rto": "Hyderabad West (Tolichowki)",
+    "chassis": "MA3X…2697",
+    "engine": "K26…6093",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0075",
+    "type": "individual",
+    "name": "Keerthi Yadav",
+    "driver_on_record": null,
+    "phone": "+91 50075 79869",
+    "address": "H.No 13-45, Manikonda, Hyderabad",
+    "dl_number": "TS1320191612763",
+    "dl_valid_till": "2027-10-10"
+   },
+   "emergency_contact": {
+    "name": "Srinivas Yadav",
+    "relation": "Father",
+    "phone": "+91 55075 13391"
+   },
+   "insurance": {
+    "insurer": "ICICI Lombard",
+    "policy": "POL-27785052",
+    "valid_till": "2027-07-02",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-04-04",
+   "fastag_id": null,
+   "challans": [
+    {
+     "date": "2025-01-12",
+     "offence": "Using mobile while driving (Sec 184)",
+     "amount_inr": 1500,
+     "status": "paid",
+     "location": "Begumpet"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS12FL4942",
+   "class": "motorcycle",
+   "make_model": "Royal Enfield Classic 350",
+   "colour": "black",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2018-09-07",
+    "rto": "Hyderabad South (Bahadurpura)",
+    "chassis": "MA6X…9098",
+    "engine": "K29…5132",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0076",
+    "type": "individual",
+    "name": "Imran Shaik",
+    "driver_on_record": null,
+    "phone": "+91 50076 31942",
+    "address": "H.No 20-45, Manikonda, Hyderabad",
+    "dl_number": "TS1220187952588",
+    "dl_valid_till": "2033-12-05"
+   },
+   "emergency_contact": {
+    "name": "Sravani Shaik",
+    "relation": "Sister",
+    "phone": "+91 55076 81647"
+   },
+   "insurance": {
+    "insurer": "New India Assurance",
+    "policy": "POL-25428280",
+    "valid_till": "2027-04-10",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-01-26",
+   "fastag_id": null,
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS12EF0871",
+   "class": "motorcycle",
+   "make_model": "Yamaha FZ-S",
+   "colour": "blue",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2023-07-25",
+    "rto": "Hyderabad South (Bahadurpura)",
+    "chassis": "MA6X…2520",
+    "engine": "K88…4363",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0077",
+    "type": "individual",
+    "name": "Anjali Naidu",
+    "driver_on_record": null,
+    "phone": "+91 50077 67945",
+    "address": "H.No 20-33, Attapur, Hyderabad",
+    "dl_number": "TS1220236844339",
+    "dl_valid_till": "2030-11-20"
+   },
+   "emergency_contact": {
+    "name": "Nikhil Naidu",
+    "relation": "Brother",
+    "phone": "+91 55077 60716"
+   },
+   "insurance": {
+    "insurer": "ICICI Lombard",
+    "policy": "POL-86437957",
+    "valid_till": "2027-06-21",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-11-22",
+   "fastag_id": null,
+   "challans": [
+    {
+     "date": "2024-12-23",
+     "offence": "No helmet (Sec 194D)",
+     "amount_inr": 100,
+     "status": "paid",
+     "location": "Chandanagar"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS10FL4096",
+   "class": "motorcycle",
+   "make_model": "Yamaha FZ-S",
+   "colour": "black",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2024-01-12",
+    "rto": "Hyderabad North (Secunderabad)",
+    "chassis": "MA5X…3232",
+    "engine": "K21…9873",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0078",
+    "type": "individual",
+    "name": "Sravani Yadav",
+    "driver_on_record": null,
+    "phone": "+91 50078 20029",
+    "address": "H.No 9-22, Tolichowki, Hyderabad",
+    "dl_number": "TS1020242649487",
+    "dl_valid_till": "2033-05-23"
+   },
+   "emergency_contact": {
+    "name": "Anjali Yadav",
+    "relation": "Spouse",
+    "phone": "+91 55078 17505"
+   },
+   "insurance": {
+    "insurer": "New India Assurance",
+    "policy": "POL-79915908",
+    "valid_till": "2027-06-14",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-12-07",
+   "fastag_id": null,
+   "challans": [
+    {
+     "date": "2026-03-21",
+     "offence": "Using mobile while driving (Sec 184)",
+     "amount_inr": 1500,
+     "status": "paid",
+     "location": "Jubilee Hills"
+    },
+    {
+     "date": "2025-05-21",
+     "offence": "Wrong-side driving (Sec 184)",
+     "amount_inr": 1000,
+     "status": "paid",
+     "location": "Dilsukhnagar"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS08JA8662",
+   "class": "motorcycle",
+   "make_model": "TVS Apache RTR 160",
+   "colour": "white",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2024-01-27",
+    "rto": "Medchal (Uppal)",
+    "chassis": "MA1X…7294",
+    "engine": "K20…4717",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0079",
+    "type": "individual",
+    "name": "Ravi Naidu",
+    "driver_on_record": null,
+    "phone": "+91 50079 62314",
+    "address": "H.No 19-145, Kukatpally, Hyderabad",
+    "dl_number": "TS0820244267383",
+    "dl_valid_till": "2029-09-21"
+   },
+   "emergency_contact": {
+    "name": "Venkatesh Naidu",
+    "relation": "Father",
+    "phone": "+91 55079 77060"
+   },
+   "insurance": {
+    "insurer": "New India Assurance",
+    "policy": "POL-79684947",
+    "valid_till": "2027-03-30",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-03-27",
+   "fastag_id": null,
+   "challans": [
+    {
+     "date": "2026-09-30",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "paid",
+     "location": "Banjara Hills"
+    },
+    {
+     "date": "2026-05-13",
+     "offence": "Over-speeding (Sec 183 MV Act)",
+     "amount_inr": 1000,
+     "status": "paid",
+     "location": "Patancheru"
+    },
+    {
+     "date": "2025-06-10",
+     "offence": "No helmet (Sec 194D)",
+     "amount_inr": 100,
+     "status": "paid",
+     "location": "Kompally"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS13KJ7427",
+   "class": "motorcycle",
+   "make_model": "Bajaj Pulsar 150",
+   "colour": "blue",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2021-10-16",
+    "rto": "Hyderabad West (Tolichowki)",
+    "chassis": "MA6X…9234",
+    "engine": "K77…1461",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0080",
+    "type": "individual",
+    "name": "Charan Chary",
+    "driver_on_record": null,
+    "phone": "+91 50080 73197",
+    "address": "H.No 14-156, Begumpet, Hyderabad",
+    "dl_number": "TS1320214239166",
+    "dl_valid_till": "2029-05-01"
+   },
+   "emergency_contact": {
+    "name": "Divya Chary",
+    "relation": "Father",
+    "phone": "+91 55080 20897"
+   },
+   "insurance": {
+    "insurer": "Bajaj Allianz",
+    "policy": "POL-35236979",
+    "valid_till": "2027-07-08",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-11-28",
+   "fastag_id": null,
+   "challans": [
+    {
+     "date": "2026-06-16",
+     "offence": "Red-light jumping (Sec 184)",
+     "amount_inr": 1000,
+     "status": "unpaid",
+     "location": "Chandanagar"
+    },
+    {
+     "date": "2026-01-15",
+     "offence": "Using mobile while driving (Sec 184)",
+     "amount_inr": 1500,
+     "status": "paid",
+     "location": "Jubilee Hills"
+    },
+    {
+     "date": "2025-09-06",
+     "offence": "Red-light jumping (Sec 184)",
+     "amount_inr": 1000,
+     "status": "paid",
+     "location": "Gachibowli"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS10FC6076",
+   "class": "motorcycle",
+   "make_model": "Bajaj Pulsar 150",
+   "colour": "grey",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2022-01-07",
+    "rto": "Hyderabad North (Secunderabad)",
+    "chassis": "MA4X…7678",
+    "engine": "K57…7054",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0081",
+    "type": "individual",
+    "name": "Deepika Reddy",
+    "driver_on_record": null,
+    "phone": "+91 50081 27600",
+    "address": "H.No 7-91, Manikonda, Hyderabad",
+    "dl_number": "TS1020225700839",
+    "dl_valid_till": "2026-09-01"
+   },
+   "emergency_contact": {
+    "name": "Suresh Reddy",
+    "relation": "Mother",
+    "phone": "+91 55081 29102"
+   },
+   "insurance": {
+    "insurer": "HDFC ERGO",
+    "policy": "POL-69323552",
+    "valid_till": "2027-09-24",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-11-06",
+   "fastag_id": null,
+   "challans": [
+    {
+     "date": "2026-05-04",
+     "offence": "No helmet (Sec 194D)",
+     "amount_inr": 100,
+     "status": "paid",
+     "location": "Kukatpally"
+    },
+    {
+     "date": "2024-12-17",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "paid",
+     "location": "Nizampet"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS12HR5382",
+   "class": "motorcycle",
+   "make_model": "Royal Enfield Classic 350",
+   "colour": "red",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2019-03-22",
+    "rto": "Hyderabad South (Bahadurpura)",
+    "chassis": "MA3X…9975",
+    "engine": "K66…3393",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0082",
+    "type": "individual",
+    "name": "Nikhil Babu",
+    "driver_on_record": null,
+    "phone": "+91 50082 16664",
+    "address": "H.No 2-108, Dilsukhnagar, Hyderabad",
+    "dl_number": "TS1220198023813",
+    "dl_valid_till": "2027-08-25"
+   },
+   "emergency_contact": {
+    "name": "Rajesh Babu",
+    "relation": "Father",
+    "phone": "+91 55082 98263"
+   },
+   "insurance": {
+    "insurer": "Bajaj Allianz",
+    "policy": "POL-76215895",
+    "valid_till": "2027-06-13",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-12-13",
+   "fastag_id": null,
+   "challans": [
+    {
+     "date": "2026-05-17",
+     "offence": "Using mobile while driving (Sec 184)",
+     "amount_inr": 1500,
+     "status": "paid",
+     "location": "Jubilee Hills"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS09JG8542",
+   "class": "motorcycle",
+   "make_model": "TVS Apache RTR 160",
+   "colour": "grey",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2023-03-07",
+    "rto": "Hyderabad Central (Khairatabad)",
+    "chassis": "MA5X…7564",
+    "engine": "K47…2609",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0083",
+    "type": "individual",
+    "name": "Kavya Goud",
+    "driver_on_record": null,
+    "phone": "+91 50083 72538",
+    "address": "H.No 8-39, Kompally, Hyderabad",
+    "dl_number": "TS0920238270473",
+    "dl_valid_till": "2028-06-04"
+   },
+   "emergency_contact": {
+    "name": "Ramesh Goud",
+    "relation": "Brother",
+    "phone": "+91 55083 42540"
+   },
+   "insurance": {
+    "insurer": "New India Assurance",
+    "policy": "POL-37884571",
+    "valid_till": "2026-09-06",
+    "status": "Expired"
+   },
+   "puc_valid_till": "2026-12-15",
+   "fastag_id": null,
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS13EV2439",
+   "class": "motorcycle",
+   "make_model": "Bajaj Pulsar 150",
+   "colour": "blue",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2018-07-20",
+    "rto": "Hyderabad West (Tolichowki)",
+    "chassis": "MA6X…1490",
+    "engine": "K27…8609",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0084",
+    "type": "individual",
+    "name": "Bhavana Naidu",
+    "driver_on_record": null,
+    "phone": "+91 50084 81184",
+    "address": "H.No 4-83, Tolichowki, Hyderabad",
+    "dl_number": "TS1320189495971",
+    "dl_valid_till": "2034-11-24"
+   },
+   "emergency_contact": {
+    "name": "Mahesh Naidu",
+    "relation": "Sister",
+    "phone": "+91 55084 12621"
+   },
+   "insurance": {
+    "insurer": "HDFC ERGO",
+    "policy": "POL-35709060",
+    "valid_till": "2026-01-05",
+    "status": "Expired"
+   },
+   "puc_valid_till": "2027-01-15",
+   "fastag_id": null,
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS10JS7941",
+   "class": "motorcycle",
+   "make_model": "Hero Splendor Plus",
+   "colour": "white",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2023-09-12",
+    "rto": "Hyderabad North (Secunderabad)",
+    "chassis": "MA8X…7570",
+    "engine": "K15…9813",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0085",
+    "type": "individual",
+    "name": "Gopal Sharma",
+    "driver_on_record": null,
+    "phone": "+91 50085 17022",
+    "address": "H.No 1-100, Kukatpally, Hyderabad",
+    "dl_number": "TS1020233656879",
+    "dl_valid_till": "2034-08-07"
+   },
+   "emergency_contact": {
+    "name": "Kavya Sharma",
+    "relation": "Sister",
+    "phone": "+91 55085 99884"
+   },
+   "insurance": {
+    "insurer": "HDFC ERGO",
+    "policy": "POL-27357794",
+    "valid_till": "2027-07-09",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-03-10",
+   "fastag_id": null,
+   "challans": [
+    {
+     "date": "2025-06-26",
+     "offence": "No helmet (Sec 194D)",
+     "amount_inr": 100,
+     "status": "unpaid",
+     "location": "Dilsukhnagar"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS11FD9293",
+   "class": "motorcycle",
+   "make_model": "Suzuki Access 125",
+   "colour": "grey",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2018-05-28",
+    "rto": "Hyderabad East (Malakpet)",
+    "chassis": "MA4X…7512",
+    "engine": "K18…3695",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0086",
+    "type": "individual",
+    "name": "Sowmya Mudiraj",
+    "driver_on_record": null,
+    "phone": "+91 50086 27576",
+    "address": "H.No 4-80, Gachibowli, Hyderabad",
+    "dl_number": "TS1120187289055",
+    "dl_valid_till": "2031-11-06"
+   },
+   "emergency_contact": {
+    "name": "Gopal Mudiraj",
+    "relation": "Father",
+    "phone": "+91 55086 29727"
+   },
+   "insurance": {
+    "insurer": "Tata AIG",
+    "policy": "POL-96498565",
+    "valid_till": "2027-01-19",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-01-06",
+   "fastag_id": null,
+   "challans": [
+    {
+     "date": "2025-04-28",
+     "offence": "No seat belt (Sec 194B)",
+     "amount_inr": 100,
+     "status": "unpaid",
+     "location": "Manikonda"
+    },
+    {
+     "date": "2025-11-24",
+     "offence": "No seat belt (Sec 194B)",
+     "amount_inr": 100,
+     "status": "paid",
+     "location": "Gachibowli"
+    },
+    {
+     "date": "2026-05-15",
+     "offence": "No seat belt (Sec 194B)",
+     "amount_inr": 100,
+     "status": "paid",
+     "location": "Tolichowki"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS07JB0210",
+   "class": "motorcycle",
+   "make_model": "Hero Splendor Plus",
+   "colour": "black",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2022-12-05",
+    "rto": "Ranga Reddy (Attapur)",
+    "chassis": "MA6X…2450",
+    "engine": "K94…5893",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0087",
+    "type": "individual",
+    "name": "Tarun Shaik",
+    "driver_on_record": null,
+    "phone": "+91 50087 81486",
+    "address": "H.No 2-28, Manikonda, Hyderabad",
+    "dl_number": "TS0720223134745",
+    "dl_valid_till": "2033-05-19"
+   },
+   "emergency_contact": {
+    "name": "Ravi Shaik",
+    "relation": "Spouse",
+    "phone": "+91 55087 22887"
+   },
+   "insurance": {
+    "insurer": "HDFC ERGO",
+    "policy": "POL-89198265",
+    "valid_till": "2027-07-23",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-04-05",
+   "fastag_id": null,
+   "challans": [
+    {
+     "date": "2025-08-02",
+     "offence": "No seat belt (Sec 194B)",
+     "amount_inr": 100,
+     "status": "paid",
+     "location": "Shamshabad"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS13KE0227",
+   "class": "motorcycle",
+   "make_model": "TVS Apache RTR 160",
+   "colour": "blue",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2019-12-31",
+    "rto": "Hyderabad West (Tolichowki)",
+    "chassis": "MA8X…3635",
+    "engine": "K33…1144",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0088",
+    "type": "individual",
+    "name": "Naveen Sharma",
+    "driver_on_record": null,
+    "phone": "+91 50088 84492",
+    "address": "H.No 14-34, Kukatpally, Hyderabad",
+    "dl_number": "TS1320199140184",
+    "dl_valid_till": "2028-11-17"
+   },
+   "emergency_contact": {
+    "name": "Swathi Sharma",
+    "relation": "Spouse",
+    "phone": "+91 55088 18411"
+   },
+   "insurance": {
+    "insurer": "New India Assurance",
+    "policy": "POL-81619126",
+    "valid_till": "2027-01-23",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-02-23",
+   "fastag_id": null,
+   "challans": [
+    {
+     "date": "2025-04-13",
+     "offence": "No helmet (Sec 194D)",
+     "amount_inr": 100,
+     "status": "paid",
+     "location": "Dilsukhnagar"
+    },
+    {
+     "date": "2025-11-13",
+     "offence": "No helmet (Sec 194D)",
+     "amount_inr": 100,
+     "status": "unpaid",
+     "location": "Nizampet"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS12HB0937",
+   "class": "motorcycle",
+   "make_model": "TVS Apache RTR 160",
+   "colour": "grey",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2017-09-17",
+    "rto": "Hyderabad South (Bahadurpura)",
+    "chassis": "MA2X…9475",
+    "engine": "K45…1539",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0089",
+    "type": "individual",
+    "name": "Sravani Prasad",
+    "driver_on_record": null,
+    "phone": "+91 50089 27677",
+    "address": "H.No 5-107, Jubilee Hills, Hyderabad",
+    "dl_number": "TS1220176251258",
+    "dl_valid_till": "2033-12-20"
+   },
+   "emergency_contact": {
+    "name": "Divya Prasad",
+    "relation": "Sister",
+    "phone": "+91 55089 44416"
+   },
+   "insurance": {
+    "insurer": "HDFC ERGO",
+    "policy": "POL-82700669",
+    "valid_till": "2026-04-23",
+    "status": "Expired"
+   },
+   "puc_valid_till": "2027-03-03",
+   "fastag_id": null,
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS10JQ0005",
+   "class": "motorcycle",
+   "make_model": "Royal Enfield Classic 350",
+   "colour": "blue",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2016-12-22",
+    "rto": "Hyderabad North (Secunderabad)",
+    "chassis": "MA6X…7257",
+    "engine": "K70…1803",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0090",
+    "type": "individual",
+    "name": "Kiran Raju",
+    "driver_on_record": null,
+    "phone": "+91 50090 78463",
+    "address": "H.No 17-50, Uppal, Hyderabad",
+    "dl_number": "TS1020165468738",
+    "dl_valid_till": "2034-03-18"
+   },
+   "emergency_contact": {
+    "name": "Naveen Raju",
+    "relation": "Mother",
+    "phone": "+91 55090 33424"
+   },
+   "insurance": {
+    "insurer": "ICICI Lombard",
+    "policy": "POL-15893926",
+    "valid_till": "2027-04-17",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-01-25",
+   "fastag_id": null,
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS13EQ4465",
+   "class": "motorcycle",
+   "make_model": "Hero Splendor Plus",
+   "colour": "grey",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2020-03-09",
+    "rto": "Hyderabad West (Tolichowki)",
+    "chassis": "MA4X…5847",
+    "engine": "K80…8257",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0091",
+    "type": "individual",
+    "name": "Yamini Mudiraj",
+    "driver_on_record": null,
+    "phone": "+91 50091 63172",
+    "address": "H.No 11-209, Miyapur, Hyderabad",
+    "dl_number": "TS1320206725964",
+    "dl_valid_till": "2030-10-01"
+   },
+   "emergency_contact": {
+    "name": "Mahesh Mudiraj",
+    "relation": "Spouse",
+    "phone": "+91 55091 40862"
+   },
+   "insurance": {
+    "insurer": "New India Assurance",
+    "policy": "POL-91868902",
+    "valid_till": "2027-06-13",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-10-29",
+   "fastag_id": null,
+   "challans": [
+    {
+     "date": "2026-03-04",
+     "offence": "No seat belt (Sec 194B)",
+     "amount_inr": 100,
+     "status": "paid",
+     "location": "Miyapur"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS07EP5632",
+   "class": "motorcycle",
+   "make_model": "Royal Enfield Classic 350",
+   "colour": "black",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2019-08-18",
+    "rto": "Ranga Reddy (Attapur)",
+    "chassis": "MA9X…6301",
+    "engine": "K41…6964",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0092",
+    "type": "individual",
+    "name": "Farhan Goud",
+    "driver_on_record": null,
+    "phone": "+91 50092 23863",
+    "address": "H.No 3-193, Nizampet, Hyderabad",
+    "dl_number": "TS0720191479876",
+    "dl_valid_till": "2033-09-06"
+   },
+   "emergency_contact": {
+    "name": "Prakash Goud",
+    "relation": "Sister",
+    "phone": "+91 55092 10393"
+   },
+   "insurance": {
+    "insurer": "United India Insurance",
+    "policy": "POL-15126067",
+    "valid_till": "2027-02-25",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-01-05",
+   "fastag_id": null,
+   "challans": [
+    {
+     "date": "2026-06-28",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "paid",
+     "location": "Kompally"
+    },
+    {
+     "date": "2025-02-02",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "paid",
+     "location": "Chandanagar"
+    },
+    {
+     "date": "2025-07-13",
+     "offence": "Over-speeding (Sec 183 MV Act)",
+     "amount_inr": 1000,
+     "status": "unpaid",
+     "location": "Gachibowli"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS09FZ5427",
+   "class": "motorcycle",
+   "make_model": "Hero Splendor Plus",
+   "colour": "grey",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2018-09-11",
+    "rto": "Hyderabad Central (Khairatabad)",
+    "chassis": "MA7X…4657",
+    "engine": "K38…3835",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0093",
+    "type": "individual",
+    "name": "Swathi Khan",
+    "driver_on_record": null,
+    "phone": "+91 50093 42880",
+    "address": "H.No 3-293, Manikonda, Hyderabad",
+    "dl_number": "TS0920189508008",
+    "dl_valid_till": "2032-02-01"
+   },
+   "emergency_contact": {
+    "name": "Manasa Khan",
+    "relation": "Brother",
+    "phone": "+91 55093 73864"
+   },
+   "insurance": {
+    "insurer": "United India Insurance",
+    "policy": "POL-34780362",
+    "valid_till": "2027-03-04",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-12-20",
+   "fastag_id": null,
+   "challans": [
+    {
+     "date": "2026-04-10",
+     "offence": "Over-speeding (Sec 183 MV Act)",
+     "amount_inr": 1000,
+     "status": "unpaid",
+     "location": "Madhapur"
+    },
+    {
+     "date": "2025-08-28",
+     "offence": "Red-light jumping (Sec 184)",
+     "amount_inr": 1000,
+     "status": "paid",
+     "location": "Ameerpet"
+    },
+    {
+     "date": "2026-01-19",
+     "offence": "No seat belt (Sec 194B)",
+     "amount_inr": 100,
+     "status": "paid",
+     "location": "Dilsukhnagar"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS10GF8772",
+   "class": "motorcycle",
+   "make_model": "Honda Activa 6G",
+   "colour": "blue",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2021-06-22",
+    "rto": "Hyderabad North (Secunderabad)",
+    "chassis": "MA8X…6409",
+    "engine": "K27…5227",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0094",
+    "type": "individual",
+    "name": "Deepika Mohammed",
+    "driver_on_record": null,
+    "phone": "+91 50094 26590",
+    "address": "H.No 16-92, Attapur, Hyderabad",
+    "dl_number": "TS1020219276923",
+    "dl_valid_till": "2028-02-23"
+   },
+   "emergency_contact": {
+    "name": "Ayesha Mohammed",
+    "relation": "Spouse",
+    "phone": "+91 55094 13111"
+   },
+   "insurance": {
+    "insurer": "New India Assurance",
+    "policy": "POL-54869746",
+    "valid_till": "2026-12-04",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-04-20",
+   "fastag_id": null,
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS08HM9303",
+   "class": "motorcycle",
+   "make_model": "TVS Apache RTR 160",
+   "colour": "white",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2023-05-18",
+    "rto": "Medchal (Uppal)",
+    "chassis": "MA7X…9146",
+    "engine": "K46…9224",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0095",
+    "type": "individual",
+    "name": "Swathi Patel",
+    "driver_on_record": null,
+    "phone": "+91 50095 45404",
+    "address": "H.No 19-210, Secunderabad, Hyderabad",
+    "dl_number": "TS0820234991627",
+    "dl_valid_till": "2030-01-09"
+   },
+   "emergency_contact": {
+    "name": "Swathi Patel",
+    "relation": "Father",
+    "phone": "+91 55095 86606"
+   },
+   "insurance": {
+    "insurer": "ICICI Lombard",
+    "policy": "POL-11501118",
+    "valid_till": "2026-02-11",
+    "status": "Expired"
+   },
+   "puc_valid_till": "2027-04-08",
+   "fastag_id": null,
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS12GM7033",
+   "class": "motorcycle",
+   "make_model": "Suzuki Access 125",
+   "colour": "black",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2017-02-20",
+    "rto": "Hyderabad South (Bahadurpura)",
+    "chassis": "MA3X…1145",
+    "engine": "K46…7252",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0096",
+    "type": "individual",
+    "name": "Arjun Nayak",
+    "driver_on_record": null,
+    "phone": "+91 50096 68438",
+    "address": "H.No 12-289, Shamshabad, Hyderabad",
+    "dl_number": "TS1220178488473",
+    "dl_valid_till": "2032-03-26"
+   },
+   "emergency_contact": {
+    "name": "Mahesh Nayak",
+    "relation": "Spouse",
+    "phone": "+91 55096 23330"
+   },
+   "insurance": {
+    "insurer": "Tata AIG",
+    "policy": "POL-25907983",
+    "valid_till": "2027-10-05",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-04-04",
+   "fastag_id": null,
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS07HK2829",
+   "class": "motorcycle",
+   "make_model": "Hero Splendor Plus",
+   "colour": "black",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2023-01-18",
+    "rto": "Ranga Reddy (Attapur)",
+    "chassis": "MA9X…5264",
+    "engine": "K33…8275",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0097",
+    "type": "individual",
+    "name": "Ayesha Babu",
+    "driver_on_record": null,
+    "phone": "+91 50097 72639",
+    "address": "H.No 6-67, Uppal, Hyderabad",
+    "dl_number": "TS0720233577507",
+    "dl_valid_till": "2028-03-04"
+   },
+   "emergency_contact": {
+    "name": "Tarun Babu",
+    "relation": "Brother",
+    "phone": "+91 55097 63488"
+   },
+   "insurance": {
+    "insurer": "ICICI Lombard",
+    "policy": "POL-25385176",
+    "valid_till": "2027-05-27",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-09-27",
+   "fastag_id": null,
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS13HE9171",
+   "class": "motorcycle",
+   "make_model": "Honda Activa 6G",
+   "colour": "red",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2023-05-22",
+    "rto": "Hyderabad West (Tolichowki)",
+    "chassis": "MA8X…2222",
+    "engine": "K59…8301",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0098",
+    "type": "individual",
+    "name": "Rohith Mudiraj",
+    "driver_on_record": null,
+    "phone": "+91 50098 82247",
+    "address": "H.No 10-214, Mehdipatnam, Hyderabad",
+    "dl_number": "TS1320233932705",
+    "dl_valid_till": "2030-09-28"
+   },
+   "emergency_contact": {
+    "name": "Sneha Mudiraj",
+    "relation": "Father",
+    "phone": "+91 55098 52981"
+   },
+   "insurance": {
+    "insurer": "ICICI Lombard",
+    "policy": "POL-56791632",
+    "valid_till": "2027-10-16",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-12-07",
+   "fastag_id": null,
+   "challans": [
+    {
+     "date": "2025-03-01",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "unpaid",
+     "location": "Kukatpally"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS13JD7838",
+   "class": "motorcycle",
+   "make_model": "Suzuki Access 125",
+   "colour": "white",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2020-12-15",
+    "rto": "Hyderabad West (Tolichowki)",
+    "chassis": "MA6X…8952",
+    "engine": "K17…2896",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0099",
+    "type": "individual",
+    "name": "Farhan Varma",
+    "driver_on_record": null,
+    "phone": "+91 50099 45311",
+    "address": "H.No 17-231, Mehdipatnam, Hyderabad",
+    "dl_number": "TS1320203744143",
+    "dl_valid_till": "2033-06-20"
+   },
+   "emergency_contact": {
+    "name": "Imran Varma",
+    "relation": "Father",
+    "phone": "+91 55099 84675"
+   },
+   "insurance": {
+    "insurer": "United India Insurance",
+    "policy": "POL-33105178",
+    "valid_till": "2027-08-10",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-01-27",
+   "fastag_id": null,
+   "challans": [
+    {
+     "date": "2026-02-03",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "unpaid",
+     "location": "Attapur"
+    },
+    {
+     "date": "2025-02-26",
+     "offence": "No helmet (Sec 194D)",
+     "amount_inr": 100,
+     "status": "unpaid",
+     "location": "Patancheru"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS13FB7478",
+   "class": "motorcycle",
+   "make_model": "Hero Splendor Plus",
+   "colour": "red",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2025-01-16",
+    "rto": "Hyderabad West (Tolichowki)",
+    "chassis": "MA4X…7616",
+    "engine": "K40…8405",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0100",
+    "type": "individual",
+    "name": "Kavya Yadav",
+    "driver_on_record": null,
+    "phone": "+91 50100 64092",
+    "address": "H.No 15-94, Patancheru, Hyderabad",
+    "dl_number": "TS1320251333270",
+    "dl_valid_till": "2032-02-14"
+   },
+   "emergency_contact": {
+    "name": "Suresh Yadav",
+    "relation": "Mother",
+    "phone": "+91 55100 85659"
+   },
+   "insurance": {
+    "insurer": "United India Insurance",
+    "policy": "POL-86755800",
+    "valid_till": "2027-01-21",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-12-20",
+   "fastag_id": null,
+   "challans": [
+    {
+     "date": "2025-03-26",
+     "offence": "Red-light jumping (Sec 184)",
+     "amount_inr": 1000,
+     "status": "paid",
+     "location": "Dilsukhnagar"
+    },
+    {
+     "date": "2025-07-27",
+     "offence": "Over-speeding (Sec 183 MV Act)",
+     "amount_inr": 1000,
+     "status": "paid",
+     "location": "Jubilee Hills"
+    },
+    {
+     "date": "2026-09-19",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "unpaid",
+     "location": "Tolichowki"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS07JU6991",
+   "class": "motorcycle",
+   "make_model": "TVS Apache RTR 160",
+   "colour": "white",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2022-06-05",
+    "rto": "Ranga Reddy (Attapur)",
+    "chassis": "MA9X…3923",
+    "engine": "K60…8812",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0101",
+    "type": "individual",
+    "name": "Sai Teja Babu",
+    "driver_on_record": null,
+    "phone": "+91 50101 17042",
+    "address": "H.No 20-207, Shamshabad, Hyderabad",
+    "dl_number": "TS0720228212222",
+    "dl_valid_till": "2030-08-19"
+   },
+   "emergency_contact": {
+    "name": "Venkatesh Babu",
+    "relation": "Mother",
+    "phone": "+91 55101 53112"
+   },
+   "insurance": {
+    "insurer": "HDFC ERGO",
+    "policy": "POL-97908319",
+    "valid_till": "2026-04-19",
+    "status": "Expired"
+   },
+   "puc_valid_till": "2026-10-01",
+   "fastag_id": null,
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS12ER3201",
+   "class": "motorcycle",
+   "make_model": "Yamaha FZ-S",
+   "colour": "red",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2019-12-13",
+    "rto": "Hyderabad South (Bahadurpura)",
+    "chassis": "MA2X…3094",
+    "engine": "K99…8748",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0102",
+    "type": "individual",
+    "name": "Spandana Gupta",
+    "driver_on_record": null,
+    "phone": "+91 50102 59453",
+    "address": "H.No 12-94, Shamshabad, Hyderabad",
+    "dl_number": "TS1220193836877",
+    "dl_valid_till": "2027-09-12"
+   },
+   "emergency_contact": {
+    "name": "Spandana Gupta",
+    "relation": "Sister",
+    "phone": "+91 55102 26443"
+   },
+   "insurance": {
+    "insurer": "Bajaj Allianz",
+    "policy": "POL-79379679",
+    "valid_till": "2027-07-06",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-02-14",
+   "fastag_id": null,
+   "challans": [
+    {
+     "date": "2026-08-23",
+     "offence": "Red-light jumping (Sec 184)",
+     "amount_inr": 1000,
+     "status": "unpaid",
+     "location": "Secunderabad"
+    },
+    {
+     "date": "2025-09-13",
+     "offence": "Using mobile while driving (Sec 184)",
+     "amount_inr": 1500,
+     "status": "paid",
+     "location": "Jubilee Hills"
+    },
+    {
+     "date": "2025-09-01",
+     "offence": "Over-speeding (Sec 183 MV Act)",
+     "amount_inr": 1000,
+     "status": "paid",
+     "location": "Chandanagar"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS12JG0137",
+   "class": "motorcycle",
+   "make_model": "Bajaj Pulsar 150",
+   "colour": "black",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2017-07-05",
+    "rto": "Hyderabad South (Bahadurpura)",
+    "chassis": "MA9X…9306",
+    "engine": "K64…5479",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0103",
+    "type": "individual",
+    "name": "Anil Sharma",
+    "driver_on_record": null,
+    "phone": "+91 50103 41798",
+    "address": "H.No 19-264, Attapur, Hyderabad",
+    "dl_number": "TS1220177733729",
+    "dl_valid_till": "2032-03-19"
+   },
+   "emergency_contact": {
+    "name": "Mahesh Sharma",
+    "relation": "Mother",
+    "phone": "+91 55103 26307"
+   },
+   "insurance": {
+    "insurer": "ICICI Lombard",
+    "policy": "POL-83621337",
+    "valid_till": "2027-07-21",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-09-30",
+   "fastag_id": null,
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS10JK5592",
+   "class": "motorcycle",
+   "make_model": "Hero Splendor Plus",
+   "colour": "blue",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2020-11-11",
+    "rto": "Hyderabad North (Secunderabad)",
+    "chassis": "MA3X…2659",
+    "engine": "K34…4648",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0104",
+    "type": "individual",
+    "name": "Mahesh Nayak",
+    "driver_on_record": null,
+    "phone": "+91 50104 83934",
+    "address": "H.No 17-287, Uppal, Hyderabad",
+    "dl_number": "TS1020205072027",
+    "dl_valid_till": "2034-04-15"
+   },
+   "emergency_contact": {
+    "name": "Mahesh Nayak",
+    "relation": "Father",
+    "phone": "+91 55104 44854"
+   },
+   "insurance": {
+    "insurer": "Tata AIG",
+    "policy": "POL-64456600",
+    "valid_till": "2027-07-04",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-10-27",
+   "fastag_id": null,
+   "challans": [
+    {
+     "date": "2026-09-01",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "paid",
+     "location": "Ameerpet"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS12KE3391",
+   "class": "motorcycle",
+   "make_model": "TVS Apache RTR 160",
+   "colour": "grey",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2022-01-14",
+    "rto": "Hyderabad South (Bahadurpura)",
+    "chassis": "MA6X…7470",
+    "engine": "K67…4262",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0105",
+    "type": "individual",
+    "name": "Gopal Yadav",
+    "driver_on_record": null,
+    "phone": "+91 50105 11997",
+    "address": "H.No 9-67, Kompally, Hyderabad",
+    "dl_number": "TS1220224288305",
+    "dl_valid_till": "2027-12-22"
+   },
+   "emergency_contact": {
+    "name": "Pooja Yadav",
+    "relation": "Brother",
+    "phone": "+91 55105 61302"
+   },
+   "insurance": {
+    "insurer": "ICICI Lombard",
+    "policy": "POL-26728640",
+    "valid_till": "2027-03-30",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-03-30",
+   "fastag_id": null,
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS10FM0660",
+   "class": "motorcycle",
+   "make_model": "Royal Enfield Classic 350",
+   "colour": "grey",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2022-05-23",
+    "rto": "Hyderabad North (Secunderabad)",
+    "chassis": "MA4X…5165",
+    "engine": "K80…5294",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0106",
+    "type": "individual",
+    "name": "Suresh Gupta",
+    "driver_on_record": null,
+    "phone": "+91 50106 85307",
+    "address": "H.No 13-87, Kompally, Hyderabad",
+    "dl_number": "TS1020221098331",
+    "dl_valid_till": "2028-12-20"
+   },
+   "emergency_contact": {
+    "name": "Nikhil Gupta",
+    "relation": "Sister",
+    "phone": "+91 55106 91723"
+   },
+   "insurance": {
+    "insurer": "New India Assurance",
+    "policy": "POL-57011686",
+    "valid_till": "2027-10-04",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-03-24",
+   "fastag_id": null,
+   "challans": [
+    {
+     "date": "2025-10-03",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "unpaid",
+     "location": "Attapur"
+    },
+    {
+     "date": "2026-02-06",
+     "offence": "No seat belt (Sec 194B)",
+     "amount_inr": 100,
+     "status": "paid",
+     "location": "Shamshabad"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS15KV9965",
+   "class": "motorcycle",
+   "make_model": "TVS Apache RTR 160",
+   "colour": "blue",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2019-03-21",
+    "rto": "Sangareddy",
+    "chassis": "MA1X…6015",
+    "engine": "K60…7844",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0107",
+    "type": "individual",
+    "name": "Naveen Kumar",
+    "driver_on_record": null,
+    "phone": "+91 50107 74237",
+    "address": "H.No 10-234, Gachibowli, Hyderabad",
+    "dl_number": "TS1520191166407",
+    "dl_valid_till": "2027-10-03"
+   },
+   "emergency_contact": {
+    "name": "Swathi Kumar",
+    "relation": "Mother",
+    "phone": "+91 55107 78851"
+   },
+   "insurance": {
+    "insurer": "ICICI Lombard",
+    "policy": "POL-14914658",
+    "valid_till": "2027-01-04",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-01-13",
+   "fastag_id": null,
+   "challans": [
+    {
+     "date": "2025-08-29",
+     "offence": "No helmet (Sec 194D)",
+     "amount_inr": 100,
+     "status": "paid",
+     "location": "Shamshabad"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS13EZ6436",
+   "class": "motorcycle",
+   "make_model": "Suzuki Access 125",
+   "colour": "black",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2022-11-16",
+    "rto": "Hyderabad West (Tolichowki)",
+    "chassis": "MA8X…5790",
+    "engine": "K24…2542",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0108",
+    "type": "individual",
+    "name": "Arjun Khan",
+    "driver_on_record": null,
+    "phone": "+91 50108 96097",
+    "address": "H.No 13-61, Narsingi, Hyderabad",
+    "dl_number": "TS1320224581053",
+    "dl_valid_till": "2034-05-09"
+   },
+   "emergency_contact": {
+    "name": "Imran Khan",
+    "relation": "Brother",
+    "phone": "+91 55108 52836"
+   },
+   "insurance": {
+    "insurer": "HDFC ERGO",
+    "policy": "POL-63862236",
+    "valid_till": "2027-03-16",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-02-09",
+   "fastag_id": null,
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS09GQ8516",
+   "class": "motorcycle",
+   "make_model": "Bajaj Pulsar 150",
+   "colour": "black",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2021-08-08",
+    "rto": "Hyderabad Central (Khairatabad)",
+    "chassis": "MA4X…6451",
+    "engine": "K55…2270",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0109",
+    "type": "individual",
+    "name": "Manasa Patel",
+    "driver_on_record": null,
+    "phone": "+91 50109 34695",
+    "address": "H.No 15-159, Dilsukhnagar, Hyderabad",
+    "dl_number": "TS0920216254385",
+    "dl_valid_till": "2028-06-06"
+   },
+   "emergency_contact": {
+    "name": "Vamshi Patel",
+    "relation": "Mother",
+    "phone": "+91 55109 50398"
+   },
+   "insurance": {
+    "insurer": "Tata AIG",
+    "policy": "POL-52315945",
+    "valid_till": "2027-03-18",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-10-07",
+   "fastag_id": null,
+   "challans": [
+    {
+     "date": "2026-04-27",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "unpaid",
+     "location": "Miyapur"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS09FS1783",
+   "class": "motorcycle",
+   "make_model": "Hero Splendor Plus",
+   "colour": "black",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2024-06-03",
+    "rto": "Hyderabad Central (Khairatabad)",
+    "chassis": "MA6X…3107",
+    "engine": "K11…4177",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0110",
+    "type": "individual",
+    "name": "Rajesh Varma",
+    "driver_on_record": null,
+    "phone": "+91 50110 69954",
+    "address": "H.No 12-99, Gachibowli, Hyderabad",
+    "dl_number": "TS0920241370761",
+    "dl_valid_till": "2032-10-31"
+   },
+   "emergency_contact": {
+    "name": "Yamini Varma",
+    "relation": "Spouse",
+    "phone": "+91 55110 68111"
+   },
+   "insurance": {
+    "insurer": "United India Insurance",
+    "policy": "POL-57139493",
+    "valid_till": "2027-02-14",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-03-01",
+   "fastag_id": null,
+   "challans": [
+    {
+     "date": "2026-03-15",
+     "offence": "No helmet (Sec 194D)",
+     "amount_inr": 100,
+     "status": "paid",
+     "location": "Attapur"
+    },
+    {
+     "date": "2025-06-23",
+     "offence": "Using mobile while driving (Sec 184)",
+     "amount_inr": 1500,
+     "status": "paid",
+     "location": "Jubilee Hills"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS09KJ0366",
+   "class": "motorcycle",
+   "make_model": "Royal Enfield Classic 350",
+   "colour": "grey",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2025-12-26",
+    "rto": "Hyderabad Central (Khairatabad)",
+    "chassis": "MA3X…4868",
+    "engine": "K45…4114",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0111",
+    "type": "individual",
+    "name": "Sowmya Achari",
+    "driver_on_record": null,
+    "phone": "+91 50111 22823",
+    "address": "H.No 20-233, Secunderabad, Hyderabad",
+    "dl_number": "TS0920258521173",
+    "dl_valid_till": "2030-03-10"
+   },
+   "emergency_contact": {
+    "name": "Rajesh Achari",
+    "relation": "Spouse",
+    "phone": "+91 55111 88608"
+   },
+   "insurance": {
+    "insurer": "United India Insurance",
+    "policy": "POL-47296117",
+    "valid_till": "2027-06-30",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-04-15",
+   "fastag_id": null,
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS15UB3208",
+   "class": "bus",
+   "make_model": "Tata Starbus (school bus)",
+   "colour": "silver",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2024-08-07",
+    "rto": "Sangareddy",
+    "chassis": "MA3X…7616",
+    "engine": "K28…8273",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0112",
+    "type": "individual",
+    "name": "Manasa Goud",
+    "driver_on_record": null,
+    "phone": "+91 50112 83984",
+    "address": "H.No 17-223, Ameerpet, Hyderabad",
+    "dl_number": "TS1520242608807",
+    "dl_valid_till": "2032-01-25"
+   },
+   "emergency_contact": {
+    "name": "Sneha Goud",
+    "relation": "Sister",
+    "phone": "+91 55112 96742"
+   },
+   "insurance": {
+    "insurer": "Bajaj Allianz",
+    "policy": "POL-13200323",
+    "valid_till": "2027-01-07",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-10-28",
+   "fastag_id": "34161FA8353795521337",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS07UE1182",
+   "class": "bus",
+   "make_model": "Ashok Leyland Viking (private stage carrier)",
+   "colour": "silver",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2019-07-06",
+    "rto": "Ranga Reddy (Attapur)",
+    "chassis": "MA3X…8668",
+    "engine": "K89…2863",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0113",
+    "type": "company",
+    "name": "Lakshmi Carriers",
+    "driver_on_record": "Imran Goud",
+    "phone": "+91 50113 86411",
+    "address": "H.No 19-299, Begumpet, Hyderabad",
+    "dl_number": "TS0720191611395",
+    "dl_valid_till": "2033-05-07"
+   },
+   "emergency_contact": {
+    "name": "Ayesha Goud",
+    "relation": "Brother",
+    "phone": "+91 55113 74041"
+   },
+   "insurance": {
+    "insurer": "New India Assurance",
+    "policy": "POL-88194410",
+    "valid_till": "2027-01-28",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-10-11",
+   "fastag_id": "34161FA8313206876810",
+   "challans": [
+    {
+     "date": "2026-06-15",
+     "offence": "Using mobile while driving (Sec 184)",
+     "amount_inr": 1500,
+     "status": "paid",
+     "location": "Nizampet"
+    },
+    {
+     "date": "2026-08-12",
+     "offence": "No helmet (Sec 194D)",
+     "amount_inr": 100,
+     "status": "paid",
+     "location": "Patancheru"
+    },
+    {
+     "date": "2025-02-22",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "paid",
+     "location": "Narsingi"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS07UB2276",
+   "class": "bus",
+   "make_model": "Ashok Leyland Viking (private stage carrier)",
+   "colour": "white",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2020-05-07",
+    "rto": "Ranga Reddy (Attapur)",
+    "chassis": "MA6X…7926",
+    "engine": "K60…6767",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0114",
+    "type": "company",
+    "name": "Telangana Logistics",
+    "driver_on_record": "Bhavana Babu",
+    "phone": "+91 50114 59330",
+    "address": "H.No 2-145, Narsingi, Hyderabad",
+    "dl_number": "TS0720205932723",
+    "dl_valid_till": "2030-02-22"
+   },
+   "emergency_contact": {
+    "name": "Tarun Babu",
+    "relation": "Father",
+    "phone": "+91 55114 66166"
+   },
+   "insurance": {
+    "insurer": "HDFC ERGO",
+    "policy": "POL-33893327",
+    "valid_till": "2027-04-08",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-01-16",
+   "fastag_id": "34161FA8999511137508",
+   "challans": [
+    {
+     "date": "2026-05-09",
+     "offence": "Over-speeding (Sec 183 MV Act)",
+     "amount_inr": 1000,
+     "status": "unpaid",
+     "location": "Manikonda"
+    },
+    {
+     "date": "2025-08-25",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "unpaid",
+     "location": "Chandanagar"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS07UA0450",
+   "class": "bus",
+   "make_model": "Eicher Skyline (staff bus)",
+   "colour": "yellow",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2021-11-21",
+    "rto": "Ranga Reddy (Attapur)",
+    "chassis": "MA6X…1606",
+    "engine": "K33…5740",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0115",
+    "type": "company",
+    "name": "Cyber City Travels",
+    "driver_on_record": "Deepika Kumar",
+    "phone": "+91 50115 58689",
+    "address": "H.No 19-137, Mehdipatnam, Hyderabad",
+    "dl_number": "TS0720216967369",
+    "dl_valid_till": "2028-07-23"
+   },
+   "emergency_contact": {
+    "name": "Tarun Kumar",
+    "relation": "Mother",
+    "phone": "+91 55115 58333"
+   },
+   "insurance": {
+    "insurer": "Bajaj Allianz",
+    "policy": "POL-53573455",
+    "valid_till": "2026-02-04",
+    "status": "Expired"
+   },
+   "puc_valid_till": "2027-03-29",
+   "fastag_id": "34161FA8567164363864",
+   "challans": [
+    {
+     "date": "2026-08-16",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "paid",
+     "location": "Kukatpally"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS12UC3822",
+   "class": "bus",
+   "make_model": "Ashok Leyland Viking (private stage carrier)",
+   "colour": "yellow",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2017-02-11",
+    "rto": "Hyderabad South (Bahadurpura)",
+    "chassis": "MA2X…7675",
+    "engine": "K58…1916",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0116",
+    "type": "company",
+    "name": "Deccan Travels",
+    "driver_on_record": "Yamini Babu",
+    "phone": "+91 50116 80999",
+    "address": "H.No 14-135, Patancheru, Hyderabad",
+    "dl_number": "TS1220179513189",
+    "dl_valid_till": "2028-10-20"
+   },
+   "emergency_contact": {
+    "name": "Harika Babu",
+    "relation": "Sister",
+    "phone": "+91 55116 15248"
+   },
+   "insurance": {
+    "insurer": "United India Insurance",
+    "policy": "POL-35660495",
+    "valid_till": "2027-02-14",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-12-16",
+   "fastag_id": "34161FA8874166175119",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS29Z6320",
+   "class": "bus",
+   "make_model": "Ashok Leyland Viking (private stage carrier)",
+   "colour": "silver",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2020-01-25",
+    "rto": "TSRTC",
+    "chassis": "MA8X…1398",
+    "engine": "K44…4245",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0117",
+    "type": "company",
+    "name": "Deccan Transport Co.",
+    "driver_on_record": "Keerthi Mohammed",
+    "phone": "+91 50117 87252",
+    "address": "H.No 3-50, Secunderabad, Hyderabad",
+    "dl_number": "TS2920209697066",
+    "dl_valid_till": "2030-02-04"
+   },
+   "emergency_contact": {
+    "name": "Lakshmi Mohammed",
+    "relation": "Spouse",
+    "phone": "+91 55117 65844"
+   },
+   "insurance": {
+    "insurer": "HDFC ERGO",
+    "policy": "POL-15141138",
+    "valid_till": "2027-09-28",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-02-02",
+   "fastag_id": "34161FA8617392459481",
+   "challans": [
+    {
+     "date": "2025-12-29",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "paid",
+     "location": "Uppal"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS09UD5566",
+   "class": "bus",
+   "make_model": "Eicher Skyline (staff bus)",
+   "colour": "white",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2018-02-17",
+    "rto": "Hyderabad Central (Khairatabad)",
+    "chassis": "MA7X…4776",
+    "engine": "K23…2631",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0118",
+    "type": "individual",
+    "name": "Anil Gupta",
+    "driver_on_record": null,
+    "phone": "+91 50118 32999",
+    "address": "H.No 10-166, Secunderabad, Hyderabad",
+    "dl_number": "TS0920186096953",
+    "dl_valid_till": "2029-02-06"
+   },
+   "emergency_contact": {
+    "name": "Ravi Gupta",
+    "relation": "Spouse",
+    "phone": "+91 55118 15028"
+   },
+   "insurance": {
+    "insurer": "Bajaj Allianz",
+    "policy": "POL-79141431",
+    "valid_till": "2026-01-09",
+    "status": "Expired"
+   },
+   "puc_valid_till": "2027-01-06",
+   "fastag_id": "34161FA8964993158249",
+   "challans": [
+    {
+     "date": "2025-10-17",
+     "offence": "Using mobile while driving (Sec 184)",
+     "amount_inr": 1500,
+     "status": "paid",
+     "location": "Patancheru"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS08UB2304",
+   "class": "bus",
+   "make_model": "Eicher Skyline (staff bus)",
+   "colour": "white",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2024-06-02",
+    "rto": "Medchal (Uppal)",
+    "chassis": "MA6X…2696",
+    "engine": "K88…2002",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0119",
+    "type": "individual",
+    "name": "Rohith Yadav",
+    "driver_on_record": null,
+    "phone": "+91 50119 43187",
+    "address": "H.No 2-174, Secunderabad, Hyderabad",
+    "dl_number": "TS0820241107531",
+    "dl_valid_till": "2028-05-23"
+   },
+   "emergency_contact": {
+    "name": "Sravani Yadav",
+    "relation": "Mother",
+    "phone": "+91 55119 26196"
+   },
+   "insurance": {
+    "insurer": "HDFC ERGO",
+    "policy": "POL-35693667",
+    "valid_till": "2026-12-02",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-01-29",
+   "fastag_id": "34161FA8758847246776",
+   "challans": [
+    {
+     "date": "2025-08-31",
+     "offence": "No helmet (Sec 194D)",
+     "amount_inr": 100,
+     "status": "paid",
+     "location": "Gachibowli"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS12UE5247",
+   "class": "truck",
+   "make_model": "Ashok Leyland Dost",
+   "colour": "blue",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2025-12-12",
+    "rto": "Hyderabad South (Bahadurpura)",
+    "chassis": "MA5X…2633",
+    "engine": "K11…5962",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0120",
+    "type": "individual",
+    "name": "Imran Nayak",
+    "driver_on_record": null,
+    "phone": "+91 50120 30388",
+    "address": "H.No 19-82, Begumpet, Hyderabad",
+    "dl_number": "TS1220254607747",
+    "dl_valid_till": "2030-10-05"
+   },
+   "emergency_contact": {
+    "name": "Kiran Nayak",
+    "relation": "Mother",
+    "phone": "+91 55120 65522"
+   },
+   "insurance": {
+    "insurer": "Bajaj Allianz",
+    "policy": "POL-84420832",
+    "valid_till": "2027-03-23",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-10-20",
+   "fastag_id": "34161FA8492355974580",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS15UE5153",
+   "class": "truck",
+   "make_model": "Ashok Leyland Dost",
+   "colour": "yellow",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2022-02-22",
+    "rto": "Sangareddy",
+    "chassis": "MA4X…6419",
+    "engine": "K37…3842",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0121",
+    "type": "company",
+    "name": "Sri Sai Travels",
+    "driver_on_record": "Anil Naidu",
+    "phone": "+91 50121 24679",
+    "address": "H.No 20-298, Kompally, Hyderabad",
+    "dl_number": "TS1520223902434",
+    "dl_valid_till": "2028-05-19"
+   },
+   "emergency_contact": {
+    "name": "Suresh Naidu",
+    "relation": "Sister",
+    "phone": "+91 55121 34165"
+   },
+   "insurance": {
+    "insurer": "United India Insurance",
+    "policy": "POL-41505151",
+    "valid_till": "2027-08-24",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-12-27",
+   "fastag_id": "34161FA8829113428834",
+   "challans": [
+    {
+     "date": "2025-01-05",
+     "offence": "Red-light jumping (Sec 184)",
+     "amount_inr": 1000,
+     "status": "paid",
+     "location": "Gachibowli"
+    },
+    {
+     "date": "2025-05-12",
+     "offence": "Red-light jumping (Sec 184)",
+     "amount_inr": 1000,
+     "status": "unpaid",
+     "location": "Chandanagar"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS07UB6119",
+   "class": "truck",
+   "make_model": "Eicher Pro 2049",
+   "colour": "yellow",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2021-11-18",
+    "rto": "Ranga Reddy (Attapur)",
+    "chassis": "MA3X…4889",
+    "engine": "K75…3132",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0122",
+    "type": "company",
+    "name": "Cyber City Travels",
+    "driver_on_record": "Vamshi Prasad",
+    "phone": "+91 50122 29980",
+    "address": "H.No 15-77, Kukatpally, Hyderabad",
+    "dl_number": "TS0720214197973",
+    "dl_valid_till": "2034-06-24"
+   },
+   "emergency_contact": {
+    "name": "Sravani Prasad",
+    "relation": "Sister",
+    "phone": "+91 55122 67343"
+   },
+   "insurance": {
+    "insurer": "Bajaj Allianz",
+    "policy": "POL-58091586",
+    "valid_till": "2027-08-11",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-03-19",
+   "fastag_id": "34161FA8927128335399",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS07UD1634",
+   "class": "truck",
+   "make_model": "BharatBenz 1617R",
+   "colour": "blue",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2021-03-31",
+    "rto": "Ranga Reddy (Attapur)",
+    "chassis": "MA7X…6551",
+    "engine": "K87…1972",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0123",
+    "type": "company",
+    "name": "Golconda Travels",
+    "driver_on_record": "Kiran Reddy",
+    "phone": "+91 50123 54200",
+    "address": "H.No 9-297, Banjara Hills, Hyderabad",
+    "dl_number": "TS0720211410548",
+    "dl_valid_till": "2033-12-01"
+   },
+   "emergency_contact": {
+    "name": "Srinivas Reddy",
+    "relation": "Father",
+    "phone": "+91 55123 29466"
+   },
+   "insurance": {
+    "insurer": "HDFC ERGO",
+    "policy": "POL-74373134",
+    "valid_till": "2027-10-12",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-03-02",
+   "fastag_id": "34161FA8190423031020",
+   "challans": [
+    {
+     "date": "2025-10-15",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "unpaid",
+     "location": "Kukatpally"
+    },
+    {
+     "date": "2026-05-31",
+     "offence": "No seat belt (Sec 194B)",
+     "amount_inr": 100,
+     "status": "paid",
+     "location": "Madhapur"
+    },
+    {
+     "date": "2026-08-01",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "unpaid",
+     "location": "Ameerpet"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS10UA3168",
+   "class": "truck",
+   "make_model": "Tata Ace (mini truck)",
+   "colour": "yellow",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2025-12-06",
+    "rto": "Hyderabad North (Secunderabad)",
+    "chassis": "MA5X…7585",
+    "engine": "K84…9797",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0124",
+    "type": "individual",
+    "name": "Priya Varma",
+    "driver_on_record": null,
+    "phone": "+91 50124 48544",
+    "address": "H.No 17-107, Kompally, Hyderabad",
+    "dl_number": "TS1020251182793",
+    "dl_valid_till": "2027-08-01"
+   },
+   "emergency_contact": {
+    "name": "Gopal Varma",
+    "relation": "Father",
+    "phone": "+91 55124 20876"
+   },
+   "insurance": {
+    "insurer": "Tata AIG",
+    "policy": "POL-73384439",
+    "valid_till": "2027-05-28",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-10-30",
+   "fastag_id": "34161FA8468230827864",
+   "challans": [
+    {
+     "date": "2025-07-23",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "paid",
+     "location": "Secunderabad"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS12UB2374",
+   "class": "truck",
+   "make_model": "Tata Ace (mini truck)",
+   "colour": "blue",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2018-01-18",
+    "rto": "Hyderabad South (Bahadurpura)",
+    "chassis": "MA9X…9514",
+    "engine": "K39…7785",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0125",
+    "type": "company",
+    "name": "Deccan Logistics",
+    "driver_on_record": "Prakash Gupta",
+    "phone": "+91 50125 48817",
+    "address": "H.No 8-105, Narsingi, Hyderabad",
+    "dl_number": "TS1220188250898",
+    "dl_valid_till": "2030-04-24"
+   },
+   "emergency_contact": {
+    "name": "Kavya Gupta",
+    "relation": "Mother",
+    "phone": "+91 55125 52195"
+   },
+   "insurance": {
+    "insurer": "Bajaj Allianz",
+    "policy": "POL-74625022",
+    "valid_till": "2026-12-06",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-02-20",
+   "fastag_id": "34161FA8462799487039",
+   "challans": [
+    {
+     "date": "2025-07-30",
+     "offence": "No seat belt (Sec 194B)",
+     "amount_inr": 100,
+     "status": "paid",
+     "location": "Attapur"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS12UC2773",
+   "class": "truck",
+   "make_model": "Tata Ace (mini truck)",
+   "colour": "yellow",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2025-12-03",
+    "rto": "Hyderabad South (Bahadurpura)",
+    "chassis": "MA3X…3020",
+    "engine": "K53…5000",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0126",
+    "type": "company",
+    "name": "Sri Sai Logistics",
+    "driver_on_record": "Gopal Raju",
+    "phone": "+91 50126 84575",
+    "address": "H.No 16-271, Tolichowki, Hyderabad",
+    "dl_number": "TS1220258471801",
+    "dl_valid_till": "2031-02-13"
+   },
+   "emergency_contact": {
+    "name": "Lakshmi Raju",
+    "relation": "Brother",
+    "phone": "+91 55126 41874"
+   },
+   "insurance": {
+    "insurer": "Tata AIG",
+    "policy": "POL-84554575",
+    "valid_till": "2026-09-04",
+    "status": "Expired"
+   },
+   "puc_valid_till": "2027-03-14",
+   "fastag_id": "34161FA8846203602009",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS07UB8761",
+   "class": "truck",
+   "make_model": "Eicher Pro 2049",
+   "colour": "yellow",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2017-09-20",
+    "rto": "Ranga Reddy (Attapur)",
+    "chassis": "MA3X…1737",
+    "engine": "K95…2709",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0127",
+    "type": "company",
+    "name": "Sri Sai Transport Co.",
+    "driver_on_record": "Vamshi Reddy",
+    "phone": "+91 50127 30306",
+    "address": "H.No 12-77, LB Nagar, Hyderabad",
+    "dl_number": "TS0720175241490",
+    "dl_valid_till": "2030-12-11"
+   },
+   "emergency_contact": {
+    "name": "Yamini Reddy",
+    "relation": "Mother",
+    "phone": "+91 55127 85361"
+   },
+   "insurance": {
+    "insurer": "HDFC ERGO",
+    "policy": "POL-23300693",
+    "valid_till": "2027-04-24",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-10-17",
+   "fastag_id": "34161FA8889167041731",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS07UD3616",
+   "class": "truck",
+   "make_model": "Ashok Leyland Dost",
+   "colour": "blue",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2020-11-12",
+    "rto": "Ranga Reddy (Attapur)",
+    "chassis": "MA1X…4363",
+    "engine": "K61…7564",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0128",
+    "type": "individual",
+    "name": "Imran Mohammed",
+    "driver_on_record": null,
+    "phone": "+91 50128 79021",
+    "address": "H.No 16-85, Nizampet, Hyderabad",
+    "dl_number": "TS0720201019249",
+    "dl_valid_till": "2032-07-01"
+   },
+   "emergency_contact": {
+    "name": "Priya Mohammed",
+    "relation": "Brother",
+    "phone": "+91 55128 30410"
+   },
+   "insurance": {
+    "insurer": "United India Insurance",
+    "policy": "POL-79372184",
+    "valid_till": "2027-08-09",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-01-12",
+   "fastag_id": "34161FA8447845730912",
+   "challans": [
+    {
+     "date": "2025-07-26",
+     "offence": "No helmet (Sec 194D)",
+     "amount_inr": 100,
+     "status": "paid",
+     "location": "Secunderabad"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS09UE8612",
+   "class": "truck",
+   "make_model": "Ashok Leyland Dost",
+   "colour": "yellow",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2022-05-09",
+    "rto": "Hyderabad Central (Khairatabad)",
+    "chassis": "MA2X…7870",
+    "engine": "K27…9798",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0129",
+    "type": "individual",
+    "name": "Anil Mudiraj",
+    "driver_on_record": null,
+    "phone": "+91 50129 89383",
+    "address": "H.No 19-119, Narsingi, Hyderabad",
+    "dl_number": "TS0920224461217",
+    "dl_valid_till": "2033-05-28"
+   },
+   "emergency_contact": {
+    "name": "Kiran Mudiraj",
+    "relation": "Spouse",
+    "phone": "+91 55129 48754"
+   },
+   "insurance": {
+    "insurer": "HDFC ERGO",
+    "policy": "POL-68831651",
+    "valid_till": "2027-03-24",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-12-03",
+   "fastag_id": "34161FA8203753272498",
+   "challans": [
+    {
+     "date": "2025-10-29",
+     "offence": "Red-light jumping (Sec 184)",
+     "amount_inr": 1000,
+     "status": "paid",
+     "location": "Nizampet"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS12UB9346",
+   "class": "truck",
+   "make_model": "Ashok Leyland Dost",
+   "colour": "white",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2019-05-07",
+    "rto": "Hyderabad South (Bahadurpura)",
+    "chassis": "MA7X…6404",
+    "engine": "K23…1485",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0130",
+    "type": "individual",
+    "name": "Kavya Yadav",
+    "driver_on_record": null,
+    "phone": "+91 50130 11543",
+    "address": "H.No 13-78, Shamshabad, Hyderabad",
+    "dl_number": "TS1220195434865",
+    "dl_valid_till": "2033-05-12"
+   },
+   "emergency_contact": {
+    "name": "Karthik Yadav",
+    "relation": "Mother",
+    "phone": "+91 55130 30256"
+   },
+   "insurance": {
+    "insurer": "New India Assurance",
+    "policy": "POL-18334665",
+    "valid_till": "2027-07-25",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-12-05",
+   "fastag_id": "34161FA8221311959119",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS11UE9337",
+   "class": "truck",
+   "make_model": "BharatBenz 1617R",
+   "colour": "yellow",
+   "fuel": "Diesel",
+   "registration": {
+    "date": "2023-10-03",
+    "rto": "Hyderabad East (Malakpet)",
+    "chassis": "MA4X…4954",
+    "engine": "K92…3543",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0131",
+    "type": "company",
+    "name": "Sri Sai Transport Co.",
+    "driver_on_record": "Yamini Naidu",
+    "phone": "+91 50131 28165",
+    "address": "H.No 19-1, Tolichowki, Hyderabad",
+    "dl_number": "TS1120234627719",
+    "dl_valid_till": "2032-05-17"
+   },
+   "emergency_contact": {
+    "name": "Ramesh Naidu",
+    "relation": "Mother",
+    "phone": "+91 55131 25353"
+   },
+   "insurance": {
+    "insurer": "ICICI Lombard",
+    "policy": "POL-76654833",
+    "valid_till": "2027-07-03",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-03-30",
+   "fastag_id": "34161FA8581292518608",
+   "challans": [
+    {
+     "date": "2025-09-19",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "paid",
+     "location": "Patancheru"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS10UA7820",
+   "class": "auto",
+   "make_model": "Bajaj RE Compact (autorickshaw)",
+   "colour": "yellow",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2018-06-01",
+    "rto": "Hyderabad North (Secunderabad)",
+    "chassis": "MA8X…6246",
+    "engine": "K30…3512",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0132",
+    "type": "individual",
+    "name": "Sowmya Mudiraj",
+    "driver_on_record": null,
+    "phone": "+91 50132 44220",
+    "address": "H.No 10-57, Banjara Hills, Hyderabad",
+    "dl_number": "TS1020189581624",
+    "dl_valid_till": "2033-07-18"
+   },
+   "emergency_contact": {
+    "name": "Ramesh Mudiraj",
+    "relation": "Mother",
+    "phone": "+91 55132 42481"
+   },
+   "insurance": {
+    "insurer": "New India Assurance",
+    "policy": "POL-29585666",
+    "valid_till": "2027-10-04",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-03-09",
+   "fastag_id": "34161FA8834009775356",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS15UC0092",
+   "class": "auto",
+   "make_model": "Piaggio Ape City",
+   "colour": "green",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2019-02-28",
+    "rto": "Sangareddy",
+    "chassis": "MA6X…2499",
+    "engine": "K73…9805",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0133",
+    "type": "individual",
+    "name": "Tarun Nayak",
+    "driver_on_record": null,
+    "phone": "+91 50133 38686",
+    "address": "H.No 2-241, Mehdipatnam, Hyderabad",
+    "dl_number": "TS1520192236409",
+    "dl_valid_till": "2028-06-02"
+   },
+   "emergency_contact": {
+    "name": "Ayesha Nayak",
+    "relation": "Mother",
+    "phone": "+91 55133 87811"
+   },
+   "insurance": {
+    "insurer": "Bajaj Allianz",
+    "policy": "POL-77787652",
+    "valid_till": "2026-12-28",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-03-05",
+   "fastag_id": "34161FA8866759966290",
+   "challans": [
+    {
+     "date": "2025-09-30",
+     "offence": "Red-light jumping (Sec 184)",
+     "amount_inr": 1000,
+     "status": "unpaid",
+     "location": "Chandanagar"
+    },
+    {
+     "date": "2026-02-18",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "unpaid",
+     "location": "Kompally"
+    },
+    {
+     "date": "2025-05-24",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "unpaid",
+     "location": "Gachibowli"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS07UC8055",
+   "class": "auto",
+   "make_model": "Bajaj RE Compact (autorickshaw)",
+   "colour": "yellow",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2024-07-07",
+    "rto": "Ranga Reddy (Attapur)",
+    "chassis": "MA8X…4661",
+    "engine": "K76…1393",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0134",
+    "type": "individual",
+    "name": "Divya Naidu",
+    "driver_on_record": null,
+    "phone": "+91 50134 45560",
+    "address": "H.No 1-224, Jubilee Hills, Hyderabad",
+    "dl_number": "TS0720243119251",
+    "dl_valid_till": "2034-01-27"
+   },
+   "emergency_contact": {
+    "name": "Yamini Naidu",
+    "relation": "Mother",
+    "phone": "+91 55134 14649"
+   },
+   "insurance": {
+    "insurer": "United India Insurance",
+    "policy": "POL-57835309",
+    "valid_till": "2026-07-10",
+    "status": "Expired"
+   },
+   "puc_valid_till": "2027-04-11",
+   "fastag_id": "34161FA8932853689700",
+   "challans": [
+    {
+     "date": "2026-09-25",
+     "offence": "No seat belt (Sec 194B)",
+     "amount_inr": 100,
+     "status": "paid",
+     "location": "Shamshabad"
+    },
+    {
+     "date": "2025-08-29",
+     "offence": "Using mobile while driving (Sec 184)",
+     "amount_inr": 1500,
+     "status": "paid",
+     "location": "Banjara Hills"
+    },
+    {
+     "date": "2026-04-11",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "unpaid",
+     "location": "Gachibowli"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS12UB8943",
+   "class": "auto",
+   "make_model": "Bajaj RE Compact (autorickshaw)",
+   "colour": "yellow",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2024-06-17",
+    "rto": "Hyderabad South (Bahadurpura)",
+    "chassis": "MA3X…7489",
+    "engine": "K46…6250",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0135",
+    "type": "individual",
+    "name": "Prakash Khan",
+    "driver_on_record": null,
+    "phone": "+91 50135 42591",
+    "address": "H.No 18-9, Manikonda, Hyderabad",
+    "dl_number": "TS1220247379126",
+    "dl_valid_till": "2034-08-27"
+   },
+   "emergency_contact": {
+    "name": "Ravi Khan",
+    "relation": "Spouse",
+    "phone": "+91 55135 74512"
+   },
+   "insurance": {
+    "insurer": "New India Assurance",
+    "policy": "POL-86097310",
+    "valid_till": "2027-09-23",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-03-07",
+   "fastag_id": "34161FA8735267927373",
+   "challans": [
+    {
+     "date": "2026-06-07",
+     "offence": "Over-speeding (Sec 183 MV Act)",
+     "amount_inr": 1000,
+     "status": "paid",
+     "location": "Tolichowki"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS13UA4039",
+   "class": "auto",
+   "make_model": "Piaggio Ape City",
+   "colour": "yellow",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2021-06-02",
+    "rto": "Hyderabad West (Tolichowki)",
+    "chassis": "MA7X…1122",
+    "engine": "K20…8372",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0136",
+    "type": "individual",
+    "name": "Deepika Achari",
+    "driver_on_record": null,
+    "phone": "+91 50136 77632",
+    "address": "H.No 5-203, Banjara Hills, Hyderabad",
+    "dl_number": "TS1320215658963",
+    "dl_valid_till": "2030-04-10"
+   },
+   "emergency_contact": {
+    "name": "Vamshi Achari",
+    "relation": "Spouse",
+    "phone": "+91 55136 57117"
+   },
+   "insurance": {
+    "insurer": "HDFC ERGO",
+    "policy": "POL-82144397",
+    "valid_till": "2027-04-11",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-03-08",
+   "fastag_id": "34161FA8704937439257",
+   "challans": [
+    {
+     "date": "2025-06-06",
+     "offence": "Red-light jumping (Sec 184)",
+     "amount_inr": 1000,
+     "status": "paid",
+     "location": "Gachibowli"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS12UC4615",
+   "class": "auto",
+   "make_model": "Piaggio Ape City",
+   "colour": "yellow",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2020-10-13",
+    "rto": "Hyderabad South (Bahadurpura)",
+    "chassis": "MA8X…9015",
+    "engine": "K77…5625",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0137",
+    "type": "individual",
+    "name": "Swathi Goud",
+    "driver_on_record": null,
+    "phone": "+91 50137 85011",
+    "address": "H.No 8-47, Mehdipatnam, Hyderabad",
+    "dl_number": "TS1220207172531",
+    "dl_valid_till": "2029-03-29"
+   },
+   "emergency_contact": {
+    "name": "Pooja Goud",
+    "relation": "Sister",
+    "phone": "+91 55137 85040"
+   },
+   "insurance": {
+    "insurer": "New India Assurance",
+    "policy": "POL-43221276",
+    "valid_till": "2027-08-12",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2026-11-14",
+   "fastag_id": "34161FA8995535016160",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS13UE2296",
+   "class": "auto",
+   "make_model": "Piaggio Ape City",
+   "colour": "yellow",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2019-11-06",
+    "rto": "Hyderabad West (Tolichowki)",
+    "chassis": "MA6X…2395",
+    "engine": "K78…9659",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0138",
+    "type": "individual",
+    "name": "Karthik Babu",
+    "driver_on_record": null,
+    "phone": "+91 50138 30293",
+    "address": "H.No 1-220, Kukatpally, Hyderabad",
+    "dl_number": "TS1320198261697",
+    "dl_valid_till": "2033-06-19"
+   },
+   "emergency_contact": {
+    "name": "Ravi Babu",
+    "relation": "Brother",
+    "phone": "+91 55138 76252"
+   },
+   "insurance": {
+    "insurer": "Bajaj Allianz",
+    "policy": "POL-97597007",
+    "valid_till": "2027-01-14",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-02-24",
+   "fastag_id": "34161FA8502379293076",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS09UD3995",
+   "class": "auto",
+   "make_model": "Piaggio Ape City",
+   "colour": "yellow",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2024-11-10",
+    "rto": "Hyderabad Central (Khairatabad)",
+    "chassis": "MA1X…1085",
+    "engine": "K14…2046",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0139",
+    "type": "individual",
+    "name": "Anil Rao",
+    "driver_on_record": null,
+    "phone": "+91 50139 78028",
+    "address": "H.No 15-97, Kondapur, Hyderabad",
+    "dl_number": "TS0920245297945",
+    "dl_valid_till": "2034-02-19"
+   },
+   "emergency_contact": {
+    "name": "Prakash Rao",
+    "relation": "Spouse",
+    "phone": "+91 55139 11499"
+   },
+   "insurance": {
+    "insurer": "Tata AIG",
+    "policy": "POL-82201740",
+    "valid_till": "2027-01-12",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-03-16",
+   "fastag_id": "34161FA8167252772186",
+   "challans": [
+    {
+     "date": "2025-09-07",
+     "offence": "Wrong-side driving (Sec 184)",
+     "amount_inr": 1000,
+     "status": "unpaid",
+     "location": "Narsingi"
+    },
+    {
+     "date": "2025-06-12",
+     "offence": "Parking violation (Sec 177)",
+     "amount_inr": 135,
+     "status": "paid",
+     "location": "Banjara Hills"
+    }
+   ],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS09UE2358",
+   "class": "auto",
+   "make_model": "Bajaj RE Compact (autorickshaw)",
+   "colour": "yellow",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2024-07-28",
+    "rto": "Hyderabad Central (Khairatabad)",
+    "chassis": "MA3X…7930",
+    "engine": "K84…3453",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0140",
+    "type": "individual",
+    "name": "Pooja Sharma",
+    "driver_on_record": null,
+    "phone": "+91 50140 97798",
+    "address": "H.No 8-64, Shamshabad, Hyderabad",
+    "dl_number": "TS0920245590692",
+    "dl_valid_till": "2033-07-01"
+   },
+   "emergency_contact": {
+    "name": "Ramesh Sharma",
+    "relation": "Brother",
+    "phone": "+91 55140 36852"
+   },
+   "insurance": {
+    "insurer": "HDFC ERGO",
+    "policy": "POL-31006377",
+    "valid_till": "2027-10-13",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-02-21",
+   "fastag_id": "34161FA8543032657303",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  },
+  {
+   "plate": "TS13UB0058",
+   "class": "auto",
+   "make_model": "Bajaj RE Compact (autorickshaw)",
+   "colour": "green",
+   "fuel": "Petrol",
+   "registration": {
+    "date": "2024-12-13",
+    "rto": "Hyderabad West (Tolichowki)",
+    "chassis": "MA8X…1389",
+    "engine": "K88…6410",
+    "status": "Active"
+   },
+   "owner": {
+    "id": "OWN0141",
+    "type": "individual",
+    "name": "Priya Chary",
+    "driver_on_record": null,
+    "phone": "+91 50141 39556",
+    "address": "H.No 5-199, Ameerpet, Hyderabad",
+    "dl_number": "TS1320248097108",
+    "dl_valid_till": "2028-06-17"
+   },
+   "emergency_contact": {
+    "name": "Swathi Chary",
+    "relation": "Mother",
+    "phone": "+91 55141 99870"
+   },
+   "insurance": {
+    "insurer": "Bajaj Allianz",
+    "policy": "POL-46127912",
+    "valid_till": "2027-01-09",
+    "status": "Valid"
+   },
+   "puc_valid_till": "2027-03-14",
+   "fastag_id": "34161FA8721330763855",
+   "challans": [],
+   "accident_history": [],
+   "flags": []
+  }
+ ]
+}

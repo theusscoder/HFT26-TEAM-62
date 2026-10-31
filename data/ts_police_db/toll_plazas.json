@@ -1,0 +1,93 @@
+[
+ {
+  "id": "T01",
+  "name": "Nanakramguda ORR Toll",
+  "lat": 17.4186,
+  "lon": 78.3407,
+  "approx": true
+ },
+ {
+  "id": "T02",
+  "name": "Narsingi ORR Toll",
+  "lat": 17.3897,
+  "lon": 78.355,
+  "approx": true
+ },
+ {
+  "id": "T03",
+  "name": "Kokapet ORR Toll",
+  "lat": 17.396,
+  "lon": 78.329,
+  "approx": true
+ },
+ {
+  "id": "T04",
+  "name": "Patancheru (Muthangi) ORR Toll",
+  "lat": 17.5253,
+  "lon": 78.2697,
+  "approx": true
+ },
+ {
+  "id": "T05",
+  "name": "Medchal ORR Toll",
+  "lat": 17.629,
+  "lon": 78.481,
+  "approx": true
+ },
+ {
+  "id": "T06",
+  "name": "Shamirpet ORR Toll",
+  "lat": 17.592,
+  "lon": 78.578,
+  "approx": true
+ },
+ {
+  "id": "T07",
+  "name": "Ghatkesar ORR Toll",
+  "lat": 17.451,
+  "lon": 78.686,
+  "approx": true
+ },
+ {
+  "id": "T08",
+  "name": "Pedda Amberpet ORR Toll",
+  "lat": 17.326,
+  "lon": 78.627,
+  "approx": true
+ },
+ {
+  "id": "T09",
+  "name": "Tukkuguda ORR Toll",
+  "lat": 17.211,
+  "lon": 78.493,
+  "approx": true
+ },
+ {
+  "id": "T10",
+  "name": "Shamshabad ORR Toll",
+  "lat": 17.238,
+  "lon": 78.418,
+  "approx": true
+ },
+ {
+  "id": "T11",
+  "name": "Panthangi Toll Plaza (NH65)",
+  "lat": 17.249,
+  "lon": 78.904,
+  "approx": true
+ },
+ {
+  "id": "T12",
+  "name": "Raikal Toll Plaza (NH44)",
+  "lat": 17.08,
+  "lon": 78.21,
+  "approx": true
+ },
+ {
+  "id": "T13",
+  "name": "Gudur Toll Plaza (NH163)",
+  "lat": 17.48,
+  "lon": 78.81,
+  "approx": true
+ }
+]
