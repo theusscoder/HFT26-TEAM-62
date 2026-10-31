@@ -78,6 +78,21 @@ def send_incident(d: Path, auto: dict) -> list[dict]:
         r = notify.send(role, label, None, title, text)
         log.append({"role": role, "title": title, "status": r["status"], "channel": r.get("channel"), "latency_ms": r.get("latency_ms"),
                     "detail": r.get("detail", ""), "text": text})
+    # The case's own phones (contacts.json, or DEMO_SUSPECT_PHONE / DEMO_VICTIM_PHONE): the teammate's dispatch sends the
+    # perpetrator and the victim their SMS + Telegram (only to phones that linked themselves in the bot). Facility copies
+    # are left out here because the role chats above already have them. The evidence replay then sees it as dispatched.
+    try:
+        from . import response
+        if not (d / "notifications.json").exists():
+            plan = response.build(d.name)["notifications"]["plan"]
+            ids = [p["id"] for p in plan if p["role"] in ("suspect", "victim") and p.get("to_number")]
+            if ids:
+                res = response.dispatch(d.name, ids, officer="Dispatch agent (automatic)")
+                for x in res["results"]:
+                    log.append({"role": f"{x['role']} phone", "title": x["to"], "status": x["status"], "channel": x.get("channel"),
+                                "latency_ms": x.get("latency_ms"), "detail": x.get("detail") or ("" if x.get("real_recipient") else "not one of the case phones"), "text": ""})
+    except Exception as e:
+        log.append({"role": "case phones", "title": "contacts", "status": "failed", "detail": f"{type(e).__name__}: {e}"[:160], "text": ""})
     state = _j(d / "emergency.json", {}) or {}
     state["telegram"] = log
     (d / "emergency.json").write_text(json.dumps(state, indent=2), encoding="utf-8")

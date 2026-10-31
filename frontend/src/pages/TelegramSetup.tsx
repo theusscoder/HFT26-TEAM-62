@@ -69,6 +69,20 @@ export default function TelegramSetup() {
           ))}
         </div>
         {links?.error && <p className="mt-2 text-xs text-bad">Bot: {links.error}</p>}
+        <div className="mt-4 border-t border-line pt-3">
+          <div className="text-sm font-semibold">Case phones (perpetrator / victim)</div>
+          <p className="mb-2 text-xs text-muted">Phones registered on a case (contacts.json) get their own alert by SMS and Telegram the moment the case is dispatched. Each one links itself: open the bot, press Start, tap <b>📱 Share my phone number</b>.</p>
+          <ul className="space-y-1 text-sm">
+            {(links?.contacts ?? []).map((c: any) => (
+              <li key={c.number} className="flex flex-wrap items-center justify-between gap-2 border border-line px-3 py-1.5">
+                <span className="font-mono">{c.number.replace(/(\+?\d{2})(\d{2})\d{4}(\d{4})/, "$1 $2•••• $3")}</span>
+                <span className="text-xs text-muted">{c.roles.join(", ")}</span>
+                <span className={c.linked ? "text-ok" : "text-muted"}>{c.linked ? "● linked" : "not linked yet"}</span>
+              </li>
+            ))}
+            {!(links?.contacts ?? []).length && <li className="text-xs text-muted">No case has phone contacts yet.</li>}
+          </ul>
+        </div>
       </Step>
 
       <Step done={test && test !== "sending" && Object.values(test).some((x: any) => x.status === "sent")} n={3} title="Send a test">
