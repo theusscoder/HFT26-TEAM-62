@@ -248,7 +248,7 @@ def scan(cam: dict) -> str | None:
         st = load_state()
         st["seen"][key] = {"case": cid, "time": time.time()}
         em = json.loads((CASES / cid / "emergency.json").read_text()) if (CASES / cid / "emergency.json").exists() else {}
-        units = ", ".join(x["name"].lower() for x in (em.get("auto") or {}).get("dispatched", [])) or "no units"
+        units = ", ".join(x["name"].lower() for x in (em.get("auto") or {}).get("dispatched", [])) or "police informed; no units needed for this severity"
         tg = em.get("telegram") or []
         sent = [x["role"] for x in tg if x.get("status") == "sent"]
         tg_txt = f"Telegram sent to {', '.join(sent)}" if sent else "Telegram alerts prepared (connect the bot to deliver them)"
