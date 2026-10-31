@@ -78,6 +78,12 @@ def send_incident(d: Path, auto: dict) -> list[dict]:
         r = notify.send(role, label, None, title, text)
         log.append({"role": role, "title": title, "status": r["status"], "channel": r.get("channel"), "latency_ms": r.get("latency_ms"),
                     "detail": r.get("detail", ""), "text": text})
+    # Numbers set to receive every incident (ALERT_PHONES): the police message, which has the whole picture.
+    full = next((m for m in messages(d, auto) if m[0] == "police"), None)
+    if full:
+        for r in notify.send_to_alert_phones(full[1], full[2]):
+            log.append({"role": "alert phone", "title": full[1], "status": r["status"], "channel": r.get("channel"), "latency_ms": r.get("latency_ms"),
+                        "detail": r.get("detail", ""), "text": full[2]})
     # The case's own phones (contacts.json, or DEMO_SUSPECT_PHONE / DEMO_VICTIM_PHONE): the teammate's dispatch sends the
     # perpetrator and the victim their SMS + Telegram (only to phones that linked themselves in the bot). Facility copies
     # are left out here because the role chats above already have them. The evidence replay then sees it as dispatched.

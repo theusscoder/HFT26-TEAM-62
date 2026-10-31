@@ -200,6 +200,9 @@ def tick_case(d: Path):
         for role in roles:
             res[role] = notify.send(role, f"YATHARTH · {case.get('title', d.name)}", None, f"⏱ {e['label']} · {_t(e['time']).astimezone().strftime('%H:%M:%S')}",
                                     f"{e['detail']}\n{e['actor']}")["status"]
+        if notify.alert_phones():
+            head = f"⏱ {e['label']} · {_t(e['time']).astimezone().strftime('%H:%M:%S')}"
+            res["alert phones"] = ",".join(r["status"] for r in notify.send_to_alert_phones(head, f"{case.get('title', d.name)}\n{e['detail']}\n{e['actor']}"))
         tl["notified"][e["key"]] = res
         changed = True
     if changed:

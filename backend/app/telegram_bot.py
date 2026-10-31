@@ -74,6 +74,8 @@ def chat_for(number) -> str | None:
 def case_roles(number) -> list[tuple[str, str]]:
     """[(case_id, role)] where this number is a registered case contact."""
     d, out = _digits(number), []
+    if d in {_digits(n) for n in os.getenv("ALERT_PHONES", "").split(",")}:
+        out.append(("every incident", "alerts"))
     for f in sorted((DATA / "cases").glob("*/contacts.json")):
         try:
             for role, num in json.loads(f.read_text(encoding="utf-8")).items():
@@ -112,7 +114,7 @@ def _handle(token: str, m: dict):
                                              "linked_at": datetime.now().astimezone().isoformat(timespec="seconds"),
                                              "cases": [{"case": k, "role": r} for k, r in roles]}
         _save_links(links)
-        what = ", ".join(f"{ROLE_NAME.get(r, r)} contact in case {k}" for k, r in roles)
+        what = ", ".join("receives every incident" if k == "every incident" else f"{ROLE_NAME.get(r, r)} contact in case {k}" for k, r in roles)
         _api(token, "sendMessage", chat_id=chat, reply_markup={"remove_keyboard": True},
              text=f"✅ Linked: +91 {_digits(c['phone_number'])} ({what}).\nAccident alerts for this number will arrive in this chat within seconds. Send /stop to unlink.")
         return
@@ -178,6 +180,10 @@ def status() -> dict:
     names = links.get("_names") or {}
     roles = {r: [{"chat": c, "name": names.get(c, "")} for c in role_chats(r)] for r in ROLES}
     contacts = {}
+    for num in os.getenv("ALERT_PHONES", "").split(","):
+        d = _digits(num)
+        if d:
+            contacts.setdefault(d, {"number": num.strip(), "roles": [], "linked": d in links})["roles"].append("every incident")
     for f in sorted((DATA / "cases").glob("*/contacts.json")):
         try:
             for role, num in json.loads(f.read_text(encoding="utf-8")).items():

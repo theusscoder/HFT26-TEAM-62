@@ -55,6 +55,16 @@ def _chat_for_number(number: str | None) -> str | None:
     return os.getenv(f"TG_CHAT_{digits(number)}") or telegram_bot.chat_for(number)
 
 
+def alert_phones() -> list[str]:
+    """Numbers that receive every incident and milestone: ALERT_PHONES in backend/.env, comma separated."""
+    return [n.strip() for n in os.getenv("ALERT_PHONES", "").split(",") if digits(n)]
+
+
+def send_to_alert_phones(title: str, text: str) -> list[dict]:
+    """Each number's own Telegram chat (once it has linked in the bot), plus SMS if a provider is configured."""
+    return [{"number": n, **send("victim", "YATHARTH alert", n, title, text, real=True)} for n in alert_phones()]
+
+
 def demo_phone() -> str | None:
     return os.getenv("DEMO_PHONE") or None
 
