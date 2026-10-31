@@ -63,3 +63,28 @@ button:disabled { cursor: not-allowed; }
 :root[data-theme="paper"] .dark-tiles { filter: sepia(0.45) contrast(0.95); }
 :root[data-theme="command"] .leaflet-container, :root[data-theme="cockpit"] .leaflet-container { background: var(--color-bg); }
 :root[data-theme="command"] .bg-ink.text-white, :root[data-theme="cockpit"] .bg-ink.text-white { color: var(--color-bg) !important; }
+
+/* Operations map (home): dark streets, blinking hospitals (blue) and police (red) */
+.ops-map.leaflet-container { background: #0b0f14; }
+.ops-tiles { filter: invert(1) hue-rotate(180deg) brightness(0.6) contrast(1.15) saturate(0.25); }
+@keyframes ops-blink { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.25; transform: scale(1.45); } }
+@keyframes ops-ring { 0% { transform: scale(0.4); opacity: 0.95; } 100% { transform: scale(2.6); opacity: 0; } }
+@keyframes ops-scan { 0% { background-position: 0 -80px; } 100% { background-position: 0 80px; } }
+.ops-hosp, .ops-police, .ops-amb, .ops-car, .ops-suspect, .ops-crash, .ops-signal { width: 100%; height: 100%; border-radius: 9999px; }
+.ops-hosp { background: #2f7bff; box-shadow: 0 0 0 3px rgba(47,123,255,.3), 0 0 16px 3px #2f7bff; animation: ops-blink 1.1s ease-in-out infinite; }
+.ops-hosp.ops-big { border: 2px solid #fff; }
+.ops-police { background: #ff2a2a; box-shadow: 0 0 0 3px rgba(255,42,42,.3), 0 0 16px 3px #ff2a2a; animation: ops-blink 0.7s ease-in-out infinite; }
+.ops-police.ops-unit { border: 2px solid #fff; border-radius: 2px; }
+.ops-amb { background: #fff; border: 3px solid #2f7bff; box-shadow: 0 0 14px #2f7bff; animation: ops-blink 0.9s ease-in-out infinite; }
+.ops-car { border: 2px solid #0b0f14; }
+.ops-car-v { background: #e5e7eb; box-shadow: 0 0 10px #fff; }
+.ops-car-o { background: #f59e0b; }
+.ops-suspect { background: #ff2a2a; border: 3px solid #fff; box-shadow: 0 0 20px 4px #ff2a2a; }
+.ops-suspect.ops-caught { background: #22c55e; box-shadow: 0 0 20px 4px #22c55e; }
+.ops-crash { border: 3px solid #ff2a2a; animation: ops-ring 1.4s ease-out infinite; }
+.ops-signal { border-radius: 2px; background: #ff2a2a; border: 2px solid #22c55e; }
+.ops-scan { background: linear-gradient(180deg, transparent 0%, rgba(56,189,248,.35) 50%, transparent 100%) no-repeat; background-size: 100% 40px; animation: ops-scan 1.2s linear infinite; }
+.leaflet-tooltip.ops-label { background: rgba(0,0,0,.82); color: #fff; border: 1px solid rgba(255,255,255,.25); border-radius: 0; font-size: 11px; font-weight: 600; padding: 2px 6px; box-shadow: none; }
+.leaflet-tooltip.ops-label::before { display: none; }
+.leaflet-tooltip.ops-label-v { border-color: #e5e7eb; }
+.leaflet-tooltip.ops-label-s { border-color: #ff2a2a; color: #ffb4b4; }

@@ -1,91 +1,40 @@
 {
+  "_note": "Fictional people for the demo feed. Names are invented; phone and licence numbers are shown masked and never complete. Photos: data/fictional/faces/<case>.jpg (generated faces or consented team photos) if present, else the drawn placeholder.",
   "demo": {
-    "victim": "Car A (the car that was hit)",
+    "victim": "Car A, the white hatchback that was hit",
     "plate": "TS09EA1234",
-    "registration": {
-      "owner": "MOCK PERSON A",
-      "vehicle": "White hatchback",
-      "rto": "Hyderabad (Central)",
-      "insurance": "Valid",
-      "emergency_contact": "+91 90000 00001"
-    },
-    "licence": {
-      "dl_no": "MOCK-DL-TS09-2019-0012345",
-      "holder": "MOCK PERSON A",
-      "class": "LMV",
-      "valid_till": "2034-05-11",
-      "photo": "DL-01.svg"
-    },
-    "face_match": 0.82
+    "registration": {"owner": "Ravi Teja Goud", "vehicle": "White Maruti Swift", "rto": "Hyderabad (Central)", "insurance": "Valid till Mar 2027", "emergency_contact": "+91 98••• ••412"},
+    "licence": {"dl_no": "TS09 2019 •••2345", "holder": "Ravi Teja Goud", "class": "LMV", "valid_till": "2034-05-11", "photo": "DL-01.svg"},
+    "face_match": 0.82,
+    "suspect": {"plate": "TS07G?5521", "resolved": "TS07GK5521", "vehicle": "Red sedan", "owner": "Karthik Varma", "last_seen": "Leaving Gachibowli X-roads towards the flyover", "photo": "CAP-005.svg"}
   },
   "hero": {
-    "victim": "Traffic constable on duty (pedestrian beside the divider)",
+    "victim": "Traffic constable on duty, beside the divider",
     "plate": null,
     "registration": null,
-    "licence": {
-      "dl_no": "MOCK-DL-TS07-2012-0044120",
-      "holder": "MOCK PERSON B",
-      "class": "LMV, MCWG",
-      "valid_till": "2032-01-19",
-      "photo": "DL-02.svg"
-    },
+    "licence": {"dl_no": "TS07 2012 •••4120", "holder": "P. Srinivas Rao", "class": "LMV, MCWG", "valid_till": "2032-01-19", "photo": "DL-02.svg"},
     "face_match": 0.77
   },
   "india-junction": {
     "victim": "Motorcycle rider struck by the van",
     "plate": "TS08MK4410",
-    "registration": {
-      "owner": "MOCK PERSON C",
-      "vehicle": "Black motorcycle",
-      "rto": "Ranga Reddy",
-      "insurance": "Valid",
-      "emergency_contact": "+91 90000 00003"
-    },
-    "licence": {
-      "dl_no": "MOCK-DL-TS08-2020-0031877",
-      "holder": "MOCK PERSON C",
-      "class": "MCWG",
-      "valid_till": "2040-03-02",
-      "photo": "CAP-002.svg"
-    },
-    "face_match": 0.71
+    "registration": {"owner": "Mohammed Imran", "vehicle": "Black Bajaj Pulsar", "rto": "Ranga Reddy", "insurance": "Valid till Nov 2026", "emergency_contact": "+91 97••• ••903"},
+    "licence": {"dl_no": "TS08 2020 •••1877", "holder": "Mohammed Imran", "class": "MCWG", "valid_till": "2040-03-02", "photo": "CAP-002.svg"},
+    "face_match": 0.71,
+    "suspect": {"plate": "TS13 ?? 80?6", "resolved": "TS13UB8016", "vehicle": "White Tata Ace van", "owner": "Suresh Yadav", "last_seen": "Leaving HITEC City junction", "photo": "CAP-006.svg"}
   },
   "dashcam": {
     "victim": "Motorcycle rider (the camera's own vehicle)",
     "plate": "TS10RB0921",
-    "registration": {
-      "owner": "MOCK PERSON D",
-      "vehicle": "Black motorcycle",
-      "rto": "Medchal",
-      "insurance": "Expired",
-      "emergency_contact": "+91 90000 00004"
-    },
-    "licence": {
-      "dl_no": "MOCK-DL-TS10-2018-0077340",
-      "holder": "MOCK PERSON D",
-      "class": "MCWG",
-      "valid_till": "2028-09-30",
-      "photo": "CAP-003.svg"
-    },
+    "registration": {"owner": "Anil Kumar Reddy", "vehicle": "Black Honda Shine", "rto": "Medchal", "insurance": "Expired Jan 2026", "emergency_contact": "+91 99••• ••174"},
+    "licence": {"dl_no": "TS10 2018 •••7340", "holder": "Anil Kumar Reddy", "class": "MCWG", "valid_till": "2028-09-30", "photo": "CAP-003.svg"},
     "face_match": 0.79
   },
   "rear-end": {
-    "victim": "Parked car (rear-ended)",
+    "victim": "Parked silver sedan, rear-ended",
     "plate": "TS09EX7781",
-    "registration": {
-      "owner": "MOCK PERSON E",
-      "vehicle": "Silver sedan",
-      "rto": "Hyderabad (West)",
-      "insurance": "Valid",
-      "emergency_contact": "+91 90000 00005"
-    },
-    "licence": {
-      "dl_no": "MOCK-DL-TS09-2015-0020456",
-      "holder": "MOCK PERSON E",
-      "class": "LMV",
-      "valid_till": "2035-07-14",
-      "photo": "CAP-004.svg"
-    },
+    "registration": {"owner": "Lakshmi Prasanna", "vehicle": "Silver Hyundai Verna", "rto": "Hyderabad (West)", "insurance": "Valid till Aug 2027", "emergency_contact": "+91 90••• ••356"},
+    "licence": {"dl_no": "TS09 2015 •••0456", "holder": "Lakshmi Prasanna", "class": "LMV", "valid_till": "2035-07-14", "photo": "CAP-004.svg"},
     "face_match": 0.68
   }
 }

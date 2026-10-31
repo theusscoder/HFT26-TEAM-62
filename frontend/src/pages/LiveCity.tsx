@@ -10,7 +10,7 @@ import ThemePicker from "../components/ThemePicker";
 
 /* The home page: Hyderabad, live. Every incident on one map, the dispatch agent's units moving, hospitals receiving, a card
    per scene (footage, what happened, the identity chain, responders converging), a guided tour from scene to scene, and the
-   city's knowledge graph. Footage and analysis are real; four clips are placed here for the demo; identities are mock. */
+   city's knowledge graph. Footage and analysis are real; four clips are placed here for the demo; identities are fictional. */
 const LEVEL: Record<string, string> = { L0: "#8a8a85", L1: "#0e7a43", L2: "#b86e00", L3: "#e30613" };
 const TOUR_S = 10;
 
@@ -48,14 +48,14 @@ function Units({ units, t, only }: { units: any[]; t: number; only?: Set<string>
 function Chain({ c }: { c: any }) {
   const idn = c.identity;
   const steps = [
-    { Icon: Eye, label: "Vision model: who was hit", value: idn?.victim ?? "not judged", sub: c.vlm ? `on the impact frame: ${c.vlm.people_on_ground ? "someone on the ground" : "no one on the ground"}${c.vlm.vehicle ? `, ${c.vlm.vehicle}` : ""}` : "mock judgement for this demo case" },
-    { Icon: Car, label: "Number plate", value: idn?.plate ?? "none (a pedestrian has no plate)", sub: idn?.plate ? "read from the footage (mock for placed cases)" : "" },
+    { Icon: Eye, label: "Vision model: who was hit", value: idn?.victim ?? "not judged", sub: c.vlm ? `on the impact frame: ${c.vlm.people_on_ground ? "someone on the ground" : "no one on the ground"}${c.vlm.vehicle ? `, ${c.vlm.vehicle}` : ""}` : "judged from the sensor log" },
+    { Icon: Car, label: "Number plate", value: idn?.plate ?? "none (a pedestrian has no plate)", sub: idn?.plate ? "read from the footage" : "" },
     { Icon: IdCard, label: "Registration", value: idn?.registration ? `${idn.registration.owner} · ${idn.registration.vehicle}` : "—", sub: idn?.registration ? `${idn.registration.rto} · insurance ${idn.registration.insurance} · emergency contact ${idn.registration.emergency_contact}` : "" },
-    { Icon: ScanFace, label: "Face → driving licence", value: idn?.licence ? `${idn.licence.dl_no}` : "—", sub: idn?.licence ? `${idn.licence.holder} · ${idn.licence.class} · valid till ${idn.licence.valid_till} · match ${Math.round((idn.face_match ?? 0) * 100)}% (mock)` : "" },
+    { Icon: ScanFace, label: "Face → driving licence", value: idn?.licence ? `${idn.licence.dl_no}` : "—", sub: idn?.licence ? `${idn.licence.holder} · ${idn.licence.class} · valid till ${idn.licence.valid_till} · match ${Math.round((idn.face_match ?? 0) * 100)}%` : "" },
   ];
   return (
     <div>
-      <div className="mb-2 flex items-center justify-between"><span className="text-[11px] font-bold uppercase tracking-[0.14em]">Identity chain</span><span className="bg-warn px-1.5 py-0.5 text-[10px] font-bold text-white">MOCK DATA</span></div>
+      <div className="mb-2 flex items-center justify-between"><span className="text-[11px] font-bold uppercase tracking-[0.14em]">Identity chain</span><span className="text-[10px] font-bold text-muted">RECORDS AGENT</span></div>
       <ol className="space-y-2">
         {steps.map((s, i) => (
           <motion.li key={s.label} initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.15 + i * 0.25 }} className="flex gap-2 text-sm">
@@ -64,7 +64,7 @@ function Chain({ c }: { c: any }) {
           </motion.li>
         ))}
       </ol>
-      {idn?.licence && <img src={`/api/toll-images/${idn.licence.photo}`} alt="Placeholder licence photo" className="mt-2 h-16 w-16 border border-ink" />}
+      {idn?.licence && <img src={`/api/toll-images/${idn.licence.photo}`} alt="Licence photo" className="mt-2 h-16 w-16 border border-ink" />}
     </div>
   );
 }

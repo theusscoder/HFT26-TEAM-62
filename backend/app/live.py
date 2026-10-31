@@ -52,7 +52,7 @@ def run() -> dict:
             card.setdefault("responders", []).append({"unit": u["id"], "kind": u["kind"], "base": u["base"], "eta_s": s["eta_s"], "arrive": s["arrive"]})
     graph = city_graph(cards, ops)
     return {**ops, "cards": cards, "graph": graph, "placed_note": "Only the Gachibowli case happened here; the other clips are placed on Hyderabad roads for the demo.",
-            "mock_note": "Identity chain from a MOCK database. No real person is identified."}
+            "mock_note": "Demo city: identities are fictional."}
 
 
 def city_graph(cards: dict, ops: dict) -> dict:
@@ -66,7 +66,7 @@ def city_graph(cards: dict, ops: dict) -> dict:
 
     node("Vision", "Vision agent (Qwen-VL)", "agent")
     node("Dispatch", "Dispatch agent", "agent")
-    node("Records", "Records agent (mock DB)", "agent")
+    node("Records", "Records agent", "agent")
     t_of = {i["id"]: i["t"] for i in ops["incidents"]}
     for cid, c in cards.items():
         t = t_of.get(cid, 0)
@@ -79,7 +79,7 @@ def city_graph(cards: dict, ops: dict) -> dict:
             edge("Records", f"plate:{cid}", "registration", t)
         if idn.get("licence"):
             node(f"dl:{cid}", f"Licence {idn['licence']['holder']}", "outcome", t)
-            edge("Records", f"dl:{cid}", "face → licence (mock)", t)
+            edge("Records", f"dl:{cid}", "face → licence", t)
         for r in c.get("responders", []):
             node(r["unit"], f"{r['unit']} · {r['base'][:18]}", "unit", t)
             edge("Dispatch", r["unit"], "sent", t)

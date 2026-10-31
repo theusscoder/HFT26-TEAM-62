@@ -97,6 +97,10 @@ def toll_notify(cid: str, body: TollNotify):
 @app.get("/api/toll-images/{name}")
 def toll_image(name: str):
     p = toll_db.IMAGES / Path(name).name
+    # a generated face (or a consented team photo) dropped into data/fictional/faces replaces the drawn placeholder
+    real = next((q for q in (toll_db.FICTIONAL / "faces" / (p.stem + e) for e in (".jpg", ".png")) if q.exists()), None)
+    if real:
+        return FileResponse(real)
     if not p.exists():
         raise HTTPException(404)
     return FileResponse(p, media_type="image/svg+xml" if p.suffix == ".svg" else None)
