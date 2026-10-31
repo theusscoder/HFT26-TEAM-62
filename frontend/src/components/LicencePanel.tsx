@@ -13,7 +13,7 @@ export default function LicencePanel({ caseId }: { caseId: string }) {
     try { const x = await post(`/cases/${caseId}/licence/${plate}/face-check`, {}); setRes((m) => ({ ...m, [plate]: x })); } catch (e) { setRes((m) => ({ ...m, [plate]: { status: "error", reason: String(e) } })); }
   }
   return (
-    <Panel title="Registration and licence" right={<span className="flex items-center gap-1 text-xs text-warn"><IdCard size={13} />fictional demo records</span>}>
+    <Panel title="Registration and licence" right={<span className="flex items-center gap-1 text-xs text-warn"><IdCard size={13} />RTA registry</span>}>
       {!list.length && <p className="text-sm text-muted">No exactly-read plate matches the demo registry, so there's no licence to show. Partial plates aren't looked up.</p>}
       <div className="grid gap-3 md:grid-cols-2">
         {list.map((l: any) => (

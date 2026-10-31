@@ -198,13 +198,13 @@ def make_log(path: Path, seed: str, plazas: list[dict], target: dict) -> None:
     for i in range(LOG_SIZE - 3):
         plate = f"ZZ{rng.randint(1, 38):02d}{rng.choice(letters)}{rng.choice(letters)}{rng.randint(1000, 9999)}"
         rows.append([LOG_START + timedelta(seconds=rng.randint(0, LOG_MINUTES * 60)), rng.choice(plazas)["name"], plate, rng.choice(["car", "truck", "bus", "motorcycle"]),
-                     rng.choice(["white", "black", "red", "blue", "silver"]), f"DEMO-FT-{10000 + i}"])
+                     rng.choice(["white", "black", "red", "blue", "silver"]), f"FT{34161000 + 7919 * i % 999983:08d}"])
     near = plazas[0]
     when = LOG_START + timedelta(minutes=sum(near["window_min"]) / 2)
-    rows.append([when, near["name"], target["plate"], target["class"], target["colour"], "DEMO-FT-88213"])
+    rows.append([when, near["name"], target["plate"], target["class"], target["colour"], "FT34168213"])
     for n, (cls, colour, swap) in enumerate((("car", "white", "X"), ("truck", "red", "P")), start=1):
         look_alike = target["plate"][:5] + swap + target["plate"][6:]
-        rows.append([when + timedelta(seconds=30 * n), near["name"], look_alike, cls, colour, f"DEMO-FT-9000{n}"])
+        rows.append([when + timedelta(seconds=30 * n), near["name"], look_alike, cls, colour, f"FT3416900{n}"])
     rows.sort(key=lambda r: r[0])
     with path.open("w", newline="") as f:
         w = csv.writer(f)

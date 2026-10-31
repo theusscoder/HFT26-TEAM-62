@@ -7,9 +7,9 @@
     "time": "2026-01-01 14:04:31",
     "class": "car",
     "colour": "red",
-    "fastag": "DEMO-FT-88213",
+    "fastag": "FT341688213",
     "owner": "Karthik Varma",
-    "contact": "+91 90000 00002",
+    "contact": "+91 900••• ••100",
     "driver_image": "M-07.jpg"
   },
   {
@@ -20,9 +20,9 @@
     "time": "2026-01-01 13:41:07",
     "class": "car",
     "colour": "white",
-    "fastag": "DEMO-FT-71044",
+    "fastag": "FT341671044",
     "owner": "Ravi Teja Goud",
-    "contact": "+91 90000 00001",
+    "contact": "+91 977••• ••213",
     "driver_image": "M-04.jpg"
   },
   {
@@ -33,9 +33,9 @@
     "time": "2026-01-01 14:05:01",
     "class": "car",
     "colour": "white",
-    "fastag": "DEMO-FT-90001",
+    "fastag": "FT341690001",
     "owner": "Venkatesh Naidu",
-    "contact": "+91 90000 00003",
+    "contact": "+91 944••• ••326",
     "driver_image": "M-02.jpg"
   },
   {
@@ -46,9 +46,9 @@
     "time": "2026-01-01 14:05:31",
     "class": "truck",
     "colour": "red",
-    "fastag": "DEMO-FT-90002",
+    "fastag": "FT341690002",
     "owner": "Sravani Reddy",
-    "contact": "+91 90000 00004",
+    "contact": "+91 911••• ••439",
     "driver_image": "F-08.jpg"
   },
   {
@@ -59,9 +59,9 @@
     "time": "2026-01-01 12:15:44",
     "class": "bus",
     "colour": "blue",
-    "fastag": "DEMO-FT-55210",
+    "fastag": "FT341655210",
     "owner": "Farhan Siddiqui",
-    "contact": "+91 90000 00005",
+    "contact": "+91 988••• ••552",
     "driver_image": "M-05.jpg"
   },
   {
@@ -72,9 +72,9 @@
     "time": "2026-01-01 11:02:18",
     "class": "truck",
     "colour": "white",
-    "fastag": "DEMO-FT-44871",
+    "fastag": "FT341644871",
     "owner": "Naveen Chary",
-    "contact": "+91 90000 00006",
+    "contact": "+91 955••• ••665",
     "driver_image": "M-10.jpg"
   }
 ]

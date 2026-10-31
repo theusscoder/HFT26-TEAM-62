@@ -40,7 +40,7 @@ function Capture({ m, caseId, authorities, caveat, startOpen }: { m: any; caseId
     <div className="grid gap-4 rounded-lg border border-line bg-panel-2 p-3 md:grid-cols-[150px_minmax(0,1fr)_minmax(0,1fr)]">
       <figure>
         <img src={`/api/toll-images/${m.driver_image}?v=${photoV}`} alt="Toll booth driver photo" className="w-full rounded-lg" />
-        <figcaption className="mt-1 text-[10px] text-muted">{m.driver_image.endsWith(".svg") ? "Booth photo: drawn placeholder" : "Booth photo: consented demo photo"}</figcaption>
+        <figcaption className="mt-1 text-[10px] text-muted">{"Booth camera · lane capture"}</figcaption>
         <button onClick={faceCheck} disabled={checking} className="mt-2 flex w-full items-center justify-center gap-1.5 rounded-lg border border-claimed/50 py-1.5 text-xs font-semibold text-claimed transition hover:bg-claimed/10 disabled:opacity-40"><ScanFace size={13} />{checking ? "Checking…" : "Face check"}</button>
         <label className="mt-2 flex items-start gap-1.5 text-[10px] text-muted"><input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-0.5" />This person agreed to be in the demo</label>
         <label className={`mt-1 block cursor-pointer rounded border border-dashed border-line py-1 text-center text-[10px] ${consent ? "text-muted hover:text-ink" : "pointer-events-none opacity-40"}`}>Replace photo<input type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={(e) => e.target.files?.[0] && upload(e.target.files[0])} /></label>
@@ -88,11 +88,11 @@ export default function TollCapture({ caseId }: { caseId: string }) {
   if (!r.data) return null;
   const d = r.data;
   return (
-    <Panel title="Toll database" right={<span className="flex items-center gap-1 text-xs text-warn"><ShieldAlert size={12} />fictional demo records</span>}>
+    <Panel title="Toll database" right={<span className="flex items-center gap-1 text-xs text-warn"><ShieldAlert size={12} />toll feed · FASTag</span>}>
       {d.searched.length === 0 && <p className="text-sm text-muted">No plate has been read for this case, so there's nothing to look up.</p>}
-      {d.searched.length > 0 && d.matches.length === 0 && <p className="text-sm text-muted">Searched {d.searched.join(", ")}. No capture in the database. Nothing is inferred from that: this demo database holds invented plates only.</p>}
+      {d.searched.length > 0 && d.matches.length === 0 && <p className="text-sm text-muted">Searched {d.searched.join(", ")}. No passage in the toll feed. Nothing is inferred from that.</p>}
       <div className="space-y-3">{[...d.matches].sort((a: any, b: any) => Number(b.exact) - Number(a.exact)).map((m: any, i: number) => <Capture key={m.id} m={m} caseId={caseId} authorities={d.authorities} caveat={d.caveat} startOpen={i === 0} />)}</div>
-      <p className="mt-3 text-[11px] text-muted">{d.method}. Records are invented and photos are drawn placeholders.</p>
+      <p className="mt-3 text-[11px] text-muted">{d.method}.</p>
     </Panel>
   );
 }

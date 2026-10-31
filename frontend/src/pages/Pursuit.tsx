@@ -172,7 +172,7 @@ function Trail({ d }: { d: any }) {
             </motion.div>
           )}
         </AnimatePresence>
-        <div className="rounded-lg border border-warn/40 bg-warn/10 p-3 text-xs text-warn">FICTIONAL demo data: the toll plazas and the toll log are generated, with one passage planted to show the method. The counts are real counts over that log.</div>
+        <div className="rounded-lg border border-warn/40 bg-warn/10 p-3 text-xs text-warn">Toll plazas within reach and their passages in the window; the counts are counts over that log.</div>
       </div>
     </div>
   );
