@@ -45,4 +45,3 @@ data/telegram_links.json
 data/cases/*/response_timeline.json
 data/cases/*/emergency.json
 
-.claude/
