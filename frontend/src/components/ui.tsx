@@ -1,13 +1,15 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 import type { Kind } from "../lib/api";
 
 export function Panel({ title, right, children, className = "", delay = 0 }: { title?: string; right?: ReactNode; children: ReactNode; className?: string; delay?: number }) {
   return (
     <motion.section initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, delay, ease: "easeOut" }}
-      className={`border border-ink bg-panel ${className}`}>
+      className={`border border-line bg-panel ${className}`}>
       {title && (
-        <header className="flex items-center justify-between gap-3 border-b-2 border-ink px-4 py-2.5">
+        <header className="flex items-center justify-between gap-3 border-b border-line px-4 py-2.5">
           <h2 className="text-[11px] font-bold uppercase tracking-[0.14em] text-ink">{title}</h2>
           {right}
         </header>
@@ -64,12 +66,18 @@ export function CountUp({ value, decimals = 0, suffix = "" }: { value: number; d
   return <>{shown.toFixed(decimals)}{suffix}</>;
 }
 
-export function Stat({ label, value, tone = "", hint, delay = 0, decimals = 0, suffix = "" }: { label: string; value: number; tone?: string; hint?: string; delay?: number; decimals?: number; suffix?: string }) {
-  return (
-    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, delay }} className="border border-ink bg-panel p-4">
+export function Stat({ label, value, tone = "", hint, delay = 0, decimals = 0, suffix = "", to }: { label: string; value: number; tone?: string; hint?: string; delay?: number; decimals?: number; suffix?: string; to?: string }) {
+  const body = (
+    <>
       <div className={`text-4xl font-extrabold tracking-tighter ${tone}`}><CountUp value={value} decimals={decimals} suffix={suffix} /></div>
-      <div className="mt-1 text-xs text-muted">{label}</div>
+      <div className="mt-1 flex items-center justify-between gap-2 text-sm text-muted"><span>{label}</span>{to && <ArrowUpRight size={15} className="shrink-0 transition-colors group-hover:text-accent" />}</div>
       {hint && <div className="mt-0.5 text-[11px] text-muted/70">{hint}</div>}
+    </>
+  );
+  return (
+    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, delay }}>
+      {to ? <Link to={to} className="group block h-full border border-line bg-panel p-4 transition-colors hover:border-ink focus-visible:border-ink">{body}</Link>
+        : <div className="h-full border border-line bg-panel p-4">{body}</div>}
     </motion.div>
   );
 }

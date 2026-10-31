@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Box, Play, Siren } from "lucide-react";
 import { useApi, type Analysis, type Event } from "../lib/api";
 import { Loading, Panel, Stat, Status } from "../components/ui";
 import ContextPanel from "../components/ContextPanel";
@@ -46,21 +46,32 @@ export default function Overview() {
   const tail = avoid ? avoid.detail.split(": ").slice(-1)[0] : "";
   if (cut) story.unshift(`${cut.title} ${Math.abs(cut.t).toFixed(1)} s before impact. ${cut.detail}${tail ? " " + tail.charAt(0).toUpperCase() + tail.slice(1) : ""}`);
   const frames: any[] = vis.data?.frames ?? [];
+  const dashcam = c.data.camera?.type === "dashcam";
+  const fit = scene.data?.fit?.iou_all;
   return (
     <div className="space-y-5">
+      <div className="grid grid-cols-1 items-start gap-5 xl:grid-cols-[minmax(0,1fr)_360px]">
+      <div className="min-w-0 space-y-5">
       <Panel>
         <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-accent">What happened</div>
         <div className="mt-2 max-w-4xl text-xl font-medium leading-relaxed">
           {story.length ? story.map((s, i) => <motion.span key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.15 + i * 0.25, duration: 0.5 }}>{s} </motion.span>) : c.data.title}
         </div>
         <p className="mt-2 text-xs text-muted">Built from measured events, not written by a model. Fault and intent aren't decided here.</p>
+        <div className="mt-4 flex flex-wrap gap-2 text-sm font-semibold">
+          <Link to="replay" className="flex items-center gap-1.5 bg-accent px-3 py-1.5 text-white hover:opacity-85"><Play size={14} />Play the evidence</Link>
+          <Link to={dashcam ? "dashcam" : "reconstruction"} className="flex items-center gap-1.5 border border-ink px-3 py-1.5 hover:bg-panel-2"><Box size={14} />{dashcam ? "Dashcam view" : "3D reconstruction"}</Link>
+          <Link to="golden-hour" className="flex items-center gap-1.5 border border-ink px-3 py-1.5 hover:bg-panel-2"><Siren size={14} />Emergency response</Link>
+        </div>
       </Panel>
 
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <Stat label="Evidence sources" value={c.data.evidence.length} delay={0.05} />
-        <Stat label="Events extracted" value={ev.data.length} delay={0.1} />
-        <Stat label="Contradictions" value={a.contradictions.length} tone={a.contradictions.length ? "text-claimed" : ""} delay={0.15} />
-        <Stat label="Evidence gaps" value={a.gaps.length} tone={a.gaps.length ? "text-warn" : ""} delay={0.2} />
+        <Stat label="Contradictions found" value={a.contradictions.length} tone={a.contradictions.length ? "text-accent" : ""} delay={0.05} to="courtroom" />
+        {score ? <Stat label="Planted errors caught" value={score.caught} suffix={`/${score.planted}`} tone="text-ok" delay={0.1} to="courtroom" />
+          : <Stat label="Evidence gaps" value={a.gaps.length} tone={a.gaps.length ? "text-warn" : ""} delay={0.1} to="timeline" />}
+        <Stat label={`Events from ${c.data.evidence.length} sources`} value={ev.data.length} delay={0.15} to="timeline" />
+        {fit != null ? <Stat label="3D overlap with footage" value={Math.round(fit * 100)} suffix="%" delay={0.2} to="reconstruction" />
+          : <Stat label="Severity score" value={sev.data.score ?? 0} suffix="/100" delay={0.2} to="golden-hour" />}
       </div>
 
       {frames.length > 0 && (
@@ -74,18 +85,19 @@ export default function Overview() {
         </div>
       )}
 
-      <Panel><LiveAnalysis caseId={id!} onDone={() => setReady(true)} /></Panel>
-
-      {ready && <CaseRecords />}
-
       {ins.data && ins.data.length > 0 && (
         <Panel title="Key findings" right={<Link to="reconstruction" className="text-xs text-accent">see them on the reconstruction →</Link>}>
           <KeyFindings findings={ins.data} compact />
         </Panel>
       )}
+      </div>
+      <div className="xl:sticky xl:top-0"><Panel><LiveAnalysis caseId={id!} compact onDone={() => setReady(true)} /></Panel></div>
+      </div>
+
+      {ready && <CaseRecords />}
 
       <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
-        <Panel title="Top findings" right={<Link to="courtroom" className="flex items-center gap-1 text-xs text-accent">All contradictions <ArrowRight size={12} /></Link>}>
+        <Panel title="Top contradictions" right={<Link to="courtroom" className="flex items-center gap-1 text-xs text-accent">All contradictions <ArrowRight size={12} /></Link>}>
           {a.contradictions.length === 0 && <p className="text-sm text-muted">No contradictions. Either every checkable claim agrees with the physical evidence, or there is only one source so far.</p>}
           <ul className="space-y-2.5">
             {a.contradictions.slice(0, 4).map((x: any, i: number) => (

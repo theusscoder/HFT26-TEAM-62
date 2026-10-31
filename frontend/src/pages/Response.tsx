@@ -302,7 +302,7 @@ export default function Response() {
           <p className="mt-1 text-sm text-muted">
             <Status value={sev.level ?? "L?"} /> {sev.label} · {sev.score}/100 · {inc.time.replace("T", " ")} <span className="text-[11px]">({inc.time_source})</span> · {inc.people_at_risk} people at risk
           </p>
-          <p className={`mt-1 text-xs ${inc.location.assumed ? "text-warn" : "text-muted"}`}>📍 {inc.location.name} · <span className="mono">{(+inc.location.lat).toFixed(4)}, {(+inc.location.lon).toFixed(4)}</span> · {inc.location.assumed ? "estimated" : "auto-logged"}: {inc.location.source}</p>
+          <p className={`mt-1 text-xs ${inc.location.assumed ? "text-warn" : "text-muted"}`}>{inc.location.name} · <span className="mono">{(+inc.location.lat).toFixed(4)}, {(+inc.location.lon).toFixed(4)}</span> · {inc.location.assumed ? "estimated" : "auto-logged"}: {inc.location.source}</p>
         </div>
       </div>
       {error && <div className="rounded border border-bad/40 bg-bad/10 px-3 py-2 text-sm text-bad">{error}</div>}

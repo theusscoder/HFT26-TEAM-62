@@ -3,13 +3,13 @@
 
 /* Design tokens: dark forensic theme. One accent + status colours only. Change here, not inline. */
 @theme {
-  --font-sans: "Inter Tight", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-sans: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
   --color-bg: #f3f3f0;
   --color-panel: #ffffff;
   --color-panel-2: #ececE8;
-  --color-line: #c9c9c4;
+  --color-line: #d6d6d0;
   --color-ink: #0a0a0a;
   --color-muted: #5c5c58;
 
@@ -24,7 +24,7 @@
 
 html, body, #root { height: 100%; }
 /* Themes override the tokens; every component reads them. Swiss is the default. */
-:root { --grid: rgba(10, 10, 10, 0.045); --grid-size: 48px; --field: #ffffff; }
+:root { --grid: rgba(10, 10, 10, 0.022); --grid-size: 48px; --field: #ffffff; }
 :root[data-theme="command"] {
   --color-bg: #06120f; --color-panel: #0a1b17; --color-panel-2: #10271f; --color-line: #1f4a3e; --color-ink: #dafff2; --color-muted: #7fb8a6;
   --color-accent: #19d88f; --color-observed: #4fb3ff; --color-claimed: #c58cff; --color-inferred: #ffc21a; --color-ok: #2bff88; --color-warn: #ffc21a; --color-bad: #ff4a4a;
@@ -40,7 +40,7 @@ html, body, #root { height: 100%; }
   --color-accent: #a8321d; --color-observed: #24508f; --color-claimed: #6b3f99; --color-inferred: #9a6200; --color-ok: #3d6b2f; --color-warn: #9a6200; --color-bad: #a8321d;
   --font-sans: Georgia, "Times New Roman", serif; --grid: transparent; --field: #fffaf0;
 }
-body { background-color: var(--color-bg); background-image: linear-gradient(to right, var(--grid) 1px, transparent 1px), linear-gradient(to bottom, var(--grid) 1px, transparent 1px); background-size: var(--grid-size) var(--grid-size); color: var(--color-ink); font-family: var(--font-sans); letter-spacing: -0.005em; }
+body { background-color: var(--color-bg); background-image: linear-gradient(to right, var(--grid) 1px, transparent 1px), linear-gradient(to bottom, var(--grid) 1px, transparent 1px); background-size: var(--grid-size) var(--grid-size); color: var(--color-ink); font-family: var(--font-sans); }
 /* Swiss and Paper: no rounding, no soft shadows. Command and Cockpit keep soft corners and a glow on the accent. */
 :root[data-theme="swiss"] *, :root[data-theme="swiss"] ::before, :root[data-theme="paper"] *, :root:not([data-theme]) * { border-radius: 0 !important; box-shadow: none !important; }
 :root[data-theme="command"] section, :root[data-theme="cockpit"] section { border-radius: 10px; border-color: var(--color-line) !important; }
@@ -48,7 +48,10 @@ body { background-color: var(--color-bg); background-image: linear-gradient(to r
 :root[data-theme="cockpit"] .bg-accent { color: #0c0f13 !important; }
 :root[data-theme="command"] .border-ink, :root[data-theme="cockpit"] .border-ink { border-color: var(--color-line) !important; }
 :root[data-theme="command"] .bg-white, :root[data-theme="cockpit"] .bg-white { background-color: var(--color-panel) !important; }
-h1, h2 { letter-spacing: -0.025em; }
+@layer base { h1 { font-family: "Inter Tight", var(--font-sans); letter-spacing: -0.015em; } }
+/* Readable from the back of a room: the smallest labels used across the app go up one size. */
+[class~="text-[10px]"] { font-size: 11px; }
+[class~="text-[11px]"] { font-size: 12px; }
 input, select, textarea { background: var(--field) !important; color: var(--color-ink); border-color: var(--color-line) !important; }
 ::-webkit-scrollbar { width: 10px; height: 10px; }
 ::-webkit-scrollbar-thumb { background: var(--color-line); border-radius: 8px; border: 2px solid transparent; background-clip: content-box; }

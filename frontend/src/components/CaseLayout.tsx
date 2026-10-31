@@ -1,13 +1,14 @@
 import { useMemo } from "react";
 import { Link, NavLink, Outlet, useLocation, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Activity, Box, Camera, Car, Clock, Crosshair, ChevronLeft, ClipboardList, FileText, Gauge, LayoutDashboard, MapPin, MessageCircleQuestion, Ruler, Scale, Siren, Video } from "lucide-react";
+import { Activity, Box, Camera, Car, Clock, Crosshair, ChevronLeft, ClipboardList, Download, FileText, Gauge, LayoutDashboard, MapPin, MessageCircleQuestion, Ruler, Scale, Siren, Video } from "lucide-react";
 import { useApi } from "../lib/api";
 import { ClockProvider } from "../lib/clock";
 import { LevelPill } from "./ui";
 import ThemePicker from "./ThemePicker";
 
-// Grouped by what the reader is trying to do, in demo order.
+// Grouped by what the reader is trying to do, in demo order. The screens to show first read stronger.
+const KEY_SCREENS = new Set(["replay", "reconstruction", "courtroom", "golden-hour", "response"]);
 const NAV = [
   { group: "The case", items: [["", "Overview", LayoutDashboard], ["replay", "Evidence replay", Video], ["reconstruction", "Reconstruction", Box], ["dashcam", "Dashcam", Camera], ["timeline", "Timeline", Activity]] },
   { group: "The analysis", items: [["courtroom", "Contradictions", Scale], ["avoidable", "Could it be avoided?", Gauge], ["ask", "Ask the case", MessageCircleQuestion]] },
@@ -20,6 +21,7 @@ export default function CaseLayout() {
   const { pathname } = useLocation();
   const { data: c, error } = useApi<{ title: string; location: { name: string; lat?: number | null; lon?: number | null; source?: string; estimated?: boolean }; simulated: boolean; range?: [number, number]; license?: string }>(`/cases/${id}/case`);
   const sev = useApi<{ level: string; label: string }>(`/cases/${id}/severity`);
+  const an = useApi<{ contradictions: unknown[] }>(`/cases/${id}/analysis`);
   // Each case has its own time range (seconds from impact); mount the clock once the case is known.
   const range = useMemo<[number, number]>(() => c?.range ?? [-5, 3], [c?.range?.[0], c?.range?.[1]]);
   if (!c) return error
@@ -39,9 +41,10 @@ export default function CaseLayout() {
                   {items.map(([path, label, Icon]) => (
                     <NavLink key={path} end={path === ""} to={`/case/${id}/${path}`} className="group relative">
                       {({ isActive }) => (
-                        <div className={`relative flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition-colors ${isActive ? "text-ink" : "text-muted hover:text-ink"}`}>
+                        <div className={`relative flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition-colors ${isActive || KEY_SCREENS.has(path) ? "text-ink" : "text-muted hover:text-ink"} ${KEY_SCREENS.has(path) ? "font-semibold" : ""}`}>
                           {isActive && <motion.span layoutId="nav-active" className="absolute inset-0 rounded-lg border border-accent/30 bg-accent/15" transition={{ type: "spring", stiffness: 500, damping: 40 }} />}
-                          <Icon size={15} className="relative" /><span className="relative">{label}</span>
+                          <Icon size={15} className="relative" /><span className="relative flex-1">{label}</span>
+                          {path === "courtroom" && !!an.data?.contradictions.length && <span className="relative bg-accent px-1.5 text-[11px] font-bold text-white">{an.data.contradictions.length}</span>}
                         </div>
                       )}
                     </NavLink>
@@ -50,13 +53,13 @@ export default function CaseLayout() {
               </div>
             ))}
           </nav>
-          <div className="border-t border-line px-3 py-2"><div className="mb-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-muted">Theme</div><ThemePicker compact /></div>
+          <div className="border-t border-line px-3 py-2"><ThemePicker compact /></div>
           <p className="border-t border-line px-4 py-3 text-[11px] text-muted">{c.simulated ? "Demo case · simulated sensor, witnesses and registry" : `Real footage${c.license ? ` · ${c.license}` : ""}`}</p>
         </aside>
         <div className="flex min-w-0 flex-1 flex-col">
           <header className="flex items-center justify-between gap-4 border-b border-line bg-bg/70 px-6 py-3 backdrop-blur">
             <div className="min-w-0">
-              <div className="truncate text-sm font-semibold">{c.title}</div>
+              <h1 className="truncate text-lg font-bold leading-tight">{c.title}</h1>
               <div className="flex items-center gap-1 truncate text-[11px] text-muted">
                 <MapPin size={11} className="shrink-0" /><span className="truncate">{c.location?.name || "Logging the location…"}</span>
                 {c.location?.lat != null && <a href={`https://maps.google.com/?q=${c.location.lat},${c.location.lon}`} target="_blank" rel="noreferrer" className="mono shrink-0 underline decoration-dotted">{(+c.location.lat).toFixed(4)}, {(+c.location.lon!).toFixed(4)}</a>}
@@ -66,6 +69,7 @@ export default function CaseLayout() {
             <div className="flex items-center gap-2">
               {(c as any).camera && <span title={(c as any).camera.why} className={`border px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${(c as any).camera.type === "dashcam" ? "border-accent text-accent" : "border-ink"}`}>{(c as any).camera.type === "dashcam" ? "Dashcam" : "CCTV"}{(c as any).camera.confidence ? ` · auto ${Math.round((c as any).camera.confidence * 100)}%` : ""}</span>}
               <Link to={`/case/${id}/golden-hour`}><LevelPill level={sev.data?.level} label={sev.data?.label} /></Link>
+              <a href={`/api/cases/${id}/reports/dar.html`} target="_blank" rel="noreferrer" className="flex items-center gap-1.5 whitespace-nowrap bg-ink px-3 py-1.5 text-xs font-semibold text-white hover:opacity-85"><Download size={13} />Export report</a>
             </div>
           </header>
           <main className="min-w-0 flex-1 overflow-auto p-6">

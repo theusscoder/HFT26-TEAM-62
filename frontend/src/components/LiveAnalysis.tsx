@@ -31,7 +31,7 @@ function PlateReveal({ partial, final, tone }: { partial?: string | null; final:
     })();
     return () => { alive = false; };
   }, [final, partial]);
-  return <span className={`inline-block border-2 px-2 py-0.5 font-mono text-[15px] font-bold tracking-[0.18em] ${tone === "dark" ? "border-white bg-white text-black" : "border-ink bg-white text-black"}`}>{text}</span>;
+  return <span className={`inline-block whitespace-nowrap border-2 px-2 py-0.5 font-mono text-[15px] font-bold tracking-[0.18em] ${tone === "dark" ? "border-white bg-white text-black" : "border-ink bg-white text-black"}`}>{text}</span>;
 }
 
 interface Step { key: string; icon: any; title: string; working: string; ms: number; body: () => React.ReactNode }

@@ -409,6 +409,25 @@ def ops_certificate(cid: str):
     return ops_center.certificate_html(cid)
 
 
+@router.get("/api/highlights")
+def highlights():
+    """The headline numbers on the home page, counted from the cases on disk so they can't drift from them."""
+    from . import camera_agent, live
+    agent, hit_and_run, alerts = 0, 0, 0
+    for d in live.CASES.iterdir():
+        case = load(d, "case", None)
+        if not case:
+            continue
+        agent += (case.get("source") or {}).get("kind") == "camera agent"
+        hit_and_run += (load(d, "pursuit", {}) or {}).get("status") == "departed"
+        alerts += sum(x.get("status") == "sent" for x in (load(d, "emergency", {}) or {}).get("telegram") or [])
+    scores = [s for s in ((load(live.CASES / c, "analysis", {}) or {}).get("score") for c in live.PLACES) if s]
+    fit = (load(live.CASES / "hero", "scene3d", {}) or {}).get("fit") or {}
+    return {"cameras": len(camera_agent.cameras()), "agent_cases": agent, "hit_and_run": hit_and_run, "alerts_sent": alerts,
+            "caught": sum(s["caught"] for s in scores), "planted": sum(s["planted"] for s in scores), "false_flags": sum(s["false_flags"] for s in scores),
+            "fit_pct": round(fit["iou_all"] * 100) if fit.get("iou_all") is not None else None}
+
+
 @router.get("/api/citymap")
 def citymap():
     from . import citymap as cm

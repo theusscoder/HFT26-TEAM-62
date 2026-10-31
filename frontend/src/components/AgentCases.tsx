@@ -9,7 +9,7 @@ const STEPS: [string, string][] = [["police", "Police"], ["fir", "FIR"], ["accep
 
 export default function AgentCases() {
   const r = usePoll<any[]>("/ops/recent", 5000);
-  const rows = r.data ?? [];
+  const rows = (r.data ?? []).slice(0, 3);   // the latest only: the desk's own board stays above the fold
   return (
     <section>
       <div className="mb-2 flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-white/50"><Radio size={12} />New from the cameras</div>

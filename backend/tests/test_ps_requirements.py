@@ -82,3 +82,11 @@ def test_a_translation_may_not_change_or_drop_a_number():
     assert not i18n.good("Severity ⟦0⟧ at ⟦1⟧", "తీవ్రత ⟦0⟧")
     assert not i18n.good("Open case", "Open case")   # not actually translated
     assert i18n.translate("xx", ["Open case"]) == {}
+
+
+def test_home_page_numbers_match_the_cases():
+    from fastapi.testclient import TestClient
+    from app.main import app
+    h = TestClient(app).get("/api/highlights").json()
+    assert h["cameras"] >= 6 and h["planted"] == 8 and h["caught"] == 8 and h["false_flags"] == 0
+    assert 0 < h["fit_pct"] <= 100

@@ -37,6 +37,9 @@ function Patient({ inc, t, ts, ack, hospital, onAck }: any) {
         <div className="text-right"><div className="text-[10px] uppercase tracking-[0.14em] text-white/45">{st.patient === "arrived" ? "arrived" : "ETA to you"}</div>
           <div className="mono text-2xl font-bold tabular-nums" style={{ color: st.patient === "arrived" ? "#22c55e" : "#fff" }}>{st.patient === "arrived" ? clock(ts(st.atHosp)) : mmss(st.atHosp - st.tl)}</div></div>
       </div>
+      {st.certSent && st.atHosp > inc.t_cert && (
+        <div className="flex items-center gap-2 bg-[#2f7bff]/20 px-4 py-2 text-[13px] font-semibold text-[#bcd6ff]"><FileText size={14} className="shrink-0" />Police certificate reached this desk {mmss(st.atHosp - inc.t_cert)} before the patient</div>
+      )}
       <div className="grid grid-cols-1 gap-4 p-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
         <div className="flex gap-3">
           <img src={`/api/toll-images/${v.photo}`} alt="" className="h-28 w-24 shrink-0 border border-white/20 object-cover" />
@@ -85,7 +88,10 @@ export default function Hospital() {
     return Object.entries(n).sort((a, b) => b[1] - a[1])[0]?.[0] ?? null;
   }, [data]);
   if (!data) return <div className="h-full bg-[#0b0f14] p-8 text-white"><Loading error={error} /></div>;
-  const name = hosp && data.hospitals.includes(hosp) ? hosp : busiest;
+  // until someone picks a hospital, follow the one with a patient on the way, then the next one due an alert
+  const active = data.incidents.find((i: any) => { const s = incidentState(i, t); return i.hospital && s.notified && s.tl < s.atHosp + 240; })?.hospital;
+  const next = [...data.incidents].filter((i: any) => i.hospital && i.offset_s + 31 > t).sort((a: any, b: any) => a.offset_s - b.offset_s)[0]?.hospital;
+  const name = hosp && data.hospitals.includes(hosp) ? hosp : active ?? next ?? busiest;
   const ts = (inc: any) => (sec: number) => cycleStart + (inc.offset_s + sec) * 1000;
   const officers = Object.fromEntries(data.officers.map((o: any) => [o.id, o]));
   const mine = data.incidents.filter((i: any) => i.hospital === name).map((i: any) => ({ ...i, lead_officer: officers[i.lead] }))

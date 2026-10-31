@@ -19,8 +19,16 @@ export default function ThemePicker({ compact }: { compact?: boolean }) {
     try { localStorage.setItem("yatharth-theme", t); } catch { /* not remembered, still applied */ }
     setTheme(t);
   }
+  if (compact) return (
+    <div className="flex items-center justify-between gap-2">
+      <LangToggle />
+      <select aria-label="Theme" value={theme} onChange={(e) => pick(e.target.value as Theme)} className="min-w-0 border px-1.5 py-1 text-[12px]">
+        {THEMES.map(([k, l]) => <option key={k} value={k}>{l}</option>)}
+      </select>
+    </div>
+  );
   return (
-    <div className={`flex ${compact ? "flex-wrap" : ""} gap-1`} role="radiogroup" aria-label="Theme">
+    <div className="flex gap-1" role="radiogroup" aria-label="Theme">
       {THEMES.map(([k, l]) => (
         <button key={k} role="radio" aria-checked={theme === k} onClick={() => pick(k)}
           className={`border px-2 py-1 text-[11px] font-semibold ${theme === k ? "border-accent bg-accent text-white" : "border-line text-muted hover:text-ink"}`}>{l}</button>

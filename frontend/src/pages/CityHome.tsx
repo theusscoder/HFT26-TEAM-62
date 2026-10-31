@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { Ambulance, Box, Camera, ChevronRight, Download, FileText, Play, Radio, Shield, X } from "lucide-react";
+import { Ambulance, ArrowUpRight, Box, ChevronRight, Download, MapPin, Play, Radio, Shield, X } from "lucide-react";
 import { CityScene } from "../city3d/scene/CityScene";
 import type { CameraReadout, FlyRequest } from "../city3d/scene/camera/CityCameraRig";
 import { defaultPose, accidentFocusPose } from "../city3d/scene/camera/poses";
@@ -23,6 +23,32 @@ import "../city3d/styles/scene.css";
    live operation. */
 const KIND_LABEL: Record<string, string> = { hit_and_run: "Hit-and-run", pedestrian: "Pedestrian struck", two_wheeler: "Two-wheeler", collision: "Collision" };
 const LEVEL: Record<string, string> = { L0: "#8a8a85", L1: "#22c55e", L2: "#f59e0b", L3: "#ff2a2a" };
+const LEVEL_TEXT: Record<string, string> = { L0: "#000", L1: "#000", L2: "#000", L3: "#fff" };
+const KEY_CASES = ["hero", "demo", "dashcam", "india-junction", "rear-end"];   // the walkthrough cases come first
+
+/* The story of the system in six steps, each with its live number and a jump to the best example of it. */
+function Capabilities({ h }: { h: any }) {
+  const tiles: [string, string, string, string][] = [
+    ["Detect", h ? `${h.cameras} cameras` : "Cameras", h ? `AI agents opened ${h.agent_cases} cases on their own` : "AI agents open cases on their own", "/cameras"],
+    ["Reconstruct", h?.fit_pct != null ? `${h.fit_pct}% fit` : "3D replay", "3D model's overlap with the real footage", "/case/hero/reconstruction"],
+    ["Cross-check", h ? `${h.caught}/${h.planted} caught` : "Contradictions", h ? `Planted contradictions, ${h.false_flags} false flags` : "Witnesses against the physical evidence", "/case/hero/courtroom"],
+    ["Respond", h ? `${h.alerts_sent} alerts sent` : "Alerts", "Police, hospital and family on Telegram", "/police"],
+    ["Trace", h ? `${h.hit_and_run} hit-and-runs` : "Hit-and-run", "Plate, likely route and intercept", "/case/demo/intercept"],
+    ["Explain", "Ask the case", "Cited answers only. Fault questions are refused", "/case/hero/ask"],
+  ];
+  return (
+    <motion.nav aria-label="What YATHARTH does" initial={{ y: 30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 30, opacity: 0 }} transition={{ duration: 0.25 }}
+      className="absolute inset-x-4 bottom-4 z-30 flex gap-px overflow-x-auto border border-white/15 bg-white/15">
+      {tiles.map(([step, value, label, to], i) => (
+        <Link key={step} to={to} className="group min-w-[190px] flex-1 bg-[#0b0f14]/95 px-4 py-3 text-white transition-colors hover:bg-[#1a2028] focus-visible:bg-[#1a2028]">
+          <div className="flex items-center justify-between text-[11px] font-bold uppercase tracking-[0.14em] text-white/55"><span><span className="text-[#ff5a5a]">{i + 1}</span> {step}</span><ArrowUpRight size={14} className="transition-colors group-hover:text-white" /></div>
+          <div className="mt-1 truncate text-xl font-extrabold tracking-tight">{value}</div>
+          <div className="mt-0.5 line-clamp-2 min-h-[2.1em] text-[12px] leading-snug text-white/70">{label}</div>
+        </Link>
+      ))}
+    </motion.nav>
+  );
+}
 
 function CaseSide({ c, onClose }: { c: any; onClose: () => void }) {
   return (
@@ -35,11 +61,11 @@ function CaseSide({ c, onClose }: { c: any; onClose: () => void }) {
             <span className="text-white/40">· {c.place}</span>
           </div>
           <div className="mt-1 text-[17px] font-bold leading-snug">{c.title}</div>
-          <div className="mt-1 truncate text-[11px] text-white/60">📍 {c.place} · <span className="mono">{c.lat.toFixed(4)}, {c.lon.toFixed(4)}</span>{c.location_source ? ` · ${c.location_estimated ? "estimated" : "auto-logged"}: ${c.location_source}` : ""}</div>
+          <div className="mt-1 flex items-start gap-1 text-[11px] text-white/60"><MapPin size={12} className="mt-0.5 shrink-0" /><span><span className="mono">{c.lat.toFixed(4)}, {c.lon.toFixed(4)}</span>{c.location_source ? ` · ${c.location_estimated ? "estimated" : "auto-logged"}: ${c.location_source}` : ""}</span></div>
           <div className="mt-1 text-[11px] text-white/50">{c.time ? new Date(c.time).toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" }) : ""} · {c.camera.toUpperCase()} · {c.contradictions} contradictions</div>
         </div>
         <div className="flex shrink-0 items-center gap-2">
-          <span className="px-1.5 py-0.5 text-[11px] font-bold" style={{ background: LEVEL[c.level] ?? "#555" }}>{c.level}</span>
+          <span className="px-1.5 py-0.5 text-[11px] font-bold" style={{ background: LEVEL[c.level] ?? "#555", color: LEVEL_TEXT[c.level] ?? "#fff" }}>{c.level}</span>
           <button aria-label="Close" onClick={onClose} className="p-1 hover:bg-white/10"><X size={16} /></button>
         </div>
       </div>
@@ -64,6 +90,7 @@ function CaseSide({ c, onClose }: { c: any; onClose: () => void }) {
 
 export default function CityHome() {
   const m = usePoll<any>("/citymap", 15000);   // cases the camera agent opens appear without a reload
+  const h = usePoll<any>("/highlights", 30000);
   const [dataset, setDataset] = useState<CityDataset | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [readyAt, setReadyAt] = useState(0);
@@ -104,6 +131,11 @@ export default function CityHome() {
   }, [ground]);
 
   const counts = useMemo(() => { const c: Record<string, number> = {}; for (const x of m.data?.cases ?? []) c[x.kind] = (c[x.kind] ?? 0) + 1; return c; }, [m.data]);
+  const listed = useMemo(() => {
+    const rank = (c: any) => { const i = KEY_CASES.indexOf(c.id); return i < 0 ? KEY_CASES.length : i; };
+    return (m.data?.cases ?? []).filter((c: any) => !filter || c.kind === filter)
+      .sort((a: any, b: any) => rank(a) - rank(b) || String(b.level).localeCompare(String(a.level)) || String(b.time ?? "").localeCompare(String(a.time ?? "")));
+  }, [m.data, filter]);
   return (
     <main className="relative h-screen w-full overflow-hidden bg-[#05080b]">
       {dataset && ground && (
@@ -113,53 +145,61 @@ export default function CityHome() {
       <div className="scene-vignette" />
       {!dataset && <DataStateOverlay state={loadError ? "error" : "loading"} message={loadError ?? undefined} />}
 
-      <header className="absolute inset-x-0 top-0 z-30 flex flex-wrap items-center justify-between gap-3 bg-gradient-to-b from-black/80 to-transparent px-5 py-3 text-white">
-        <div className="flex items-center gap-3">
-          <span className="text-xl font-extrabold tracking-tight">YATHARTH</span>
-          <span className="flex items-center gap-1.5 bg-[#ff2a2a] px-2 py-0.5 text-[11px] font-bold"><span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white" />LIVE</span>
-          <span className="text-sm text-white/60">Cyberabad · {m.data?.cases.length ?? 0} cases on the map</span>
-          <span className="mono text-sm font-bold tabular-nums">{new Date(now).toLocaleTimeString("en-GB", { hour12: false })}</span>
+      <header className="absolute inset-x-0 top-0 z-30 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 bg-gradient-to-b from-black/85 to-transparent px-5 py-3 text-white">
+        <div className="min-w-0">
+          <div className="flex items-center gap-3">
+            <span className="text-xl font-extrabold leading-none tracking-tight">YATHARTH</span>
+            <span className="flex items-center gap-1.5 bg-[#ff2a2a] px-2 py-0.5 text-[11px] font-bold"><span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white" />LIVE</span>
+            <span className="mono text-sm font-bold tabular-nums">{new Date(now).toLocaleTimeString("en-GB", { hour12: false })}</span>
+          </div>
+          <div className="mt-0.5 hidden truncate text-[12px] text-white/70 2xl:block">Road accidents reconstructed from CCTV, sensors and witnesses</div>
         </div>
-        <nav className="flex flex-wrap items-center gap-1.5 text-[13px]">
-          <Link to="/operations" className="flex items-center gap-1.5 border border-white/25 bg-black/40 px-2.5 py-1 hover:bg-white/10"><Play size={13} />Live operation</Link>
-          <Link to="/police" className="flex items-center gap-1.5 border border-white/25 bg-black/40 px-2.5 py-1 hover:bg-white/10"><Shield size={13} />Police</Link>
-          <Link to="/hospital" className="flex items-center gap-1.5 border border-white/25 bg-black/40 px-2.5 py-1 hover:bg-white/10"><Ambulance size={13} />Hospital</Link>
-          <Link to="/cases" className="flex items-center gap-1.5 border border-white/25 bg-black/40 px-2.5 py-1 hover:bg-white/10"><FileText size={13} />All cases</Link>
-          <Link to="/dashcam" className="flex items-center gap-1.5 border border-white/25 bg-black/40 px-2.5 py-1 hover:bg-white/10"><Camera size={13} />Dashcam</Link>
-          <Link to="/cameras" className="flex items-center gap-1.5 border border-white/25 bg-black/40 px-2.5 py-1 hover:bg-white/10"><Radio size={13} />Cameras</Link>
-          <Link to="/telegram" className="flex items-center gap-1.5 border border-white/25 bg-black/40 px-2.5 py-1 hover:bg-white/10">Telegram</Link>
-          <Link to="/new" className="bg-[#ff2a2a] px-2.5 py-1 font-semibold">New case</Link>
+        <nav className="flex flex-wrap items-center gap-2 text-[13px]">
+          <Link to="/operations" className="flex items-center gap-1.5 px-2 py-1 text-white/80 hover:text-white"><Play size={13} />Live operation</Link>
+          <Link to="/cases" className="px-2 py-1 text-white/80 hover:text-white">All cases</Link>
+          <Link to="/dashcam" className="px-2 py-1 text-white/80 hover:text-white">Dashcam</Link>
+          <Link to="/telegram" className="px-2 py-1 text-white/80 hover:text-white">Telegram</Link>
+          <span className="flex divide-x divide-white/25 border border-white/25 bg-black/40 font-semibold">
+            <Link to="/police" className="flex items-center gap-1.5 px-3 py-1 hover:bg-white/10"><Shield size={13} />Police</Link>
+            <Link to="/hospital" className="flex items-center gap-1.5 px-3 py-1 hover:bg-white/10"><Ambulance size={13} />Hospital</Link>
+            <Link to="/cameras" className="flex items-center gap-1.5 px-3 py-1 hover:bg-white/10"><Radio size={13} />Cameras</Link>
+          </span>
+          <Link to="/new" className="bg-[#ff2a2a] px-3 py-1 font-semibold">New case</Link>
           <LangToggle dark />
         </nav>
       </header>
 
-      <div className="absolute bottom-4 left-4 z-30 w-[290px] space-y-1 border border-white/15 bg-black/75 p-3 text-[12px] text-white backdrop-blur">
-        <div className="mb-1 text-[10px] font-bold uppercase tracking-[0.16em] text-white/50">Cases by kind</div>
-        {Object.entries(m.data?.kinds ?? {}).map(([k, col]) => (
-          <button key={k} onClick={() => setFilter(filter === k ? null : k)} className={`flex w-full items-center gap-2 px-1 py-0.5 text-left hover:bg-white/10 ${filter && filter !== k ? "opacity-40" : ""}`}>
-            <span className="h-2.5 w-2.5 rounded-full" style={{ background: col as string }} /><span className="flex-1">{KIND_LABEL[k]}</span><span className="mono text-white/50">{counts[k] ?? 0}</span>
-          </button>
-        ))}
-        <div className="flex gap-3 border-t border-white/10 pt-1.5 text-white/60">
-          <span className="flex items-center gap-1"><i className="inline-block h-2 w-2 rounded-full bg-[#2f7bff]" />hospitals</span>
-          <span className="flex items-center gap-1"><i className="inline-block h-2 w-2 rounded-full bg-[#ff3b3b]" />police stations</span>
+      <aside aria-label="Incidents" className={`absolute left-4 top-16 z-30 hidden w-[310px] flex-col border border-white/15 bg-black/80 text-white backdrop-blur md:flex ${selected ? "bottom-4" : "bottom-[136px]"}`}>
+        <div className="border-b border-white/10 p-3">
+          <div className="flex items-baseline justify-between text-[11px] font-bold uppercase tracking-[0.14em] text-white/55"><span>Incidents</span><span className="mono text-white/70">{m.data?.cases.length ?? 0}</span></div>
+          <div className="mt-2 flex flex-wrap gap-1">
+            {Object.entries(m.data?.kinds ?? {}).map(([k, col]) => (
+              <button key={k} aria-pressed={filter === k} onClick={() => setFilter(filter === k ? null : k)}
+                className={`flex items-center gap-1.5 border px-1.5 py-0.5 text-[11px] ${filter === k ? "border-white bg-white/15" : "border-white/20 hover:bg-white/10"}`}>
+                <span className="h-2 w-2 rounded-full" style={{ background: col as string }} />{KIND_LABEL[k]} <span className="mono text-white/60">{counts[k] ?? 0}</span>
+              </button>
+            ))}
+          </div>
         </div>
-        <button onClick={reset} className="hud-btn mt-1 w-full">CITY VIEW</button>
-      </div>
+        <div className="min-h-0 flex-1 overflow-y-auto">
+          {listed.map((c: any) => (
+            <button key={c.id} onClick={() => select({ id: c.id, latitude: c.lat, longitude: c.lon } as Accident)}
+              className={`flex w-full items-start gap-2 border-b border-white/10 px-3 py-2 text-left text-[13px] hover:bg-white/10 ${c.id === selectedId ? "bg-white/15" : ""}`}>
+              <span className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full" style={{ background: c.colour }} />
+              <span className="min-w-0 flex-1"><span className="line-clamp-2 font-semibold leading-snug">{c.title}</span><span className="block truncate text-[12px] text-white/60">{c.place}</span></span>
+              <span className="shrink-0 px-1 text-[11px] font-bold" style={{ background: LEVEL[c.level] ?? "#555", color: LEVEL_TEXT[c.level] ?? "#fff" }}>{c.level}</span>
+            </button>
+          ))}
+        </div>
+        <div className="flex items-center gap-3 border-t border-white/10 px-3 py-2 text-[11px] text-white/65">
+          <span className="flex items-center gap-1"><i className="inline-block h-2 w-2 rounded-full bg-[#2f7bff]" />Hospitals</span>
+          <span className="flex items-center gap-1"><i className="inline-block h-2 w-2 rounded-full bg-[#ff3b3b]" />Police</span>
+          <button onClick={reset} className="ml-auto border border-white/25 px-2 py-0.5 font-semibold hover:bg-white/10">City view</button>
+        </div>
+      </aside>
 
-      <div className="absolute left-4 top-16 z-30 max-h-[calc(100vh-24rem)] w-[290px] overflow-y-auto border border-white/15 bg-black/70 text-white backdrop-blur">
-        {(m.data?.cases ?? []).filter((c: any) => !filter || c.kind === filter).map((c: any) => (
-          <button key={c.id} onClick={() => select({ id: c.id, latitude: c.lat, longitude: c.lon } as Accident)}
-            className={`flex w-full items-center gap-2 border-b border-white/10 px-3 py-2 text-left text-[12px] hover:bg-white/10 ${c.id === selectedId ? "bg-white/10" : ""}`}>
-            <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ background: c.colour }} />
-            <span className="min-w-0 flex-1"><span className="block truncate font-semibold">{c.title}</span><span className="block truncate text-white/50">{c.place}</span></span>
-            <span className="shrink-0 px-1 text-[10px] font-bold" style={{ background: LEVEL[c.level] ?? "#555" }}>{c.level}</span>
-          </button>
-        ))}
-      </div>
-
-      <AnimatePresence>{selected && <CaseSide c={selected} onClose={() => setSelectedId(null)} />}</AnimatePresence>
-      {dataset && <div className="absolute bottom-1 right-2 z-20"><Attribution manifest={dataset.manifest} /></div>}
+      <AnimatePresence>{selected ? <CaseSide key="side" c={selected} onClose={() => setSelectedId(null)} /> : <Capabilities key="strip" h={h.data} />}</AnimatePresence>
+      {dataset && <div className={`absolute z-20 h-10 w-[640px] max-w-[60vw] ${selected ? "bottom-1 left-[330px]" : "bottom-[130px] right-2"}`}><Attribution manifest={dataset.manifest} /></div>}
     </main>
   );
 }

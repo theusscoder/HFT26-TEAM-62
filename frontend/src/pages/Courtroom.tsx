@@ -104,7 +104,7 @@ export default function Courtroom() {
             <motion.button key={c.id} onClick={() => setPicked(c.id)} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.05 }}
               className={`w-full  border p-3 text-left transition-colors ${on ? "border-accent/60 bg-accent/10" : "border-line bg-panel hover:border-line/80 hover:bg-panel-2"}`}>
               <div className="flex items-center justify-between gap-2 text-[11px]"><span className="flex items-center gap-1.5 text-muted"><t.Icon size={13} />{t.label}</span><Status value={c.severity} /></div>
-              <div className="mt-1 line-clamp-2 text-sm">{c.summary}</div>
+              <div className="mt-1 line-clamp-3 text-sm">{c.summary}</div>
             </motion.button>
           );
         })}
@@ -119,7 +119,7 @@ export default function Courtroom() {
               <h2 className="mt-2 text-xl font-semibold leading-snug">{cur.summary}</h2>
               {cur.type === "quantity" && !isNaN(claimSpeed) && measuredMatch && <SpeedGauge claim={claimSpeed} measured={+measuredMatch[1]} sigma={+(measuredMatch[2] ?? 0)} />}
 
-              <div className={`mt-4 grid gap-3 ${kf ? "lg:grid-cols-[1fr_1fr_240px]" : "md:grid-cols-2"}`}>
+              <div className={`mt-4 grid gap-3 ${kf ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_240px]" : "md:grid-cols-2"}`}>
                 {items.map((e, i) => (
                   <motion.div key={e.id} initial={{ opacity: 0, x: i ? 14 : -14 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.08 + i * 0.05 }}
                     className={` border p-3 text-sm ${e.kind === "CLAIMED" ? "border-claimed/40 bg-claimed/5" : "border-observed/40 bg-observed/5"}`}>
