@@ -2,7 +2,7 @@
 
 > CBIT Hacktoberfest '26 · Team **CAPS LOCK** (`HFT26-TEAM-62`) · fork of [cbitosc/HFT26-TEAM-62](https://github.com/cbitosc/HFT26-TEAM-62)
 
-## 📋 Team Information
+## Team Information
 
 | Attribute | Details |
 | :--- | :--- |
@@ -14,7 +14,7 @@
 | **Team Leader** | Shridhar Udayagiri (theusscode@gmail.com) |
 | **Institution** | Keshav Memorial Institute of Technology |
 
-### 👥 Team Members
+### Team Members
 
 | # | Name | Email | Institution |
 | :--- | :--- | :--- | :--- |
